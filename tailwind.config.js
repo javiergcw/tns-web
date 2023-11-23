@@ -7,6 +7,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height: {
+        '128': '32rem', // 512px
+        '144': '36rem', // 576px
+        // Añade más tamaños según lo necesites
+      },
+      colors: {
+        blueprimary: '#007bff', // Reemplaza esto con el color azul que prefieras
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
