@@ -2,6 +2,8 @@
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
+import TopHeader from "./components/home/header/topHeader";
+
 
 export default function Home() {
   const imagePaths = [
@@ -22,12 +24,22 @@ export default function Home() {
   ];
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
+      <TopHeader/>
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
-      <CalendarScheduleHome/>
+      <CalendarScheduleHome />
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
 
-     
+        <nav>
+          <ul>
+            <li>
+              <a href="/acerca">Acerca de</a>
+            </li>
+            <li>
+              <a href="/contact">Contacto</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </main>
   )
