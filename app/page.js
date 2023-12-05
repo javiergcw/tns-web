@@ -3,6 +3,7 @@ import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import TopHeader from "./components/home/header/topHeader";
+import Navbar from "./components/home/navbar";
 
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <TopHeader/>
+      <Navbar/>
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <CalendarScheduleHome />
