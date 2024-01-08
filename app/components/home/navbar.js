@@ -31,6 +31,7 @@ const Navbar = () => {
             <a href="/news" className="text-[#2991D6]">NEWS</a>
           </li>
           <li>
+
             <a href="/communications" className="text-[#2991D6]">COMMUNICATIONS</a>
           </li>
           <li>
