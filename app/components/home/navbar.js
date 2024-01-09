@@ -13,29 +13,28 @@ const Navbar = () => {
         </div>
         <ul className="flex space-x-4">
           <li>
-            <a href="/" className="text-[#2991D6]">HOME</a>
+            <a href="/" className="text-[#2991D6] text-xs">HOME</a>
           </li>
           <li>
-            <a href="/about" className="text-[#2991D6]">ABOUT US</a>
+            <a href="/about" className="text-[#2991D6] text-xs">ABOUT US</a>
           </li>
           <li>
-            <a href="/schedule" className="text-[#2991D6]">SCHEDULE</a>
+            <a href="/schedule" className="text-[#2991D6] text-xs">SCHEDULE</a>
           </li>
           <li>
-            <a href="/calendar" className="text-[#2991D6]">CALENDAR</a>
+            <a href="/calendar" className="text-[#2991D6] text-xs">CALENDAR</a>
           </li>
           <li>
-            <a href="/admissions" className="text-[#2991D6]">ADMISSIONS</a>
+            <a href="/admissions" className="text-[#2991D6] text-xs">ADMISSIONS</a>
           </li>
           <li>
-            <a href="/news" className="text-[#2991D6]">NEWS</a>
+            <a href="/news" className="text-[#2991D6] text-xs">NEWS</a>
           </li>
           <li>
-
-            <a href="/communications" className="text-[#2991D6]">COMMUNICATIONS</a>
+            <a href="/communications" className="text-[#2991D6] text-xs">COMMUNICATIONS</a>
           </li>
           <li>
-            <a href="/inspiring-parents-tns" className="text-[#2991D6]">INSPIRING PARENTS TNS</a>
+            <a href="/inspiring-parents-tns" className="text-[#2991D6] text-xs">INSPIRING PARENTS TNS</a>
           </li>
         </ul>
       </div>
