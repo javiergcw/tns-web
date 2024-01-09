@@ -20,13 +20,11 @@ export default function Home() {
     { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
     { href: 'https://google.com', src: 'images/services/services.png', alt: 'Services' },
     { href: 'https://google.com', src: 'images/services/beam.png', alt: 'Beam' },
-
-    // ... más imágenes ...
   ];
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
-      <TopHeader/>
-      <Navbar/>
+      <TopHeader />
+      <Navbar />
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <CalendarScheduleHome />
