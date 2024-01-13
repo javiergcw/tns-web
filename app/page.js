@@ -5,6 +5,9 @@ import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import TopHeader from "./components/home/header/topHeader";
 import Navbar from "./components/home/navbar";
 import BlogsSection from "./components/home/blogsSection";
+import Footer from "./components/home/footer/footer";
+import FooterTwo from "./components/home/footer/footerTwo";
+import ServicesStandart from "./components/home/servicesSandart";
 
 
 export default function Home() {
@@ -55,19 +58,12 @@ export default function Home() {
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
       <CalendarScheduleHome />
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+   
+      <ServicesStandart/>
+      <FooterTwo/>
+      <Footer/>
 
-        <nav>
-          <ul>
-            <li>
-              <a href="/acerca">Acerca de</a>
-            </li>
-            <li>
-              <a href="/contact">Contacto</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+
     </main>
   )
 }
