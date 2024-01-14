@@ -26,29 +26,35 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 /* Archivo CSS (puede ser index.css, tailwind.css, etc.) */
 
 /* Estilo de los puntos (dots) */
 .slick-dots li button:before {
-  color: white; /* Color blanco por defecto */
+  color: white;
+  /* Color blanco por defecto */
 }
 
 .slick-dots li.slick-active button:before {
-  color: var(--blueprimary); /* Color azul cuando está activo */
+  color: var(--blueprimary);
+  /* Color azul cuando está activo */
 }
 
 /* Hacer los puntos más grandes */
 .slick-dots li button:before {
-  font-size: 12px; /* Ajusta el tamaño según prefieras */
+  font-size: 12px;
+  /* Ajusta el tamaño según prefieras */
 }
 
 /* Estilo de las flechas */
-.slick-prev:before, .slick-next:before {
-  color: white; /* Color blanco para las flechas */
+.slick-prev:before,
+.slick-next:before {
+  color: white;
+  /* Color blanco para las flechas */
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
+
 
