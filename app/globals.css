@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
 
 
 :root {
@@ -21,6 +22,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  font-family: 'Dosis', Arial, Tahoma, sans-serif;
   background: linear-gradient(
       to bottom,
       transparent,
@@ -49,3 +51,4 @@ body {
 .slick-prev:before, .slick-next:before {
   color: white; /* Color blanco para las flechas */
 }
+

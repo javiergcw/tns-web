@@ -4,6 +4,9 @@ import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import TopHeader from "./components/home/header/topHeader";
 import Navbar from "./components/home/navbar";
+import EducationalModel from "./components/home/educationalModel";
+import Link from 'next/link'
+import AsiSomos from "@/app/components/somos/indexOur";
 
 
 export default function Home() {
@@ -28,6 +31,8 @@ export default function Home() {
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <CalendarScheduleHome />
+      <EducationalModel />
+      < AsiSomos />
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
 
         <nav>
@@ -42,5 +47,7 @@ export default function Home() {
         </nav>
       </div>
     </main>
+
+
   )
 }
