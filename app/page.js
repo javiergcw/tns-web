@@ -5,8 +5,6 @@ import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import TopHeader from "./components/home/header/topHeader";
 import Navbar from "./components/home/navbar";
 import EducationalModel from "./components/home/educationalModel";
-import Link from 'next/link'
-import AsiSomos from "@/app/components/somos/indexOur";
 import BlogsSection from "./components/home/blogsSection";
 import Footer from "./components/home/footer/footer";
 import FooterTwo from "./components/home/footer/footerTwo";
@@ -62,7 +60,6 @@ export default function Home() {
       <BlogsSection blogs={blogList} />
       <CalendarScheduleHome />
       <EducationalModel />
-      < AsiSomos />
       <ServicesStandart/>
       <FooterTwo/>
       <Footer/>
