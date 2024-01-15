@@ -21,11 +21,11 @@ export default function Home() {
   ];
 
 
-  const servicesList = [
-    { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
-    { href: 'https://google.com', src: 'images/services/services.png', alt: 'Services' },
-    { href: 'https://google.com', src: 'images/services/beam.png', alt: 'Beam' },
-  ];
+    const servicesList = [
+        { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
+        { href: 'services/others', src: 'images/services/services.png', alt: 'Services' },
+        { href: 'services/beam', src: 'images/services/beam.png', alt: 'Beam' },
+    ];
 
 
   const blogList = [
