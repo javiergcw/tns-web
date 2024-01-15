@@ -21,48 +21,53 @@ export default function Home() {
   ];
 
 
-    const servicesList = [
-        { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
-        { href: 'services/others', src: 'images/services/services.png', alt: 'Services' },
-        { href: 'services/beam', src: 'images/services/beam.png', alt: 'Beam' },
-    ];
+  const servicesList = [
+    { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
+    { href: 'services/others', src: 'images/services/services.png', alt: 'Services' },
+    { href: 'services/beam', src: 'images/services/beam.png', alt: 'Beam' },
+  ];
 
 
   const blogList = [
     {
       date: "December 12,2023",
       imageUrl: 'images/blogs/blog1.jpg',
-      title: "Blog Title 1"
+      title: "TNS Formadores de consciencia"
     },
     {
       date: "October 4,2023",
       imageUrl: "images/blogs/blog2.jpeg",
-      title: "Blog Title 2"
+      title: "Padres inspiradores"
     },
     {
       date: "2024-01-03",
       imageUrl: "images/blogs/blog3.jpg",
-      title: "Blog Title 3"
+      title: "El Modelo de la Organización de las Naciones Unidas (ONU) cumple tres años en The New School. ¡Tejidos de sueños que se proyectan en el tiempo!"
     },
     {
-      date: "2024-01-04",
-      imageUrl: "images/blogs/blog4.jpeg",
-      title: "Blog Title 4"
+      date: "2022-03-10",
+      imageUrl: "images/blogs/blog5.jpeg",
+      title: "5 tips para fortalecer el proceso de lecto-escritura"
+    },
+    {
+      date: "2024-04-12",
+      imageUrl: "images/blogs/blog6.jpeg",
+      title: "Soy porque somos"
     },
   ];
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between pt-20">
+
       <TopHeader />
       <Navbar />
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
       <CalendarScheduleHome />
-      <EducationalModel />
-      <ServicesStandart/>
-      <FooterTwo/>
-      <Footer/>
+      <ServicesStandart />
+      <FooterTwo />
+      <Footer />
     </main>
 
 

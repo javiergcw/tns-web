@@ -19,16 +19,16 @@ const TopHeader = () => {
         </a>
       </div>
       <div className="flex items-center">
-        <a href="https://www.facebook.com" className="flex items-center text-[#626262] mr-2">
+        <a href="https://www.facebook.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaFacebookF className="mr-1" />
         </a>
-        <a href="https://www.twitter.com" className="flex items-center text-[#626262] mr-2">
+        <a href="https://www.twitter.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaTwitter className="mr-1" />
         </a>
-        <a href="https://www.youtube.com" className="flex items-center text-[#626262] mr-2">
+        <a href="https://www.youtube.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaYoutube className="mr-1" />
         </a>
-        <a href="https://www.instagram.com" className="flex items-center text-[#626262]">
+        <a href="https://www.instagram.com" className="flex items-center text-[#626262] transform hover:scale-110 transition duration-300">
           <FaInstagram className="mr-1" />
         </a>
       </div>

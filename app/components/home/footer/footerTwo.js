@@ -1,15 +1,20 @@
 'use client'
-
+import '/app/globals.css'
 export default function FooterTwo() {
     return (
-        <footer className="bg-[url('/images/footer/background.png')] bg-cover p-10 w-full h-auto pb-24">
-            <div className="flex justify-between">
+        <footer className="bg-[url('/images/footer/background.png')] bg-cover p-10 w-full h-auto pb-24 ">
+            <div className="flex justify-between mt-12">
                 {/* Primer Div */}
-                <div className="bg-red-500 p-5 text-white">
-                    <p>Dirección: Carrera 9 #11 Sur-338 Medellín - Antioquía</p>
-                    <p>Teléfono: (604) 520 7270</p>
-                    <p>E-mail: Correo@thenewschool.edu.co</p>
+                <div className="flex items-center  p-5 " style={{ color: '#CCCCCC', fontSize: '13px' }}>
+                    <img src="/images/logo-vertical.jpeg" alt="Descripción de la imagen" className=" h-44" />
+                    <div className="flex-1 ml-4">
+                        <p><strong>Dirección:</strong> Carrera 9 #11 Sur-338 Medellín - Antioquía</p>
+                        <p><strong>Teléfono:</strong> (604) 520 7270</p>
+                        <p><strong>E-mail:</strong> Correo@thenewschool.edu.co</p>
+                    </div>
                 </div>
+
+
 
                 {/* Segundo Div */}
                 <div>
@@ -25,16 +30,25 @@ export default function FooterTwo() {
 
                 {/* Tercer Div */}
                 <div className="text-white">
-                    <p>Síguenos en:</p>
+                    <p className="mb-4" style={{ color: '#CCCCCC', fontSize: '13px' }}>
+                        <strong>Síguenos en:</strong></p>
                     {/* Aquí van las imágenes de las redes sociales. Reemplaza 'path_to_icon' con las rutas de tus imágenes */}
-                    <div className="flex">
-                        <img src="path_to_icon" alt="Facebook" className="h-6 w-6 mx-1" />
-                        <img src="path_to_icon" alt="Twitter" className="h-6 w-6 mx-1" />
-                        <img src="path_to_icon" alt="YouTube" className="h-6 w-6 mx-1" />
-                        <img src="path_to_icon" alt="Instagram" className="h-6 w-6 mx-1" />
+                    <div className="flex mb-4">
+                        <a href="https://www.youtube.com/@thenewschool1995" target="_blank" rel="noopener noreferrer">
+                            <img src="https://imgur.com/vjazL2G.png" alt="YouTube" className="h-10 w-10 mx-1" />
+                        </a>
+                        <a href="https://www.facebook.com/thenewschool95/" target="_blank" rel="noopener noreferrer">
+                            <img src="https://imgur.com/dhMhCtX.png" alt="Facebook" className="h-10 w-10 mx-1" />
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=573008909800" target="_blank" rel="noopener noreferrer">
+                            <img src="https://imgur.com/rbTnBn1.png" alt="Whatsapp" className="h-10 w-10 mx-1" />
+                        </a>
+                        <a href="https://www.instagram.com/thenewschool95/" target="_blank" rel="noopener noreferrer">
+                            <img src="https://imgur.com/o3jjmGR.png" alt="Instagram" className="h-10 w-10 mx-1" />
+                        </a>
                     </div>
                     <hr className="my-2 border-black" />
-                    <p>Política de Protección de Datos Personales</p>
+                    <p style={{ color: '#CCCCCC', fontSize: '13px' }}>Política de Protección de Datos Personales</p>
                 </div>
             </div>
         </footer>
