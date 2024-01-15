@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import SocialMedia from './socialMedia';
 
 // Componente ServicesStandart
 const ServicesStandart = () => {
@@ -47,6 +48,8 @@ const ServicesStandart = () => {
                     imageUrl="images/icons/people.png"
                     href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
                 />
+                        <SocialMedia />
+
             </div>
         </>
     );
