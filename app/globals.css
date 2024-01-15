@@ -1,10 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -23,8 +22,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   font-family: 'Dosis', Arial, Tahoma, sans-serif;
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
@@ -56,5 +54,3 @@ body {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
-
-
