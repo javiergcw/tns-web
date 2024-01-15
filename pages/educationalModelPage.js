@@ -1,8 +1,9 @@
-// pages/educationalModel.js
-import EducationalModel from '../app/components/home/educationalModel';
+// pages/culturaNewModel.js
+import EducationalModel from '../app/components/educational/educationalModel';
+import IndexEducational from "@/app/components/educational/indexEducational";
 
 const EducationalModelPage = () => {
-    return <EducationalModel />;
+    return <IndexEducational />;
 };
 
 export default EducationalModelPage;

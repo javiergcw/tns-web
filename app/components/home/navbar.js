@@ -73,7 +73,7 @@ const Navbar = () => {
                     Model</Link>
                 </li>
                 <li style={dropdownItemStyle}>
-                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Cultura
+                  <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Cultura
                     New</Link>
                 </li>
                 <li style={dropdownItemStyle}>
