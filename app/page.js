@@ -4,6 +4,7 @@ import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import TopHeader from "./components/home/header/topHeader";
 import Navbar from "./components/home/navbar";
+import EducationalModel from "./components/home/educationalModel";
 import BlogsSection from "./components/home/blogsSection";
 import Footer from "./components/home/footer/footer";
 import FooterTwo from "./components/home/footer/footerTwo";
@@ -51,16 +52,17 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
+    <main className="flex min-h-screen flex-col items-center justify-between pt-20">
       <TopHeader />
       <Navbar />
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
       <CalendarScheduleHome />
-      <ServicesStandart />
-      <FooterTwo />
-      <Footer />
+      <EducationalModel />
+      <ServicesStandart/>
+      <FooterTwo/>
+      <Footer/>
     </main>
 
 

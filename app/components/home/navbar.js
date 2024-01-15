@@ -39,12 +39,12 @@ const Navbar = () => {
 
 
   return (
-    <nav className="bg-white py-4 w-full shadow-md z-50">
-      <div className="container ml-[auto] flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center">
-          <img src="/images/logo-new-school.png" alt="Logo The New School" style={logoStyle} />
-        </a>
+      <nav className="fixed top-0 bg-white py-4 w-full shadow-md z-50">
+        <div className="container ml-[auto] flex items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="flex items-center">
+            <img src="/images/logo-new-school.png" alt="Logo The New School" style={logoStyle}/>
+          </a>
 
         {/* Menú de navegación */}
         <div className="hidden md:flex items-center flex-grow">
@@ -61,29 +61,30 @@ const Navbar = () => {
               ABOUT US
             </a>
 
-            {/* Menú desplegable */}
-            <ul className="group-hover:block absolute hidden bg-white shadow-md mt-1 z-50" aria-label="submenu">
-              <li style={dropdownItemStyle}>
-                <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100" style={dropli}>Our
-                  Proposal</Link>
-              </li>
-              <li style={dropdownItemStyle}>
-                <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Educational
-                  Model</Link>
-              </li>
-              <li style={dropdownItemStyle}>
-                <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Cultura
-                  New</Link>
-              </li>
-              <li style={dropdownItemStyle}>
-                <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Campus</Link>
-              </li>
-              <li style={dropdownItemStyle}>
-                <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">The New
-                  Awareness</Link>
-              </li>
-            </ul>
-          </div>
+              {/* Menú desplegable */}
+              <ul className="group-hover:block absolute hidden bg-white shadow-md mt-1 z-50" aria-label="submenu">
+                <li style={dropdownItemStyle}>
+                  <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100"
+                        style={dropli}>Our
+                    Proposal</Link>
+                </li>
+                <li style={dropdownItemStyle}>
+                  <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Educational
+                    Model</Link>
+                </li>
+                <li style={dropdownItemStyle}>
+                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Cultura
+                    New</Link>
+                </li>
+                <li style={dropdownItemStyle}>
+                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Campus</Link>
+                </li>
+                <li style={dropdownItemStyle}>
+                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">The New
+                    Awareness</Link>
+                </li>
+              </ul>
+            </div>
 
           {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
           <div style={dividerStyle} className="mx-2"></div>
