@@ -1,9 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 
 const Navbar = () => {
+
+  const [isHovering, setIsHovering] = useState(false);
+
   // Estilos personalizados se mantienen igual
   const logoStyle = {
     marginRight: '0.5rem', // Reducir el margen derecho del logo
@@ -28,7 +31,6 @@ const Navbar = () => {
     width: '190px',
     position: 'relative',
     fontWeight: 'normal',
-    backgroundColor: '#F2F2F2'
   };
 
   // Estilos para los items del menú desplegable
@@ -37,9 +39,10 @@ const Navbar = () => {
     borderBottom: '1px solid #E5E7EB', // Línea divisoria entre ítems
   };
 
+  const navbarHeight = '52.4px'; // Ejemplo: altura total de la barra de navegación.
 
   return (
-      <nav className="fixed top-0 bg-white py-4 w-full shadow-md z-50">
+      <nav className="fixed top-0 bg-white py-4 w-full shadow ligth:text-gray-400 ligth:bg-gray-800 z-[100]">
         <div className="container ml-[auto] flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center">
@@ -55,35 +58,42 @@ const Navbar = () => {
           <div style={dividerStyle} className="mx-2"></div>
 
           {/* ABOUT US y su menú desplegable */}
-          <div style={menuContainerStyle} className="group z-50">
+          <div
+              style={menuContainerStyle}
+              className="group z-10"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}>
             {/* Trigger del menú */}
-            <a href="#" className="text-[#2991D6] py-1 focus:outline-none" aria-haspopup="true">
+            <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none" aria-haspopup="true">
               ABOUT US
             </a>
 
+
               {/* Menú desplegable */}
-              <ul className="group-hover:block absolute hidden bg-white shadow-md mt-1 z-50" aria-label="submenu">
-                <li style={dropdownItemStyle}>
-                  <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100"
+              {isHovering && (
+              <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu"  style={{ top: navbarHeight, marginTop: '0' }}>
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                  <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
                         style={dropli}>Our
                     Proposal</Link>
                 </li>
-                <li style={dropdownItemStyle}>
-                  <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Educational
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                  <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 ">Educational
                     Model</Link>
                 </li>
-                <li style={dropdownItemStyle}>
-                  <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Cultura
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                  <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700">Cultura
                     New</Link>
                 </li>
-                <li style={dropdownItemStyle}>
-                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">Campus</Link>
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                  <Link href="#" className="px-2 py-1 block text-gray-700">Campus</Link>
                 </li>
-                <li style={dropdownItemStyle}>
-                  <Link href="#" className="px-2 py-1 block text-gray-700 hover:bg-gray-100">The New
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                  <Link href="#" className="px-2 py-1 block text-gray-700">The New
                     Awareness</Link>
                 </li>
               </ul>
+            )}
             </div>
 
           {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
