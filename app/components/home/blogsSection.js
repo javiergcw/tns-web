@@ -2,6 +2,7 @@
 import React from 'react';
 
 const BlogsSection = ({ blogs }) => {
+    
     return (
         <div className="text-center p-8 mb-40 w-screen h-auto bg-white">
             <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8] font-dosis">

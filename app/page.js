@@ -12,6 +12,8 @@ import blogList from "./data/blogData";
 
 
 export default function Home() {
+
+  
   const imagePaths = [
     "images/banner/banner1.png",
     "images/banner/banner2.png",
