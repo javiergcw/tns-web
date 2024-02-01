@@ -21,31 +21,31 @@ const ServicesStandart = () => {
                 <ContainerService
                     title="Proyecto educativo"
                     text="Conoce nuestro proyecto educativo"
-                    imageUrl="images/icons/rocket.png"
+                    imageUrl="/images/icons/rocket.png"
                     href="https://294347513a062ec6e0b6-8f8f94440e741fa4111c4d620d6f574f.ssl.cf5.rackcdn.com/global/TNS_PE_2021V2.pdf"
                 />
                 <ContainerService
                     title="Reglamento interno de trabajo"
                     text="Reglamento interno de trabajo"
-                    imageUrl="images/icons/rules.png"
+                    imageUrl="/images/icons/rules.png"
                     href="https://294347513a062ec6e0b6-8f8f94440e741fa4111c4d620d6f574f.ssl.cf5.rackcdn.com/global/TNSRIT.pdf"
                 />
                 <ContainerService
                     title="Resolución de costos educativos"
                     text="Vigente para los años 2023-2024"
-                    imageUrl="images/icons/money.png"
+                    imageUrl="/images/icons/money.png"
                     href="https://drive.google.com/file/d/1x4rd2v13zeFQpqFuZ8KQrENql8ZwOcha/view?usp=sharing"
                 />
                 <ContainerService
                     title="Utiles escolares"
                     text="Vigente para los años 2023-2024"
-                    imageUrl="images/icons/backpack.png"
+                    imageUrl="/images/icons/backpack.png"
                     href="https://drive.google.com/file/d/1JFjtz1yTzPYQroivwRt67tH5x_PQZD1m/view"
                 />
                 <ContainerService
                     title="Manual de convivencia"
                     text="Lee nuestro manual de convivencia"
-                    imageUrl="images/icons/people.png"
+                    imageUrl="/images/icons/people.png"
                     href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
                 />
                         <SocialMedia />

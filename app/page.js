@@ -15,18 +15,18 @@ export default function Home() {
 
   
   const imagePaths = [
-    "images/banner/banner1.png",
-    "images/banner/banner2.png",
-    "images/banner/banner3.png",
-    "images/banner/banner4.png",
-    "images/banner/banner5.png",
+    "/images/banner/banner1.png",
+    "/images/banner/banner2.png",
+    "/images/banner/banner3.png",
+    "/images/banner/banner4.png",
+    "/images/banner/banner5.png",
   ];
 
 
   const servicesList = [
-    { href: 'https://google.com', src: 'images/services/cloud.png', alt: 'TNS CLOUD' },
-    { href: 'services/others', src: 'images/services/services.png', alt: 'Services' },
-    { href: 'services/beam', src: 'images/services/beam.png', alt: 'Beam' },
+    { href: 'https://google.com', src: '/images/services/cloud.png', alt: 'TNS CLOUD' },
+    { href: 'services/others', src: '/images/services/services.png', alt: 'Services' },
+    { href: 'services/beam', src: '/images/services/beam.png', alt: 'Beam' },
   ];
 
 

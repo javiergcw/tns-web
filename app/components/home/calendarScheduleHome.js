@@ -32,14 +32,14 @@ const CalendarScheduleHome = () => {
         title="Schedule"
         description="Conoce el horario de nuestro colegio"
         buttonText="See schedule"
-        imgSrc="images/others/schedule.png"
+        imgSrc="/images/others/schedule.png"
         imgAlt="Schedule"
       />
       <CardComponent
         title="Calendar"
         description="Conoce el calendario de nuestro colegio"
         buttonText="See calendar"
-        imgSrc="images/others/calendar.png"
+        imgSrc="/images/others/calendar.png"
         imgAlt="Calendar"
       />
     </div>

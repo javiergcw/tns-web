@@ -40,7 +40,7 @@ const BlogsSection = ({ blogs }) => {
                     </div>
                 ))}
             </div>
-            <img src="images/others/bg-home1.jpg" alt="Decorative Background" className="w-screen h-auto" />
+            <img src="/images/others/bg-home1.jpg" alt="Decorative Background" className="w-screen h-auto" />
         </div>
     );
 };
