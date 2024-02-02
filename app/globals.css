@@ -42,6 +42,9 @@ body {
 /* Hacer los puntos más grandes */
 .slick-dots li button:before {
   font-size: 12px;
+  display: none !important;
+
+  
   /* Ajusta el tamaño según prefieras */
 }
 
@@ -49,6 +52,7 @@ body {
 .slick-prev:before,
 .slick-next:before {
   color: white;
+  
   /* Color blanco para las flechas */
 }
 
