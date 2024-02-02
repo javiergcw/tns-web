@@ -1,4 +1,5 @@
 
+
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
@@ -24,7 +25,7 @@ export default function Home() {
 
 
   const servicesList = [
-    { href: 'https://google.com', src: '/images/services/cloud.png', alt: 'TNS CLOUD' },
+    { href: 'http://mail.thenewschool.edu.co/', src: '/images/services/cloud.png', alt: 'TNS CLOUD' },
     { href: 'services/others', src: '/images/services/services.png', alt: 'Services' },
     { href: 'services/beam', src: '/images/services/beam.png', alt: 'Beam' },
   ];

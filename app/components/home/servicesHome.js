@@ -4,9 +4,10 @@ import React from 'react';
 
 const ServicesHome = ({ images }) => {
     return (
-        <div className="bg-white justify-center flex w-full lg:flex-row lg:justify-start lg:h-40 items-center">
+
+        <div className="bg-white justify-center flex w-full lg:flex-row lg:justify-start lg:h-40 items-center  px-4 lg:px-32">
             {images.map((image, index) => (
-                <div key={index} className="group relative m-0 w-full">
+                <div key={index} className="group relative m-0 w-full" >
                     <div className="flex justify-center">
                         <a href={image.href}>
                             <img src={image.src} alt={image.alt} className="block w-full" />
