@@ -11,7 +11,7 @@ export default function Cultura() {
 
     return (
         <div className="backgroundImagefour">
-            <div className="contenedor flex justify-center items-center min-h-screen">
+            <div className="contenedor flex justify-center items-center min-h-screen mt-[-200px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h3 className="text-4xl text-[#444444] mb-4">Cultura New (Culture New)</h3>
@@ -35,7 +35,7 @@ export default function Cultura() {
                     </div>
                     <div className="md:w-1/2 flex justify-center">
                         <img className="md:w-[420px]"
-                             src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/MOTUS-VERSI%C3%93N-5.png"
+                             src="/images/others/pajaro.png"
                              alt="Descripción de la imagen">
                         </img>
                     </div>
