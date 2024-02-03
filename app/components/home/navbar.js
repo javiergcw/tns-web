@@ -69,23 +69,23 @@ const Navbar = () => {
               {/* Menú desplegable */}
 
               <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu"  style={{ top: navbarHeight, marginTop: '0' }}>
-                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
                         style={dropli}>Our
                     Proposal</Link>
                 </li>
-                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 ">Educational
                     Model</Link>
                 </li>
-                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700">Cultura
                     New</Link>
                 </li>
-                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="#" className="px-2 py-1 block text-gray-700">Campus</Link>
                 </li>
-                <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
+                <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="#" className="px-2 py-1 block text-gray-700">The New
                     Awareness</Link>
                 </li>

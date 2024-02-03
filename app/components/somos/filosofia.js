@@ -1,7 +1,7 @@
 export default function Filosofia() {
     return (
         <div className="backgroundImagethree">
-            <div className="contenedor flex justify-center items-center min-h-screen">
+            <div className="contenedor flex justify-center items-center min-h-screen mt-[-300px]">
                 <div className="flex flex-col md:flex-row-reverse max-w-6xl mx-auto items-center">
 
                     {/* Sección de Texto */}
@@ -28,8 +28,8 @@ export default function Filosofia() {
 
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
-                        <img className="md:w-[420px]"
-                             src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/thumbnail_IMG_8479.jpg"
+                        <img className="md:w-[520px]"
+                             src="/images/others/about5.jpg"
                              alt="Descripción de la imagen">
                         </img>
                     </div>

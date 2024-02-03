@@ -6,12 +6,12 @@ export default function RazonDeSeR() {
         <div className="backgroundImage">
             {/* Contenido */}
             <div className="contenedor flex justify-center items-center min-h-screen z-10">
-                <div className="flex flex-col md:flex-row max-w-6xl mx-auto mb-[290px]">
+                <div className="flex flex-col md:flex-row max-w-6xl mx-auto mt-[-300px]">
                     {/* Contenido de la izquierda */}
                     <div className="md:w-1/2 flex justify-center md:justify-start">
                         <img
                             className="rounded-full w-64 h-64 mt-5 ml-2 w-[600px] h-[572px] border-4 border-gray-200"
-                            src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/thumbnail_image001-960x960.jpg"
+                            src="/images/others/about1.jpg"
                             alt="Dos niños participando en una actividad educativa, representando los valores centrales de la institución educativa."
                         />
                     </div>
