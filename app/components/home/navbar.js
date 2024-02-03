@@ -5,8 +5,6 @@ import Link from 'next/link';
 
 const Navbar = () => {
 
-  const [isHovering, setIsHovering] = useState(false);
-
   // Estilos personalizados se mantienen igual
   const logoStyle = {
     marginRight: '0.5rem', // Reducir el margen derecho del logo
@@ -61,16 +59,15 @@ const Navbar = () => {
           <div
               style={menuContainerStyle}
               className="group z-10"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}>
+              >
             {/* Trigger del menú */}
-            <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none" aria-haspopup="true">
+            <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none py-[45px]" aria-haspopup="true">
               ABOUT US
             </a>
 
 
               {/* Menú desplegable */}
-              {isHovering && (
+
               <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu"  style={{ top: navbarHeight, marginTop: '0' }}>
                 <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
                   <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
@@ -93,7 +90,6 @@ const Navbar = () => {
                     Awareness</Link>
                 </li>
               </ul>
-            )}
             </div>
 
           {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
