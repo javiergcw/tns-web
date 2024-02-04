@@ -1,6 +1,6 @@
 export default function Formacion() {
     return (
-            <div className="contenedor flex justify-center items-center min-h-screen mt-[-400px]">
+            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-400px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
 
                     {/* Sección de Imagen */}

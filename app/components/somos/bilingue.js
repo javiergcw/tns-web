@@ -1,7 +1,7 @@
 export default function Bilingue() {
     return (
         <div className="backgroundImagefaith">
-            <div className="contenedor flex justify-center items-center min-h-screen mt-[-200px]">
+            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-200px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
 
                     {/* Sección de Texto */}

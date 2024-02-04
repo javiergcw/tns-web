@@ -1,9 +1,12 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para manejar la visibilidad del menú móvil
+  const [isAboutSubMenuOpen, setIsAboutSubMenuOpen] = useState(false);
+
 
   // Estilos personalizados se mantienen igual
   const logoStyle = {
@@ -40,35 +43,110 @@ const Navbar = () => {
   const navbarHeight = '52.4px'; // Ejemplo: altura total de la barra de navegación.
 
   return (
-      <nav className="fixed top-0 bg-white py-4 w-full shadow ligth:text-gray-400 ligth:bg-gray-800 z-[100]">
-        <div className="container ml-[auto] flex items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center">
-            <img src="/images/logo-new-school.png" alt="Logo The New School" style={logoStyle}/>
-          </a>
-
-        {/* Menú de navegación */}
-        <div className="hidden md:flex items-center flex-grow">
-          {/* Inicio */}
-          <a href="/" className="text-[#2991D6] py-1 ml-[20px]">HOME</a>
-
-          {/* Separador */}
-          <div style={dividerStyle} className="mx-2"></div>
-
-          {/* ABOUT US y su menú desplegable */}
-          <div
-              style={menuContainerStyle}
-              className="group z-10"
-              >
-            {/* Trigger del menú */}
-            <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none py-[45px]" aria-haspopup="true">
-              ABOUT US
+      <nav className="fixed top-0 bg-white py-4 w-full shadow light:text-gray-400 light:bg-gray-800 z-[100]">
+        <div className="container mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Este div extra ayuda a centrar en móvil y mantener estructura en escritorio */}
+          <div className="flex-1 flex justify-center md:justify-start">
+            {/* Logo, ahora centrado en móvil y a la izquierda en escritorio */}
+            <a href="/" className="flex items-center">
+              <img src="/images/logo-new-school.png" alt="Logo The New School" style={logoStyle}/>
             </a>
 
+            {/* Botón de menú para dispositivos móviles, siempre a la derecha */}
+            <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)} // Cambia el estado para mostrar/ocultar el menú
+                className="md:hidden text-[#2991D6] focus:outline-none"
+            >
+              {/* Icono de menú de hamburguesa, siempre visible */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                   strokeLinecap="round" strokeLinejoin="round">
+                {/* Siempre muestra el icono de hamburguesa */}
+                <path d="M4 6h16M4 12h16m-16 6h16"/>
+              </svg>
+            </button>
+
+          </div>
+
+          {/* Contenido del menú para dispositivos móviles */}
+          <div
+              className={`${isMenuOpen ? 'block' : 'hidden'} absolute top-full mx-auto w-auto min-w-[200px] max-w-sm left-1/2 transform -translate-x-1/2 bg-[#F2F2F2] shadow-md mt-[-2px]`}>
+            {/* Menú principal */}
+            {/* Menú principal */}
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {/* HOME */}
+              <a href="/" className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium">HOME</a>
+
+              {/* ABOUT US y su menú desplegable */}
+              <div className="px-3 py-2 relative">
+                <button
+                    className="text-[#2991D6] block w-full text-left"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsAboutSubMenuOpen(!isAboutSubMenuOpen); // Cambia el estado para mostrar/ocultar el submenú de ABOUT US
+                    }}
+                >
+                  ABOUT US
+                </button>
+                {/* Menú desplegable de ABOUT US */}
+                <div className={`${isAboutSubMenuOpen ? 'block' : 'hidden'} absolute left-0 right-0 bg-[#F2F2F2] shadow-md mt-1`}>
+                  <a href="/ourProposalPage" className="block px-3 py-2 text-gray-700 hover:bg-gray-200">Our Proposal</a>
+                  <a href="/educationalModelPage" className="block px-3 py-2 text-gray-700 hover:bg-gray-200">Educational Model</a>
+                  <a href="/culturaNewlPage" className="block px-3 py-2 text-gray-700 hover:bg-gray-200">Cultura New</a>
+                  <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-gray-200">Campus</a>
+                  <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-gray-200">The New Awareness</a>
+                </div>
+              </div>
+
+              {/* SCHEDULE */}
+              <a href="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view?usp=sharing"
+                 className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium" target="_blank"
+                 rel="noopener noreferrer">SCHEDULE</a>
+
+              {/* CALENDAR */}
+              <a href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view"
+                 className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium" target="_blank"
+                 rel="noopener noreferrer">CALENDAR</a>
+
+              {/* ADMISSIONS */}
+              <a href="/admissions/form"
+                 className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium">ADMISSIONS</a>
+
+              {/* NEWS */}
+              <a href="/news/blog" className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium">NEWS</a>
+
+              {/* COMMUNICATIONS */}
+              <a href="/communications/circulares"
+                 className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium">COMMUNICATIONS</a>
+
+              {/* INSPIRING PARENTS TNS */}
+              <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1"
+                 className="text-[#2991D6] block px-3 py-2 rounded-md text-base font-medium" target="_blank"
+                 rel="noopener noreferrer">INSPIRING PARENTS TNS</a>
+            </div>
+          </div>
+
+
+          <div className="hidden md:flex items-center flex-grow">
+            {/* Inicio */}
+            <a href="/" className="text-[#2991D6] py-1 ml-[20px]">HOME</a>
+
+            {/* Separador */}
+            <div style={dividerStyle} className="mx-2"></div>
+
+            {/* ABOUT US y su menú desplegable */}
+            <div
+                style={menuContainerStyle}
+                className="group z-10"
+            >
+              {/* Trigger del menú */}
+              <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none py-[45px]" aria-haspopup="true">
+                ABOUT US
+              </a>
 
               {/* Menú desplegable */}
 
-              <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu"  style={{ top: navbarHeight, marginTop: '0' }}>
+              <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu"
+                  style={{top: navbarHeight, marginTop: '0'}}>
                 <li style={dropdownItemStyle} className="w-full hover:bg-gray-200">
                   <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
                         style={dropli}>Our
@@ -92,27 +170,25 @@ const Navbar = () => {
               </ul>
             </div>
 
-          {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view?usp=sharing" className="text-[#2991D6] py-1" target="_blank">SCHEDULE</a>
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view" className="text-[#2991D6] py-1" target="_blank">CALENDAR</a>
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="/admissions/form" className="text-[#2991D6] py-1">ADMISSIONS</a>
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="/news/blog" className="text-[#2991D6] py-1">NEWS</a>
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="/communications/circulares" className="text-[#2991D6] py-1">COMMUNICATIONS</a>
-          <div style={dividerStyle} className="mx-2"></div>
-          <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1" className="text-[#2991D6] py-1" target="_blank">INSPIRING PARENTS TNS</a>
+            {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view?usp=sharing"
+               className="text-[#2991D6] py-1" target="_blank">SCHEDULE</a>
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view"
+               className="text-[#2991D6] py-1" target="_blank">CALENDAR</a>
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="/admissions/form" className="text-[#2991D6] py-1">ADMISSIONS</a>
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="/news/blog" className="text-[#2991D6] py-1">NEWS</a>
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="/communications/circulares" className="text-[#2991D6] py-1">COMMUNICATIONS</a>
+            <div style={dividerStyle} className="mx-2"></div>
+            <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1"
+               className="text-[#2991D6] py-1" target="_blank">INSPIRING PARENTS TNS</a>
+          </div>
         </div>
-
-        {/* Menú de navegación para dispositivos móviles */}
-        <div className="md:hidden">
-          {/* Implementar aquí el conmutador de menú móvil */}
-        </div>
-      </div>
-    </nav>
+      </nav>
   );
 };
 
