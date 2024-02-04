@@ -1,7 +1,7 @@
 export default function Historia() {
     return (
         <div className="backgroundImagethree">
-            <div className="contenedor flex justify-center items-center min-h-screen mt-[-100px]">
+            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-100px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h3 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h3>

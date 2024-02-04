@@ -1,7 +1,7 @@
 export default function Promueve() {
     return (
         <>
-            <div className="contenedor flex flex-col md:flex-row justify-center items-center min-h-screen mt-[-200px]" style={{ paddingLeft: '290px', paddingRight: '290px' }}>
+            <div className="contenedor flex flex-col md:flex-row justify-center items-center min-h-screen md:mt-[-200px]" style={{ paddingLeft: '290px', paddingRight: '290px' }}>
                 {/* Sección Izquierda */}
                 <div className="izquierda md:w-1/2 text-center md:text-left px-4 mb-auto">
                     <h3 className="text-4xl text-[#444444] mb-4">La Escuela Nueva promueve</h3>

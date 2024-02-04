@@ -68,14 +68,14 @@ body {
 .backgroundImagetwo{
   background-image: url('/images/others/tablero053.jpg'); /* Asegúrate de que la ruta de la imagen es correcta */
   background-repeat: no-repeat;
-  background-size: 100% auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
+  background-size: auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center; /* Centra la imagen en el contenedor */
 }
 
 .backgroundImagethree {
   background-image: url('/images/others/tablero02.jpg');
   background-repeat: no-repeat;
-  background-size: 100% auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
+  background-size: auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center; /* Centra la imagen en el contenedor */
 }
 
@@ -90,6 +90,6 @@ body {
 .backgroundImagefaith {
   background-image: url('/images/others/tablero05.jpg');
   background-repeat: no-repeat;
-  background-size: 100% auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
+  background-size: auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center; /* Centra la imagen en el contenedor */
 }
