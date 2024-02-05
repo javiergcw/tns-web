@@ -15,7 +15,7 @@ import HeaderSomos from "@/app/components/home/headersomos";
 
 export default function AsiSomos() {
     return (
-      <div className='contenedor_principal pt-20'>
+      <div className='pt-20'>
          <Navbar />
           <HeaderSomos />
         <RazonDeSeR/>

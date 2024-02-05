@@ -55,7 +55,7 @@ export default function Promueve() {
             </div>
 
             {/* Sección Adicional (sin identificador) */}
-            <div className="additional text-center md:text-left px-4 mt-8 md:mt-0 md:ml-4" style={{ paddingLeft: '290px', marginTop: '-390px' }}>
+            <div className="additional text-center md:text-left px-4 mb-8" style={{ paddingLeft: '290px', marginTop: '-390px' }}>
                 <h3 className="text-4xl text-[#444444] mb-4">El Aprendizaje Significativo promueve:</h3>
                 <ul className="text-gray-500 text-[15px] list-disc list-inside">
                     <li className="mb-2">El desarrollo de actividades que generen un cambio mediante la interacción entre la experiencia
