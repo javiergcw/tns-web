@@ -1,12 +1,12 @@
 export default function Formacion() {
     return (
-            <div className="contenedor flex justify-center items-center min-h-screen">
+            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-400px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
 
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
-                        <img className="md:w-[420px]"
-                             src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/tns.jpg"
+                        <img className="md:w-[520px]"
+                             src="/images/others/about6.jpg"
                              alt="Descripción de la imagen">
                         </img>
                     </div>

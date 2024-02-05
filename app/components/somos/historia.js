@@ -1,7 +1,7 @@
 export default function Historia() {
     return (
         <div className="backgroundImagethree">
-            <div className="contenedor flex justify-center items-center min-h-screen">
+            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-100px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h3 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h3>
@@ -28,8 +28,8 @@ export default function Historia() {
                         </p>
                     </div>
                     <div className="md:w-1/2 flex justify-center">
-                        <img className="md:w-[420px]"
-                             src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/thumbnail_IMG_7018.jpg"
+                        <img className="md:w-[520px]"
+                             src="/images/others/about4.jpg"
                              alt="Descripción de la imagen">
                         </img>
                     </div>

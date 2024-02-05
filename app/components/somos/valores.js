@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Valores() {
     return (
-        <div className="py-10 bg-white">
+        <div className="py-10 bg-white md:mt-[-150px]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <h3 className="text-3xl leading-9 font-extrabold text-gray-900 sm:text-4xl sm:leading-10">Valores Institucionales</h3>
@@ -18,7 +18,7 @@ export default function Valores() {
                             {/* Card de valor 'Respeto' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/respeto.png"
+                                     src="/images/others/respeto.png"
                                      alt="Icono de Respeto"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Respeto</h4>
@@ -30,7 +30,7 @@ export default function Valores() {
                             {/* Card de valor 'Compromiso' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/compromiso.png"
+                                     src="/images/others/compromiso.png"
                                      alt="Icono de Compromiso"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Compromiso</h4>
@@ -41,7 +41,7 @@ export default function Valores() {
                             {/* Card de valor 'Solidaridad' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/solidaridad.png"
+                                     src="/images/others/solidaridad.png"
                                      alt="Icono de Solidaridad"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Solidaridad</h4>
@@ -56,7 +56,7 @@ export default function Valores() {
                             {/* Card de valor 'Autonomía' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/autonomia.png"
+                                     src="/images/others/autonomia.png"
                                      alt="Icono de Autonomía"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Autonomía</h4>
@@ -66,7 +66,7 @@ export default function Valores() {
                             {/* Card de valor 'Equidad' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/equidad.png"
+                                     src="/images/others/equidad.png"
                                      alt="Icono de Equidad"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Equidad</h4>
@@ -76,7 +76,7 @@ export default function Valores() {
                             {/* Card de valor 'Creatividad' */}
                             <div className="flex items-center p-4">
                                 <img className="w-20 h-20 mr-4"
-                                     src="http://www.thenewschool.edu.co/wp-content/uploads/2015/09/equidad.png"  // Cambiar por el enlace correcto de 'Creatividad'
+                                     src="/images/others/creatividad.png"
                                      alt="Icono de Creatividad"/>
                                 <div>
                                     <h4 className="text-lg font-bold text-gray-900">Creatividad</h4>
