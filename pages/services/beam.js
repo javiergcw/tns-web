@@ -36,7 +36,6 @@ const Beam = () => {
 
     return (
         <>
-            <TopHeader />
             <Navbar />
             <HeaderInitial />
             <CircularesComponent enlaces={enlaces} />

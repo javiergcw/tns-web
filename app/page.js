@@ -14,7 +14,7 @@ import blogList from "./data/blogData";
 
 export default function Home() {
 
-  
+
   const imagePaths = [
     "/images/banner/banner1.png",
     "/images/banner/banner2.png",
@@ -31,13 +31,13 @@ export default function Home() {
   ];
 
 
-  
+
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between pt-20">
+    <main className="flex min-h-screen flex-col items-center justify-between ">
 
-      <TopHeader />
       <Navbar />
+      
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />

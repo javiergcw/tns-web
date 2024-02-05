@@ -14,7 +14,6 @@ const blog = () => {
 
     return (
         <>
-            <TopHeader />
             <Navbar />
             <HeaderInitial />
             <br />
