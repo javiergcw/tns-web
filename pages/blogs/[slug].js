@@ -63,7 +63,17 @@ const BlogDetail = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
+                <div className="md:flex-row flex flex-col-reverse items-start gap-4 md:gap-8">
+                    <div className="w-full md:w-1/5 flex flex-col justify-start">
+                    </div>
+                    <div className="w-full md:w-4/5">
+                        <div
+                            dangerouslySetInnerHTML={{ __html: blog.body }}
+                            className="blog-body-content"
+                        ></div>
                     </div>
                 </div>
 
