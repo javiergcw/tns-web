@@ -8,7 +8,7 @@ import HeaderSomos from "@/app/components/home/headersomos";
 
 export default function IndexEducational() {
     return (
-        <div className='contenedor_principal pt-20'>
+        <div className='contenedor_principal'>
            <Navbar />
             <HeaderSomos />
            <EducationalModel />

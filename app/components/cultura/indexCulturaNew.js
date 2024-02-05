@@ -8,12 +8,12 @@ import HeaderSomos from "@/app/components/home/headersomos";
 
 export default function IndexCulturaNew() {
     return (
-        <div className='contenedor_principal pt-20'>
-           <Navbar />
+        <div className='contenedor_principal'>
+            <Navbar />
             <HeaderSomos />
-           <CulturaNewModel />
-           <FooterTwo/>
-           <Footer/>
+            <CulturaNewModel />
+            <FooterTwo />
+            <Footer />
         </div>
     );
 }

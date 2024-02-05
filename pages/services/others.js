@@ -1,5 +1,4 @@
 'use client';
-import TopHeader from '@/app/components/home/header/topHeader';
 import '/app/globals.css'
 import Navbar from '@/app/components/home/navbar';
 import HeaderInitial from '@/app/components/others/headerInitial';
@@ -21,7 +20,7 @@ const enlaces = [
 ];
 const Others = () => {
     return (
-        <> <TopHeader />
+        <>
             <Navbar />
             <HeaderInitial />
             <CircularesComponent enlaces={enlaces} />

@@ -14,7 +14,7 @@ export default function MisionVision() {
                     <h2 className="text-2xl text-gray-500">Misión</h2>
                     <h4 className="text-xl text-gray-500 mt-2">Lo que somos</h4>
                     <p className="text-gray-500">
-                        Propósito de El Nuevo Colegio Formar en consciencia por la vida y <br/> para la vida.
+                        Propósito de El Nuevo Colegio Formar en consciencia por la vida y <br /> para la vida.
                     </p>
                 </div>
             </div>

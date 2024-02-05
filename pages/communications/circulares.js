@@ -63,7 +63,6 @@ const circulares = () => {
 
     return (
         <>
-            <TopHeader />
             <Navbar />
             <HeaderInitial />
             <Circulares enlaces={enlaces} />
