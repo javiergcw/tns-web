@@ -15,6 +15,14 @@ const Navbar = () => {
     height: '3rem', // Altura del logo
   };
 
+
+  const dropli = {
+    padding: '0',
+    width: '190px',
+    position: 'relative',
+    fontWeight: 'normal',
+  };
+
   const dividerStyle = {
     height: '3rem', // Altura de las líneas para que coincidan con el logo
     width: '1px',
@@ -40,6 +48,14 @@ const Navbar = () => {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Estilos para los items del menú desplegable
+  const dropdownItemStyle = {
+    padding: '0.5rem 1rem', // Espaciado interno para cada ítem
+    borderBottom: '1px solid #E5E7EB', // Línea divisoria entre ítems
+  };
+
+  const navbarHeight = '52.4px'; // Ejemplo: altura total de la barra de navegación.
 
   const lastDivClass = `${showSecondaryNav ? "fixed inset-x-0 top-0 transform translate-y-0 opacity-100 visible" : "hidden"} transition-transform duration-500 ease-in-out bg-white shadow-md z-50`;
 
