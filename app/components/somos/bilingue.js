@@ -1,3 +1,5 @@
+import '/app/globals.css';
+
 export default function Bilingue() {
     return (
         <div className="backgroundImagefaith">
@@ -6,9 +8,9 @@ export default function Bilingue() {
 
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h3 className="text-4xl text-[#444444] mb-4">Propuesta Bilingüe</h3>
-                        <h4 className="text-3xl text-[#444444] mb-4">Por qué apostamos a una propuesta bilingüe</h4>
-                        <p className="text-gray-500 text-[13px]">
+                        <h1 className="text-3xl font-bold text-[#444444] mb-4">Propuesta Bilingüe</h1>
+                        <h1 className="text-2xl font-bold text-[#444444] mb-4">Por qué apostamos a una propuesta bilingüe</h1>
+                        <p className="text-[13px]">
                             Hoy más que nunca resulta imprescindible aprender inglés. Es indiscutible: el inglés se ha convertido en el idioma global de comunicación por excelencia. Es indispensable cuando viajamos, ya sea por turismo o negocios.
                             <br></br>
                             En estos casos, es necesario hablar inglés para ir de compras, aprender inglés para poder tomar un tren sin perderse o para pedir la cuenta en un restaurante donde hablan solamente inglés. Además, la mayoría de las páginas de Internet, prensa mundial e información científica se encuentran en idioma inglés.

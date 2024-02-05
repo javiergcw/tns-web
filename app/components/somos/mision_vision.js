@@ -1,3 +1,4 @@
+import '/app/globals.css';
 export default function MisionVision() {
     return (
         <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 md:mt-[-200px]">
@@ -11,8 +12,8 @@ export default function MisionVision() {
                     />
                 </div>
                 <div className="md:w-2/3 text-center md:text-left md:pl-4 flex flex-col justify-center">
-                    <strong><h2 className="text-2xl text-gray-600">Misión</h2></strong>
-                    <strong><h4 className="text-xl text-gray-600 mt-2">Lo que somos</h4></strong>
+                    <strong><h1 className="text-2xl text-gray-600">Misión</h1></strong>
+                    <strong><h1 className="text-xl text-gray-600 mt-2">Lo que somos</h1></strong>
                     <p className="text-gray-500 mt-4">
                         Propósito de El Nuevo Colegio Formar en consciencia por la vida y para la vida.
                     </p>
@@ -32,9 +33,9 @@ export default function MisionVision() {
                     />
                 </div>
                 <div className="md:w-2/3 text-center md:text-right md:pr-4 flex flex-col justify-center">
-                    <strong><h2 className="text-2xl text-gray-600">Visión</h2></strong>
-                    <strong><h4 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h4></strong>
-                    <p className="text-gray-500 mt-4">
+                    <strong><h1 className="text-2xl text-gray-600">Visión</h1></strong>
+                    <strong><h1 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h1></strong>
+                    <p className="mt-4">
                         Integrar el conocimiento con el ser.
                     </p>
                 </div>

@@ -1,7 +1,9 @@
 'use client';
 
+import '/app/globals.css';
 import React, { useState } from 'react';
 import Link from 'next/link';
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para manejar la visibilidad del menú móvil
@@ -139,9 +141,10 @@ const Navbar = () => {
                 className="group z-10"
             >
               {/* Trigger del menú */}
-              <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none py-[45px]" aria-haspopup="true">
+              <h5><a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none py-[45px]" aria-haspopup="true">
                 ABOUT US
-              </a>
+              </a></h5>
+
 
               {/* Menú desplegable */}
 

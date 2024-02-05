@@ -1,3 +1,4 @@
+import '/app/globals.css';
 export default function Filosofia() {
     return (
         <div className="backgroundImagethree">
@@ -6,9 +7,9 @@ export default function Filosofia() {
 
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h3 className="text-4xl text-[#444444] mb-4">Filosofía</h3>
-                        <h4 className="text-3xl text-[#444444] mb-4">Ambiente Escolar</h4>
-                        <p className="text-gray-500 text-[13px]">
+                        <h1 className="text-3xl font-bold text-[#444444] mb-4">Filosofía</h1>
+                        <h1 className="text-2xl font-bold text-[#444444] mb-4">Ambiente Escolar</h1>
+                        <p className="text-[13px]">
                             El Nuevo Colegio nos invita a construir un ambiente escolar amable, lleno de valores,
                             participativo, rico en academia y con alto sentido de conciliación entre sus miembros.
                             <br></br>
