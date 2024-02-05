@@ -136,7 +136,8 @@ const Navbar = () => {
           <div className="md:hidden">
             {/* Implementar aquí el conmutador de menú móvil */}
           </div>
-        </div>      </div>
+        </div>
+      </div>
 
 
       <div className={lastDivClass}>

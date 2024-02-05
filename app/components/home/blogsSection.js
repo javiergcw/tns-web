@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link'; // Importa Link de next/link
 import '/app/globals.css'
+import ReadMoreButton from '../others/button/readMoreButton';
 
 const BlogsSection = ({ blogs }) => {
 
@@ -9,7 +10,7 @@ const BlogsSection = ({ blogs }) => {
         return title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
     };
     return (
-        <div className="text-center mb-40 w-screen h-auto bg-white">
+        <div className="text-center mb-20 w-screen h-auto bg-white  pt-8">
             <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8]">
                 BE UP TO DATE WITH
             </p>
@@ -33,9 +34,9 @@ const BlogsSection = ({ blogs }) => {
                             {/* Divider */}
                             <hr className="my-2 border-t-2 border-[#2991D6]" />
                             {/* Botón Read More */}
-                            <div className="text-white bg-[#2991D6] hover:bg-[#2374ab] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                Read More
-                            </div>
+                            <center className='pt-4'>
+                                <ReadMoreButton />
+                            </center>
                         </div>
                     </Link>
                 ))}

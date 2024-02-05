@@ -1,39 +1,46 @@
 const blogList = [
     {
         date: "January 19,2024",
-        imageUrl: '/images/blogs/blog0.jpg',
-        title: "Formación por la vida y para la vida"
+        imageUrl: '/images/blogs/blog0.jpeg',
+        title: "Formación por la vida y para la vida",
+        body: "",
 
     },
     {
         date: "December 12,2023",
         imageUrl: '/images/blogs/blog1.jpg',
-        title: "TNS Formadores de consciencia"
+        title: "TNS Formadores de consciencia",
+        body: "",
     },
     {
         date: "October 4,2023",
         imageUrl: "/images/blogs/blog2.jpeg",
-        title: "Padres inspiradores"
+        title: "Padres inspiradores",
+        body: "",
     },
     {
         date: "August 1,2023",
         imageUrl: "/images/blogs/blog3.jpg",
-        title: "El Modelo de la Organización de las Naciones Unidas (ONU) cumple tres años en The New School. ¡Tejidos de sueños que se proyectan en el tiempo!"
+        title: "El Modelo de la Organización de las Naciones Unidas (ONU) cumple tres años en The New School. ¡Tejidos de sueños que se proyectan en el tiempo!",
+        body: "",
     },
     {
         date: "August 1,2023",
         imageUrl: "/images/blogs/blog3.jpg",
-        title: "La investigación y el aprendizaje experiencial, el motor formativo el Nuevo colegio"
+        title: "La investigación y el aprendizaje experiencial, el motor formativo el Nuevo colegio",
+        body: "",
     },
     {
         date: "2022-03-10",
         imageUrl: "/images/blogs/blog5.jpeg",
-        title: "5 tips para fortalecer el proceso de lecto-escritura"
+        title: "5 tips para fortalecer el proceso de lecto-escritura",
+        body: "",
     },
     {
         date: "2024-04-12",
         imageUrl: "/images/blogs/blog6.jpeg",
-        title: "Soy porque somos"
+        title: "Soy porque somos",
+        body: "",
     },
 ];
 

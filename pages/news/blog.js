@@ -2,7 +2,6 @@
 import '/app/globals.css'
 
 import Footer from '@/app/components/home/footer/footer'
-import TopHeader from '@/app/components/home/header/topHeader'
 import Navbar from '@/app/components/home/navbar'
 import FooterTwo from '@/app/components/home/footer/footerTwo'
 import HeaderInitial from '@/app/components/others/headerInitial'

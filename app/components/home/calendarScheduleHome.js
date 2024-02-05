@@ -12,7 +12,11 @@ const CardComponent = ({ title, description, buttonText, imgSrc, imgAlt }) => {
           <h2 className="text-[#444444] text-xl font-bold">{title}</h2>
           <p className="text-[#626262] text-sm">{description}</p>
         </div>
-        <ReadMoreButton />
+
+        <div className='pt-2'>
+          <ReadMoreButton />
+
+        </div>
 
       </div>
     </div>
@@ -22,7 +26,7 @@ const CardComponent = ({ title, description, buttonText, imgSrc, imgAlt }) => {
 
 const CalendarScheduleHome = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-around items-center my-10">
+    <div className="flex flex-col md:flex-row justify-around items-center mb-10">
       <CardComponent
         title="Schedule"
         description="Conoce el horario de nuestro colegio"

@@ -34,7 +34,7 @@ export default function Home() {
 
 
   return (
-    <main className="body flex min-h-screen flex-col items-center justify-between ">
+    <main className=" ">
 
 
       <Navbar />
