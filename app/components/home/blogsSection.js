@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import Link from 'next/link'; // Importa Link de next/link
+import '/app/globals.css'
 
 const BlogsSection = ({ blogs }) => {
 
@@ -9,12 +10,12 @@ const BlogsSection = ({ blogs }) => {
     };
     return (
         <div className="text-center p-8 mb-40 w-screen h-auto bg-white">
-            <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8] font-dosis">
+            <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8]">
                 BE UP TO DATE WITH
             </p>
-            <h2 className="text-5xl leading-tight text-[#2991D6] mb-10 font-patua-one">
+            <h1 className="text-5xl text-[#2991D6] mb-10">
                 <strong>OUR ACTIVITIES</strong>
-            </h2>
+            </h1>
             <div className="flex justify-center flex-wrap gap-4 gap-12 mt-4">
                 {blogs.slice(0, 4).map((blog, index) => (
                     <Link href={`/blogs/${generateSlug(blog.title)}`} key={index}>

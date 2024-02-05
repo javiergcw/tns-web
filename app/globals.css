@@ -1,6 +1,9 @@
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
-@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2? family= Patua+One & display=swap');
+
+/* Resto de estilos de tu archivo global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,9 +24,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  font-family: 'Dosis', Arial, Tahoma, sans-serif;
+  font-family: 'Dosis', sans-serif;
   background: white;
-
 }
 
 /* Archivo CSS (puede ser index.css, tailwind.css, etc.) */
@@ -44,7 +46,7 @@ body {
   font-size: 12px;
   display: none !important;
 
-  
+
   /* Ajusta el tamaño según prefieras */
 }
 
@@ -52,11 +54,9 @@ body {
 .slick-prev:before,
 .slick-next:before {
   color: white;
-  
+
   /* Color blanco para las flechas */
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Dosis:wght@400;700&display=swap');
 
 
 /* globals.css */
@@ -92,4 +92,14 @@ body {
   background-repeat: no-repeat;
   background-size: auto; /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center; /* Centra la imagen en el contenedor */
+}
+
+h1 {
+  font-family: "Patua One", Arial, Tahoma, sans-serif;
+  font-size: 40px;
+}
+
+p {
+  font-family: 'Dosis', sans-serif;
+  color: #626262;
 }

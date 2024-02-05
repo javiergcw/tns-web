@@ -1,11 +1,12 @@
+import '/app/globals.css';
 export default function Historia() {
     return (
         <div className="backgroundImagethree">
             <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-100px]">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h3 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h3>
-                        <p className="text-gray-500 text-[13px]">
+                        <h1 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h1>
+                        <p className="text-[14px]">
                             En la década de 1985 a 1995 un grupo de amigos soñaban la posibilidad de
                             crear un colegio que desarrollara en los jóvenes sentimientos de solidaridad con la ciudad,
                             capaces de aportar de sí mismos, a su región y al país. Era un sueño con fundamento humano,
