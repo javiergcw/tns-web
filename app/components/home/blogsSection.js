@@ -9,7 +9,7 @@ const BlogsSection = ({ blogs }) => {
         return title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
     };
     return (
-        <div className="text-center p-8 mb-40 w-screen h-auto bg-white">
+        <div className="text-center mb-40 w-screen h-auto bg-white">
             <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8]">
                 BE UP TO DATE WITH
             </p>
@@ -40,7 +40,7 @@ const BlogsSection = ({ blogs }) => {
                     </Link>
                 ))}
             </div>
-            <img src="/images/others/bg-home1.jpg" alt="Decorative Background" className="w-screen h-auto" />
+            <img src="/images/others/bg-home1.jpg" alt="Decorative Background" className="w-screen h-auto pt-40" />
         </div>
     );
 };

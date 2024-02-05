@@ -2,7 +2,7 @@ import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaYoutube, FaInstagram } f
 
 const TopHeader = () => {
   return (
-    <div className="bg-[#2C2C2C] w-full h-12 flex justify-between items-center px-4">
+    <div className="nav bg-[#2C2C2C] w-full h-12 flex justify-between items-center px-4">
       <div className="flex items-center text-white">
         <span className="mr-4 text-[#626262] text-xs">Colegio Bilingüe en Medellín</span>
         <a href="tel:+573008909800" className="flex items-center text-[#2991D6] mr-2 underline text-xs">
