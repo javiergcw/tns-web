@@ -36,7 +36,6 @@ const BlogDetail = () => {
 
     return (
         <>
-            <TopHeader />
             <Navbar />
             <div className="flex flex-col items-center my-8">
                 <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
