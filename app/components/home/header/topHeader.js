@@ -22,16 +22,16 @@ const TopHeader = () => {
       </div>
       <div className="flex items-center">
         {/* Ajustar el tamaño y el espaciado de los íconos de redes sociales para todas las pantallas */}
-        <a href="https://www.facebook.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
+        <a href="https://www.facebook.com/thenewschool95/" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaFacebookF className="mr-1" />
         </a>
-        <a href="https://www.twitter.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
+        <a href="https://twitter.com/thenewschool95/" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaTwitter className="mr-1" />
         </a>
-        <a href="https://www.youtube.com" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
+        <a href="https://www.youtube.com/@thenewschool1995" className="flex items-center text-[#626262] mr-2 transform hover:scale-110 transition duration-300">
           <FaYoutube className="mr-1" />
         </a>
-        <a href="https://www.instagram.com" className="flex items-center text-[#626262] transform hover:scale-110 transition duration-300">
+        <a href="https://www.instagram.com/thenewschool95/" className="flex items-center text-[#626262] transform hover:scale-110 transition duration-300">
           <FaInstagram className="mr-1" />
         </a>
       </div>
