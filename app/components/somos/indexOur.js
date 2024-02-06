@@ -14,21 +14,21 @@ import HeaderSomos from "@/app/components/home/headersomos";
 
 
 export default function AsiSomos() {
-    return (
-      <div className='contenedor_principal'>
-         <Navbar />
-          <HeaderSomos />
-        <RazonDeSeR/>
-        <MisionVision/>
-        <Historia/>
-        <Valores/>
-        <Cultura/>
-        <Filosofia/>
-        <Formacion/>
-        <Promueve/>
-        <Bilingue/>
-        <FooterTwo/>
-        <Footer/>
-    </div>
-    );
-  }
+  return (
+    <>
+      <Navbar />
+      <HeaderSomos />
+      <RazonDeSeR />
+      <MisionVision />
+      <Historia />
+      <Valores />
+      <Cultura />
+      <Filosofia />
+      <Formacion />
+      <Promueve />
+      <Bilingue />
+      <FooterTwo />
+      <Footer />
+    </>
+  );
+}
