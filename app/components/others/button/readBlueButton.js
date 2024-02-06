@@ -4,10 +4,9 @@ import { Squares2X2Icon } from '@heroicons/react/24/solid'; // Asegúrate de ins
 const ReadBlueButton = ({ buttonText = 'Read more', redirectUrl }) => {
     const handleClick = () => {
         if (redirectUrl) {
-            window.location.href = redirectUrl;
+            window.open(redirectUrl, '_blank');
         }
     };
-
     return (
         <button
             onClick={handleClick}
