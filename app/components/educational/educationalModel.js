@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FaEye } from 'react-icons/fa'; // Importando el ícono faEye desde react-icons
 
 export default function EducationalModel() {
     return (
@@ -25,7 +24,7 @@ export default function EducationalModel() {
                         </p>
                         <button
                             className="mt-4 px-6 py-2 bg-[#5472d2] text-white rounded hover:bg-blue-700 transition-colors">
-                            <FontAwesomeIcon icon={faEye} className="mr-2" />
+                            <FaEye className="mr-2" />
                             Ver vista Panorámica
                         </button>
                     </div>
