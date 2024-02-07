@@ -11,7 +11,9 @@ export default function CulturaNewModel() {
                         />
                     </div>
                     <div className="lg:w-1/2">
-                        <h1 className="text-2xl lg:text-4xl text-[#444444] mb-4">Calidad</h1>
+                        <h1 className="text-2xl lg:text-4xl text-[#444444] mb-4">
+                            <strong>Calidad</strong>
+                        </h1>
                         <h1 className="text-2xl lg:text-4xl text-[#444444] mb-4">Cómo Hacer Parte de Nuestra Comunidad Educativa</h1>
                         <h2 className="text-xl lg:text-2xl text-[#444444] mb-4">De Puertas Abiertas</h2>
                         <p className="text-gray-500 text-sm lg:text-base text-justify">

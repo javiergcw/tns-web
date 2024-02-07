@@ -1,5 +1,5 @@
 // pages/culturaNewModel.js
-import EducationalModel from '../app/components/educational/educationalModel';
+import EducationalModel from '../../app/components/educational/educationalModel';
 import IndexEducational from "@/app/components/educational/indexEducational";
 
 const EducationalModelPage = () => {

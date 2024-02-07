@@ -94,16 +94,16 @@ const Navbar = () => {
               {isHovering && (
                 <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu" style={{ top: 0, marginTop: '0' }}>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
+                    <Link href="/about_us/our_proposal" className="px-2 py-1 block text-gray-700"
                       style={dropli}>Our
                       Proposal</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 ">Educational
+                    <Link href="/about_us/educational_model" className="px-2 py-1 block text-gray-700 ">Educational
                       Model</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700">Cultura
+                    <Link href="/about_us/cultura_new" className="px-2 py-1 block text-gray-700">Cultura
                       New</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
@@ -171,16 +171,16 @@ const Navbar = () => {
               {isHovering && (
                 <ul className="group-hover:block absolute hidden bg-[#F2F2F2] shadow-md" aria-label="submenu" style={{ top: 0, marginTop: '0' }}>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/ourProposalPage" className="px-2 py-1 block text-gray-700"
+                    <Link href="/about_us/our_proposal" className="px-2 py-1 block text-gray-700"
                       style={dropli}>Our
                       Proposal</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/educationalModelPage" className="px-2 py-1 block text-gray-700 ">Educational
+                    <Link href="/about_us/educational_model" className="px-2 py-1 block text-gray-700 ">Educational
                       Model</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                    <Link href="/culturaNewlPage" className="px-2 py-1 block text-gray-700">Cultura
+                    <Link href="/about_us/cultura_new" className="px-2 py-1 block text-gray-700">Cultura
                       New</Link>
                   </li>
                   <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
