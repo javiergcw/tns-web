@@ -41,7 +41,7 @@ export default function Home() {
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
        <CalendarScheduleHome />
-     {/* <ServicesStandart /> */}
+     <ServicesStandart />
       <FooterTwo />
       <Footer />
 
