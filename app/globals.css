@@ -22,6 +22,22 @@
   }
 }
 
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.bounce {
+  animation: bounce 0.5s ease-in-out;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   font-family: 'Dosis', sans-serif;

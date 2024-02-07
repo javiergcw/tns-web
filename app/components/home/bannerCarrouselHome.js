@@ -1,8 +1,10 @@
 'use client'
 import React, { useState } from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
-
+// Componente para la flecha siguiente personalizada
 function NextArrow(props) {
     const { className, style, onClick, isHovering } = props;
     return (
@@ -19,18 +21,18 @@ function NextArrow(props) {
                 color: "white",
                 borderRadius: "50%",
                 padding: "10px",
-                width: "25px",
-                height: "25px",
+                width: "40px", // Ajuste para un tamaño más adecuado en diferentes pantallas
+                height: "40px",
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                display: "flex",
             }}
             onClick={onClick}
-        >
-        </div>
+        />
     );
 }
 
+// Componente para la flecha anterior personalizada
 function PrevArrow(props) {
     const { className, style, onClick, isHovering } = props;
     return (
@@ -47,22 +49,20 @@ function PrevArrow(props) {
                 color: "white",
                 borderRadius: "50%",
                 padding: "10px",
-                width: "25px",
-                height: "25px",
+                width: "40px", // Ajuste para un tamaño más adecuado en diferentes pantallas
+                height: "40px",
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                display: "flex",
             }}
             onClick={onClick}
-        >
-        </div>
+        />
     );
 }
 
 export default function BannerCarousel({ imagePaths }) {
     const [activeSlide, setActiveSlide] = useState(0);
-    const [isHovering, setIsHovering] = useState(false); // Estado para manejar si el ratón está encima del carrusel
-
+    const [isHovering, setIsHovering] = useState(false);
 
     const settings = {
         dots: true,
@@ -77,6 +77,35 @@ export default function BannerCarousel({ imagePaths }) {
         nextArrow: <NextArrow isHovering={isHovering} />,
         prevArrow: <PrevArrow isHovering={isHovering} />,
         beforeChange: (current, next) => setActiveSlide(next),
+        responsive: [
+            {
+                breakpoint: 1024, // Para dispositivos con pantalla hasta 1024px
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600, // Para dispositivos con pantalla hasta 600px
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    nextArrow: null, // Oculta las flechas en pantallas pequeñas
+                    prevArrow: null
+                }
+            },
+            {
+                breakpoint: 480, // Para dispositivos con pantalla hasta 480px
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    nextArrow: null, // Oculta las flechas en pantallas muy pequeñas
+                    prevArrow: null
+                }
+            }
+        ],
         appendDots: dots => (
             <div style={{
                 bottom: "25px",
@@ -84,48 +113,43 @@ export default function BannerCarousel({ imagePaths }) {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
-                opacity: isHovering ? 1 : 0, // Controla la opacidad de los dots basado en si el ratón está encima
-                transition: 'opacity 0.5s ease', // Transición suave de la opacidad
+                opacity: isHovering ? 1 : 0,
+                transition: 'opacity 0.5s ease',
             }}>
                 <ul style={{ margin: "0px" }}> {dots} </ul>
             </div>
         ),
         customPaging: function (i) {
             return (
-                <div className="w-full relative"
+                <div
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
-                >
-                    <button
-                        style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "50%",
-                            backgroundColor: i === activeSlide ? "#000" : "#FFF",
-                            border: "2px solid #000",
-                            padding: "0",
-                            margin: "0 5px",
-                            outline: "none",
-                        }}
-                    >
-                    </button>
-                </div>
-
+                    style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        backgroundColor: i === activeSlide ? "#000" : "#FFF",
+                        border: "2px solid #000",
+                        padding: "0",
+                        margin: "0 5px",
+                        outline: "none",
+                    }}
+                />
             );
         },
     };
 
     return (
-        <div className="w-full relative"
+        <div
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
+            className="w-full relative"
         >
             <Slider {...settings}>
                 {imagePaths.map((path, index) => (
-                    <div key={index} className="h-128 overflow-hidden relative">
+                    <div key={index} className="h-auto overflow-hidden relative">
                         <img src={path}
-                            style={{ transform: 'scale(1.1)', transition: 'transform 0.5s ease-out' }}
-                            className="w-full h-full object-cover"
+                            style={{ width: '100%', height: 'auto', transition: 'transform 0.5s ease-out' }}
                             alt={`Banner ${index + 1}`} />
                     </div>
                 ))}

@@ -11,12 +11,13 @@ const BlogsSection = ({ blogs }) => {
     };
     return (
         <div className="text-center mb-20 w-screen h-auto bg-white  pt-8">
-            <p className="block mb-2 text-uppercase tracking-wide text-sm font-medium text-[#a8a8a8]">
+            <p class="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-400 uppercase tracking-wide bounce">
                 BE UP TO DATE WITH
             </p>
-            <h1 className="text-5xl text-[#2991D6] mb-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl text-[#2991D6] mb-5 sm:mb-8 md:mb-10 bounce">
                 <strong>OUR ACTIVITIES</strong>
             </h1>
+
             <div className="flex justify-center flex-wrap gap-4 gap-12 mt-4">
                 {blogs.slice(0, 4).map((blog, index) => (
                     <Link href={`/blogs/${generateSlug(blog.title)}`} key={index}>
