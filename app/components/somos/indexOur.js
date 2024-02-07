@@ -1,3 +1,5 @@
+'use client';
+
 import RazonDeSeR from './razon_ser'
 import MisionVision from './mision_vision'
 import Historia from './historia'

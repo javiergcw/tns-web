@@ -1,6 +1,6 @@
 'use client';
-import '/app/globals.css'
 
+import '/app/globals.css'
 import React, { useState, useEffect } from 'react';
 import TopHeader from './header/topHeader';
 

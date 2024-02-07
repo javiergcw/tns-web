@@ -1,3 +1,5 @@
+'use client';
+
 import Navbar from "@/app/components/home/navbar";
 import EducationalModel from "@/app/components/educational/educationalModel";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
