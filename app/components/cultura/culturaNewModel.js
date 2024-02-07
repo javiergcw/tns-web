@@ -6,7 +6,7 @@ export default function CulturaNewModel() {
                     <div className="lg:w-1/2 lg:mr-8 mb-4 lg:mb-0">
                         <img
                             className="w-full h-auto object-cover"
-                            src="http://www.thenewschool.edu.co/wp-content/uploads/2015/10/xdxd.jpg"
+                            src="/images/others/xdxd.jpg"
                             alt="Dos niños participando en una actividad educativa, representando los valores centrales de la institución educativa."
                         />
                     </div>
