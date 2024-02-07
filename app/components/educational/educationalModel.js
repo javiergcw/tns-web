@@ -33,7 +33,7 @@ export default function EducationalModel() {
                     <div className="lg:w-1/2 flex justify-center lg:justify-end">
                         <img
                             className="max-w-full h-auto mt-5"
-                            src="http://www.thenewschool.edu.co/wp-content/uploads/2015/10/Group-1-3.png"
+                            src="/images/others/Group-1-3.png"
                             alt="Dos niños participando en una actividad educativa, representando los valores centrales de la institución educativa."
                         />
                     </div>
