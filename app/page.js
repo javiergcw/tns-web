@@ -37,8 +37,8 @@ export default function Home() {
   return (
     <main className="">
       <Navbar />
-     {/*  <BannerCarousel imagePaths={imagePaths} />
-      <ServicesHome images={servicesList} />
+       <BannerCarousel imagePaths={imagePaths} />
+     {/* <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
       <CalendarScheduleHome />
       <ServicesStandart />
