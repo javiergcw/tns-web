@@ -39,9 +39,9 @@ export default function Home() {
       <Navbar />
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
-        <BlogsSection blogs={blogList} />
-     {/* <CalendarScheduleHome />
-      <ServicesStandart />
+      <BlogsSection blogs={blogList} />
+       <CalendarScheduleHome />
+     {/* <ServicesStandart />
       <FooterTwo />
       <Footer /> */}
 
