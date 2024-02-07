@@ -5,7 +5,7 @@ const FormInscription = () => {
             <div className="block md:hidden text-center">
                 <p>Escanea el siguiente código QR o haz clic aquí</p>
                 <img
-                    src="http://www.thenewschool.edu.co/wp-content/uploads/2023/05/descarga.png"
+                    src="/images/others/qrform.png"
                     alt="descarga"
                     width="800"
                     height="800"
