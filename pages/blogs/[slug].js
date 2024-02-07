@@ -1,9 +1,11 @@
+
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import blogList from '@/app/data/blogData';
 import { Dialog } from '@headlessui/react';
 import Footer from '@/app/components/home/footer/footer';
-import TopHeader from '@/app/components/home/header/topHeader';
 import Navbar from '@/app/components/home/navbar';
 import FooterTwo from '@/app/components/home/footer/footerTwo';
 import SocialShareButtons from '@/app/components/news/socialShareButtons';
