@@ -1,4 +1,3 @@
-'use client';
 
 
 import BannerCarousel from "./components/home/bannerCarrouselHome";
@@ -40,8 +39,8 @@ export default function Home() {
       <BannerCarousel imagePaths={imagePaths} />
       <ServicesHome images={servicesList} />
       <BlogsSection blogs={blogList} />
-       <CalendarScheduleHome />
-     <ServicesStandart />
+      <CalendarScheduleHome />
+      <ServicesStandart />
       <FooterTwo />
       <Footer />
 
