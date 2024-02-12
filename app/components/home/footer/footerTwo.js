@@ -9,7 +9,8 @@ export default function FooterTwo() {
                     <img src="/images/logo-vertical.jpeg" alt="Descripción de la imagen" className="h-24 md:h-44 mb-4 md:mb-0" />
                     <div className="flex-1 ml-4">
                         <p><strong>Dirección:</strong> Carrera 9 #11 Sur-338 Medellín - Antioquía</p>
-                        <p><strong>Teléfono:</strong> (604) 520 7270</p>
+                        
+                        <p className='py-2'><strong>Teléfono:</strong> (604) 520 7270</p>
                         <p><strong>E-mails:</strong> Correo@thenewschool.edu.co</p>
                     </div>
                 </div>
@@ -45,7 +46,9 @@ export default function FooterTwo() {
                         </a>
                     </div>
                     <hr className="my-2 border-gray-600" />
-                    <p>Política de Protección de Datos Personales</p>
+                    <a href="https://drive.google.com/file/d/1TEh7VuTRxOraGW_rzIeSs9Bb_g5Z8kDX/view?usp=share_link" target="_blank">
+                        <p>Política de Protección de Datos Personales</p>
+                    </a>
                 </div>
             </div>
         </footer>

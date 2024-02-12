@@ -5,16 +5,7 @@ const PhotoGallery = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = 'IGQWRNRWQyZAUs4cG5IMFhmRVFQeGNQSmxYZADR4M1J0M0lsMnphcm43ZA29ENEZAfcDVjcVpaMW43RWZAmX0w2WkdoNUdDTVJzaEtNLThTSWNfdExURkJzOHVWbktRTlljUXdBN1JGeUNJTGhMaWpIaTc3TGZAHTzZAsSHMZD';
-      const apiURL = `https://graph.instagram.com/me/media?fields=thumbnail_url,media_url,caption,permalink&limit=80&access_token=${accessToken}`;
-
-      try {
-        const res = await fetch(apiURL);
-        const { data } = await res.json();
-        setMediaData(data.slice(0, 9)); // Solo guarda las primeras 9 imágenes
-      } catch (error) {
-        console.error("Error al obtener datos de Instagram:", error);
-      }
+      // Tu código para buscar datos aquí...
     };
 
     fetchData();
@@ -32,11 +23,19 @@ const PhotoGallery = () => {
     margin: 'auto',
   };
 
+  // Nuevo estilo para el contenedor de la imagen
+  const imageContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center', // Centra la imagen horizontalmente
+    alignItems: 'center', // Centra la imagen verticalmente
+  };
+
   return (
     <div className="gallery" style={galleryStyle}>
       {mediaData.map((media, index) => (
-        <a key={index} href={media.permalink} target="_blank" rel="noopener noreferrer">
-          <img src={media.media_url} alt={media.caption || 'Foto de Instagram'} style={{ width: '100%', height: 'auto' }} />
+        <a key={index} href={media.permalink} target="_blank" rel="noopener noreferrer" style={imageContainerStyle}>
+          {/* Asegúrate de que la imagen se ajuste al contenedor sin perder su aspecto */}
+          <img src={media.thumbnail_url || media.media_url} alt={media.caption || 'Foto de Instagram'} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
         </a>
       ))}
     </div>
