@@ -74,7 +74,7 @@ const BlogDetail = () => {
                     <div className="w-full md:w-4/5">
                         <div
                             dangerouslySetInnerHTML={{ __html: blog.body }}
-                            className="blog-body-content"
+                            className="blog-body-content text-slate-950"
                         ></div>
                     </div>
                 </div>
