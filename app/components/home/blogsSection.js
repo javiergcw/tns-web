@@ -31,9 +31,7 @@ const BlogsSection = ({ blogs }) => {
                                 <img src={blog.imageUrl} alt="Content" className="block w-full h-full object-cover" />
                             </div>
                             {/* Título */}
-                            <div className=" text-xl font-bold">
-                                <strong>{blog.title}</strong>
-                            </div>
+                            <p className="font-semibold mt-4 text-red-500">{blog.title}</p>
                             {/* Divider */}
                             <hr className="my-2 border-t-2 border-[#2991D6]" />
                             {/* Botón Read More */}
