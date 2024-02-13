@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import Link from 'next/link'; // Importa Link de next/link
-import '/app/globals.css'
 import ReadMoreButton from '../others/button/readMoreButton';
 
 const BlogsSection = ({ blogs }) => {
@@ -31,7 +30,7 @@ const BlogsSection = ({ blogs }) => {
                                 <img src={blog.imageUrl} alt="Content" className="block w-full h-full object-cover" />
                             </div>
                             {/* Título */}
-                            <p className="font-semibold mt-4 text-red-500">{blog.title}</p>
+                            <p className="font-black text-lg mt-4 text-slate-950">{blog.title}</p>
                             {/* Divider */}
                             <hr className="my-2 border-t-2 border-[#2991D6]" />
                             {/* Botón Read More */}
