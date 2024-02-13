@@ -31,7 +31,7 @@ const BlogsSection = ({ blogs }) => {
                                 <img src={blog.imageUrl} alt="Content" className="block w-full h-full object-cover" />
                             </div>
                             {/* Título */}
-                            <div className="text-lg mt-4">
+                            <div className=" text-xl font-bold">
                                 <strong>{blog.title}</strong>
                             </div>
                             {/* Divider */}
