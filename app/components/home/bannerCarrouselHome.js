@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Componente para la flecha siguiente personalizada
@@ -63,6 +63,8 @@ function PrevArrow(props) {
 export default function BannerCarousel({ imagePaths }) {
     const [activeSlide, setActiveSlide] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
+    const [gifKey, setGifKey] = useState(Date.now());
+
 
     const settings = {
         dots: true,
@@ -71,8 +73,15 @@ export default function BannerCarousel({ imagePaths }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 8000,
+        autoplaySpeed: 4500,
         fade: true,
+        beforeChange: (current, next) => {
+            setActiveSlide(next);
+            // Reinicia la animación del GIF al cambiar de slide
+            if (imagePaths[next].endsWith('.gif')) {
+                setGifKey(Date.now());
+            }
+        },
         cssEase: "linear",
         nextArrow: <NextArrow isHovering={isHovering} />,
         prevArrow: <PrevArrow isHovering={isHovering} />,
@@ -148,7 +157,7 @@ export default function BannerCarousel({ imagePaths }) {
             <Slider {...settings}>
                 {imagePaths.map((path, index) => (
                     <div key={index} className="h-auto overflow-hidden relative">
-                        <img src={path}
+                        <img src={`${path}?${gifKey}`}
                             style={{ width: '100%', height: 'auto', transition: 'transform 0.5s ease-out' }}
                             alt={`Banner ${index + 1}`} />
                     </div>
