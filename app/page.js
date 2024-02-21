@@ -18,10 +18,12 @@ export default function Home() {
      "/images/banner/banner2.png",
      "/images/banner/banner3.png",
      "/images/banner/banner4.png",
-     "/images/banner/banner5.png", */
+     "/images/banner/banner5.png",
+     "/images/banner/banner6.gif",
+     */
   const imagePaths = [
 
-    "/images/banner/banner6.gif",
+    
     "/images/banner/banner7.gif",
     "/images/banner/banner1.png",
     "/images/banner/banner2.png",
