@@ -22,9 +22,8 @@ export default function Home() {
      "/images/banner/banner6.gif",
      */
   const imagePaths = [
-
-    
     "/images/banner/banner7.gif",
+    "/images/banner/banner8.gif",
     "/images/banner/banner1.png",
     "/images/banner/banner2.png",
   ];
