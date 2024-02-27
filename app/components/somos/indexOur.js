@@ -20,7 +20,7 @@ export default function AsiSomos() {
     <>
       <Navbar />
       <HeaderSomos />
-      <RazonDeSeR />
+     <RazonDeSeR />
       <MisionVision />
       <Historia />
       <Valores />

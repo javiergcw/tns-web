@@ -1,41 +1,43 @@
 import '/app/globals.css';
+
 export default function MisionVision() {
     return (
-        <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 md:mt-[-200px]">
+        // Asegurando que el componente no se solape con el contenido anterior
+        <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 my-20">
             {/* Misión Section */}
-            <div className="flex flex-col md:flex-row items-center md:w-1/2 lg:ml-[162px]">
-                <div className="md:w-1/3">
+            <div className="flex-1 flex flex-col md:flex-row items-center">
+                <div className="w-full md:w-1/3 p-4">
                     <img
                         className="w-full h-auto rounded-lg"
                         src="/images/others/about2.jpg"
                         alt="Un grupo de niños aprendiendo al aire libre, reflejando la misión de la institución educativa."
                     />
                 </div>
-                <div className="md:w-2/3 text-center md:text-left md:pl-4 flex flex-col justify-center">
-                    <strong><h1 className="text-2xl text-gray-600">Misión</h1></strong>
-                    <strong><h1 className="text-xl text-gray-600 mt-2">Lo que somos</h1></strong>
+                <div className="w-full md:w-2/3 text-center md:text-left p-4">
+                    <h1 className="text-2xl text-gray-600">Misión</h1>
+                    <h2 className="text-xl text-gray-600 mt-2">Lo que somos</h2>
                     <p className="text-gray-500 mt-4">
-                        Propósito de El Nuevo Colegio Formar en consciencia por la vida y para la vida.
+                        Propósito de El Nuevo Colegio: Formar en consciencia por la vida y para la vida.
                     </p>
                 </div>
             </div>
 
             {/* Divider */}
-            <div className="my-10 md:my-0 md:flex md:flex-col md:w-0.5 bg-gray-300 self-stretch mx-10 hidden"></div>
+            <div className="w-full md:w-0.5 bg-gray-300 md:my-0 mx-auto md:self-stretch"></div>
 
             {/* Visión Section */}
-            <div className="flex flex-col md:flex-row-reverse items-center md:w-1/2 lg:mr-[162px] mt-10 md:mt-0">
-                <div className="md:w-1/3">
+            <div className="flex-1 flex flex-col md:flex-row items-center">
+                <div className="w-full md:w-1/3 p-4 md:order-2">
                     <img
                         className="w-full h-auto rounded-lg"
                         src="/images/others/about3.jpg"
                         alt="Vista de la institución educativa, simbolizando la visión hacia el futuro."
                     />
                 </div>
-                <div className="md:w-2/3 text-center md:text-right md:pr-4 flex flex-col justify-center">
-                    <strong><h1 className="text-2xl text-gray-600">Visión</h1></strong>
-                    <strong><h1 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h1></strong>
-                    <p className="mt-4">
+                <div className="w-full md:w-2/3 text-center md:text-right p-4 md:order-1">
+                    <h1 className="text-2xl text-gray-600">Visión</h1>
+                    <h2 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h2>
+                    <p className="text-gray-500 mt-4">
                         Integrar el conocimiento con el ser.
                     </p>
                 </div>
