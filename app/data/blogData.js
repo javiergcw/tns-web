@@ -1,5 +1,48 @@
 const blogList = [
     {
+        date: "February 27,2024",
+        imageUrl: '/images/blogs/blog27.jpeg',
+        title: "Explorando y Aprendiendo a través de las Expediciones Pedagógicas.",
+        body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
+        <br/>
+        <br/>
+        <center>
+        <a href="/images/blogs_body/dos.jpeg"><img class="alignleft wp-image-2121" src="/images/blogs_body/dos.jpeg" alt="tnsmun" width="600" " /></a>
+        </center>
+        <br/>
+       <p>
+       Cada año, los estudiantes tienen la oportunidad única de participar en emocionantes Expediciones Pedagógicas, diseñadas para fortalecer y vivenciar el aprendizaje en contextos reales. Estas expediciones no son solamente viajes, son extensiones del plan curricular del Programa Educativo Institucional (PEI), enriquecidas con actividades diversificadas que permiten a los estudiantes conectar con el mundo que les rodea de manera profunda, significativa y experiencial.
+       </p> 
+       <br/>
+       <p>
+       En nuestro modelo pedagógico, basado en las pedagogías activas, el aprendizaje se construye a partir de la práctica y la experiencia. Entonces, ¿Qué mejor manera de poner esto en práctica que a través de viajes diseñados específicamente para cada grado y aprendizaje curricular? Cada salida está planificada para estar alineada con los procesos del aula y adaptada al grado que cursan nuestros estudiantes. Esto significa que para The New School, las expediciones pedagógicas son extensiones curriculares que complementan y refuerzan lo que se enseña en el aula.
+       </p>
+       <br/>
+       <p>
+       Imagina a los estudiantes explorando una reserva natural mientras estudian biología, o sumergiéndose en la historia de una ciudad mientras aprenden sobre la sociedad y cultura. Estas expediciones permiten a los niños no solo observar, sino también participar activamente en la construcción de su propio conocimiento. Desde excursiones a museos, sitios históricos e internacionales, hasta proyectos de servicio comunitario, cada actividad está diseñada para maximizar las oportunidades de aprendizaje y desarrollo integral.
+       </p>
+       <br/>
+
+       <p>
+       En este sentido, una de las principales ventajas de estos viajes es su capacidad para contextualizar los conocimientos académicos. Los estudiantes no solo aprenden sobre un tema, sino que lo experimentan en su entorno natural. Esto facilita una comprensión más profunda y duradera, ya que los conceptos se vuelven tangibles y relevantes para su vida cotidiana. Además, fomentan habilidades como el trabajo en equipo, la resolución de problemas y el pensamiento crítico. Al enfrentarse a situaciones nuevas y desafiantes fuera del entorno escolar tradicional, los estudiantes desarrollan una mayor autonomía y confianza en sí mismos.
+       </p>
+       <br/>
+       <p>
+
+       Con cada paso fuera del aula, nuestros estudiantes están más cerca de convertirse en ciudadanos del mundo bien informados y comprometidos. En The New School, creemos en desarrollar nuestra formación en consciencia, en el aprender haciendo y nuestras expediciones pedagógicas son el ejemplo perfecto de esta filosofía en acción.
+       </p>
+      
+       </br>
+       <center>
+
+       <center>
+        <a href="/images/blogs_body/uno.jpeg"><img class="alignleft wp-image-2121" src="/images/blogs_body/uno.jpeg" alt="tnsmun" width="600" " /></a>
+        </center>
+
+              `,
+
+    },
+    {
         date: "January 19,2024",
         imageUrl: '/images/blogs/blog0.jpeg',
         title: "Formación por la vida y para la vida",
