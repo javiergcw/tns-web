@@ -40,6 +40,7 @@ const blogList = [
         </center>
 
               `,
+        banner: false,
 
     },
     {
@@ -65,6 +66,7 @@ const blogList = [
         </ul>   <br/>
         <p style="font-weight: 400;">Estas estrategias, entre otras, se trabajan de manera transversal y tienen un impacto positivo para nuestro colegio, tanto en el ámbito interno como externo. Por un lado, mejoran la calidad de vida, la satisfacción, el compromiso de los colaboradores, la cohesión, el clima y la cultura organizacional. Por otro lado, refuerzan la imagen, la reputación y la competitividad del colegio.</p>
         `,
+        banner: true,
 
     },
     {
@@ -90,6 +92,9 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
 <br/><br/>
 <p style="text-align: right;"><strong>Manifiesto de las competencias del Saber Ser TNS</strong></p>
 <p style="text-align: right;">“En el Nuevo Colegio encuentro sentido a lo que SOY, y lo que aprendo favorece mi autorrealización, contribuye a la expresión de mi SER en las interacciones humanas y guía mis aportes a la transformación de la sociedad, en armonía con la naturaleza”.</p>`,
+
+        banner: true,
+
     },
     {
         date: "October 4,2023",
@@ -136,6 +141,8 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         
         <br/><br/>
         `,
+        banner: true,
+
     },
     {
         date: "August 1,2023",
@@ -175,6 +182,8 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         
         <br/>
         `,
+        banner: true,
+
     },
     {
         date: "August 1,2023",
@@ -198,6 +207,8 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         <br/> <p style="text-align: justify;"><a href="https://i.imgur.com/GbIxdbI.png"><img class="size-full wp-image-2100 aligncenter" src="https://i.imgur.com/GbIxdbI.png" alt="o}" width="589" height="256" /></a></p>
         </center>
         `,
+        banner: true,
+
     },
     {
         date: "2023-04-12",
@@ -226,6 +237,8 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
 </center></p>
 
         `,
+        banner: true,
+
     },
     {
         date: "2022-03-10",
@@ -248,6 +261,8 @@ En la actualidad, el uso de las mascarillas ha afectado el proceso de aprendizaj
 <br/> 
 Página recomendada: https://cuentosparacrecer.org/
         `,
+        banner: true,
+
     },
 
 ];

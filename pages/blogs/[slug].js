@@ -48,22 +48,28 @@ const BlogDetail = () => {
                             <span className="ml-4">{blog.date}</span>
                         </div>
                         <div className="relative group w-full overflow-hidden flex justify-center items-center my-8">
-                            <img
-                                src={blog.imageUrl}
-                                alt={blog.title}
-                                className="w-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110 cursor-pointer"
-                                style={{ maxHeight: '500px' }}
-                                onClick={toggleImagePopup}
-                            />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
-                                onClick={toggleImagePopup}>
-                                {/* Ajuste para que el fondo blanco ocupe todo el espacio disponible */}
-                                <div className="bg-white bg-opacity-50 w-full h-full"></div>
-                                {/* Ajuste para centrar la lupa en todo momento */}
-                                <div className="absolute flex items-center justify-center" style={{ width: '100%', height: '100%' }}>
-                                    <span className="text-white text-3xl">🔍</span>
+                            {blog.banner ? (
+                                <img
+                                    src={blog.imageUrl}
+                                    alt={blog.title}
+                                    className="w-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110 cursor-pointer"
+                                    style={{ maxHeight: '500px' }}
+                                    onClick={toggleImagePopup}
+                                />
+                            ) : (
+                                <div className="w-full h-full" style={{ maxHeight: '500px' }}></div>
+                            )}
+                            {blog.banner && (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
+                                    onClick={toggleImagePopup}>
+                                    {/* Ajuste para que el fondo blanco ocupe todo el espacio disponible */}
+                                    <div className="bg-white bg-opacity-50 w-full h-full"></div>
+                                    {/* Ajuste para centrar la lupa en todo momento */}
+                                    <div className="absolute flex items-center justify-center" style={{ width: '100%', height: '100%' }}>
+                                        <span className="text-white text-3xl">🔍</span>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
