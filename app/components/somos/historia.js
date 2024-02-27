@@ -4,7 +4,7 @@ export default function Historia() {
     return (
         <div className="backgroundImagethree">
             <br/>
-            <div className="contenedor flex justify-center items-center md:mt-[-100px] py-8">
+            <div className="contenedor flex justify-center items-center md:mt-[-100px] py-10">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center gap-8">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h1 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h1>

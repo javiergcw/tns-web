@@ -12,7 +12,7 @@ export default function Cultura() {
 
     return (
         <div className="backgroundImagefour">
-            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-200px]">
+            <div className="contenedor flex justify-center items-center pt-4 pb-4 ">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h1 className="text-4xl font-bold text-[#444444] mb-4">Cultura New (Culture New)</h1>
@@ -36,8 +36,8 @@ export default function Cultura() {
                     </div>
                     <div className="md:w-1/2 flex justify-center">
                         <img className="md:w-[420px]"
-                             src="/images/others/pajaro.png"
-                             alt="Descripción de la imagen">
+                            src="/images/others/pajaro.png"
+                            alt="Descripción de la imagen">
                         </img>
                     </div>
                 </div>

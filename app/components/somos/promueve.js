@@ -2,7 +2,7 @@ export default function Promueve() {
     return (
         <>
             {/* Contenedor principal ajustado para responsividad */}
-            <div className="flex flex-col md:flex-row justify-center items-center min-h-screen lg:px-8 xl:px-32">
+            <div className="flex flex-col md:flex-row justify-center items-center py-8 lg:px-8 xl:px-32">
                 {/* Sección Izquierda: ajustes para el padding y margin responsive */}
                 <div className="w-full md:w-1/2 text-center md:text-left px-4 py-4 mb-4 md:mb-0">
                     <h1 className="text-3xl font-bold text-[#444444] mb-4">La Escuela Nueva promueve</h1>

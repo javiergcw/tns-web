@@ -3,10 +3,8 @@ import Image from 'next/image'
 
 export default function Valores() {
     return (
-        <div className="pt-10 pb-10 bg-white sm:pt-5 sm:pb-5 md:pt-0 md:pb-0 md:mt-[-100px] lg:mt-[-150px]">
-
-            
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-10 pb-10 bg-white sm:pt-5 sm:pb-5 md:pt-0 md:pb-0">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="text-center">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#444444] leading-tight">Valores Institucionales</h1>
                     <p className="mt-4 sm:mt-5 md:mt-6 text-base sm:text-lg md:text-xl lg:text-2xl leading-normal text-gray-500">

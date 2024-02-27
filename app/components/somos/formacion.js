@@ -1,7 +1,7 @@
 import '/app/globals.css';
 export default function Formacion() {
     return (
-            <div className="contenedor flex justify-center items-center min-h-screen md:mt-[-400px]">
+            <div className="contenedor flex justify-center items-center">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
 
                     {/* Sección de Imagen */}
