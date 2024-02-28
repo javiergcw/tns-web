@@ -14,8 +14,12 @@ export default function MisionVision() {
                     />
                 </div>
                 <div className="w-full md:w-2/3 text-center md:text-left p-4">
-                    <h1 className="text-2xl text-gray-600">Misión</h1>
-                    <h2 className="text-xl text-gray-600 mt-2">Lo que somos</h2>
+                    <strong>
+                        <h1 className="text-2xl text-gray-600">Misión</h1>
+                    </strong>
+                    <strong>
+                        <h2 className="text-xl text-gray-600 mt-2">Lo que somos</h2>
+                    </strong>
                     <p className="text-gray-500 mt-4">
                         Propósito de El Nuevo Colegio: Formar en consciencia por la vida y para la vida.
                     </p>
@@ -35,13 +39,17 @@ export default function MisionVision() {
                     />
                 </div>
                 <div className="w-full md:w-2/3 text-center md:text-right p-4 md:order-1">
-                    <h1 className="text-2xl text-gray-600">Visión</h1>
-                    <h2 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h2>
+                    <strong>
+                        <h1 className="text-2xl text-gray-600">Visión</h1>
+                    </strong>
+                    <strong>
+                        <h2 className="text-xl text-gray-600 mt-2">Lo que queremos ser</h2>
+                    </strong>
                     <p className="text-gray-500 mt-4">
                         Integrar el conocimiento con el ser.
                     </p>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

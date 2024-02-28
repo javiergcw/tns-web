@@ -20,8 +20,10 @@ export default function RazonDeSeR() {
 
                     {/* Ajustes para el texto */}
                     <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pl-8">
-                        <h1 className="text-center lg:text-left text-[#1e73be] mb-4 lg:mb-8 font-bold">Nuestra Razón de Ser</h1>
-                        <p className="text-justify">
+                        <strong>
+                            <h1 className="text-center text-[#1e73be] md:text-center mb-4 mt-4">Nuestra Razón de Ser</h1>
+                        </strong>
+                        <p className="md:text-[14px] text-justify">
                             El Nuevo Colegio – The New School es desde su fundación una institución educativa inclusiva que reconoce la diferencia, promueve nuevas formas de aprender y enseñar desde la valoración del otro con sus limitaciones y potencialidades. La Institución asume la atención a la diversidad como una oportunidad, valora los diferentes ritmos de aprendizaje y promueve un clima afectivo y emocional como condición fundamental para que los estudiantes construyan su aprendizaje, disfruten y participen plenamente de la vida escolar.
                             <br /><br />
                             La propuesta educativa de este joven colegio, nació en 1995 como una respuesta a la necesidad de formar nuevos líderes comprometidos con su país y el mundo entero, bajo el principio de ver al otro en su individualidad, para que a partir del respeto, la solidaridad, la valoración por la vida, la naturaleza y las cosas que los rodean, generen las condiciones para la consolidación de una sociedad más pacífica y solidaria.

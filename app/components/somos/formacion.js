@@ -1,14 +1,15 @@
 import '/app/globals.css';
 export default function Formacion() {
     return (
+        <div className='backgroundImagethree'>
             <div className="contenedor flex justify-center items-center">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
 
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
                         <img className="md:w-[520px]"
-                             src="/images/others/about6.jpg"
-                             alt="Descripción de la imagen">
+                            src="/images/others/about6.jpg"
+                            alt="Descripción de la imagen">
                         </img>
                     </div>
 
@@ -23,5 +24,7 @@ export default function Formacion() {
 
                 </div>
             </div>
+        </div>
+
     );
 }

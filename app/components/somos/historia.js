@@ -3,11 +3,13 @@ import '/app/globals.css';
 export default function Historia() {
     return (
         <div className="backgroundImagethree">
-            <br/>
+            <br />
             <div className="contenedor flex justify-center items-center md:mt-[-100px] py-10">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center gap-8">
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h1>
+                        <strong>
+                            <h1 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h1>
+                        </strong>
                         <p className="text-[14px]">
                             En la década de 1985 a 1995 un grupo de amigos soñaban la posibilidad de
                             crear un colegio que desarrollara en los jóvenes sentimientos de solidaridad con la ciudad,
@@ -29,8 +31,8 @@ export default function Historia() {
                     </div>
                     <div className="md:w-1/2 flex justify-center px-4">
                         <img className="w-full h-auto max-w-md mx-auto"
-                             src="/images/others/about4.jpg"
-                             alt="Descripción de la imagen">
+                            src="/images/others/about4.jpg"
+                            alt="Descripción de la imagen">
                         </img>
                     </div>
                 </div>
