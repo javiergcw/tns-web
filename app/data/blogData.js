@@ -1,12 +1,42 @@
 const blogList = [
     {
+        date: "March 22,2024",
+        imageUrl: '/images/blogs/blog8.jpg',
+        title: "The New School: Educación Bilingüe de calidad.",
+        body: `
+        <p>Desde su fundación, The New School ha centrado su interés y compromiso con la formación en consciencia y la promoción del bilingüismo en sus estudiantes. En 2010, nuestro colegio alcanzó un hito significativo, al ser certificado como colegio bilingüe por el Ministerio de Educación de Colombia, gracias al deseo constante de ofrecer calidad educativa y facilitar herramientas competitivas para nuestros niños y jóvenes. Esta certificación reconoció el compromiso de The New School con la enseñanza bilingüe y otorgó a nuestros egresados la valiosa certificación en su segunda lengua, inglés, con el objetivo de fortalecer su perfil académico y profesional en un mundo cada vez más globalizado.</p>
+       <br/>
+       <p>Desde entonces, hemos mantenido nuestro compromiso con el fortalecimiento lingüístico, manteniendo una inmersión curricular en la segunda lengua que comienza desde los primeros años de edad</p>
+       <br/>
+       <center>
+        <a href="/images/blogs/blog7.jpg"><img class="alignleft wp-image-2121" src="/images/blogs/blog7.jpg" alt="tnsmun" width="600" "/></a>
+        </center>
+        <br/>
+        <h4><strong>Intensidad horaria en inglés.</strong></h4>
+        <br/>
+<p>En nuestro colegio, la inmersión en inglés varía según las etapas de desarrollo en las cuales se encuentren los niños y jóvenes, iniciando desde párvulos y prejardín, de 2 y 3 años, con una inmersión de 5 a 8 horas semanales en inglés. Para aquellos estudiantes que se encuentran iniciando su proceso de lectoescritura, en Jardín y Transición, nuestro currículo incluye una inmersión de 9 horas semanales de español y 20 horas en inglés, correspondientes a un 30% español y 70% inglés. De 1° a 5° grado  de primaria, conservamos el porcentaje de un 30% español y un 70% inglés. Mientras que para la básica secundaria y con el fin de fortalecer redacción, gramática y ortografía de Lengua Castellana, aumentamos a un 40% la lengua materna, equilibramos a un 55% el inglés e incorporamos un tercer idioma (francés o italiano) equivalente a un 5%.  Finalmente, para estudiantes de Décimo y Once, se incrementa el inglés a un 60%, se disminuye a un 35% el español y se conserva en un 5% el tercer idioma solo hasta el grado 10°, con el fin de profundizar en la preparación de la prueba internacional de inglés, la cual presentan antes de graduarse.</p>
+<br/>
+<p>Desde hace ocho años, The New School ha ofrecido la oportunidad de aprender un tercer idioma, por lo cual se incorporó el francés para estudiantes de bachillerato. Dos años más tarde, agregamos como alternativa de tercer idioma el italiano dando la opción de que ellos mismos elijan entre ambas alternativas la tercera lengua, ampliando así las oportunidades de nuestros estudiantes para adquirir habilidades lingüísticas en otras lenguas, al ser nuestra propuesta educativa multicultural y diversa.</p>
+<br/>
+<p>Nuestra búsqueda constante de la innovación educativa se refleja en la selección de las pruebas de certificación. En 2007 comenzamos aplicando la prueba Michigan, posteriormente Melicet, dos años después la prueba TOEIC y desde el año 2018, establecimos un convenio con Cambridge para la aplicación de la prueba internacional FCE (First Certificate in English). Este acuerdo, en colaboración con el Instituto Richmond, garantiza a nuestros estudiantes una certificación internacional del manejo de su idioma inglés y facilita un mejor acceso a la educación superior.</p>
+<br/>
+<p>Recientemente, hemos recibido el aval de Cambridge como un colegio con las condiciones estructurales, el equipo y el personal calificado para preparar y aplicar pruebas FCE y en nuestras instalaciones. Además, hemos invertido en aulas especializadas para la enseñanza de la segunda lengua y la preparación para la prueba, asegurando un ambiente propicio para el aprendizaje de nuestros estudiantes.</p>
+<br/>
+<p>Asimismo, nos enorgullece anunciar que nuestros docentes, han sido certificados para capacitar a estudiantes internos y externos en la aplicación de la prueba, asegurando que todos los estudiantes tengan acceso a la preparación necesaria para alcanzar sus metas académicas y profesionales.</p>            
+<br/>
+<p>En The New School, brindamos una educación de vanguardia y estamos comprometidos con proporcionar una educación bilingüe de calidad que permita  a nuestros estudiantes desenvolverse en un mundo cada vez más diverso y competitivo.</p>
+`,
+        banner: true,
+
+    },
+    {
         date: "February 27,2024",
         imageUrl: '/images/blogs/blog27.jpeg',
         title: "Explorando y Aprendiendo a través de las Expediciones Pedagógicas.",
         body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
         <br/>
         <br/>
-        <center>
+        <center> <br/>
         <a href="/images/blogs_body/dos.jpeg"><img class="alignleft wp-image-2121" src="/images/blogs_body/dos.jpeg" alt="tnsmun" width="600" " /></a>
         </center>
         <br/>
