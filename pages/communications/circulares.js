@@ -6,6 +6,7 @@ import Navbar from '@/app/components/home/navbar'
 import FooterTwo from '@/app/components/home/footer/footerTwo'
 import HeaderInitial from '@/app/components/others/headerInitial'
 import Circulares from '@/app/components/others/circularesComponent'
+import CircularList from '@/app/components/others/circularesComponent2024'
 
 const circulares = () => {
     const enlaces = [
@@ -65,7 +66,7 @@ const circulares = () => {
         <>
             <Navbar />
             <HeaderInitial />
-            <Circulares enlaces={enlaces} />
+            <CircularList/>
             <FooterTwo />
             <Footer />
         </>)
