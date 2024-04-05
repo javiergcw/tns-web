@@ -18,7 +18,7 @@ const ServicesStandart = async () => {
                     title="Proyecto educativo"
                     text="Conoce nuestro proyecto educativo"
                     imageUrl="/images/icons/rocket.png"
-                    href="https://294347513a062ec6e0b6-8f8f94440e741fa4111c4d620d6f574f.ssl.cf5.rackcdn.com/global/TNS_PE_2021V2.pdf"
+                    href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharingf"
                 />
                 <ContainerService
                     title="Reglamento interno de trabajo"
