@@ -18,13 +18,13 @@ const ServicesStandart = async () => {
                     title="Proyecto educativo"
                     text="Conoce nuestro proyecto educativo"
                     imageUrl="/images/icons/rocket.png"
-                    href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharingf"
+                    href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
                 />
                 <ContainerService
                     title="Reglamento interno de trabajo"
                     text="Reglamento interno de trabajo"
                     imageUrl="/images/icons/rules.png"
-                    href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharing"
                 />
                 <ContainerService
                     title="Resolución de costos educativos"
