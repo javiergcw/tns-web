@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Suponemos que 'data' contiene toda la información de tus circulares.
 const data = [
+    { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
     { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
     { name: 'Circular N3 Servicio social', link: 'https://drive.google.com/file/d/1S0xqXbWqfyk5ySVANx3CBtgmTqlsyYmH/view?usp=sharing' },
     { name: 'Circular N4 Encuentro deportivo', link: 'https://drive.google.com/file/d/1OtDBe61fKlNCoHlYYH1BlV3X6qC-GPXg/view?usp=sharing' },
@@ -13,6 +14,7 @@ const data = [
     { name: 'Circular N9 Salida pedagógica Fiesta del Libro', link: 'https://drive.google.com/file/d/1KmgtMTWPr3fleZT9ziJOxMTxQ4gABir1/view?usp=sharing' },
     { name: 'Circular N10 Salidas pedagógicas', link: 'https://drive.google.com/file/d/1Ay_EXp_LOn0paKh8kMVeeUt0GXijc7AK/view?usp=sharing' },
     { name: 'Circular N11 Día virtual', link: 'https://drive.google.com/file/d/1Ay_EXp_LOn0paKh8kMVeeUt0GXijc7AK/view?usp=sharing' },
+    { name: 'Circular N13 Habitos de alimentación saludable', link: 'https://drive.google.com/file/d/13Vk65Vy-gWUqHHXZQz28CWVxBO3KLBSg/view?usp=sharing' },
     { name: 'Circular N14 Cancelación Expedición Pedagógica', link: 'https://drive.google.com/file/d/15egLLTn10f9WorvAFHKxaw7dA3MErq0W/view?usp=sharing' },
     { name: 'Circular N15 Escuela de padres primero y segundo', link: 'https://drive.google.com/file/d/160TKLNaDJvOKBkTjWkNHiNTAD_zW_5Sa/view?usp=sharing' },
     { name: 'Circular N16 Encuentro deportivo Vermont', link: 'https://drive.google.com/file/d/1bz0zfK4ETyaWyEaEpnhkVhhAMAZo35sN/view?usp=sharing' },
