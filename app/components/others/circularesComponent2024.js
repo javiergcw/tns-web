@@ -126,7 +126,7 @@ const CircularList = () => {
                     Limpiar filtros
                 </button>
             </div>
-            <div className="flex flex-col items-center justify-center p-10 w-full transition-opacity duration-500 ease-in-out">
+            <div className="flex flex-col items-center justify-center  w-full transition-opacity duration-500 ease-in-out">
                 {filteredData.map((circular, index) => (
                     <a
                         key={index}
