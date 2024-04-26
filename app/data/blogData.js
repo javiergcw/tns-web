@@ -1,5 +1,41 @@
 const blogList = [
     {
+        date: "April 26,2024",
+        imageUrl: '/images/blogs/portada9.jpg',
+        title: "Multilingual Music Festival\nA space to celebrate linguistic diversity at The New School.",
+        body: `
+        <p>At The New School, we proudly celebrate diversity in all its forms. Our annual Multilingual Music Festival is one of the most vibrant manifestations of this diversity. This event has grown and evolved and is more than just a display of musical talent. It celebrates the linguistic and cultural richness that defines our educational community.</p>
+        </br>
+        <p>The Multilingual Music Festival is a wonderful opportunity for our students to explore and celebrate the variety of languages spoken in our school environment through music, dance, and body expression as another language of the soul. What began as an English-focused event has blossomed into a collective learning space incorporating various languages, from French and Italian to Spanish. This linguistic diversity not only reflects the multicultural composition of our school and pedagogical proposal but also contributes to and enriches innovatively the educational experience of our students by offering them the opportunity to immerse themselves in different languages and cultures of the world.</p>
+        </br>
+        <p style="text-align: justify;">
+        
+        <center>
+        <a href="https://i.imgur.com/vVX1oAV.jpeg"><img class="wp-image-1940 alignright" src="https://i.imgur.com/vVX1oAV.jpeg" alt="image 2" width="3000" height="351" /></a>
+        </center>
+        </p>
+        </br>
+        <p>One of the most exciting features of the Multilingual Music Festival is the participation of our students in the creation and execution of the staging with their choreographic presentation and the choice of their costumes. From song selection to dancing, students can express themselves and share their talents in a way that goes beyond words. For many, this event is a celebration of their cultural and linguistic identity, as well as an opportunity to learn and appreciate the traditions of others, in addition to generating spaces of fun and recreation with their friends and teachers while learning the rhythm and vibration of different sounds. </p>
+        </br>
+        <p>It is worth highlighting the majestic work that our music teacher and his band students contribute for a staging of such magnitude. Children prepare the scores of a considerable number of songs as part of their formative process and which makes this an event a complete and synchronous 180-degree school project of formative transversality through their classes English, Spanish, French, Italian, arts, projects, among others. </p>
+        </br>
+        <p>In that sense, in addition to promoting linguistic diversity, the Multilingual Music Festival at The New School also fosters a sense of community and collaboration among our students, teachers, and families; as they work together to prepare and present the event, participants develop teamwork skills and learn to value each individual's unique contributions.</p>
+        </br>
+        <p>The Festival actively involves our students, teachers, and even administrative staff, is also a source of pride and gives a sense of belonging for our educational community. </p>
+        </br>
+        <p>From enthusiastic attendance at the presentations to emotional support in preparing the event, families play an essential role in the success and vitality of the festival. Their presence and participation strengthen the bonds between school and home and enrich the festival experience by providing a warm and welcoming atmosphere where everyone feels valued and excited. </p>
+        </br>
+        <p>This year, under the theme "Harmony of Words," we will begin an exciting journey where linguistic borders blur and languages intertwine in a melodic dance. Each song and each dance will express the beauty of diversity that we can find in music.</p>
+        <center> 
+        <p>
+        Come with us!
+        </p>
+        </center>
+        `,
+        banner: true,
+
+    },
+    {
         date: "March 22,2024",
         imageUrl: '/images/blogs/blog8.jpg',
         title: "The New School: Educación Bilingüe de calidad.",
