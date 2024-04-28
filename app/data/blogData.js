@@ -2,7 +2,7 @@ const blogList = [
     {
         date: "April 26,2024",
         imageUrl: '/images/blogs/portada9.jpg',
-        title: "Multilingual Music Festival\nA space to celebrate linguistic diversity at The New School.",
+        title: "Multilingual Music Festival A space to celebrate linguistic diversity at The New School",
         body: `
         <p>At The New School, we proudly celebrate diversity in all its forms. Our annual Multilingual Music Festival is one of the most vibrant manifestations of this diversity. This event has grown and evolved and is more than just a display of musical talent. It celebrates the linguistic and cultural richness that defines our educational community.</p>
         </br>
@@ -38,7 +38,7 @@ const blogList = [
     {
         date: "March 22,2024",
         imageUrl: '/images/blogs/blog8.jpg',
-        title: "The New School: Educación Bilingüe de calidad.",
+        title: "The New School: Educación Bilingüe de calidad",
         body: `
         <p>Desde su fundación, The New School ha centrado su interés y compromiso con la formación en consciencia y la promoción del bilingüismo en sus estudiantes. En 2010, nuestro colegio alcanzó un hito significativo, al ser certificado como colegio bilingüe por el Ministerio de Educación de Colombia, gracias al deseo constante de ofrecer calidad educativa y facilitar herramientas competitivas para nuestros niños y jóvenes. Esta certificación reconoció el compromiso de The New School con la enseñanza bilingüe y otorgó a nuestros egresados la valiosa certificación en su segunda lengua, inglés, con el objetivo de fortalecer su perfil académico y profesional en un mundo cada vez más globalizado.</p>
        <br/>
@@ -68,7 +68,7 @@ const blogList = [
     {
         date: "February 27,2024",
         imageUrl: '/images/blogs/blog27.jpeg',
-        title: "Explorando y Aprendiendo a través de las Expediciones Pedagógicas.",
+        title: "Explorando y Aprendiendo a través de las Expediciones Pedagógicas",
         body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
         <br/>
         <br/>
