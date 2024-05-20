@@ -5,7 +5,7 @@ export default function Bilingue() {
         <div className="backgroundImagefaith mt-4">
             <div className="contenedor flex justify-center items-center  py-8">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-start">
-
+˝
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h1 className="text-3xl font-bold text-[#444444] mb-4">Methodology and didactics for sailors</h1>
@@ -20,10 +20,11 @@ export default function Bilingue() {
                             src="/images/about_us/our_proposal/photo9.jpg"
                             alt="Descripción de la imagen">
                         </img>
-                    </div>
-
+                    </div>˝
                 </div>
             </div>
+            <br />
+            <br />
         </div>
     );
 }

@@ -5,17 +5,24 @@ import EducationalModel from "@/app/components/educational/educationalModel";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
 import Footer from "@/app/components/home/footer/footer";
 import HeaderSomos from "@/app/components/home/headersomos";
+import Filosofia from "../somos/filosofia";
+import Formacion from "../somos/formacion";
+import Bilingue from "../somos/bilingue";
+import ResponsiveImageGallery from "../somos/responsive_image_gallery";
+import Members from "../somos/members";
+import TheNewAwareness from "../somos/the_new_awareness";
+import Cultura from "../somos/cultura";
 
 
 
 export default function IndexEducational() {
     return (
         <>
-           <Navbar />
+            <Navbar />
             <HeaderSomos />
-           <EducationalModel />
-           <FooterTwo/>
-           <Footer/>
+            <Cultura />
+            <FooterTwo />
+            <Footer />
         </>
     );
 }

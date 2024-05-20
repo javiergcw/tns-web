@@ -11,7 +11,7 @@ export default function Cultura() {
     };
 
     return (
-        <div className="backgroundImagefour">
+        <div className="backgroundImagefour py-14">
             <div className="contenedor flex justify-center items-center pt-4 pb-4 ">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
@@ -44,7 +44,10 @@ export default function Cultura() {
                         </img>
                     </div>
                 </div>
+
             </div>
+            <br />
+            <br />
         </div>
     );
 }

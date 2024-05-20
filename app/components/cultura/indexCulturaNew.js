@@ -3,8 +3,10 @@
 import Navbar from "@/app/components/home/navbar";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
 import Footer from "@/app/components/home/footer/footer";
-import CulturaNewModel from "@/app/components/cultura/culturaNewModel";
 import HeaderSomos from "@/app/components/home/headersomos";
+import Filosofia from "../somos/filosofia";
+import Formacion from "../somos/formacion";
+import Bilingue from "../somos/bilingue";
 
 
 
@@ -13,7 +15,9 @@ export default function IndexCulturaNew() {
         <div className='contenedor_principal'>
             <Navbar />
             <HeaderSomos />
-            <CulturaNewModel />
+            <Filosofia />
+            <Formacion />
+            <Bilingue />
             <FooterTwo />
             <Footer />
         </div>

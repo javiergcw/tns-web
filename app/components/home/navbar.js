@@ -107,10 +107,10 @@ const Navbar = () => {
                         New</Link>
                     </li>
                     <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                      <Link href="#" className="px-2 py-1 block text-gray-700">Campus</Link>
+                      <Link href="/about_us/campus" className="px-2 py-1 block text-gray-700">Campus</Link>
                     </li>
                     <li style={dropdownItemStyle} className="w-full hover:bg-gray-100">
-                      <Link href="#" className="px-2 py-1 block text-gray-700">The New
+                      <Link href="/about_us/the_new_awareness" className="px-2 py-1 block text-gray-700">The New
                         Awareness</Link>
                     </li>
                   </ul>
