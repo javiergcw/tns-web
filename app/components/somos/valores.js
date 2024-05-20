@@ -36,22 +36,22 @@ export default function Valores() {
         {
             titulo: "",
             descripcion: "Promote personal growth, social commitment, and essential care for our planet.",
-            imagen: "/images/others/responsabilidad.png"
+            imagen: "/images/others/autonomia.png"
         },
         {
             titulo: "",
             descripcion: "Value school mediation as a conciliatory principle in the face of differences in the relationship with others.",
-            imagen: "/images/others/honestidad.png"
+            imagen: "/images/others/solidaridad.png"
         },
         {
             titulo: "",
             descripcion: "Develop a comprehensive transdisciplinary curriculum.",
-            imagen: "/images/others/empatia.png"
+            imagen: "/images/others/compromiso.png"
         },
         {
             titulo: "",
             descripcion: "Value the support of the family in each dimension of the formation of children.",
-            imagen: "/images/others/perseverancia.png"
+            imagen: "/images/others/respeto.png"
         }
     ];
 
