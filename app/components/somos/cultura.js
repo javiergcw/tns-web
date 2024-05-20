@@ -15,28 +15,31 @@ export default function Cultura() {
             <div className="contenedor flex justify-center items-center pt-4 pb-4 ">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-4xl font-bold text-[#444444] mb-4">Cultura New (Culture New)</h1>
+                        <h1 className="text-4xl font-bold text-[#444444] mb-4">Pedagogical model: the essence of our navigation</h1>
                         <p className="text-gray-500 text-[13px]">
-                            La Cultura New es la relación sistémica entre los integrantes del colegio The New School acorde con su modelo de Formación en Conciencia y la interiorización de comportamientos, lenguajes, actitudes y protocolos, fundamentados en los valores de respeto, solidaridad, compromiso, equidad, autonomía y creatividad y el desarrollo de competencias de liderazgo, trabajo en equipo, comunicación, emprendimiento, bilingüismo, sentido de pertenencia, arte, deporte y ecología, con el objetivo de formar ciudadanos integrales, competentes y emprendedores.
-                        </p>
+                            Our “Consciousness-based education” model, inspired by active learning pedagogies, offers a journey of discovery of BEING intertwined with DOING; paring on which we anchor knowledge and the countless significant experiences that touch the fields of learning.                        </p>
+                        <br />
+                        <p className="text-gray-500 text-[13px]"> In a continuous and exciting adventure, students at The New School acquire knowledge in a transversal way, following different research strategies, work methods, project-based learning, the method of scientific thinking, and all those resources that facilitate learning and discovery, while they shape their training seeking to become the architects of tomorrow.</p>
+
                         <div className="mt-4">
                             <button onClick={toggleOpen} className="text-gray-600 text-sm focus:outline-none">
                                 Leer más
                             </button>
                             {isOpen && (
                                 <div className="text-[13px] mt-2">
-                                    <p>Para lograr apropiación y aceptación de las normas de comportamiento de los estudiantes, padres y empleados, nació la Cultura New con la representación gráfica de una mascota llamada Motus como elemento de comunicación que simboliza y sensibiliza, permitiendo la interiorización de los preceptos de la Cultura New.</p>
-                                    <p>Motus fue el nombre asignado al diseño caricaturesco del ave Momotus Momota, también conocido con Barranquero, y el cual habita las zonas boscosas que rodean nuestro colegio y cuyos colores verde y azul, coinciden con la imagen visual institucional.</p>
-                                    <p>The Cultura New is the systemic relationship between the members of the Institution The New School according to its Awareness Training Model and the knowledge of behaviors, languages, attitudes and protocols based on values of respect, solidarity, commitment, equity, autonomy and creativity and the competences development of leadership, teamwork, communication, Business Entrepreneurship, bilingualism, sense of belonging, art, sport and ecology, with the aim of educating integral, competent and entrepreneur citizens.</p>
-                                    <p>To achieve the appropriation and acceptance of behavior rules of students, parents and staff was born The Cultura New with a Pet graphic representation named MOTUS as a communication element that symbolizes and sensitizes, allowing the interiorization of The Cultura New precepts.</p>
-                                    <p>MOTUS was the name given to the cartoonish design of the bird Momotus Momota, also known as Barranquero and which inhabits wooded areas that surround our school and whose colors green and blue match with our corporate visual image.</p>
+                                    <p>Education in Consciousness means that our students are capable of reflecting on themselves, on the world around them, the meaning of their existence, and the why and what for in life itself of each theory acquired. They can recognize their strengths, their weaknesses, their dreams and aspirations, their values and principles. In this recognition, their personal development and human interrelationships are forged; They surely become beings who can make responsible and ethical decisions, based on respect, equity, and solidarity, given that our educational proposal is not limited to transmitting knowledge, but seeks to educate people in awareness for life and to life.</p>
+                                    <br />
+                                    <p>Training in autonomy and love means that we want them to be able to feel and express their emotions, to establish healthy and lasting emotional bonds, to take care of themselves and others. People who can appreciate the beauty and diversity of life, nature, and culture. People who get to live with joy, gratitude, and generosity.</p>
+                                    <br />
+                                    <p>Training for life means that we want our children and teenagers to be able to act with creativity, autonomy, and commitment, with the ability to face challenges with optimism and resilience, to take advantage of opportunities with enthusiasm and passion; adults able to carry out their personal and professional projects, according to their talents and interests. People who can contribute with a critical and transformative vision.</p>
+                                    <br />
                                 </div>
                             )}
                         </div>
                     </div>
-                    <div className="md:w-1/2 flex justify-center">
-                        <img className="md:w-[420px]"
-                            src="/images/others/pajaro.png"
+                    <div className="md:w-1/2 flex justify-center ">
+                        <img className="md:w-[420px] rounded-lg object-cover shadow-lg"
+                            src="/images/about_us/our_proposal/photo6.jpg"
                             alt="Descripción de la imagen">
                         </img>
                     </div>

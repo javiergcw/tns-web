@@ -2,30 +2,26 @@ import '/app/globals.css';
 
 export default function Bilingue() {
     return (
-        <div className="backgroundImagefaith">
+        <div className="backgroundImagefaith mt-4">
             <div className="contenedor flex justify-center items-center  py-8">
-                <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
+                <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-start">
 
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-3xl font-bold text-[#444444] mb-4">Propuesta Bilingüe</h1>
-                        <h1 className="text-2xl font-bold text-[#444444] mb-4">Por qué apostamos a una propuesta bilingüe</h1>
+                        <h1 className="text-3xl font-bold text-[#444444] mb-4">Methodology and didactics for sailors</h1>
                         <p className="text-[13px]">
-                            Hoy más que nunca resulta imprescindible aprender inglés. Es indiscutible: el inglés se ha convertido en el idioma global de comunicación por excelencia. Es indispensable cuando viajamos, ya sea por turismo o negocios.
-                            <br></br>
-                            En estos casos, es necesario hablar inglés para ir de compras, aprender inglés para poder tomar un tren sin perderse o para pedir la cuenta en un restaurante donde hablan solamente inglés. Además, la mayoría de las páginas de Internet, prensa mundial e información científica se encuentran en idioma inglés.
-                            <br></br>
-                            Nuestra institución le apunta al idioma inglés como una de las herramientas que le damos al estudiante para alcanzar sus metas en la vida y para incursionar en el multilingüismo, este año la básica secundaria cuenta con clases de francés.
+                            Our curricular approach focused on BEING, DOING, and KNOWING, facilitates the development of generic, specific intercultural and bilingual competencies, which surely enrich holistic education, where subjects are intertwined with thematic lines of different visions, facilitating transversality and enriching the students' training process based on practice.
                         </p>
                     </div>
 
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
-                        <img className="md:w-[520px]"
-                             src="/images/others/about7.jpg"
-                             alt="Descripción de la imagen">
+                        <img className="md:w-[520px] h-[300px] rounded-lg object-cover shadow-lg"
+                            src="/images/about_us/our_proposal/photo9.jpg"
+                            alt="Descripción de la imagen">
                         </img>
                     </div>
+
                 </div>
             </div>
         </div>

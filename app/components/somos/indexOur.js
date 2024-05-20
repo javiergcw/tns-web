@@ -13,6 +13,9 @@ import Navbar from "@/app/components/home/navbar";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
 import Footer from "@/app/components/home/footer/footer";
 import HeaderSomos from "@/app/components/home/headersomos";
+import ResponsiveImageGallery from './responsive_image_gallery';
+import Members from './members';
+import TheNewAwareness from './the_new_awareness';
 
 
 export default function AsiSomos() {
@@ -27,8 +30,10 @@ export default function AsiSomos() {
       <Cultura />
       <Filosofia />
       <Formacion />
-      <Promueve />
       <Bilingue />
+      <ResponsiveImageGallery />
+      <Members />
+      <TheNewAwareness />
       <FooterTwo />
       <Footer />
     </>
