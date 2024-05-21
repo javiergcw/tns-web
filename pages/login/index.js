@@ -4,6 +4,14 @@ import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
 import "/app/globals.css";
 
+/**
+ * Login Page
+ * 
+ * Esta página de inicio de sesión está dividida en dos secciones: una imagen corporativa a la izquierda y un formulario de inicio de sesión a la derecha.
+ * Utiliza componentes reutilizables como `TextInput`, `NormalButton` y `Text` para la estructura y el diseño.
+ * 
+ * @component
+ */
 export default function Login() {
   return (
     <>
@@ -16,19 +24,22 @@ export default function Login() {
             className="w-screen h-screen"
           />
         </div>
-        {/* Segundo Div - formulario */}
+        {/* Sección derecha - Formulario de inicio de sesión */}
         <div className="w-2/3 flex justify-center items-center bg-slate-100">
           <form
             className="w-1/2 m-8 p-10 bg-white shadow-md"
             action="#"
             method="POST"
           >
+            {/* Título del formulario */}
             <Text texto="LOGIN" color="blue" type="title" />
+            {/* Subtítulo del formulario */}
             <Text
               texto="Enter your email and password to login"
               color="grey"
               type="subtitle"
             />
+            {/* Campo de entrada para la dirección de correo electrónico */}
             <Text texto="Email address" color="black" type="normal" />
             <TextInput
               labelText=""
@@ -36,6 +47,7 @@ export default function Login() {
               inputSize="large"
               inputType="email"
             />
+            {/* Campo de entrada para la contraseña */}
             <Text
               texto="Password"
               color="black"
@@ -48,12 +60,14 @@ export default function Login() {
               inputSize="large"
               inputType="password"
             />
+            {/* Enlace para recuperar la contraseña */}
             <Text
               texto="Forgot your password?"
               color="blue"
               type="normal"
               className="mt-5"
             />
+            {/* Botón de envío del formulario */}
             <NormalButton text="Login" color="blue" size="large" />
           </form>
         </div>

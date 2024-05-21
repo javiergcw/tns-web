@@ -1,5 +1,15 @@
 import React from "react";
-
+/**
+ * TextInput Component
+ * 
+ * Este componente genera un input de texto con un label personalizable.
+ * 
+ * @param {string} labelText - El texto que se mostrará en el label del input.
+ * @param {string} labelColor - El color del texto del label ("blue", "green", "grey").
+ * @param {string} inputSize - El tamaño del input ("small", "medium", "large").
+ * @param {string} inputType - El tipo del input ("text", "email", "password").
+ * 
+ **/
 const TextInput = ({
   labelText = "Label",
   labelColor = "blue",
