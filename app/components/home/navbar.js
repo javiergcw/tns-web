@@ -6,6 +6,7 @@ import TopHeader from './header/topHeader';
 
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Asegúrate de tener 'react-icons' instalado
+import LanguageToggle from '../others/button/languageToggle';
 
 const Navbar = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -61,6 +62,7 @@ const Navbar = () => {
         <div className="transition-all duration-500 ease-in-out">
           <div className="p-4 container mx-auto flex items-center justify-between">
             {/* Logo */}
+      
             <a href="/" className="flex items-center">
               <img src="/images/logo-new-school.png" alt="Logo The New School" style={{ marginRight: '0.5rem', height: '3rem' }} />
             </a>
@@ -132,7 +134,9 @@ const Navbar = () => {
               <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1" className="text-[#2991D6] py-1" target="_blank">INSPIRING PARENTS TNS</a>
 
             </div>
+            <LanguageToggle/>
           </div>
+          
         </div>
       )}
 

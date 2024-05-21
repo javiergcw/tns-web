@@ -1,6 +1,10 @@
 import '/app/globals.css';
+import { useLanguage } from "@/app/context/language_context";
+
 
 export default function RazonDeSeR() {
+    const { isEnglish, toggleLanguage } = useLanguage();
+
     return (
         <div className="backgroundImage flex justify-center items-center px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl w-full space-y-8  p-8 rounded-lg">
@@ -21,7 +25,9 @@ export default function RazonDeSeR() {
                     <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pl-8">
                         <h1 className="text-center text-[#1e73be] text-2xl lg:text-3xl font-bold mb-4 mt-4">THE NEW SCHOOL</h1>
                         <p className="text-gray-700 md:text-[16px] lg:text-lg text-justify leading-relaxed">
-                            We are an educational proposal focused on consciousness under a humanistic–scientific approach. We visualize our pedagogy as a journey, as travelers in the world's scientific complexity, towards the infinite success opportunities for future generations and contributing to the planet's well-being.
+                            {isEnglish
+                                ? 'We are an educational proposal focused on consciousness under a humanistic–scientific approach. We visualize our pedagogy as a journey, as travelers in the world\'s scientific complexity, towards the infinite success opportunities for future generations and contributing to the planet\'s well-being.'
+                                : 'Asimilamos nuestra pedagogía a un viaje como navegantes en la complejidad científica del mundo, frente a la infinidad de oportunidades de éxito para las futuras generaciones y para el aporte al bienestar del planeta'}
                         </p>
                     </div>
                 </div>
