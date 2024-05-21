@@ -1,6 +1,10 @@
 import '/app/globals.css';
+import { useLanguage } from "@/app/context/language_context";
+
 
 export default function MisionVision() {
+    const { isEnglish, toggleLanguage } = useLanguage();
+
     return (
         // Asegurando que el componente no se solape con el contenido anterior
         <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 my-20">
@@ -16,13 +20,17 @@ export default function MisionVision() {
                 </div>
                 <div className="w-full md:w-2/3 text-center md:text-left p-4">
                     <strong>
-                        <h1 className="text-2xl text-gray-600">MISSION – PURPOSE</h1>
+                        <h1 className="text-2xl text-gray-600">
+                            {isEnglish ? 'MISIÓN – PROPÓSITO'
+                                : 'MISSION – PURPOSE'}</h1>
                     </strong>
                     <strong>
-                        <h2 className="text-xl text-gray-600 mt-2">WHO WE ARE</h2>
+                        <h2 className="text-xl text-gray-600 mt-2">
+                            {isEnglish ? 'WHO WE ARE' : 'QUE SOMOS'}
+                        </h2>
                     </strong>
                     <p className="text-gray-500 mt-4">
-                        Guide in awareness to life and for life.
+                        {isEnglish ? 'Guide in awareness to life and for life.' : 'Formar en consciencia por la vida y para la vida.'}
                     </p>
                 </div>
             </div>
@@ -42,13 +50,20 @@ export default function MisionVision() {
                 </div>
                 <div className="w-full md:w-2/3 text-center md:text-right p-4 md:order-1">
                     <strong>
-                        <h1 className="text-2xl text-gray-600">VISION</h1>
+                        <h1 className="text-2xl text-gray-600">
+                            {
+                                isEnglish ? "VISIÓN" : "VISION"
+                            }
+                        </h1>
                     </strong>
                     <strong>
-                        <h2 className="text-xl text-gray-600 mt-2"> WE WANT TO BE</h2>
+                        <h2 className="text-xl text-gray-600 mt-2">
+                            {isEnglish ? "WE WANT TO BE" : "QUEREMOS SER"}
+                        </h2>
                     </strong>
                     <p className="text-gray-500 mt-4">
-                        Integrar el conocimiento con el ser.
+                        {isEnglish ? "Integrate knowledge with being." : "Integrar el conocimiento con el ser."}
+                        
                     </p>
                 </div>
             </div>

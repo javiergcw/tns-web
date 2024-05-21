@@ -12,17 +12,21 @@ import ResponsiveImageGallery from "../somos/responsive_image_gallery";
 import Members from "../somos/members";
 import TheNewAwareness from "../somos/the_new_awareness";
 import Cultura from "../somos/cultura";
+import { LanguageProvider } from "@/app/context/language_context";
 
 
 
 export default function IndexEducational() {
     return (
         <>
-            <Navbar />
-            <HeaderSomos />
-            <Cultura />
-            <FooterTwo />
-            <Footer />
+            <LanguageProvider>
+                <Navbar />
+                <HeaderSomos />
+                <Cultura />
+                <FooterTwo />
+                <Footer />
+            </LanguageProvider>
+
         </>
     );
 }

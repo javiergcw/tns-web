@@ -7,19 +7,23 @@ import HeaderSomos from "@/app/components/home/headersomos";
 import Filosofia from "../somos/filosofia";
 import Formacion from "../somos/formacion";
 import Bilingue from "../somos/bilingue";
+import { LanguageProvider } from "@/app/context/language_context";
 
 
 
 export default function IndexCulturaNew() {
     return (
         <div className='contenedor_principal'>
-            <Navbar />
-            <HeaderSomos />
-            <Filosofia />
-            <Formacion />
-            <Bilingue />
-            <FooterTwo />
-            <Footer />
+            <LanguageProvider>
+                <Navbar />
+                <HeaderSomos />
+                <Filosofia />
+                <Formacion />
+                <Bilingue />
+                <FooterTwo />
+                <Footer />
+            </LanguageProvider>
+
         </div>
     );
 }
