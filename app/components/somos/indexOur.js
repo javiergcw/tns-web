@@ -13,17 +13,15 @@ import { LanguageProvider } from '@/app/context/language_context';
 
 export default function AsiSomos() {
   return (
-    <>
-      <LanguageProvider>
-        <Navbar />
-        <HeaderSomos />
-        <RazonDeSeR />
-        <MisionVision />
-        <Historia />
-        <Valores />
-        <FooterTwo />
-        <Footer />
-      </LanguageProvider>
-    </>
+    <LanguageProvider>
+      <Navbar />
+      <HeaderSomos />
+      <RazonDeSeR />
+      <MisionVision />
+      <Historia />
+      <Valores />
+      <FooterTwo />
+      <Footer />
+    </LanguageProvider>
   );
 }

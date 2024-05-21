@@ -6,6 +6,7 @@ import HeaderInitial from '@/app/components/others/headerInitial';
 import CircularesComponent from '@/app/components/others/circularesComponent';
 import FooterTwo from '@/app/components/home/footer/footerTwo';
 import Footer from '@/app/components/home/footer/footer';
+import { LanguageProvider } from '@/app/context/language_context';
 
 
 const Beam = () => {
@@ -35,13 +36,15 @@ const Beam = () => {
 
 
     return (
-        <>
+        <LanguageProvider>
             <Navbar />
             <HeaderInitial />
             <CircularesComponent enlaces={enlaces} />
             <FooterTwo />
             <Footer />
-        </>
+        </LanguageProvider>
+           
+        
     )
 }
 
