@@ -10,10 +10,10 @@ const BlogsSection = ({ blogs }) => {
     };
     return (
         <div className="text-center mb-20 w-screen h-auto bg-white  pt-8">
-            <p class="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-400 uppercase tracking-wide bounce">
+            <p className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-400 uppercase tracking-wide bounce">
                 BE UP TO DATE WITH
             </p>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl text-[#2991D6] mb-5 sm:mb-8 md:mb-10 bounce">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl text-[#2991D6] mb-5 sm:mb-8 md:mb-10 bounce">
                 <strong>OUR ACTIVITIES</strong>
             </h1>
 

@@ -9,7 +9,7 @@ import TheNewAwareness from "@/app/components/somos/the_new_awareness";
 
 const Campus = () => {
     return (
-        <div className="contenedor_principal">
+        <div className="contenedor_principal s">
             <Navbar />
             <ResponsiveImageGallery />
             <Members />
