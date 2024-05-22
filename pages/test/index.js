@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import "/app/globals.css";
 import Drawer from "@/app/components/others/drawer/drawer";
 

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
