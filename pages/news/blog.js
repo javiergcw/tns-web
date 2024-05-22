@@ -7,12 +7,14 @@ import FooterTwo from '@/app/components/home/footer/footerTwo'
 import HeaderInitial from '@/app/components/others/headerInitial'
 import CardNew from '@/app/components/news/cardNew'
 import blogList from '@/app/data/blogData'
+import { Provider } from 'react-redux';
+import store from '../../app/store/store'
+
 
 const blog = () => {
 
-
     return (
-        <>
+        <Provider store={store}>
             <Navbar />
             <HeaderInitial />
             <br />
@@ -26,7 +28,7 @@ const blog = () => {
             <br />
             <FooterTwo />
             <Footer />
-        </>
+        </Provider>
     )
 }
 
