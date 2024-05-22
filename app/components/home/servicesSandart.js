@@ -1,20 +1,15 @@
 
-'use clien'
+'use client'
 import React from 'react';
 import SocialMedia from './socialMedia';
 import ResponsiveTriangles from './triangle';
 
 // Componente ServicesStandart
 const ServicesStandart = async () => {
-    const mediaData = await getStaticProps(); // Esto es un ejemplo, reemplázalo con tu lógica real
-
-    // Ejemplo de uso de ContainerService
+    const mediaData = await getStaticProps();
     return (
         <>
-            {/* Imagen Centralizada */}
-        {/*     <ResponsiveTriangles /> */}
 
-            {/* Contenedor Principal */}
             <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004F9F] px-4 py-8">
                 <ContainerService
                     title="Proyecto educativo"
@@ -46,7 +41,7 @@ const ServicesStandart = async () => {
                     imageUrl="/images/icons/people.png"
                     href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
                 />
-                <SocialMedia  />
+                <SocialMedia />
 
             </div>
         </>

@@ -50,12 +50,12 @@ export default function Home() {
     <main className="">
       <Provider store={store}>
         <Navbar />
-        {/* <BannerCarousel imagePaths={imagePaths} /> */}
+        <BannerCarousel imagePaths={imagePaths} />
         <ServicesHome images={servicesList} />
         <BlogsSection blogs={blogList} />
         <CalendarScheduleHome />
-        {/* <ServicesStandart /> */}
-        <FooterTwo />
+{/*         <ServicesStandart />
+ */}        <FooterTwo />
         <Footer />
       </Provider>
     </main>
