@@ -1,10 +1,20 @@
 import '/app/globals.css';
-import { useLanguage } from "@/app/context/language_context";
+import { useState } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/app/store/actions';
 
 
 export default function RazonDeSeR() {
-    const { isEnglish, toggleLanguage } = useLanguage();
+    const isEnglish = useSelector((state) => state.isEnglish);
+    const dispatch = useDispatch();
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = (e) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+    };
     return (
         <div className="backgroundImage flex justify-center items-center px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl w-full space-y-8  p-8 rounded-lg">

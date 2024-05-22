@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import '/app/globals.css';
-import { useLanguage } from '@/app/context/language_context';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/app/store/actions';
 
 const values = [
     {
@@ -31,8 +33,15 @@ const values = [
 
 export default function Filosofia() {
 
-    const { isEnglish, toggleLanguage } = useLanguage();
+    const isEnglish = useSelector((state) => state.isEnglish);
+    const dispatch = useDispatch();
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = (e) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+    };
 
     return (
         <div className="backgroundImagethree">

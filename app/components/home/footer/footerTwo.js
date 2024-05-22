@@ -1,4 +1,3 @@
-'use client'
 import '/app/globals.css'
 export default function FooterTwo() {
     return (
@@ -23,7 +22,7 @@ export default function FooterTwo() {
                         height="200"
                         frameBorder="0"
                         style={{ border: 0 }}
-                        allowFullScreen=""
+                      
                     ></iframe>
                 </div>
 

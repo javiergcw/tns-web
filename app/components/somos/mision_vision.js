@@ -1,10 +1,19 @@
 import '/app/globals.css';
-import { useLanguage } from "@/app/context/language_context";
+import { useState } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/app/store/actions';
 
 export default function MisionVision() {
-    const { isEnglish, toggleLanguage } = useLanguage();
+    const isEnglish = useSelector((state) => state.isEnglish);
+    const dispatch = useDispatch();
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = (e) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+    };
     return (
         // Asegurando que el componente no se solape con el contenido anterior
         <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 my-20">

@@ -1,5 +1,4 @@
 // pages/_document.js
-'use client'
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
@@ -10,6 +9,7 @@ class MyDocument extends Document {
                 <Head>
                     {/* Otros elementos del Head */}
                 </Head>
+                
                 <body>
                 <div id="fb-root"></div>
                 <script dangerouslySetInnerHTML={{

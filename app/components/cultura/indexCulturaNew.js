@@ -1,4 +1,4 @@
-'use client';
+
 
 import Navbar from "@/app/components/home/navbar";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
@@ -7,14 +7,15 @@ import HeaderSomos from "@/app/components/home/headersomos";
 import Filosofia from "../somos/filosofia";
 import Formacion from "../somos/formacion";
 import Bilingue from "../somos/bilingue";
-import { LanguageProvider } from "@/app/context/language_context";
+import { Provider } from "react-redux";
+import store from '../../../app/store/store';
 
 
 
 export default function IndexCulturaNew() {
     return (
-        <div className='contenedor_principal'>
-            <LanguageProvider>
+        <Provider store={store}>
+            <div className='contenedor_principal'>
                 <Navbar />
                 <HeaderSomos />
                 <Filosofia />
@@ -22,8 +23,7 @@ export default function IndexCulturaNew() {
                 <Bilingue />
                 <FooterTwo />
                 <Footer />
-            </LanguageProvider>
-
-        </div>
+            </div>
+        </Provider>
     );
 }

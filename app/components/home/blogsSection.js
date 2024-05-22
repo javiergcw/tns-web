@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import Link from 'next/link'; // Importa Link de next/link
 import ReadMoreButton from '../others/button/readMoreButton';

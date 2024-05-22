@@ -1,4 +1,3 @@
-'use client'
 import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 

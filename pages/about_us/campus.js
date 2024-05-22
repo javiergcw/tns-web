@@ -5,20 +5,21 @@ import FooterTwo from "@/app/components/home/footer/footerTwo";
 import Navbar from "@/app/components/home/navbar";
 import Members from "@/app/components/somos/members";
 import ResponsiveImageGallery from "@/app/components/somos/responsive_image_gallery";
-import TheNewAwareness from "@/app/components/somos/the_new_awareness";
-import { LanguageProvider } from "@/app/context/language_context";
+import { Provider } from "react-redux";
+import store from '../../app/store/store';
 
 const Campus = () => {
     return (
-        <div className="contenedor_principal s">
-            <LanguageProvider>
-                <Navbar />
-                <ResponsiveImageGallery />
-                <Members />
-                <FooterTwo />
-                <Footer />
-            </LanguageProvider>
+        <Provider store={store}>
+            <div className="contenedor_principal">
+            <Navbar />
+            <ResponsiveImageGallery />
+            <Members />
+            <FooterTwo />
+            <Footer />
         </div>
+        </Provider>
+        
     )
 }
 

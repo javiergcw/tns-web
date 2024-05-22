@@ -1,10 +1,19 @@
 import '/app/globals.css';
-import { useLanguage } from "@/app/context/language_context";
+import { useState } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/app/store/actions';
 
 export default function Historia() {
+    const isEnglish = useSelector((state) => state.isEnglish);
+    const dispatch = useDispatch();
 
-    const { isEnglish, toggleLanguage } = useLanguage();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = (e) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+    };
 
     return (
         <div className="backgroundImagethree">

@@ -1,4 +1,3 @@
-'use client';
 
 import RazonDeSeR from './razon_ser'
 import MisionVision from './mision_vision'
@@ -8,12 +7,14 @@ import Navbar from "@/app/components/home/navbar";
 import FooterTwo from "@/app/components/home/footer/footerTwo";
 import Footer from "@/app/components/home/footer/footer";
 import HeaderSomos from "@/app/components/home/headersomos";
-import { LanguageProvider } from '@/app/context/language_context';
+import { Provider } from 'react-redux';
+import store from '../../../app/store/store';
 
 
 export default function AsiSomos() {
   return (
-    <LanguageProvider>
+
+    <Provider store={store}>
       <Navbar />
       <HeaderSomos />
       <RazonDeSeR />
@@ -22,6 +23,9 @@ export default function AsiSomos() {
       <Valores />
       <FooterTwo />
       <Footer />
-    </LanguageProvider>
+    </Provider>
+
+
+
   );
 }

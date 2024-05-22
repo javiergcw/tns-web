@@ -1,4 +1,4 @@
-
+'use client'
 
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
@@ -10,17 +10,14 @@ import FooterTwo from "./components/home/footer/footerTwo";
 import ServicesStandart from "./components/home/servicesSandart";
 import blogList from "./data/blogData";
 import '/app/globals.css'
+import { Provider } from 'react-redux';
+import store from '../app/store/store'
+import { useEffect } from 'react';
+
 
 
 export default function Home() {
 
-  /*  
-     "/images/banner/banner2.png",
-     "/images/banner/banner3.png",
-     "/images/banner/banner4.png",
-     "/images/banner/banner5.png",
-     "/images/banner/banner6.gif",
-     */
   const imagePaths = [
     "/images/banner/banner7.gif",
     "/images/banner/banner8.gif",
@@ -35,22 +32,34 @@ export default function Home() {
     { href: 'services/beam', src: '/images/services/beam.png', alt: 'Beam' },
   ];
 
-
+  useEffect(() => {
+    // Sincronizar el estado con localStorage cuando la aplicación se monte en el cliente
+    if (typeof window !== 'undefined') {
+      const savedIsEnglish = JSON.parse(localStorage.getItem('isEnglish'));
+      if (savedIsEnglish !== null) {
+        const currentState = store.getState().isEnglish;
+        if (currentState !== savedIsEnglish) {
+          store.dispatch({ type: TOGGLE_LANGUAGE });
+        }
+      }
+    }
+  }, []);
 
 
   return (
 
     <main className="">
+      <Provider store={store}>
+        <Navbar />
+        <BannerCarousel imagePaths={imagePaths} />
+        <ServicesHome images={servicesList} />
+        <BlogsSection blogs={blogList} />
+        <CalendarScheduleHome />
+        <ServicesStandart />
+        <FooterTwo />
+        <Footer />
+      </Provider>
 
-      <Navbar />
-      <BannerCarousel imagePaths={imagePaths} />
-      <ServicesHome images={servicesList} />
-      <BlogsSection blogs={blogList} />
-      <CalendarScheduleHome />
-      <ServicesStandart />
-      
-      <FooterTwo />
-      <Footer />
 
 
     </main>

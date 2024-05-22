@@ -1,3 +1,5 @@
+
+'use clien'
 import React from 'react';
 import SocialMedia from './socialMedia';
 import ResponsiveTriangles from './triangle';
@@ -10,7 +12,7 @@ const ServicesStandart = async () => {
     return (
         <>
             {/* Imagen Centralizada */}
-            <ResponsiveTriangles />
+        {/*     <ResponsiveTriangles /> */}
 
             {/* Contenedor Principal */}
             <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004F9F] px-4 py-8">

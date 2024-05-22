@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import '/app/globals.css';
-import { useLanguage } from '@/app/context/language_context';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleLanguage } from '@/app/store/actions';
 
 export default function Cultura() {
-    const { isEnglish, toggleLanguage } = useLanguage();
+    const isEnglish = useSelector((state) => state.isEnglish);
+    const dispatch = useDispatch();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +37,8 @@ export default function Cultura() {
                             {isOpen && (
                                 <div className="text-[13px] mt-2">
                                     <p>
-                                        {!isEnglish ? "Formar en Conciencia significa que nuestros estudiantes son capaces de reflexionar sobre sí mismos, sobre el mundo que los rodea y sobre el sentido de su existencia y del por qué y para qué en la vida misma de cada conocimiento adquirido. Ellos pueden reconocer sus fortalezas, sus debilidades, sus sueños y aspiraciones, sus valores y principios. En ese reconocimiento se forja su desarrollo personal y sus interrelaciones humanas; con seguridad se constituyen en seres que pueden tomar decisiones responsables y éticas, basadas en el respeto, la equidad y la solidaridad, dado que nuestra propuesta educativa no se limita a transmitir conocimientos, sino que busca formar en conciencia por la vida y para la vida." : "Education in Consciousness means that our students are capable of reflecting on themselves, on the world around them, the meaning of their existence, and the why and what for in life itself of each theory acquired. They can recognize their strengths, their weaknesses, their dreams and aspirations, their values and principles. In this recognition, their personal development and human interrelationships are forged; They surely become beings who can make responsible and ethical decisions, based on respect, equity, and solidarity, given that our educational proposal is not limited to transmitting knowledge, but seeks to educate people in awareness for life and to life"}.</p>
+                                        {!isEnglish ? "Formar en Conciencia significa que nuestros estudiantes son capaces de reflexionar sobre sí mismos, sobre el mundo que los rodea y sobre el sentido de su existencia y del por qué y para qué en la vida misma de cada conocimiento adquirido. Ellos pueden reconocer sus fortalezas, sus debilidades, sus sueños y aspiraciones, sus valores y principios. En ese reconocimiento se forja su desarrollo personal y sus interrelaciones humanas; con seguridad se constituyen en seres que pueden tomar decisiones responsables y éticas, basadas en el respeto, la equidad y la solidaridad, dado que nuestra propuesta educativa no se limita a transmitir conocimientos, sino que busca formar en conciencia por la vida y para la vida." : "Education in Consciousness means that our students are capable of reflecting on themselves, on the world around them, the meaning of their existence, and the why and what for in life itself of each theory acquired. They can recognize their strengths, their weaknesses, their dreams and aspirations, their values and principles. In this recognition, their personal development and human interrelationships are forged; They surely become beings who can make responsible and ethical decisions, based on respect, equity, and solidarity, given that our educational proposal is not limited to transmitting knowledge, but seeks to educate people in awareness for life and to life"}.
+                                    </p>
                                     <br />
                                     <p>
                                         {!isEnglish ? "Formar en la autonomía y en el amor significa que queremos que ellos sean capaces de sentir y expresar sus emociones, de establecer vínculos afectivos sanos y duraderos, de cuidar de sí mismos y de los demás. Que pueden apreciar la belleza y la diversidad de la vida, de la naturaleza y de la cultura. Que pueden vivir con alegría, gratitud y generosidad." : "Training in autonomy and love means that we want them to be able to feel and express their emotions, to establish healthy and lasting emotional bonds, to take care of themselves and others. People who can appreciate the beauty and diversity of life, nature, and culture. People who get to live with joy, gratitude, and generosity."}
@@ -57,7 +59,6 @@ export default function Cultura() {
                         </img>
                     </div>
                 </div>
-
             </div>
             <br />
             <br />
