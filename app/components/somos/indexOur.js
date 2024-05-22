@@ -13,7 +13,6 @@ import store from '../../../app/store/store';
 
 export default function AsiSomos() {
   return (
-
     <Provider store={store}>
       <Navbar />
       <HeaderSomos />
@@ -24,8 +23,5 @@ export default function AsiSomos() {
       <FooterTwo />
       <Footer />
     </Provider>
-
-
-
   );
 }

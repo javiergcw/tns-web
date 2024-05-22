@@ -7,6 +7,10 @@ export default function LanguageToggle() {
 
   return (
     <div className="flex items-center">
+      <p className='mx-2'>
+        {isEnglish ? "Translate" : "Traducir:"}
+
+      </p>
       <div
         onClick={() => dispatch(toggleLanguage())}
         className={`w-14 h-7 flex items-center rounded-full p-1 cursor-pointer ${isEnglish ? 'bg-gray-300' : 'bg-gray-300'}`}

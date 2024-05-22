@@ -47,7 +47,6 @@ export default function Home() {
 
 
   return (
-
     <main className="">
       <Provider store={store}>
         <Navbar />
@@ -59,11 +58,6 @@ export default function Home() {
         <FooterTwo />
         <Footer />
       </Provider>
-
-
-
     </main>
-
-
   )
 }
