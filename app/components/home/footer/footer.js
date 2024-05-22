@@ -8,7 +8,7 @@ export default function Footer() {
 
     return (
         <footer className="w-full flex justify-between items-center h-24 bg-[#96c11f] text-white px-10">
-            <div>© 2024 The New School. All Rights Reserved V.4</div>
+            <div>© 2024 The New School. All Rights Reserved V.4.1</div>
             <div className="flex items-center">
                 <a href="https://www.facebook.com/thenewschool95/" className="mx-2 cursor-pointer transform hover:scale-110 transition duration-300">
                     <FaFacebookF className="mr-1" />
