@@ -71,7 +71,7 @@ const ContainerService = ({ title, text, imageUrl, href }) => {
 };
 
 export const getStaticProps = async () => {
-    const accessToken = 'IGQWROTFQtbFVjZAFBOdXRMM0hySlRac2pSSTRlV3VLV3ZAmZA3VYYjRUT0hxQUhLMTdxRl9ZAMERIVFdNeXVwWlc2U1lFZAmJDaTMwYWJtOHBYUW9kNlpHYU9kbDc4UUEwTHBlSnNOTHFDdUFtOTZAFRXdPWmJLemRWY28ZD'; // Asegúrate de usar tu propio Access Token
+    const accessToken = 'IGQWRObTNoVlRWbzZAqaFRCYUNsMkl0eURiRGNiWFdNeEx5Y2ZAiZA2d1eldWVHhxTkxRMTdTNkQ4SVhObkozRVk1SGJZAanBZAV1hrSWxzZAUx2R2UxU05IT3lXTVlISWtIWHRXcWhrNzBUWUYtNjNWbzNTZA2FmcUYxYlkZD'; // Asegúrate de usar tu propio Access Token
 
     const apiURL = `https://graph.instagram.com/me/media?fields=thumbnail_url,media_url,caption,permalink&limit=80&access_token=${accessToken}`;
 
