@@ -6,7 +6,7 @@ const PhotoGallery = () => {
 
   useEffect(() => {
     const fetchMediaData = async () => {
-      const accessToken = 'IGQWRPdWZAJeGEwMFR0dHEyNWlsREotSDR0akEwRDdOSG16bVFpeGdaUkwwang3MnpFbHM4TmlkQUJUaFgtY3pxc0dINllVTTdwOTBGNEtseVNvZAjFENFpONHZAWS2VfQ1Y1b3dlV2tvbTl4WFY5YktmaU5ZAZAW1oM2MZD';
+      const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
       const apiURL = `https://graph.instagram.com/me/media?fields=thumbnail_url,media_url,caption,permalink&limit=80&access_token=${accessToken}`;
 
       let attempts = 0;
