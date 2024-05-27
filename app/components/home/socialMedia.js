@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
-import PhotoGallery from './instagram/photoGallery';
-import InstagramPage from './instagram/instagrampage';
+
 
 
 // SocialMedia ajustado para responsividad
