@@ -3,7 +3,7 @@ const FormInscription = () => {
         <div className="px-4 md:px-8 lg:px-16 mb-8 mt-8">
             {/* Contenido para dispositivos móviles */}
             <div className="block md:hidden text-center">
-                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=GxPUyoHSe0KuXPduWcGPzWxbX51u9cdNlldIgWpMxGJUQVpMNjhDUzNLVzdZUDQ1TTFCUFoyRjNRVy4u&embed=true" target="_blank" rel="noopener noreferrer">
+                <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=GxPUyoHSe0KuXPduWcGPzWxbX51u9cdNlldIgWpMxGJUQVpMNjhDUzNLVzdZUDQ1TTFCUFoyRjNRVy4u&embed=true" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">
                     Escanea el siguiente código QR o haz clic aquí
                 </a>
                 <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=GxPUyoHSe0KuXPduWcGPzWxbX51u9cdNlldIgWpMxGJUQVpMNjhDUzNLVzdZUDQ1TTFCUFoyRjNRVy4u&embed=true" target="_blank" rel="noopener noreferrer">
