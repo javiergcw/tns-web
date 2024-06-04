@@ -1,41 +1,35 @@
-import { useState } from 'react';
+import axios from 'axios';
+import cheerio from 'cheerio';
 
-const Home = () => {
-    const [username, setUsername] = useState('thenewschool95');
-    const [posts, setPosts] = useState([]);
+export default async function handler(req, res) {
+    const { username } = req.query;
 
-    const fetchInstagramFeed = async () => {
-        try {
-            const res = await fetch(`/api/instagram?username=${username}`);
-            const data = await res.json();
-            setPosts(data.posts || []);
-        } catch (error) {
-            console.error('Error fetching Instagram feed:', error);
-        }
-    };
+    if (!username) {
+        return res.status(400).json({ error: 'Username is required' });
+    }
 
-    return (
-        <div>
-            <h1>Instagram Feed Viewer</h1>
-            <input
-                type="text"
-                placeholder="Enter Instagram username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <button onClick={fetchInstagramFeed}>Fetch Feed</button>
-            <div>
-                {posts.map((post) => (
-                    <div key={post.id}>
-                        <a href={post.url} target="_blank" rel="noopener noreferrer">
-                            <img src={post.thumbnail} alt={post.caption} />
-                        </a>
-                        <p>{post.caption}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+    try {
+        const response = await axios.get(`https://www.instagram.com/${username}/`);
+        const html = response.data;
+        const $ = cheerio.load(html);
 
-export default Home;
+        let posts = [];
+
+        $('article a').each((index, element) => {
+            const url = $(element).attr('href');
+            const imgElement = $(element).find('img');
+            const thumbnail = imgElement.attr('src');
+            const caption = imgElement.attr('alt');
+            posts.push({
+                url: `https://www.instagram.com${url}`,
+                thumbnail,
+                caption
+            });
+        });
+
+        res.status(200).json({ posts });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
+}
