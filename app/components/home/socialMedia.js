@@ -11,7 +11,8 @@ const SocialMedia = () => {
       <div className="flex justify-center items-center m-2  w-full sm:w-1/2 md:w-1/3">
         <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
         <div class="elfsight-app-d5520348-e399-4369-ab6c-3f6f65ac894b" data-elfsight-app-lazy>
-        </div> </div >
+        </div>
+         </div >
       <div className="flex justify-center items-center m-2  w-full sm:w-1/2 md:w-1/3">
         <iframe
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fthenewschool95%2F&tabs=timeline&width=340&height=1200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"

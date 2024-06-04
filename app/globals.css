@@ -53,7 +53,7 @@ body {
 }
 
 .slick-dots li.slick-active button:before {
-  color: var(--blueprimary);
+  color: var(--bluePrimary);
   /* Color azul cuando está activo */
 }
 

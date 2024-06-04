@@ -11,6 +11,7 @@ import blogList from "./data/blogData";
 import '/app/globals.css'
 import { Provider } from 'react-redux';
 import store from '../app/store/store'
+import InfoCard from "./components/others/container/infoCard";
 
 
 
@@ -43,6 +44,7 @@ export default function Home() {
         <ServicesStandart />
         <FooterTwo />
         <Footer />
+
       </Provider>
     </main>
   )
