@@ -55,7 +55,7 @@ const ArticleCard = ({ article }) => {
         <div className="mb-2 text-sm text-gray-500">
           {new Date(article.date).toLocaleDateString()}
         </div>
-        <h2 className="text-lg font-semibold mb-2">
+        <h2 className="text-lg font-semibold mb-2 text-black">
           {article.title}
         </h2>
         <div className="text-sm font-medium text-gray-700">
@@ -140,9 +140,9 @@ const NewsList = () => {
           <select
             value={category}
             onChange={handleCategoryChange}
-            className="border p-2 rounded-lg md:w-full w-2/5"
+            className="border p-2 rounded-lg md:w-full w-2/5 text-black"
           >
-            <option value="" disabled hidden>Categoría</option>
+            <option value=" " className='text-black' disabled hidden>Categoría</option>
             {uniqueCategories.map((cat, index) => (
               <option key={index} value={cat}>{cat}</option>
             ))}
@@ -150,15 +150,15 @@ const NewsList = () => {
           <select
             value={sortOrder}
             onChange={handleSortOrderChange}
-            className="border p-2 rounded-lg md:w-full w-2/5"
+            className="border p-2 rounded-lg md:w-full w-2/5 text-black"
           >
-            <option value="" disabled hidden>Ordenar por fecha</option>
+            <option value="" className='text-black'  disabled hidden>Ordenar por fecha</option>
             <option value="newest">Más reciente</option>
             <option value="oldest">Más antigua</option>
           </select>
           <button
             onClick={clearFilters}
-            className="border p-2 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+            className="border p-2 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-black"
           >
             <FaTrash />
           </button>
