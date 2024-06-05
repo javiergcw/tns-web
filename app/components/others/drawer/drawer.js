@@ -13,7 +13,6 @@ import Text from '@/app/components/others/text/text';
  * Drawer Component
  *
  * Este componente genera un menú lateral desplegable con 5 ítems.
- * Es un componente donde el administrador puede ver las últimas peticiones que hacen los jefes de área.
  *
  * @param {boolean} isOpen - Estado de si el drawer está abierto.
  * @param {function} onToggle - Función para alternar el estado del drawer.
