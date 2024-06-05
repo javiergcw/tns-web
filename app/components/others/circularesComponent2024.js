@@ -53,9 +53,11 @@ const data = [
     { name: 'Circular N49 Reuniones informativas expediciones pedagógicas', link: 'https://drive.google.com/file/d/1CS7qLaW7kjlz3PWV2ghhFXUYWd2klUut/view?usp=sharing' },
     { name: 'Circular N50 Día virtual', link: 'https://drive.google.com/file/d/1uBn6E4pS02_ID1tRRz8jAK4Amu2-j2z0/view?usp=sharing' },
     { name: 'Circular N51 Expediciones pedagógicas - Quinto', link: 'https://drive.google.com/file/d/166Y87-ZHAJChMYjoPCVFx6aKpcosq9HL/view?usp=sharing' },
-    { name: 'Circular N52 Ceremonia de graduación once', link: 'https://drive.google.com/file/d/1SLNoHDAzzR8yqxR6V_YIiT5XQxuBY53L/view?usp=sharing' },
+    { name: 'Circular N52 Ceremonia de graduación once', link: 'https://drive.google.com/file/d/1S66VXmoT_t2dXvmK60062EQtwyEdLNCc/view?usp=sharing ' },
     { name: 'Circular N53 Salida pedagógica Décimo', link: 'https://drive.google.com/file/d/1r8dBp18FiwPhaUq94J8LqLWTV-vaR2I1/view?usp=sharing' },
-
+    { name: 'Circular N54 Multilingual Music Festival 2024', link: ' https://drive.google.com/file/d/1tthAxjp3G9dDjn168jG05OwphoEfX0WP/view?usp=sharing' },
+    { name: 'Circular N55 Informes Parciales Segundo Periodo Academico', link: 'https://drive.google.com/file/d/1uOlxJQpAvLRl3pAYicBw2qBgEASyU4nO/view?usp=sharing' },
+    { name: 'Circular N56 Novedades Multilingual Music Festival', link: 'https://drive.google.com/file/d/1OZMyj2ExbZksoRARhDfKgiOn5-NSTxGM/view?usp=sharing ' },
 ];
 
 
