@@ -3,7 +3,7 @@ import InfoCard from '@/app/components/others/container/infoCard'
 import React from 'react'
 import Table from "@/app/components/others/table/table";
 import PeticionCard from "@/app/components/others/container/petitionCard";
-import AnualChart from "@/app/components/others/container/circularDiagram";
+import AnualChart from "@/app/components/others/graph/circularDiagram";
 
 const data = [
     { title: "Sistemas:<br /> compra computador xpt", amount: 1000000 },
