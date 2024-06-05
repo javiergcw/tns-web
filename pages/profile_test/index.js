@@ -6,6 +6,7 @@ import StatusBuy from "@/app/components/others/graph/statusCircularDiagram";
 import FilterBar from "@/app/components/others/container/filterBar";
 import Table from "@/app/components/others/table/table";
 import { useState } from 'react';
+import ProfileImage from "@/app/components/others/container/profileImage";
 
 const items = [
     {
@@ -40,17 +41,18 @@ const Profile = () => {
 
     const columns = ["ITEM", "LÍDER DE ÁREA", "ESTADO", "FECHA PETICIÓN", "FECHA APROBADO", "FECHA FINALIZACIÓN"];
     const data = filteredItems.map(item => [
-      item.item,
-      item.liderDeArea,
-      item.estado,
-      item.fechaPeticion,
-      item.fechaAprobado,
-      item.fechaFinalizacion
+        item.item,
+        item.liderDeArea,
+        item.estado,
+        item.fechaPeticion,
+        item.fechaAprobado,
+        item.fechaFinalizacion
     ]);
     return (
         <>
             <div className="min-h-screen  justify-center bg-gray-100">
-                <ProfileForm />
+                <ProfileImage/>
+                <ProfileForm/>
                 <br></br>
                 <BarChart />
                 <StatusBuy />
