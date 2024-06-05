@@ -15,7 +15,11 @@ module.exports = {
         // Añade más tamaños según lo necesites
       },
       colors: {
-        blueprimary: '#007bff', // Reemplaza esto con el color azul que prefieras
+        bluePrimary: '#007bff', // Reemplaza esto con el color azul que prefieras
+        greenPrimary: '#96C11F',
+        grayPrimary: '#9F9F9F',
+        bgPrimary: '#F0F1F5',
+        blueSecundary:'#004F9F'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

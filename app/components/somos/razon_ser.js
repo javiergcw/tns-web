@@ -1,6 +1,5 @@
 import '/app/globals.css';
 import { useState } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 

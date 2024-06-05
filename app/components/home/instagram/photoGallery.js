@@ -5,20 +5,39 @@ const PhotoGallery = () => {
   const [mediaData, setMediaData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const accessToken = 'IGQWROTFQtbFVjZAFBOdXRMM0hySlRac2pSSTRlV3VLV3ZAmZA3VYYjRUT0hxQUhLMTdxRl9ZAMERIVFdNeXVwWlc2U1lFZAmJDaTMwYWJtOHBYUW9kNlpHYU9kbDc4UUEwTHBlSnNOTHFDdUFtOTZAFRXdPWmJLemRWY28ZD';
+    const fetchMediaData = async () => {
+      const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
       const apiURL = `https://graph.instagram.com/me/media?fields=thumbnail_url,media_url,caption,permalink&limit=80&access_token=${accessToken}`;
 
-      try {
-        const res = await fetch(apiURL);
-        const { data } = await res.json();
-        setMediaData(data.slice(0, 9)); // Solo guarda las primeras 9 imágenes
-      } catch (error) {
-        console.error("Error al obtener datos de Instagram:", error);
+      let attempts = 0;
+      let data = [];
+      let error;
+
+      while (attempts < 3) {
+        try {
+          const res = await fetch(apiURL);
+          const result = await res.json();
+          if (result && result.data) {
+            data = result.data;
+            break;
+          } else {
+            throw new Error('Datos de Instagram no válidos');
+          }
+        } catch (err) {
+          error = err;
+          attempts += 1;
+        }
+      }
+
+      if (attempts === 3 && !data.length) {
+        console.error("Error al obtener datos de Instagram después de 3 intentos:", error);
+        setError("Error al obtener datos de Instagram. Por favor, inténtelo de nuevo más tarde.");
+      } else {
+        setMediaData(data.slice(0, 9));
       }
     };
 
-    fetchData();
+    fetchMediaData();
   }, []);
 
   if (!mediaData || mediaData.length === 0) {

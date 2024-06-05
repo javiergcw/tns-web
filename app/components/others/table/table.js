@@ -11,14 +11,17 @@ import React from "react";
 
 const Table = ({ columns = [], data = [] }) => {
   return (
-    <div className="overflow-x-auto">
+    <div className="h-80 overflow-auto">
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr>
             {columns.map((column, index) => (
-              <th
+
+
+
+              < th
                 key={index}
-                className="py-2 px-4 border-b border-gray-300 bg-gray-100 text-black"
+                className="py-2 px-4 border border-gray-400 bg-blueSecundary text-white"
               >
                 {column}
               </th>
@@ -40,7 +43,7 @@ const Table = ({ columns = [], data = [] }) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </div >
   );
 };
 

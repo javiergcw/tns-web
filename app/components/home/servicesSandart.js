@@ -1,60 +1,49 @@
-
-'use clien'
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import SocialMedia from './socialMedia';
 import ResponsiveTriangles from './triangle';
 
 // Componente ServicesStandart
-const ServicesStandart = async () => {
-    const mediaData = await getStaticProps(); // Esto es un ejemplo, reemplázalo con tu lógica real
+const ServicesStandart = () => {
 
-    // Ejemplo de uso de ContainerService
     return (
-        <>
-            {/* Imagen Centralizada */}
-        {/*     <ResponsiveTriangles /> */}
-
-            {/* Contenedor Principal */}
-            <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004F9F] px-4 py-8">
-                <ContainerService
-                    title="Proyecto educativo"
-                    text="Conoce nuestro proyecto educativo"
-                    imageUrl="/images/icons/rocket.png"
-                    href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
-                />
-                <ContainerService
-                    title="Reglamento interno de trabajo"
-                    text="Reglamento interno de trabajo"
-                    imageUrl="/images/icons/rules.png"
-                    href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharing"
-                />
-                <ContainerService
-                    title="Resolución de costos educativos"
-                    text="Vigente para los años 2023-2024"
-                    imageUrl="/images/icons/money.png"
-                    href="https://drive.google.com/file/d/1x4rd2v13zeFQpqFuZ8KQrENql8ZwOcha/view?usp=sharing"
-                />
-                <ContainerService
-                    title="Utiles escolares"
-                    text="Vigente para los años 2023-2024"
-                    imageUrl="/images/icons/backpack.png"
-                    href="https://drive.google.com/file/d/1JFjtz1yTzPYQroivwRt67tH5x_PQZD1m/view"
-                />
-                <ContainerService
-                    title="Manual de convivencia"
-                    text="Lee nuestro manual de convivencia"
-                    imageUrl="/images/icons/people.png"
-                    href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
-                />
-                <SocialMedia  />
-
-            </div>
-        </>
+        <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004F9F] px-4 py-8">
+            <ContainerService
+                title="Proyecto educativo"
+                text="Conoce nuestro proyecto educativo"
+                imageUrl="/images/icons/rocket.png"
+                href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
+            />
+            <ContainerService
+                title="Reglamento interno de trabajo"
+                text="Reglamento interno de trabajo"
+                imageUrl="/images/icons/rules.png"
+                href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharing"
+            />
+            <ContainerService
+                title="Resolución de costos educativos"
+                text="Vigente para los años 2023-2024"
+                imageUrl="/images/icons/money.png"
+                href="https://drive.google.com/file/d/1x4rd2v13zeFQpqFuZ8KQrENql8ZwOcha/view?usp=sharing"
+            />
+            <ContainerService
+                title="Utiles escolares"
+                text="Vigente para los años 2023-2024"
+                imageUrl="/images/icons/backpack.png"
+                href="https://drive.google.com/file/d/1JFjtz1yTzPYQroivwRt67tH5x_PQZD1m/view"
+            />
+            <ContainerService
+                title="Manual de convivencia"
+                text="Lee nuestro manual de convivencia"
+                imageUrl="/images/icons/people.png"
+                href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
+            />
+            <SocialMedia />
+        </div>
     );
 };
 
 export default ServicesStandart;
-
 
 const ContainerService = ({ title, text, imageUrl, href }) => {
     return (
@@ -69,30 +58,3 @@ const ContainerService = ({ title, text, imageUrl, href }) => {
         </a>
     );
 };
-
-export const getStaticProps = async () => {
-    const accessToken = 'IGQWROTFQtbFVjZAFBOdXRMM0hySlRac2pSSTRlV3VLV3ZAmZA3VYYjRUT0hxQUhLMTdxRl9ZAMERIVFdNeXVwWlc2U1lFZAmJDaTMwYWJtOHBYUW9kNlpHYU9kbDc4UUEwTHBlSnNOTHFDdUFtOTZAFRXdPWmJLemRWY28ZD'; // Asegúrate de usar tu propio Access Token
-
-    const apiURL = `https://graph.instagram.com/me/media?fields=thumbnail_url,media_url,caption,permalink&limit=80&access_token=${accessToken}`;
-
-    try {
-        const res = await fetch(apiURL);
-        const { data } = await res.json();
-
-        // Suponiendo que 'data' es el array con tus objetos de medios
-        return {
-            props: {
-                mediaData: data,
-            },
-            revalidate: 60, // En segundos, opcional, para revalidar los datos periódicamente
-        };
-    } catch (error) {
-        console.error("Error al obtener datos de Instagram:", error);
-        return {
-            props: {
-                mediaData: [],
-            },
-        };
-    }
-};
-

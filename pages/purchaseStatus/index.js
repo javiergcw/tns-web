@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from "react";
 import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
