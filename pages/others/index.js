@@ -52,10 +52,9 @@ const Others = () => {
             </div>
             <div>
                 <PeticionCard/>
-            </div>
-            <div>
                 <AnualChart/>
             </div>
+
         </>
 
     )
