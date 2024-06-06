@@ -6,10 +6,10 @@ import "/app/globals.css";
 
 /**
  * Login Page
- * 
+ *
  * Esta página de inicio de sesión está dividida en dos secciones: una imagen corporativa a la izquierda y un formulario de inicio de sesión a la derecha.
  * Utiliza componentes reutilizables como `TextInput`, `NormalButton` y `Text` para la estructura y el diseño.
- * 
+ *
  * @component
  */
 export default function Login() {
@@ -36,8 +36,8 @@ export default function Login() {
             {/* Subtítulo del formulario */}
             <Text
               texto="Enter your email and password to login"
-              color="grey"
-              type="subtitle"
+              color="green"
+              type="description"
             />
             {/* Campo de entrada para la dirección de correo electrónico */}
             <Text texto="Email address" color="black" type="normal" />

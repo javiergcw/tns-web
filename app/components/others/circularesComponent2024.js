@@ -53,8 +53,21 @@ const data = [
     { name: 'Circular N49 Reuniones informativas expediciones pedagógicas', link: 'https://drive.google.com/file/d/1CS7qLaW7kjlz3PWV2ghhFXUYWd2klUut/view?usp=sharing' },
     { name: 'Circular N50 Día virtual', link: 'https://drive.google.com/file/d/1uBn6E4pS02_ID1tRRz8jAK4Amu2-j2z0/view?usp=sharing' },
     { name: 'Circular N51 Expediciones pedagógicas - Quinto', link: 'https://drive.google.com/file/d/166Y87-ZHAJChMYjoPCVFx6aKpcosq9HL/view?usp=sharing' },
-    { name: 'Circular N52 Ceremonia de graduación once', link: 'https://drive.google.com/file/d/1SLNoHDAzzR8yqxR6V_YIiT5XQxuBY53L/view?usp=sharing' },
+    { name: 'Circular N52 Ceremonia de graduación once', link: 'https://drive.google.com/file/d/1S66VXmoT_t2dXvmK60062EQtwyEdLNCc/view?usp=sharing ' },
     { name: 'Circular N53 Salida pedagógica Décimo', link: 'https://drive.google.com/file/d/1r8dBp18FiwPhaUq94J8LqLWTV-vaR2I1/view?usp=sharing' },
+    { name: 'Circular N54 Multilingual Music Festival 2024', link: ' https://drive.google.com/file/d/1tthAxjp3G9dDjn168jG05OwphoEfX0WP/view?usp=sharing' },
+    { name: 'Circular N55 Informes Parciales Segundo Periodo Academico', link: 'https://drive.google.com/file/d/1uOlxJQpAvLRl3pAYicBw2qBgEASyU4nO/view?usp=sharin' },
+    { name: 'Circular N56 Novedades Multilingual Music Festival', link: 'https://drive.google.com/file/d/1OZMyj2ExbZksoRARhDfKgiOn5-NSTxGM/view?usp=sharing' },
+    { name: 'Circular N57 Dia Compensatorio Dia del Trabajo', link: 'https://drive.google.com/file/d/17lRL8g-II44Qvyz5F3UfsfbB13JAiYrc/view?usp=sharing' },
+    { name: 'Circular N58 Costos 2024-2025', link: 'https://drive.google.com/file/d/1iew-q63tflNl8tZIMr4BXtISMA2pdPx5/view?usp=sharing' },
+    { name: 'Circular N59 Escuela de Padres Preescolar y Primaria', link: 'https://drive.google.com/file/d/19Ipsk1EyH_S55PpQUtLA51wZjMUovppa/view?usp=sharing' },
+    { name: 'Circular N60 Escuela de Padres Bachillerato', link: 'https://drive.google.com/file/d/1qULIXEyEVz8Du96i2VcmjzSDljxhtj84/view?usp=sharing' },
+    { name: 'Circular N61 Salida Pedagogica Parvulos y Kinder A-B', link: 'https://drive.google.com/file/d/1cc0LRP9xGAkjXVL3CuNSSJd16fF0MGuZ/view?usp=sharing' },
+    { name: 'Circular N62 Salida Pedagogica Transicion B', link: 'https://drive.google.com/file/d/1ILRe4zgMPS1PREsW0uY04N3limZqHL9b/view?usp=sharing' },
+    { name: 'Circular N63 Salida Pedagogica Transicion A', link: 'https://drive.google.com/file/d/1Vsnb0QvaztFOcsLbloPq_JhwZy6Hy6VC/view?usp=sharing ' },
+    { name: 'Circular N65 Salida Pedagogica Primero A-B', link: 'https://drive.google.com/file/d/1iEPIrBXswmGQGYFXAyX339qYxv032wRn/view?usp=sharing ' },
+    { name: 'Circular N66 Graduacion Grados Transicion y Primaria', link: 'https://drive.google.com/file/d/1zEPPxyO8Cm7gjwYfuR2PIMHg26A2B3M1/view?usp=sharing ' },
+
 
 ];
 

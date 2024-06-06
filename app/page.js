@@ -10,7 +10,10 @@ import ServicesStandart from "./components/home/servicesSandart";
 import blogList from "./data/blogData";
 import '/app/globals.css'
 import { Provider } from 'react-redux';
+
 import store from '../app/store/store'
+
+import InfoCard from "./components/others/container/infoCard";
 
 
 
@@ -23,14 +26,12 @@ export default function Home() {
     "/images/banner/banner2.png",
   ];
 
-
+// .
   const servicesList = [
     { href: 'http://mail.thenewschool.edu.co/', src: '/images/services/cloud.png', alt: 'TNS CLOUD' },
     { href: 'services/others', src: '/images/services/services.png', alt: 'Services' },
     { href: 'services/beam', src: '/images/services/beam.png', alt: 'Beam' },
   ];
-
-
 
   return (
     < Provider store={store} >
@@ -44,8 +45,5 @@ export default function Home() {
       <Footer />
     </Provider >
   )
-
-
-
 
 }
