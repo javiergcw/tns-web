@@ -18,6 +18,7 @@ module.exports = {
         bluePrimary: '#007bff', // Reemplaza esto con el color azul que prefieras
         greenPrimary: '#96C11F',
         grayPrimary: '#9F9F9F',
+        graySecundary:'#4F4F4F',
         bgPrimary: '#F0F1F5',
         blueSecundary:'#004F9F',
         blueButton:'#2991D6'

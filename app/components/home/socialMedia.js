@@ -9,9 +9,8 @@ const SocialMedia = () => {
   return (
     <div className="w-full flex justify-center flex-wrap gap-4 p-4">
       <div className="flex justify-center items-center m-2  w-full sm:w-1/2 md:w-1/3">
-        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-        <div class="elfsight-app-d5520348-e399-4369-ab6c-3f6f65ac894b" data-elfsight-app-lazy>
-        </div>
+      <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+      <div class="elfsight-app-7c54795b-2834-419e-b165-c98a5941f87b" data-elfsight-app-lazy></div>
          </div >
       <div className="flex justify-center items-center m-2  w-full sm:w-1/2 md:w-1/3">
         <iframe

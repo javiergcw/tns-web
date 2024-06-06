@@ -163,7 +163,7 @@ export default function dashboardManager() {
         <RequestsCarousel requestsData={requestsData} />
         <hr className="my-5" />
         {/* Componente de gastos mensuales */}
-        <MonthlyExpenses total={totalExpenses} expenses={expensesData} />
+     
         <hr className="my-5" />
         {/* Tabla de seguimiento de peticiones */}
         <TrackingTable data={trackingData} />

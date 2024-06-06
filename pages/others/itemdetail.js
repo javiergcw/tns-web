@@ -1,18 +1,26 @@
-import '/app/globals.css'
-
-import DetailPetition from "@/app/components/others/container/detailPetition";
+import React from 'react';
+import "/app/globals.css";
+import DetailPetition from '@/app/components/others/container/detailPetition';
+import MonthlyExpenses from '@/app/components/dashboard/monthlyExpenses/monthlyExpenses';
 
 const petitionData = {
   title: "Petición Ejemplo",
-  category: "Categoría Ejemplo",
+  category: "Categoría Seleccionada",
   description: "Esta es una descripción de ejemplo para la petición.",
   date: "2024-06-05",
   leader: "Líder Ejemplo",
   stage: "Etapa Ejemplo"
 };
 
-
-const itemdetail = () => {
+const ItemDetail = () => {
+  const totalGastos = "14’500,345";
+  const listaGastos = [
+    { value: "456,100", descripcion: "Compra computador" },
+    { value: "456,100", descripcion: "Compra computador" },
+    { value: "456,100", descripcion: "Compra computador" },
+    { value: "456,100", descripcion: "Compra computador" },
+    { value: "456,100", descripcion: "Compra computador" }
+  ];
   return (
     <div className="container mx-auto p-6">
       <DetailPetition
@@ -23,7 +31,11 @@ const itemdetail = () => {
         leader={petitionData.leader}
         stage={petitionData.stage}
       />
+      <MonthlyExpenses
+        total={totalGastos} expenses={listaGastos}
+      />
     </div>
   );
 }
-export default itemdetail;
+
+export default ItemDetail;
