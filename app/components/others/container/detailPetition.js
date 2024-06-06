@@ -1,7 +1,7 @@
 // components/DetailPetition.js
 import React from 'react';
 
-const detailPetition = ({ title, category, description, date, leader, stage }) => {
+const DetailPetition = ({ title, category, description, date, leader, stage }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
       <h1 className="text-3xl font-bold text-blue-600 mb-4">{title}</h1>
@@ -33,4 +33,4 @@ const detailPetition = ({ title, category, description, date, leader, stage }) =
   );
 }
 
-export default detailPetition;
+export default DetailPetition;

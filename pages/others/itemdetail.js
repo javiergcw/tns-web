@@ -1,36 +1,29 @@
-// pages/index.js
-const petitions = [
-  {
-    title: "Computador",
-    category: "Categoria Seleccionada",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in ex a lorem viverra eleifend ac ut massa. Vestibulum ante ipsum primis in faucibus orci.",
-    date: "14-07-2024",
-    leader: "NOMBRE DEL LIDER",
-    stage: "ETAPA 1"
-  },
-  {
-    title: "Tablet",
-    category: "Categoria Seleccionada",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in ex a lorem viverra eleifend ac ut massa. Vestibulum ante ipsum primis in faucibus orci.",
-    date: "20-08-2024",
-    leader: "JUAN PEREZ",
-    stage: "ETAPA 2"
-  },
-  {
-    title: "Smartphone",
-    category: "Categoria Seleccionada",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in ex a lorem viverra eleifend ac ut massa. Vestibulum ante ipsum primis in faucibus orci.",
-    date: "30-09-2024",
-    leader: "MARIA GONZALEZ",
-    stage: "ETAPA 3"
-  }
-];
+import '/app/globals.css'
 
-const itemdetail =() =>{
-    return (
-        <div className="container mx-auto p-6">
-           
-        </div>
-      );
+import DetailPetition from "@/app/components/others/container/detailPetition";
+
+const petitionData = {
+  title: "Petición Ejemplo",
+  category: "Categoría Ejemplo",
+  description: "Esta es una descripción de ejemplo para la petición.",
+  date: "2024-06-05",
+  leader: "Líder Ejemplo",
+  stage: "Etapa Ejemplo"
+};
+
+
+const itemdetail = () => {
+  return (
+    <div className="container mx-auto p-6">
+      <DetailPetition
+        title={petitionData.title}
+        category={petitionData.category}
+        description={petitionData.description}
+        date={petitionData.date}
+        leader={petitionData.leader}
+        stage={petitionData.stage}
+      />
+    </div>
+  );
 }
 export default itemdetail;

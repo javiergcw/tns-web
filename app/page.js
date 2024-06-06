@@ -13,8 +13,7 @@ import { Provider } from 'react-redux';
 
 import store from '../app/store/store'
 
-import InfoCard from "./components/others/container/infoCard";
-
+import DetailPetition from '../app/components/others/container/detailPetition';
 
 
 export default function Home() {
@@ -26,7 +25,7 @@ export default function Home() {
     "/images/banner/banner2.png",
   ];
 
-// .
+  // .
   const servicesList = [
     { href: 'http://mail.thenewschool.edu.co/', src: '/images/services/cloud.png', alt: 'TNS CLOUD' },
     { href: 'services/others', src: '/images/services/services.png', alt: 'Services' },
@@ -43,7 +42,7 @@ export default function Home() {
       <ServicesStandart />
       <FooterTwo />
       <Footer />
-    </Provider >
+    </Provider  >
   )
 
 }
