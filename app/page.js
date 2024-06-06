@@ -11,7 +11,6 @@ import blogList from "./data/blogData";
 import '/app/globals.css'
 import { Provider } from 'react-redux';
 import store from '../app/store/store'
-import InfoCard from "./components/others/container/infoCard";
 
 
 
@@ -34,18 +33,19 @@ export default function Home() {
 
 
   return (
-    <main className="">
-      <Provider store={store}>
-        <Navbar />
-        <BannerCarousel imagePaths={imagePaths} />
-        <ServicesHome images={servicesList} />
-        <BlogsSection blogs={blogList} />
-        <CalendarScheduleHome />
-        <ServicesStandart />
-        <FooterTwo />
-        <Footer />
-
-      </Provider>
-    </main>
+    < Provider store={store} >
+      <Navbar />
+      <BannerCarousel imagePaths={imagePaths} />
+      <ServicesHome images={servicesList} />
+      <BlogsSection blogs={blogList} />
+      <CalendarScheduleHome />
+      <ServicesStandart />
+      <FooterTwo />
+      <Footer />
+    </Provider >
   )
+
+
+
+
 }

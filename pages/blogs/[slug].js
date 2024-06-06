@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import blogList from '@/app/data/blogData';
@@ -8,6 +6,8 @@ import Footer from '@/app/components/home/footer/footer';
 import Navbar from '@/app/components/home/navbar';
 import FooterTwo from '@/app/components/home/footer/footerTwo';
 import SocialShareButtons from '@/app/components/news/socialShareButtons';
+import { Provider } from 'react-redux';
+import store from '../../app/store/store'
 
 const BlogDetail = () => {
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);
@@ -32,7 +32,7 @@ const BlogDetail = () => {
     const toggleImagePopup = () => setImagePopupOpen(!isImagePopupOpen);
 
     return (
-        <>
+        <Provider store={store}>
             <Navbar />
             <div className='flex flex-col px-4 md:px-24 pb-22 my-8'>
                 <div className="md:flex-row flex flex-col-reverse items-start gap-4 md:gap-8">
@@ -61,9 +61,7 @@ const BlogDetail = () => {
                             {blog.banner && (
                                 <div className="absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100"
                                     onClick={toggleImagePopup}>
-                                    {/* Ajuste para que el fondo blanco ocupe todo el espacio disponible */}
                                     <div className="bg-white bg-opacity-50 w-full h-full"></div>
-                                    {/* Ajuste para centrar la lupa en todo momento */}
                                     <div className="absolute flex items-center justify-center" style={{ width: '100%', height: '100%' }}>
                                         <span className="text-white text-3xl">🔍</span>
                                     </div>
@@ -96,7 +94,7 @@ const BlogDetail = () => {
 
             <FooterTwo />
             <Footer />
-        </>
+        </Provider>
     );
 };
 
