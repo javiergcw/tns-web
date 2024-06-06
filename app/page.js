@@ -13,7 +13,6 @@ import { Provider } from 'react-redux';
 
 import store from '../app/store/store'
 
-import DetailPetition from '../app/components/others/container/detailPetition';
 
 
 export default function Home() {
