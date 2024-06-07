@@ -1,24 +1,36 @@
 import React from 'react';
+import Text from '@/app/components/others/text/text';
 
-const MonthlyExpenses = ({ total = "0", gastos = [] }) => {
-    return (
-        <div className="p-4 bg-white shadow-lg rounded-md max-w-md mx-auto">
-        <h1 className="text-blue-600 text-xl font-bold mb-2">GASTOS DEL MES</h1>
-        <h2 className="text-green-500 text-3xl font-bold mb-4">{total} COP</h2>
-        <div className="space-y-2">
-          {gastos.length > 0 ? (
-            gastos.map((gasto, index) => (
-              <div key={index} className="flex justify-between">
-                <span className="text-gray-600">{gasto.cantidad}$</span>
-                <span className="text-gray-700 font-semibold">{gasto.descripcion}</span>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500">No hay gastos registrados.</p>
-          )}
-        </div>
+/**
+ * MonthlyExpenses Component
+ *
+ * Este componente muestra la suma total de los gastos del mes y una lista de los detalles de los gastos.
+ *
+ * @param {number} total - La suma total de los valores de la lista.
+ * @param {Array} expenses - Una lista de objetos que contiene el valor y el título de cada gasto.
+ *
+ * @component
+ */
+const MonthlyExpenses = ({ total, expenses }) => {
+  return (
+    <>
+      <div className="bg-gray-200 p-4 rounded-t-lg max-w-2xl mx-auto">
+        <div className="text-blueSecundary text-2xl font-poppins">GASTOS DEL MES</div>
       </div>
-      );
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto mt-1.5">
+        <div className="text-green-500 text-3xl font-semibold">{total.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</div>
+        <ul className="mt-4">
+          {expenses.map((expense, index) => (
+            <li key={index} className="flex justify-start items-center text-gray-700 text-lg py-2 border-b border-gray-200">
+              <div className="text-black flex-initial">{expense.value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</div>
+              <div className="text-black mx-3">|</div> {/* Separador añadido */}
+              <div className="text-black flex-shrink-0 w-48">{expense.title}</div>
+            </li>                                                                                                   
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 };
 
 export default MonthlyExpenses;

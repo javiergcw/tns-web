@@ -1,7 +1,8 @@
 import React from 'react';
 import "/app/globals.css";
 import DetailPetition from '@/app/components/others/container/detailPetition';
-import MonthlyExpenses from '@/app/components/dashboard/monthlyExpenses/monthlyExpenses';
+import MonthlyExpenses from '@/app/components/others/container/monthlyExpenses';
+import ProveedorForm from '@/app/components/others/fields/proveedorForm';
 
 const petitionData = {
   title: "Petición Ejemplo",
@@ -15,14 +16,14 @@ const petitionData = {
 const ItemDetail = () => {
   const totalGastos = "14’500,345";
   const listaGastos = [
-    { value: "456,100", descripcion: "Compra computador" },
-    { value: "456,100", descripcion: "Compra computador" },
-    { value: "456,100", descripcion: "Compra computador" },
-    { value: "456,100", descripcion: "Compra computador" },
-    { value: "456,100", descripcion: "Compra computador" }
+    { value: "456,100", title: "Compra computador" },
+    { value: "456,100", title: "Compra computador" },
+    { value: "456,100", title: "Compra computador" },
+    { value: "456,100", title: "Compra computador" },
+    { value: "456,100", title: "Compra computador" }
   ];
   return (
-    <div className="container mx-auto p-6">
+    <div className="container  px-6">
       <DetailPetition
         title={petitionData.title}
         category={petitionData.category}
@@ -34,6 +35,7 @@ const ItemDetail = () => {
       <MonthlyExpenses
         total={totalGastos} expenses={listaGastos}
       />
+      <ProveedorForm></ProveedorForm>
     </div>
   );
 }

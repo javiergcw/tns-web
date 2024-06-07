@@ -119,6 +119,16 @@ body {
   background-position: center;
   /* Centra la imagen en el contenedor */
 }
+/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
+/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
+/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
 
 h1 {
   font-family: "Patua One", Arial, Tahoma, sans-serif;
