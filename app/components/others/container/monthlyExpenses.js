@@ -1,5 +1,4 @@
 import React from 'react';
-import Text from '@/app/components/others/text/text';
 
 /**
  * MonthlyExpenses Component
