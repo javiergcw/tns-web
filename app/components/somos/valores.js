@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
+import { ENGOurProposal } from '@/app/data/language/english';
+import { ESPOurProposal } from '@/app/data/language/spanish';
 
 export default function Valores() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -129,14 +131,14 @@ export default function Valores() {
                 <div className="text-center">
                     <strong>
                         <h1 className="text-3xl text-[#444444;] sm:text-4xl sm:leading-10">
-                            {isEnglish ? "The navigation route that has forged history" : "El trayecto de navegación que ha forjado historia"}
+                            {isEnglish ? ENGOurProposal.historyp4 : ESPOurProposal.historiap4}
 
                         </h1>
                     </strong>
                     <p className="mt-3 max-w-2xl mx-auto text-lg leading-7 text-gray-500 sm:mt-4">
-                        {isEnglish ? "Between 1985 and 1995, a group of friends met with a common aspiration: to give life to a school to guide conscious, creative, innovative, autonomous, and supportive human beings, with critical thinking skills, respect for diversity, and leadership, Among all those skills and values that make a human being an INTEGRAL BEING. The purpose was set to accompany children and young people through an innovative educational proposal, based on theoretical bases such as Humanist Pedagogy, Systemic Thinking, Scientific Thinking, Critical Thinking, and Active School." : "Entre los años 1985 y 1995, un grupo de amigos se reunía con una aspiración en común: dar vida a un colegio para formar seres humanos conscientes, creativos, innovadores, autónomos, solidarios, con habilidades de pensamiento crítico, respeto por la diversidad, liderazgo, entre todas aquellas competencias y valores que hacen de un ser humano un SER INTEGRAL. Se fijó el propósito de acompañar a niños y jóvenes a través de una propuesta educativa innovadora, sustentada en bases teóricas como la Pedagogía Humanista, el Pensamiento Sistémico, el Pensamiento Científico, el Pensamiento Crítico y la Escuela Activa."}
+                        {isEnglish ? ENGOurProposal.historyp5 : ESPOurProposal.historiap5 }
                         <br /><br />
-                        {isEnglish ? "Driven by a shared desire to build a space where each person was valued for their individuality and where mistakes were seen as a natural part of the learning process, the project took shape, and gradually, was fueled by the dream of a constructivist and humanist education to guide in Consciousness through life and for life, facilitating the fulfillment of ten fundamental principles:" : "Impulsados por el deseo compartido de construir un espacio donde cada individuo fuera valorado por su individualidad y donde los desaciertos fueran vistos como parte natural del proceso de aprendizaje, el proyecto tomó forma, y gradualmente, fue alimentado por el sueño de una formación constructivista y humanista con el propósito de Formar en Consciencia por la vida y para la vida, facilitando el cumplimiento de diez principios fundacionales"}
+                        {isEnglish ? ENGOurProposal.historyp6 : ESPOurProposal.historiap6}
                     </p>
                 </div>
                 <div className="mt-8 sm:mt-10 md:mt-12">

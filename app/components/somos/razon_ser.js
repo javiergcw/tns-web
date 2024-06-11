@@ -2,6 +2,8 @@ import '/app/globals.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
+import { ENGOurProposal } from '@/app/data/language/english';
+import { ESPOurProposal } from '@/app/data/language/spanish';
 
 
 export default function RazonDeSeR() {
@@ -35,8 +37,8 @@ export default function RazonDeSeR() {
                         <h1 className="text-center text-[#1e73be] text-2xl lg:text-3xl font-bold mb-4 mt-4">THE NEW SCHOOL</h1>
                         <p className="text-gray-700 md:text-[16px] lg:text-lg text-justify leading-relaxed">
                             {isEnglish
-                                ? 'We are an educational proposal focused on consciousness under a humanistic–scientific approach. We visualize our pedagogy as a journey, as travelers in the world\'s scientific complexity, towards the infinite success opportunities for future generations and contributing to the planet\'s well-being.'
-                                : 'Asimilamos nuestra pedagogía a un viaje como navegantes en la complejidad científica del mundo, frente a la infinidad de oportunidades de éxito para las futuras generaciones y para el aporte al bienestar del planeta'}
+                                ? ENGOurProposal.razonSerDescription
+                                : ESPOurProposal.razonSerDescription}
                         </p>
                     </div>
                 </div>

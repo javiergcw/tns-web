@@ -2,6 +2,8 @@ import '/app/globals.css';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
+import { ENGCulturaNew } from '@/app/data/language/english';
+import { ESPCulturaNew } from '@/app/data/language/spanish';
 
 export default function Bilingue() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -21,11 +23,11 @@ export default function Bilingue() {
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         <h1 className="text-3xl font-bold text-[#444444] mb-4">
-                            {isEnglish ? "Methodology and didactics for sailors" : "Metodología y didáctica para navegantes"}
+                            {isEnglish ? ENGCulturaNew.title4: ESPCulturaNew.titulo4}
 
                         </h1>
                         <p className="text-[13px]">
-                            {isEnglish ? "Our curricular approach focused on BEING, DOING, and KNOWING, facilitates the development of generic, specific intercultural and bilingual competencies, which surely enrich holistic education, where subjects are intertwined with thematic lines of different visions, facilitating transversality and enriching the students' training process based on practice." : "Nuestro enfoque curricular centrado en el SER, el HACER y el CONOCER, facilita el desarrollo de las competencias genéricas, las específicas y las interculturales y bilingües, las cuales con seguridad, enriquecen la formación holística, donde las asignaturas se entrelazan con líneas temáticas de diferentes visiones, facilitando la transversalidad y el enriquecimiento del proceso formativo de los estudiantes a partir de la práctica."}
+                            {isEnglish ? ENGCulturaNew.description8 : ESPCulturaNew.descripcion8}
                         </p>
                     </div>
 

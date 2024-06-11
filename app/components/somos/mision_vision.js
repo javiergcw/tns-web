@@ -1,12 +1,18 @@
 import '/app/globals.css';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
+import { ENGOurProposal } from '@/app/data/language/english';
+import { ESPOurProposal } from '@/app/data/language/spanish';
 
 export default function MisionVision() {
+    const [isMounted, setIsMounted] = useState(false);
     const isEnglish = useSelector((state) => state.isEnglish);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -14,6 +20,7 @@ export default function MisionVision() {
         e.preventDefault();
         setIsOpen(!isOpen);
     };
+
     return (
         // Asegurando que el componente no se solape con el contenido anterior
         <div className="flex flex-col md:flex-row justify-center bg-white items-stretch mx-4 md:mx-20 my-20">
@@ -30,16 +37,16 @@ export default function MisionVision() {
                 <div className="w-full md:w-2/3 text-center md:text-left p-4">
                     <strong>
                         <h1 className="text-2xl text-gray-600">
-                            {isEnglish ? 'MISIÓN – PROPÓSITO'
-                                : 'MISSION – PURPOSE'}</h1>
+                            {isMounted && (isEnglish ? ENGOurProposal.misionTitulo : ESPOurProposal.misionTitulo)}
+                        </h1>
                     </strong>
                     <strong>
                         <h2 className="text-xl text-gray-600 mt-2">
-                            {isEnglish ? 'WHO WE ARE' : 'QUE SOMOS'}
+                            {isMounted && (isEnglish ? ENGOurProposal.queSomos : ESPOurProposal.queSomos)}
                         </h2>
                     </strong>
                     <p className="text-gray-500 mt-4">
-                        {isEnglish ? 'Guide in awareness to life and for life.' : 'Formar en consciencia por la vida y para la vida.'}
+                        {isMounted && (isEnglish ? ENGOurProposal.citaMision : ESPOurProposal.citaMision)}
                     </p>
                 </div>
             </div>
@@ -60,19 +67,16 @@ export default function MisionVision() {
                 <div className="w-full md:w-2/3 text-center md:text-right p-4 md:order-1">
                     <strong>
                         <h1 className="text-2xl text-gray-600">
-                            {
-                                isEnglish ? "VISIÓN" : "VISION"
-                            }
+                            {isMounted && (isEnglish ? ENGOurProposal.visionTitulo : ESPOurProposal.visionTitulo                                                                                                    )}
                         </h1>
                     </strong>
                     <strong>
                         <h2 className="text-xl text-gray-600 mt-2">
-                            {isEnglish ? "WE WANT TO BE" : "QUEREMOS SER"}
+                            {isMounted && (isEnglish ? ENGOurProposal.queremosSer:ESPOurProposal.queremosSer )}
                         </h2>
                     </strong>
                     <p className="text-gray-500 mt-4">
-                        {isEnglish ? "Integrate knowledge with being." : "Integrar el conocimiento con el ser."}
-                        
+                        {isMounted && (isEnglish ? ENGOurProposal.citaVision : ESPOurProposal.citaVision)}
                     </p>
                 </div>
             </div>

@@ -3,6 +3,8 @@ import Image from 'next/image';
 import '/app/globals.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
+import { ENGCulturaNew } from '@/app/data/language/english';
+import { ESPCulturaNew } from '@/app/data/language/spanish';
 
 const valuesEs = [
     {
@@ -82,16 +84,16 @@ export default function Filosofia() {
                         <div className="grid md:grid-cols-10 gap-4 mb-4">
                             <div className="md:col-span-7">
                                 <p className="text-description mb-4">
-                                    {isEnglish ? "At The New School, we immerse ourselves in the vibrant universe of the Cultura New. Every interaction, every word, every gesture, every look, every habit, is impregnated with a harmonious, meaningful environment, typical of the UBUNTU philosophy, which invites us to relate to each other and our environment under the slogan: “Look, evaluate and reflect, principles to act”, which is also a vital fragment of our institutional anthem." : "En The New School nos sumergimos en el vibrante universo de la Cultura New. Cada interacción, cada palabra, cada gesto, cada mirada, cada hábito, está impregnado de un ambiente en armonía, significativo, propio de la filosofía UBUNTU, la cual nos invita a relacionarnos con el otro y nuestro entorno bajo el slogan: “mirar, evaluar y reflexionar, principios para actuar¨, el cual además es fragmento vital de nuestro himno institucional."}
+                                    {isEnglish ? ENGCulturaNew.description1 : ESPCulturaNew.descripcion1}
                                 </p>
                                 <p className="text-description mb-4">
-                                    {isEnglish ? "At the heart of our culture lies the harmonious synthesis between deep-rooted values, dynamic competencies, habits that promote consciousness, and assertive language, among others, all of them woven into a network of relationships and transformative experiences of BEING." : "En el corazón de nuestra cultura, yace la síntesis armoniosa entre valores arraigados, competencias dinámicas, hábitos que promueven la consciencia, lenguaje asertivo, entre otros, todos ellos tejidos en una red de relaciones y experiencias transformadoras del SER."}
+                                    {isEnglish ? ENGCulturaNew.description2: ESPCulturaNew.descripcion2}
                                 </p>
                                 <p className="text-description mb-4">
-                                    {isEnglish ? "Our Cultura New, in addition to a way of life, is a living expression of our collective identity, it is a journey of discovery and self-growth, which propels us towards a future full of infinite possibilities." : "En el corazón de nuestra cultura, yace la síntesis armoniosa entre valores arraigados, competencias dinámicas, hábitos que promueven la consciencia, lenguaje asertivo, entre otros, todos ellos tejidos en una red de relaciones y experiencias transformadoras del SER."}
+                                    {isEnglish ? ENGCulturaNew.description3 : ESPCulturaNew.descripcion3}
                                 </p>
                                 <p className="text-description mb-4">
-                                    {isEnglish ? "We have enriched the compass of our boat with the image of an institutional mascot: a bird that evokes freedom, and color, inspires, evaluates, and reflects. Motus is the name with which we identify it, it is the representation of a Barranquero which is that beautiful bird that inhabits our forests. We adopt its presence and company as a symbol of the philosophical essence of the Cultura New program." : "La brújula de nuestra embarcación la hemos enriquecido con la imagen de una mascota institucional: un ave que evoca libertad, colorido, inspira, evalúa y reflexiona. Motus es el nombre con el que la identificamos, es la representación de un Barranquero que es ese hermoso pájaro que habita nuestros bosques. Su presencia y compañía la adoptamos como símbolo de la esencia filosófica del programa Cultura New."}
+                                    {isEnglish ? ENGCulturaNew.description4 : ESPCulturaNew.descripcion4}
                                 </p>
                             </div>
                             <div className="md:col-span-3">
@@ -105,7 +107,7 @@ export default function Filosofia() {
                             </div>
                         </div>
                         <h2 className="text-2xl font-bold text-title mb-2">
-                            {isEnglish ? "Institutional values touch every detail of our educational proposal. They all converge in LOVE. We give special attention to six of them:" : "Los valores institucionales tocan cada detalle de nuestra propuesta educativa. Todos convergen en el AMOR. Damos atención especial a seis de ellos:"}
+                            {isEnglish ? ENGCulturaNew.title2 : ESPCulturaNew.titulo2}
                         </h2>
 
                         <div className="flex flex-wrap -mx-2 mb-4">
