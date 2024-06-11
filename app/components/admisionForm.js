@@ -19,7 +19,6 @@ const FormularioPorEtapas = () => {
     apoyoTerapeutico: '',
     cualApoyo: '',
     medioEntero: '',
-    // Nuevas preguntas
     nombreMama: '',
     tipoDocumentoMama: '',
     numeroDocumentoMama: '',
@@ -810,16 +809,31 @@ const FormularioPorEtapas = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-center mb-6">
-        {Array.from({ length: 6 }, (_, i) => (
-          <div
-            key={i + 1}
-            className={`mx-2 w-8 h-8 rounded-full flex items-center justify-center ${
-              step === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'
-            }`}
-          >
-            {i + 1}
-          </div>
-        ))}
+        <ol className="flex justify-center items-center w-full p-2 space-x-2 text-xs font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 sm:p-3 sm:space-x-3 rtl:space-x-reverse">
+          {[
+            { num: 1, label: 'Datos del estudiante' },
+            { num: 2, label: 'Datos del curso' },
+            { num: 3, label: 'Datos adicionales' },
+            { num: 4, label: 'Medio de difusión' },
+            { num: 5, label: 'Datos madre' },
+            { num: 6, label: 'Datos padre' },
+          ].map((stepObj, i) => (
+            <li key={i} className={`flex items-center ${step === stepObj.num ? 'text-blue-600 dark:text-blue-500' : ''}`}>
+              <span className={`flex items-center justify-center w-6 h-6 text-xs border rounded-full shrink-0 ${step === stepObj.num ? 'border-blue-600 dark:border-blue-500' : 'border-gray-500 dark:border-gray-400'}`}>
+                {stepObj.num}
+              </span>
+              <span className="ml-2 font-bold">{stepObj.label}</span>
+              {i < 5 && (
+                <svg className="w-2 h-2 ml-2 sm:ml-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                </svg>
+              )}
+            </li>
+          ))}
+        </ol>
+
+
+
       </div>
       {renderStep()}
     </div>
