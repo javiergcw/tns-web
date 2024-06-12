@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGTheNewAwareness } from '@/app/data/language/english';
 import { ESPTheNewAwareness } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 const TheNewAwareness = () => {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -17,7 +18,7 @@ const TheNewAwareness = () => {
     
     return (
         <div className="container mx-auto px-4 py-8">
-            <h2 className="text-3xl font-bold text-[#444444] mb-4">
+            <h2 className="text-3xl font-bold text-grayTerciary mb-4">
                 {isEnglish ? ENGTheNewAwareness.title1:ESPTheNewAwareness.titulo1}
                 </h2>
             <p className="mb-4">
@@ -41,12 +42,12 @@ const TheNewAwareness = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <img
                     className="w-full h-[300px] rounded-lg object-cover shadow-lg"
-                    src="/images/about_us/our_proposal/photo14.jpg"
+                    src={ImagesPath.photo14}
                     alt="Imagen 1"
                 />
                 <img
                     className="w-full h-[300px] rounded-lg object-cover shadow-lg"
-                    src="/images/about_us/our_proposal/photo15.jpg"
+                    src={ImagesPath.photo15}
                     alt="Imagen 2"
                 />
             </div>

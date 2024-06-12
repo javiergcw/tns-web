@@ -5,7 +5,7 @@ export default function Promueve() {
             <div className="flex flex-col md:flex-row justify-center items-center py-8 lg:px-8 xl:px-32">
                 {/* Sección Izquierda: ajustes para el padding y margin responsive */}
                 <div className="w-full md:w-1/2 text-center md:text-left px-4 py-4 mb-4 md:mb-0">
-                    <h1 className="text-3xl font-bold text-[#444444] mb-4">La Escuela Nueva promueve</h1>
+                    <h1 className="text-3xl font-bold text-grayTerciary mb-4">La Escuela Nueva promueve</h1>
                     <ul className="text-gray-500 text-[15px] list-disc list-inside">
                         <li className="mb-2">El respeto por el ritmo de aprendizaje.</li>
                         <li className="mb-2">Procesos dinámicos, democráticos, participativos, activos y creativos.</li>
@@ -20,7 +20,7 @@ export default function Promueve() {
 
                 {/* Sección Derecha: ajustes similares a la sección izquierda */}
                 <div className="w-full md:w-1/2 text-center md:text-left px-4 py-4 mb-4 md:mb-0">
-                    <h1 className="text-3xl font-bold text-[#444444] mb-4">El Pensamiento Sistémico promueve</h1>
+                    <h1 className="text-3xl font-bold text-grayTerciary mb-4">El Pensamiento Sistémico promueve</h1>
                     <ul className="text-gray-500 text-[15px] list-disc list-inside">
                         <li className="mb-2">La observación deliberada y amplia de los acontecimientos, con el fin de propiciar una visión integral de las situaciones y facilitar la toma de decisiones de acuerdo a la capacidad crítica y equitativa.</li>
                         <li className="mb-2">Pautas de conducta que permitan el desarrollo de modelos mentales de una sana convivencia.</li>
@@ -33,7 +33,7 @@ export default function Promueve() {
 
             {/* Sección Adicional: ajustes para el padding y margin responsive */}
             <div className="text-center md:text-left px-4 py-4 lg:px-8 xl:px-32">
-                <h1 className="text-3xl font-bold text-[#444444] mb-4">El Aprendizaje Significativo promueve:</h1>
+                <h1 className="text-3xl font-bold text-grayTerciary mb-4">El Aprendizaje Significativo promueve:</h1>
                 <ul className="text-gray-500 text-[15px] list-disc list-inside">
                     <li className="mb-2">El desarrollo de actividades que generen un cambio mediante la interacción entre la experiencia previa y el nuevo conocimiento.</li>
                     <li className="mb-2">Un aprendizaje que sirve para transversalizar lo aprendido en nuevas situaciones, por lo que más que memorizar hay que comprender.</li>

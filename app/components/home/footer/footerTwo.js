@@ -1,3 +1,4 @@
+import { ImagesPath } from '@/app/utils/imagesPath';
 import '/app/globals.css'
 export default function FooterTwo() {
     return (
@@ -32,16 +33,16 @@ export default function FooterTwo() {
                     <div className="flex justify-center md:justify-start mb-4">
                         {/* Iconos de redes sociales */}
                         <a href="https://www.youtube.com/@thenewschool1995" target="_blank" rel="noopener noreferrer">
-                            <img src="https://imgur.com/vjazL2G.png" alt="YouTube" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
+                            <img src={ImagesPath.vjazL2G} alt="YouTube" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
                         </a>
                         <a href="https://www.facebook.com/thenewschool95/" target="_blank" rel="noopener noreferrer">
-                            <img src="https://imgur.com/dhMhCtX.png" alt="Facebook" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
+                            <img src={ImagesPath.dhMhCtX} alt="Facebook" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
                         </a>
                         <a href="https://api.whatsapp.com/send?phone=573008909800" target="_blank" rel="noopener noreferrer">
-                            <img src="https://imgur.com/rbTnBn1.png" alt="Whatsapp" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
+                            <img src={ImagesPath.rbTnBn1} alt="Whatsapp" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
                         </a>
                         <a href="https://www.instagram.com/thenewschool95/" target="_blank" rel="noopener noreferrer">
-                            <img src="https://imgur.com/o3jjmGR.png" alt="Instagram" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
+                            <img src={ImagesPath.o3jjmGR} alt="Instagram" className="h-8 md:h-10 w-8 md:w-10 mx-1" />
                         </a>
                     </div>
                     <hr className="my-2 border-gray-600" />

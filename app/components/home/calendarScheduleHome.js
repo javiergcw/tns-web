@@ -9,8 +9,8 @@ const CardComponent = ({ title, description, buttonTextLabel, imgSrc, imgAlt, ur
       <img src={imgSrc} alt={imgAlt} className="block w-1/3" />
       <div className="flex flex-col justify-between p-4 bg-white w-2/3 h-full">
         <div>
-          <h2 className="text-[#444444] text-xl font-bold">{title}</h2>
-          <p className="text-[#626262] text-sm">{description}</p>
+          <h2 className="text-grayTerciary text-xl font-bold">{title}</h2>
+          <p className="text-gray4th text-sm">{description}</p>
         </div>
 
         <div className='pt-2'>
@@ -29,8 +29,8 @@ const CardComponentTwo = ({ title, description, buttonTextLabel, imgSrc, imgAlt,
       <img src={imgSrc} alt={imgAlt} className="block w-1/3" />
       <div className="flex flex-col justify-between p-4 bg-white w-2/3 h-full text-right">
         <div>
-          <h2 className="text-[#444444] text-xl font-bold">{title}</h2>
-          <p className="text-[#626262] text-sm">{description}</p>
+          <h2 className="text-grayTerciary text-xl font-bold">{title}</h2>
+          <p className="text-gray4th text-sm">{description}</p>
         </div>
         <div className='pt-2 flex justify-end'>
           <ReadBlueButton buttonText={buttonTextLabel} redirectUrl={url} />

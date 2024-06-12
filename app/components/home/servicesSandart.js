@@ -2,40 +2,41 @@
 import React, { useEffect, useState } from 'react';
 import SocialMedia from './socialMedia';
 import ResponsiveTriangles from './triangle';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 // Componente ServicesStandart
 const ServicesStandart = () => {
 
     return (
-        <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004F9F] px-4 py-8">
+        <div className="flex flex-wrap justify-center gap-4 w-full bg-blueSecundary px-4 py-8">
             <ContainerService
                 title="Proyecto educativo"
                 text="Conoce nuestro proyecto educativo"
-                imageUrl="/images/icons/rocket.png"
+                imageUrl={ImagesPath.rocket}
                 href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
             />
             <ContainerService
                 title="Reglamento interno de trabajo"
                 text="Reglamento interno de trabajo"
-                imageUrl="/images/icons/rules.png"
+                imageUrl={ImagesPath.rules}
                 href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharing"
             />
             <ContainerService
                 title="Resolución de costos educativos"
                 text="Vigente para los años 2023-2024"
-                imageUrl="/images/icons/money.png"
+                imageUrl={ImagesPath.money}
                 href="https://drive.google.com/file/d/1x4rd2v13zeFQpqFuZ8KQrENql8ZwOcha/view?usp=sharing"
             />
             <ContainerService
                 title="Utiles escolares"
                 text="Vigente para los años 2023-2024"
-                imageUrl="/images/icons/backpack.png"
+                imageUrl={ImagesPath.backpack}
                 href="https://drive.google.com/file/d/1JFjtz1yTzPYQroivwRt67tH5x_PQZD1m/view"
             />
             <ContainerService
                 title="Manual de convivencia"
                 text="Lee nuestro manual de convivencia"
-                imageUrl="/images/icons/people.png"
+                imageUrl={ImagesPath.people}
                 href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
             />
             <SocialMedia />

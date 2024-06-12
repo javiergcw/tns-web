@@ -17,7 +17,7 @@ export default function Login() {
     <>
       <div className="flex h-screen">
         {/* Sección izquierda - Imagen corporativa */}
-        <div className="w-full h-screen m-0 bg-[#004F9F]">
+        <div className="w-full h-screen m-0 bg-blueSecundary">
           <img
             src="/images/logo-vertical.png"
             alt="Descripción de la imagen"

@@ -30,7 +30,7 @@ export default function Formacion() {
 
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-3xl font-bold text-[#444444] mb-4">
+                        <h1 className="text-3xl font-bold text-grayTerciary mb-4">
                             {isEnglish ? ENGCulturaNew.title3 : ESPCulturaNew.titulo3}
                         </h1>
                         <p className="text-[13px]">

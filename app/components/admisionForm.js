@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import 'flowbite';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { errorMessages, limitInputDigit } from '../utils/settings';
+import { emailRegex } from '../utils/expressionRegular';
+import { calendarOptions, englishLevelOptions, genderOptions, medioOptions} from '../utils/dataGeneral';
+import { documentTypeOptions } from '../utils/dataGeneral';
+import {educationLevelOptions} from '../utils/dataGeneral';
+import {inputClasses} from '../utils/dataGeneral';
 
 const Form = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -14,6 +20,7 @@ const Form = () => {
     tieneHermanos: '',
     nombreHermano: '',
     colegioProcedencia: '',
+    calendario: '',
     tiempoUltimaInstitucion: '',
     ciudadPais: '',
     nivelIngles: '',
@@ -76,105 +83,122 @@ const Form = () => {
 
   const validateForm = () => {
     let errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
 
     if (currentStep === 1) {
-      if (!formData.nombre || formData.nombre.length < 3) {
-        errors.nombre = 'Nombre es requerido y debe tener al menos 3 caracteres';
+      if (!formData.nombre || formData.nombre.length < limitInputDigit) {
+        errors.nombre = errorMessages.minLength('Nombre',limitInputDigit);
       }
       if (!formData.edad) {
-        errors.edad = 'Edad es requerida';
+        errors.edad = errorMessages.required('Edad');
       }
       if (!formData.fechaNacimiento) {
-        errors.fechaNacimiento = 'Fecha de nacimiento es requerida';
+        errors.fechaNacimiento = errorMessages.required('Fecha de nacimiento');
       }
-      if (!formData.religion || formData.religion.length < 3) {
-        errors.religion = 'Religión es requerida y debe tener al menos 3 caracteres';
+      if (!formData.religion || formData.religion.length < limitInputDigit) {
+        errors.religion = errorMessages.minLength('Religión',limitInputDigit);
+      }
+      if (!formData.genero) {
+        errors.genero = errorMessages.required('Genero');
       }
     }
     if (currentStep === 2) {
-      if (!formData.viveCon || formData.viveCon.length < 3) {
-        errors.viveCon = 'Campo es requerido y debe tener al menos 3 caracteres';
+      if (!formData.viveCon || formData.viveCon.length < limitInputDigit) {
+        errors.viveCon = errorMessages.minLength('Vive con',limitInputDigit);
       }
-      if (!formData.gradoAspira || formData.gradoAspira.length < 3) {
-        errors.gradoAspira = 'Grado al que aspira es requerido y debe tener al menos 3 caracteres';
+      if (!formData.gradoAspira || formData.gradoAspira.length < limitInputDigit) {
+        errors.gradoAspira = errorMessages.minLength('Grado que es apira',limitInputDigit);
       }
       if (!formData.tieneHermanos) {
-        errors.tieneHermanos = 'Debe seleccionar una opción';
+        errors.tieneHermanos = errorMessages.required('Tiene hermanos');
       }
-      if (formData.tieneHermanos === 'si' && (!formData.nombreHermano || formData.nombreHermano.length < 3)) {
-        errors.nombreHermano = 'Nombre del hermano es requerido y debe tener al menos 3 caracteres';
+      if (formData.tieneHermanos === 'si' && (!formData.nombreHermano || formData.nombreHermano.length < limitInputDigit)) {
+        errors.nombreHermano = errorMessages.minLength('Nombre del hermano',limitInputDigit);
       }
     }
     if (currentStep === 3) {
-      if (!formData.colegioProcedencia || formData.colegioProcedencia.length < 3) {
-        errors.colegioProcedencia = 'Colegio de procedencia es requerido y debe tener al menos 3 caracteres';
+      if (!formData.colegioProcedencia || formData.colegioProcedencia.length < limitInputDigit) {
+        errors.colegioProcedencia = errorMessages.minLength('Colegio de procedencia ',limitInputDigit);
       }
-      if (!formData.tiempoUltimaInstitucion || formData.tiempoUltimaInstitucion.length < 3) {
-        errors.tiempoUltimaInstitucion = 'Tiempo en la última institución es requerido y debe tener al menos 3 caracteres';
+      if (!formData.calendario) {
+        errors.calendario = errorMessages.required('Calendario es requerido');
       }
-      if (!formData.ciudadPais || formData.ciudadPais.length < 3) {
-        errors.ciudadPais = 'Ciudad y País son requeridos y deben tener al menos 3 caracteres';
+      if (!formData.tiempoUltimaInstitucion || formData.tiempoUltimaInstitucion.length < limitInputDigit) {
+        errors.tiempoUltimaInstitucion = errorMessages.minLength( 'Tiempo en la ultima institución ',limitInputDigit);
+      }
+      if (!formData.ciudadPais || formData.ciudadPais.length < limitInputDigit) {
+        errors.ciudadPais = errorMessages.minLength('Ciudad y Pais ',limitInputDigit);
       }
     }
     if (currentStep === 4) {
       if (!formData.nivelIngles) {
-        errors.nivelIngles = 'Nivel de inglés es requerido';
+        errors.nivelIngles = errorMessages.required('Nivel de ingles');
       }
       if (!formData.haTenidoApoyo) {
-        errors.haTenidoApoyo = 'Debe seleccionar una opción';
+        errors.haTenidoApoyo = errorMessages.required('¿Ha tenido apoyo?');
       }
-      if (formData.haTenidoApoyo === 'si' && (!formData.cualApoyo || formData.cualApoyo.length < 3)) {
-        errors.cualApoyo = 'Campo es requerido y debe tener al menos 3 caracteres';
+      if (formData.haTenidoApoyo === 'si' && (!formData.cualApoyo || formData.cualApoyo.length < limitInputDigit)) {
+        errors.cualApoyo = errorMessages.minLength('Ha tenido apoyo ',limitInputDigit);
       }
     }
     if (currentStep === 5) {
       if (formData.medioConocimiento.length === 0) {
-        errors.medioConocimiento = 'Debe seleccionar al menos un medio';
+        errors.medioConocimiento = errorMessages.required('Medios');
       }
     }
     if (currentStep === 6) {
-      if (!formData.nombreMama || formData.nombreMama.length < 3) {
-        errors.nombreMama = 'Nombre de mamá es requerido y debe tener al menos 3 caracteres';
+      if (!formData.nombreMama || formData.nombreMama.length < limitInputDigit) {
+        errors.nombreMama = errorMessages.minLength('Nombre ',limitInputDigit);
       }
       if (!formData.tipoDocumentoMama) {
-        errors.tipoDocumentoMama = 'Tipo de documento es requerido';
+        errors.tipoDocumentoMama = errorMessages.required('Tipo documento');
       }
-      if (!formData.numeroDocumentoMama || formData.numeroDocumentoMama.length < 3) {
-        errors.numeroDocumentoMama = 'Número de documento es requerido y debe tener al menos 3 caracteres';
+      if (!formData.numeroDocumentoMama || formData.numeroDocumentoMama.length < limitInputDigit) {
+        errors.numeroDocumentoMama = errorMessages.minLength('Numero documento ',limitInputDigit);
       }
-      if (!formData.celularMama || formData.celularMama.length < 3) {
-        errors.celularMama = 'Celular es requerido y debe tener al menos 3 caracteres';
+      if (!formData.celularMama || formData.celularMama.length < limitInputDigit) {
+        errors.celularMama = errorMessages.minLength('Numero celular ',limitInputDigit);
       }
       if (!formData.emailMama || !emailRegex.test(formData.emailMama)) {
-        errors.emailMama = 'Email es requerido y debe ser válido';
+        errors.emailMama = errorMessages.required('Email');
       }
       if (!formData.escolaridadMama) {
-        errors.escolaridadMama = 'Escolaridad es requerida';
+        errors.escolaridadMama = errorMessages.required('Nivel escolar');
       }
-      if (!formData.ocupacionMama || formData.ocupacionMama.length < 3) {
-        errors.ocupacionMama = 'Ocupación es requerida y debe tener al menos 3 caracteres';
+      if (!formData.ocupacionMama || formData.ocupacionMama.length < limitInputDigit) {
+        errors.ocupacionMama =errorMessages.minLength('Ocupacion ',limitInputDigit);
       }
-      if (!formData.nombrePapa || formData.nombrePapa.length < 3) {
-        errors.nombrePapa = 'Nombre de papá es requerido y debe tener al menos 3 caracteres';
+      if (!formData.nombrePapa || formData.nombrePapa.length < limitInputDigit) {
+        errors.nombrePapa = errorMessages.minLength('Nombre papá ',limitInputDigit);
       }
       if (!formData.tipoDocumentoPapa) {
-        errors.tipoDocumentoPapa = 'Tipo de documento es requerido';
+        errors.tipoDocumentoPapa = errorMessages.required('Tipo documento');
       }
-      if (!formData.numeroDocumentoPapa || formData.numeroDocumentoPapa.length < 3) {
-        errors.numeroDocumentoPapa = 'Número de documento es requerido y debe tener al menos 3 caracteres';
+      if (!formData.numeroDocumentoPapa || formData.numeroDocumentoPapa.length < limitInputDigit) {
+        errors.numeroDocumentoPapa = errorMessages.minLength('Numero documento ',limitInputDigit);
       }
       if (!formData.celularPapa || formData.celularPapa.length < 3) {
-        errors.celularPapa = 'Celular es requerido y debe tener al menos 3 caracteres';
+        errors.celularPapa = errorMessages.minLength('Celular papá',limitInputDigit);
       }
       if (!formData.emailPapa || !emailRegex.test(formData.emailPapa)) {
-        errors.emailPapa = 'Email es requerido y debe ser válido';
+        errors.emailPapa = errorMessages.required('Email');
       }
       if (!formData.escolaridadPapa) {
-        errors.escolaridadPapa = 'Escolaridad es requerida';
+        errors.escolaridadPapa = errorMessages.required('Nivel escolar');
       }
-      if (!formData.ocupacionPapa || formData.ocupacionPapa.length < 3) {
-        errors.ocupacionPapa = 'Ocupación es requerida y debe tener al menos 3 caracteres';
+      if (!formData.ocupacionPapa || formData.ocupacionPapa.length < limitInputDigit) {
+        errors.ocupacionPapa = errorMessages.minLength('Ocupación ',limitInputDigit);
+      }
+    }
+    if (currentStep === 7) {
+      if (!formData.notasFinales) {
+        errors.notasFinales = errorMessages.required('Notas finales');
+      }
+      if (!formData.periodosFinalizados) {
+        errors.periodosFinalizados = errorMessages.required('Periodos finalizados');
+      }
+      if (!formData.fichaObservador) {
+        errors.fichaObservador = errorMessages.required('Ficha del observador');
       }
     }
     return errors;
@@ -200,12 +224,9 @@ const Form = () => {
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
-      setSubmissionResult(true); // Suponiendo que el envío fue exitoso
-      setTimeout(() => {
-        setSubmissionResult(null);
-        alert('Formulario enviado con éxito');
-      }, 2000);
-    }, 2000); // Simula un tiempo de espera de 2 segundos para el envío
+      setSubmissionResult(true); // Simular éxito
+      setTimeout(() => setSubmissionResult(null), 3000);
+    }, 3000);
   };
 
   const closeModal = () => {
@@ -244,23 +265,33 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">Nombre del estudiante</label>
-                <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className={inputClasses} />
                 {errors.nombre && <span className="text-red-500 text-sm">{errors.nombre}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Edad del estudiante</label>
-                <input type="number" name="edad" value={formData.edad} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="number" name="edad" value={formData.edad} onChange={handleChange} className={inputClasses}/>
                 {errors.edad && <span className="text-red-500 text-sm">{errors.edad}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Fecha de nacimiento</label>
-                <input type="date" name="fechaNacimiento" value={formData.fechaNacimiento} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="date" name="fechaNacimiento" value={formData.fechaNacimiento} onChange={handleChange} className={inputClasses} />
                 {errors.fechaNacimiento && <span className="text-red-500 text-sm">{errors.fechaNacimiento}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Religión</label>
-                <input type="text" name="religion" value={formData.religion} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="religion" value={formData.religion} onChange={handleChange} className={inputClasses} />
                 {errors.religion && <span className="text-red-500 text-sm">{errors.religion}</span>}
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Género</label>
+                <select name="genero" value={formData.genero} onChange={handleChange} className={inputClasses}>
+                  <option value="">Seleccione</option>
+                  {genderOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+                {errors.genero && <span className="text-red-500 text-sm">{errors.genero}</span>}
               </div>
               <div className="flex justify-between">
                 <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded" onClick={handlePreviousStep} disabled={currentStep === 1}>Atrás</button>
@@ -272,12 +303,12 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">¿Con quién vive?</label>
-                <input type="text" name="viveCon" value={formData.viveCon} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="viveCon" value={formData.viveCon} onChange={handleChange} className={inputClasses} />
                 {errors.viveCon && <span className="text-red-500 text-sm">{errors.viveCon}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Grado al que aspira</label>
-                <input type="text" name="gradoAspira" value={formData.gradoAspira} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="gradoAspira" value={formData.gradoAspira} onChange={handleChange} className={inputClasses} />
                 {errors.gradoAspira && <span className="text-red-500 text-sm">{errors.gradoAspira}</span>}
               </div>
               <div className="mb-4">
@@ -309,7 +340,7 @@ const Form = () => {
               {formData.tieneHermanos === 'si' && (
                 <div className="mb-4">
                   <label className="block text-gray-700">Nombre completo del herman@</label>
-                  <input type="text" name="nombreHermano" value={formData.nombreHermano} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                  <input type="text" name="nombreHermano" value={formData.nombreHermano} onChange={handleChange} className={inputClasses} />
                   {errors.nombreHermano && <span className="text-red-500 text-sm">{errors.nombreHermano}</span>}
                 </div>
               )}
@@ -323,27 +354,27 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">Colegio de procedencia</label>
-                <input type="text" name="colegioProcedencia" value={formData.colegioProcedencia} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="colegioProcedencia" value={formData.colegioProcedencia} onChange={handleChange} className={inputClasses} />
                 {errors.colegioProcedencia && <span className="text-red-500 text-sm">{errors.colegioProcedencia}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Calendario</label>
-                <select name="calendario" value={formData.calendario} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <select name="calendario" value={formData.calendario} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
+                  {calendarOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
                 {errors.calendario && <span className="text-red-500 text-sm">{errors.calendario}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Tiempo en la última institución</label>
-                <input type="text" name="tiempoUltimaInstitucion" value={formData.tiempoUltimaInstitucion} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="tiempoUltimaInstitucion" value={formData.tiempoUltimaInstitucion} onChange={handleChange} className={inputClasses} />
                 {errors.tiempoUltimaInstitucion && <span className="text-red-500 text-sm">{errors.tiempoUltimaInstitucion}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Ciudad y País</label>
-                <input type="text" name="ciudadPais" value={formData.ciudadPais} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="ciudadPais" value={formData.ciudadPais} onChange={handleChange} className={inputClasses} />
                 {errors.ciudadPais && <span className="text-red-500 text-sm">{errors.ciudadPais}</span>}
               </div>
               <div className="flex justify-between">
@@ -356,12 +387,11 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">Nivel de inglés</label>
-                <select name="nivelIngles" value={formData.nivelIngles} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <select name="nivelIngles" value={formData.nivelIngles} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="Muy bueno">Muy bueno</option>
-                  <option value="Bueno">Bueno</option>
-                  <option value="Regular">Regular</option>
-                  <option value="No habla">No habla</option>
+                  {englishLevelOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
                 {errors.nivelIngles && <span className="text-red-500 text-sm">{errors.nivelIngles}</span>}
               </div>
@@ -394,7 +424,7 @@ const Form = () => {
               {formData.haTenidoApoyo === 'si' && (
                 <div className="mb-4">
                   <label className="block text-gray-700">¿Cuál?</label>
-                  <input type="text" name="cualApoyo" value={formData.cualApoyo} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                  <input type="text" name="cualApoyo" value={formData.cualApoyo} onChange={handleChange} className={inputClasses} />
                   {errors.cualApoyo && <span className="text-red-500 text-sm">{errors.cualApoyo}</span>}
                 </div>
               )}
@@ -409,7 +439,7 @@ const Form = () => {
               <div className="mb-4">
                 <label className="block text-gray-700">¿A través de qué medio se enteró del colegio?</label>
                 <div className="flex flex-wrap">
-                  {['Google', 'Instagram', 'Facebook', 'Otra persona', 'Junta Directiva', 'Empleados TNS', 'Medios de comunicación', 'Vía Las Palmas', 'Otra institución educativa', 'TNS graduados', 'Familia TNS'].map(medio => (
+                  {medioOptions.map(medio => (
                     <div key={medio} className="mr-4 mb-2">
                       <input
                         type="checkbox"
@@ -434,102 +464,92 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block text-gray-700">Nombre mamá</label>
-                <input type="text" name="nombreMama" value={formData.nombreMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="nombreMama" value={formData.nombreMama} onChange={handleChange} className={inputClasses} />
                 {errors.nombreMama && <span className="text-red-500 text-sm">{errors.nombreMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Tipo de documento</label>
-                <select name="tipoDocumentoMama" value={formData.tipoDocumentoMama} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <select name="tipoDocumentoMama" value={formData.tipoDocumentoMama} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="CC">CC</option>
-                  <option value="CE">CE</option>
-                  <option value="Pasaporte">Pasaporte</option>
-                  <option value="PPT">PPT</option>
-                  <option value="Visa">Visa</option>
-                  <option value="Otro">Otro</option>
+                  {documentTypeOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
                 {errors.tipoDocumentoMama && <span className="text-red-500 text-sm">{errors.tipoDocumentoMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Número de documento</label>
-                <input type="number" name="numeroDocumentoMama" value={formData.numeroDocumentoMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="numeroDocumentoMama" value={formData.numeroDocumentoMama} onChange={handleChange} className={inputClasses} />
                 {errors.numeroDocumentoMama && <span className="text-red-500 text-sm">{errors.numeroDocumentoMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Celular mamá</label>
-                <input type="number" name="celularMama" value={formData.celularMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="celularMama" value={formData.celularMama} onChange={handleChange} className={inputClasses} />
                 {errors.celularMama && <span className="text-red-500 text-sm">{errors.celularMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Email mamá</label>
-                <input type="email" name="emailMama" value={formData.emailMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="email" name="emailMama" value={formData.emailMama} onChange={handleChange} className={inputClasses} />
                 {errors.emailMama && <span className="text-red-500 text-sm">{errors.emailMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Nivel de Escolaridad</label>
-                <select name="escolaridadMama" value={formData.escolaridadMama} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <select name="escolaridadMama" value={formData.escolaridadMama} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="Bachiller">Bachiller</option>
-                  <option value="Pregrado">Pregrado</option>
-                  <option value="Postgrado">Postgrado</option>
-                  <option value="Maestría">Maestría</option>
-                  <option value="Doctorado">Doctorado</option>
+                  {educationLevelOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
                 {errors.escolaridadMama && <span className="text-red-500 text-sm">{errors.escolaridadMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Ocupación</label>
-                <input type="text" name="ocupacionMama" value={formData.ocupacionMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="ocupacionMama" value={formData.ocupacionMama} onChange={handleChange} className={inputClasses} />
                 {errors.ocupacionMama && <span className="text-red-500 text-sm">{errors.ocupacionMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Nombre papá</label>
-                <input type="text" name="nombrePapa" value={formData.nombrePapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="nombrePapa" value={formData.nombrePapa} onChange={handleChange} className={inputClasses} />
                 {errors.nombrePapa && <span className="text-red-500 text-sm">{errors.nombrePapa}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Tipo de documento</label>
-                <select name="tipoDocumentoPapa" value={formData.tipoDocumentoPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <select name="tipoDocumentoPapa" value={formData.tipoDocumentoPapa} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="CC">CC</option>
-                  <option value="CE">CE</option>
-                  <option value="Pasaporte">Pasaporte</option>
-                  <option value="PPT">PPT</option>
-                  <option value="Visa">Visa</option>
-                  <option value="Otro">Otro</option>
+                  {documentTypeOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
                 {errors.tipoDocumentoPapa && <span className="text-red-500 text-sm">{errors.tipoDocumentoPapa}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Número de documento</label>
-                <input type="number" name="numeroDocumentoPapa" value={formData.numeroDocumentoPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="numeroDocumentoPapa" value={formData.numeroDocumentoPapa} onChange={handleChange} className={inputClasses} />
                 {errors.numeroDocumentoPapa && <span className="text-red-500 text-sm">{errors.numeroDocumentoPapa}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Celular papá</label>
-                <input type="number" name="celularPapa" value={formData.celularPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="celularPapa" value={formData.celularPapa} onChange={handleChange} className={inputClasses} />
                 {errors.celularPapa && <span className="text-red-500 text-sm">{errors.celularPapa}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Email papá</label>
-                <input type="email" name="emailPapa" value={formData.emailPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="email" name="emailPapa" value={formData.emailPapa} onChange={handleChange} className={inputClasses} />
                 {errors.emailPapa && <span className="text-red-500 text-sm">{errors.emailPapa}</span>}
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Nivel de escolaridad</label>
-                <select name="escolaridadPapa" value={formData.escolaridadPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded">
+                <label className="block text-gray-700">Nivel de Escolaridad</label>
+                <select name="escolaridadPapa" value={formData.escolaridadPapa} onChange={handleChange} className={inputClasses}>
                   <option value="">Seleccione</option>
-                  <option value="Bachiller">Bachiller</option>
-                  <option value="Pregrado">Pregrado</option>
-                  <option value="Postgrado">Postgrado</option>
-                  <option value="Maestría">Maestría</option>
-                  <option value="Doctorado">Doctorado</option>
+                  {educationLevelOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
                 </select>
-                {errors.escolaridadPapa && <span className="text-red-500 text-sm">{errors.escolaridadPapa}</span>}
+                {errors.escolaridadMama && <span className="text-red-500 text-sm">{errors.escolaridadMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Ocupación</label>
-                <input type="text" name="ocupacionPapa" value={formData.ocupacionPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="text" name="ocupacionPapa" value={formData.ocupacionPapa} onChange={handleChange} className={inputClasses} />
                 {errors.ocupacionPapa && <span className="text-red-500 text-sm">{errors.ocupacionPapa}</span>}
               </div>
               <div className="flex justify-between">
@@ -542,15 +562,15 @@ const Form = () => {
             <>
               <div className="mb-4">
                 <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="notasFinales">Notas finales del último año aprobado</label>
-                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="notasFinales" type="file" name="notasFinales" onChange={handleChange} />
+                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="notasFinales" type="file" name="notasFinales" onChange={handleChange} required />
               </div>
               <div className="mb-4">
                 <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="periodosFinalizados">Periodos finalizados del grado en curso</label>
-                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="periodosFinalizados" type="file" name="periodosFinalizados" onChange={handleChange} />
+                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="periodosFinalizados" type="file" name="periodosFinalizados" onChange={handleChange} required />
               </div>
               <div className="mb-4">
                 <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="fichaObservador">Ficha observador</label>
-                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="fichaObservador" type="file" name="fichaObservador" onChange={handleChange} />
+                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="fichaObservador" type="file" name="fichaObservador" onChange={handleChange} required />
               </div>
               <div className="flex justify-between">
                 <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded" onClick={handlePreviousStep}>Atrás</button>
@@ -590,36 +610,29 @@ const Form = () => {
 
       {isSubmitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <Player
-              autoplay
-              loop
-              src="https://lottie.host/ce4d38d6-701d-4bcb-bd9d-09f2994d4b09/10Zo3GofkI.json"
-              style={{ height: '200px', width: '200px' }}
-            />
-            <p className="mt-4 text-center text-gray-700">Enviando...</p>
-          </div>
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/ce4d38d6-701d-4bcb-bd9d-09f2994d4b09/10Zo3GofkI.json"
+            style={{ height: '300px', width: '300px' }}
+          />
         </div>
       )}
 
-      {submissionResult === true && (
+      {submissionResult !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <svg className="w-16 h-16 text-green-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m0 9a9 9 0 110-18 9 9 0 010 18z" />
-            </svg>
-            <p className="text-center text-gray-700">Formulario enviado con éxito</p>
-          </div>
-        </div>
-      )}
-
-      {submissionResult === false && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <svg className="w-16 h-16 text-red-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <p className="text-center text-gray-700">Error al enviar el formulario</p>
+          <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-8">
+            {submissionResult ? (
+              <>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">¡Éxito!</h3>
+                <p className="text-gray-500 dark:text-gray-400">El formulario se ha enviado correctamente.</p>
+              </>
+            ) : (
+              <>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Error</h3>
+                <p className="text-gray-500 dark:text-gray-400">Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo.</p>
+              </>
+            )}
           </div>
         </div>
       )}

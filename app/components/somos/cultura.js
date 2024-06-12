@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGEducationModel } from '@/app/data/language/english';
 import { ESPEducationModel } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function Cultura() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -23,7 +24,7 @@ export default function Cultura() {
             <div className="contenedor flex justify-center items-center pt-4 pb-4 ">
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center">
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-4xl font-bold text-[#444444] mb-4">
+                        <h1 className="text-4xl font-bold text-grayTerciary mb-4">
                             {isEnglish ? ENGEducationModel.title : ESPEducationModel.titulo}
                         </h1>
                         <p className="text-gray-500 text-[13px]">
@@ -58,7 +59,7 @@ export default function Cultura() {
                     </div>
                     <div className="md:w-1/2 flex justify-center ">
                         <img className="md:w-[420px] rounded-lg object-cover shadow-lg"
-                            src="/images/about_us/our_proposal/photo6.jpg"
+                            src={ImagesPath.photo6}
                             alt="Descripción de la imagen">
                         </img>
                     </div>

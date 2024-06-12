@@ -1,38 +1,39 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaTrash } from 'react-icons/fa';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 const articles = [
   {
-    image: 'https://www.shutterstock.com/image-vector/happy-cute-kids-boy-girl-600nw-1566728953.jpg',
+    image: ImagesPath.article1,
     date: '2023-12-07',
     title: 'Using Malicious AI to immunize AML Programs: Redefining the A...',
     category: 'Parvulo',
     url: '/article/1',
   },
   {
-    image: 'https://www.mindicsalud.com/sites/default/files/styles/blog_full/public/elementary_kids.jpg?itok=mW6GsyKP',
+    image: ImagesPath.article2,
     date: '2023-12-06',
     title: 'Best practice in private banking due diligence',
     category: 'Primaria',
     url: '/article/2',
   },
   {
-    image: 'https://www.unicef.org/sites/default/files/styles/hero_tablet/public/UN0318726_CRC30_SP.jpg.webp?itok=DuDukEmR',
+    image: ImagesPath.article3,
     date: '2005-12-06',
     title: 'Best practice in private banking due diligence',
     category: 'Primaria',
     url: '/article/3',
   },
   {
-    image: 'https://img.lalr.co/cms/2024/05/03202902/WhatsApp-Image-2024-05-03-at-18.40.15.jpg?size=xs',
+    image: ImagesPath.article4,
     date: '2004-12-06',
     title: 'Best practice in private banking due diligence',
     category: 'Primaria',
     url: '/article/4',
   },
   {
-    image: 'https://i0.wp.com/educaqualitas.com/wp-content/uploads/2021/01/concetracion.jpg?fit=998%2C599&ssl=1',
+    image: ImagesPath.article5,
     date: '2002-12-06',
     title: 'Best practice in private banking due diligence',
     category: 'Primaria',

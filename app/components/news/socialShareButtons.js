@@ -1,3 +1,4 @@
+import { ImagesPath } from '@/app/utils/imagesPath';
 import React from 'react';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share';
 
@@ -27,7 +28,7 @@ const SocialShareButtons = ({ blogUrl }) => {
                 <div className="flex flex-col items-center">
                     <div className="mb-2 p-2 border border-gray-300 bg-white w-8 h-8 flex items-center justify-center shadow-sm">0</div>
                     <LinkedinShareButton url={blogUrl} className="linkedin-button text-white px-4 py-2 rounded-md flex items-center justify-center hover:scale-105 transition transform duration-300 ease-in-out">
-                        <img src="/images/social_media/linkedin.png" alt="Share on LinkedIn" className="w-4 h-4 mr-2" />
+                        <img src={ImagesPath.linkedin} alt="Share on LinkedIn" className="w-4 h-4 mr-2" />
                         Share
                     </LinkedinShareButton>
                 </div>

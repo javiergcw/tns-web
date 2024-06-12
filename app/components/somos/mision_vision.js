@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGOurProposal } from '@/app/data/language/english';
 import { ESPOurProposal } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function MisionVision() {
     const [isMounted, setIsMounted] = useState(false);
@@ -29,7 +30,7 @@ export default function MisionVision() {
                 <div className="md:w-1/3 p-4">
                     <img
                         className="w-full h-auto rounded-lg object-cover shadow-lg"
-                        src="/images/about_us/our_proposal/photo2.jpg"
+                        src={ImagesPath.photo2}
                         alt="Un grupo de niños aprendiendo al aire libre, reflejando la misión de la institución educativa."
                         style={{ width: '300px', height: '200px' }}
                     />
@@ -59,7 +60,7 @@ export default function MisionVision() {
                 <div className=" md:w-1/3 p-4 md:order-2">
                     <img
                         className="w-full h-auto rounded-lg object-cover shadow-lg"
-                        src="/images/about_us/our_proposal/photo3.jpg"
+                        src={ImagesPath.photo3}
                         alt="Vista de la institución educativa, simbolizando la visión hacia el futuro."
                         style={{ width: '300px', height: '200px' }}
                     />

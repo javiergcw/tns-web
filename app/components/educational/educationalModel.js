@@ -8,8 +8,8 @@ export default function EducationalModel() {
 
                     {/* Contenido de la derecha */}
                     <div className="lg:w-1/2 text-center lg:text-left space-y-4 mb-4 lg:mb-0">
-                        <h1 className="text-2xl lg:text-4xl text-[#444444] mb-4">Conoce Nuestros Proyectos y Apoyo Estudiantil</h1>
-                        <h2 className="text-xl lg:text-2xl text-[#444444]">Espacio ideal para el Aprendizaje</h2>
+                        <h1 className="text-2xl lg:text-4xl text-grayTerciary mb-4">Conoce Nuestros Proyectos y Apoyo Estudiantil</h1>
+                        <h2 className="text-xl lg:text-2xl text-grayTerciary">Espacio ideal para el Aprendizaje</h2>
                         <p className="text-gray-500 text-sm lg:text-base text-justify">
                             En 1995 inició la construcción de la sede actual ubicada en el Km. 10 de la Vía Las Palmas
                             (Cra. 12 N°11 sur – 338 de El Poblado) en una zona campestre de 87.646 m2 de extensión, un

@@ -10,7 +10,7 @@ const ReadBlueButton = ({ buttonText = 'Read more', redirectUrl }) => {
     return (
         <button
             onClick={handleClick}
-            className="flex items-center border border-gray-300 bg-[#4891D1] rounded-lg overflow-hidden focus:outline-none group text-sm"
+            className="flex items-center border border-gray-300 bg-blueLight rounded-lg overflow-hidden focus:outline-none group text-sm"
         >
             <span className="flex items-center transition-colors justify-center bg-[#448AC6] ease-in-out group-hover:bg-[#4183BB] text-white p-2 rounded-l-lg">
                 <Squares2X2Icon className="text-[#224563] h-4 w-4" /> {/* Ajustado para mantener proporcionalidad */}

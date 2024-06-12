@@ -1,6 +1,6 @@
 
 /** @type {import('tailwindcss').Config} */
-
+const colors = require('./app/styles/colors');
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -14,14 +14,9 @@ module.exports = {
         '144': '36rem', // 576px
         // Añade más tamaños según lo necesites
       },
-      colors: {
-        bluePrimary: '#007bff', // Reemplaza esto con el color azul que prefieras
-        greenPrimary: '#96C11F',
-        grayPrimary: '#9F9F9F',
-        graySecundary:'#4F4F4F',
-        bgPrimary: '#F0F1F5',
-        blueSecundary:'#004F9F',
-        blueButton:'#2991D6'
+      colors:
+      {
+        colors,
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGOurProposal } from '@/app/data/language/english';
 import { ESPOurProposal } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function Valores() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -21,52 +22,52 @@ export default function Valores() {
         {
             titulo: "",
             descripcion: "Believe in freedom under the limit of respect.",
-            imagen: "/images/others/respeto.png"
+            imagen: ImagesPath.respeto
         },
         {
             titulo: "",
             descripcion: "Value diversity and balance of individuality.",
-            imagen: "/images/others/compromiso.png"
+            imagen: ImagesPath.compromiso
         },
         {
             titulo: "",
             descripcion: "Emphasize justice and equity as a step to freedom.",
-            imagen: "/images/others/solidaridad.png"
+            imagen: ImagesPath.solidaridad
         },
         {
             titulo: "",
             descripcion: "Stimulate self-knowledge from the daily praxis of reflection.",
-            imagen: "/images/others/autonomia.png"
+            imagen: ImagesPath.autonomia
         },
         {
             titulo: "",
             descripcion: "Invite a critical look, evaluation, and authentic reflection.",
-            imagen: "/images/others/equidad.png"
+            imagen: ImagesPath.equidad
         },
         {
             titulo: "",
             descripcion: "Form citizens, social beings who contribute to the development of humanity.",
-            imagen: "/images/others/creatividad.png"
+            imagen: ImagesPath.creatividad
         },
         {
             titulo: "",
             descripcion: "Promote personal growth, social commitment, and essential care for our planet.",
-            imagen: "/images/others/autonomia.png"
+            imagen:ImagesPath.autonomia
         },
         {
             titulo: "",
             descripcion: "Value school mediation as a conciliatory principle in the face of differences in the relationship with others.",
-            imagen: "/images/others/solidaridad.png"
+            imagen: ImagesPath.solidaridad
         },
         {
             titulo: "",
             descripcion: "Develop a comprehensive transdisciplinary curriculum.",
-            imagen: "/images/others/compromiso.png"
+            imagen: ImagesPath.compromiso
         },
         {
             titulo: "",
             descripcion: "Value the support of the family in each dimension of the formation of children.",
-            imagen: "/images/others/respeto.png"
+            imagen: ImagesPath.respeto
         }
     ];
 
@@ -74,52 +75,52 @@ export default function Valores() {
         {
             titulo: "",
             descripcion: "Creer en la libertad bajo el límite del respeto.",
-            imagen: "/images/others/respeto.png"
+            imagen: ImagesPath.respeto
         },
         {
             titulo: "",
             descripcion: "Valorar la diversidad y el equilibrio de la individualidad.",
-            imagen: "/images/others/compromiso.png"
+            imagen:ImagesPath.compromiso
         },
         {
             titulo: "",
             descripcion: "Enfatizar en la justicia y la equidad como un paso a la libertad.",
-            imagen: "/images/others/solidaridad.png"
+            imagen: ImagesPath.solidaridad
         },
         {
             titulo: "",
             descripcion: "Estimular el autoconocimiento desde la praxis cotidiana de la reflexión.",
-            imagen: "/images/others/autonomia.png"
+            imagen: ImagesPath.autonomia
         },
         {
             titulo: "",
             descripcion: "Invitar a la mirada crítica, a la evaluación y a la auténtica reflexión.",
-            imagen: "/images/others/equidad.png"
+            imagen: ImagesPath.equidad
         },
         {
             titulo: "",
             descripcion: "Formar ciudadanos, seres sociales que aportan al desarrollo de la humanidad.",
-            imagen: "/images/others/creatividad.png"
+            imagen: ImagesPath.creatividad
         },
         {
             titulo: "",
             descripcion: "Promover el crecimiento personal, el compromiso social y el cuidado primordial de nuestro planeta.",
-            imagen: "/images/others/autonomia.png"
+            imagen: ImagesPath.autonomia
         },
         {
             titulo: "",
             descripcion: "Valorar la mediación escolar como principio conciliador ante las diferencias en la interrelación con el otro.",
-            imagen: "/images/others/solidaridad.png"
+            imagen: ImagesPath.solidaridad
         },
         {
             titulo: "",
             descripcion: "Desarrollar un currículo transdisciplinario integral.",
-            imagen: "/images/others/compromiso.png"
+            imagen: ImagesPath.compromiso
         },
         {
             titulo: "",
             descripcion: "Valorar el acompañamiento de la familia en cada dimensión de la formación de los hijos.",
-            imagen: "/images/others/respeto.png"
+            imagen: ImagesPath.respeto
         }
     ];
 

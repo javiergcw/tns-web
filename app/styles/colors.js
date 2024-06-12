@@ -1,0 +1,20 @@
+// app/styles/colors.js
+
+const colors = {
+    bluePrimary: '#007bff',
+    greenPrimary: '#96C11F',
+    grayPrimary: '#9F9F9F',
+    graySecundary: '#4F4F4F',
+    bgPrimary: '#F0F1F5',
+    blueSecundary: '#004F9F',
+    blueButton: '#2991D6',
+    grayTerciary:'#444444',
+    gray4th:'#626262',
+    whitePrimary:'#f8f8f8',
+    gray5th:'#8a8a8a',
+    blueLight:'#4891D1',
+    blueHard:'#004695'
+  };
+  
+  module.exports = colors;
+  

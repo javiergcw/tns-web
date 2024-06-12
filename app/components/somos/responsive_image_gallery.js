@@ -35,7 +35,7 @@ const ResponsiveImageGallery = () => {
                 ))}
             </div>
             <br />
-            <h1 className="text-3xl font-bold text-[#444444] mb-4">
+            <h1 className="text-3xl font-bold text-grayTerciary mb-4">
                 {isEnglish ? ENGCampus.title5 : ESPCampus.titulo5}
             </h1>
             <p className="text-[13px]">

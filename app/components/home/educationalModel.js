@@ -1,3 +1,4 @@
+import { ImagesPath } from '@/app/utils/imagesPath';
 import '/app/globals.css'
 
 import React from 'react';
@@ -11,8 +12,8 @@ export default function EducationalModel () {
 
                     {/* Contenido de la derecha */}
                     <div className="md:w-1/2 mt-[auto]">
-                        <h1 className="text-4xl text-[#444444] mb-4">Conoce Nuestros Proyectos y Apoyo Estudiantil</h1>
-                        <h2 className="text-[#444444] mb-4">Espacio ideal para el Aprendizaje</h2>
+                        <h1 className="text-4xl text-grayTerciary mb-4">Conoce Nuestros Proyectos y Apoyo Estudiantil</h1>
+                        <h2 className="text-grayTerciary mb-4">Espacio ideal para el Aprendizaje</h2>
                         <p className="text-gray-500 text-[13px] text-justify">
                             En 1995 inició la construcción de la sede actual ubicada en el Km. 10 de la Vía Las Palmas
                             (Cra. 12 N°11 sur – 338 de El Poblado) en una zona campestre de 87.646 m2 de extensión, un
@@ -45,7 +46,7 @@ export default function EducationalModel () {
                     <div className="md:w-1/2 flex justify-center md:justify-start">
                         <img
                             className=" w-64 h-64 mt-5 ml-2 w-[600px] h-[572px]"
-                            src="http://www.thenewschool.edu.co/wp-content/uploads/2015/10/Group-1-3.png"
+                            src={ImagesPath.group1}
                             alt="Dos niños participando en una actividad educativa, representando los valores centrales de la institución educativa."
                         />
                     </div>

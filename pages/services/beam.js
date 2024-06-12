@@ -8,6 +8,7 @@ import FooterTwo from '@/app/components/home/footer/footerTwo';
 import Footer from '@/app/components/home/footer/footer';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 
 const Beam = () => {
@@ -15,22 +16,22 @@ const Beam = () => {
     const enlaces = [
         {
             href: "https://thenewschool.beam.com.co/Docentes/activacion",
-            src: "/images/services/beam/Group-4.png",
+            src: ImagesPath.group4,
             alt: "Group 4"
         },
         {
             href: "https://beam14.beam.com.co/BeamWebTheNewSchool/Account/Login",
-            src: "/images/services/beam/Group-3-1.png",
+            src: ImagesPath.group3,
             alt: "Group 3 (1)"
         },
         {
             href: "https://beam14.beam.com.co/beamacademicTheNewSchool/beamacademic.aspx",
-            src: "/images/services/beam/Group-2.png",
+            src: ImagesPath.group2,
             alt: "Group 2"
         },
         {
             href: "https://thenewschool.beam.com.co/admisiones/login-family",
-            src: "/images/services/beam/Group-1-1.png",
+            src: ImagesPath.group1,
             alt: "Group 1 (1)"
         }
     ];

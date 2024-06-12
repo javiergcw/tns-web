@@ -7,17 +7,18 @@ import FooterTwo from '@/app/components/home/footer/footerTwo';
 import Footer from '@/app/components/home/footer/footer';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 
 const enlaces = [
     {
         href: "https://www.soyservitravel.com/",
-        src: "/images/services/other/Group-5.png",
+        src: ImagesPath.group5,
         alt: "Group 5"
     },
     {
         href: "https://laprovenzana.co",
-        src: "/images/services/other/Group-6.png",
+        src: ImagesPath.group6,
         alt: "Group 6"
     }
 ];

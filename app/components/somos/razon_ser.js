@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGOurProposal } from '@/app/data/language/english';
 import { ESPOurProposal } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 
 export default function RazonDeSeR() {
@@ -25,7 +26,7 @@ export default function RazonDeSeR() {
                         <div className="w-full max-w-xs lg:max-w-md xl:max-w-lg mx-auto">
                             <img
                                 className="rounded-full border-4 border-[#1e73be]"
-                                src="/images/about_us/our_proposal/photo1.jpg"
+                                src={ImagesPath.photo1}
                                 alt="Dos niños participando en una actividad educativa, representando los valores centrales de la institución educativa."
                                 style={{ width: '100%', height: 'auto' }}
                             />

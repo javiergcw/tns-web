@@ -14,8 +14,8 @@ const ServicesHome = ({ images }) => {
                             <img src={image.src} alt={image.alt} className="h-auto max-w-full mx-auto" />
                         </a>
                     </div>
-                    <div className="relative w-full border-0 group-hover:border-2 group-hover:border-[#2991D6] mt-2">
-                        <div className="hidden group-hover:block absolute left-1/2 top-[calc(100%-0.3rem)] transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent group-hover:border-b-[#2991D6]"></div>
+                    <div className="relative w-full border-0 group-hover:border-2 group-hover:border-blueButton mt-2">
+                        <div className="hidden group-hover:block absolute left-1/2 top-[calc(100%-0.3rem)] transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent group-hover:border-b-blueButton"></div>
                     </div>
                 </div>
             ))}

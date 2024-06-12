@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGOurProposal } from '@/app/data/language/english';
 import { ESPOurProposal } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function Historia() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -24,7 +25,7 @@ export default function Historia() {
                 <div className="flex flex-col md:flex-row max-w-6xl mx-auto items-center gap-8">
                     <div className="md:w-1/2 text-center md:text-left px-4">
                         {/*   <strong>
-                            <h1 className="text-4xl text-[#444444] mb-4">Nuestra Historia</h1>
+                            <h1 className="text-4xl text-grayTerciary mb-4">Nuestra Historia</h1>
                         </strong> */}
                         <p className="text-[14px]">
                             {isEnglish ? ENGOurProposal.historyp1 : ESPOurProposal.historiap1}
@@ -37,7 +38,7 @@ export default function Historia() {
                     </div>
                     <div className="md:w-1/2 flex justify-center px-4">
                         <img className="w-full h-auto max-w-md mx-auto rounded-lg object-cover shadow-lg"
-                            src="/images/about_us/our_proposal/photo4.jpg"
+                            src={ImagesPath.photo4}
                             alt="Descripción de la imagen">
                         </img>
                     </div>

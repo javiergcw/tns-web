@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGCulturaNew } from '@/app/data/language/english';
 import { ESPCulturaNew } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function Bilingue() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -22,7 +23,7 @@ export default function Bilingue() {
                     ˝
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-3xl font-bold text-[#444444] mb-4">
+                        <h1 className="text-3xl font-bold text-grayTerciary mb-4">
                             {isEnglish ? ENGCulturaNew.title4: ESPCulturaNew.titulo4}
 
                         </h1>
@@ -34,7 +35,7 @@ export default function Bilingue() {
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
                         <img className="md:w-[520px] h-[300px] rounded-lg object-cover shadow-lg"
-                            src="/images/about_us/our_proposal/photo9.jpg"
+                            src={ImagesPath.photo9}
                             alt="Descripción de la imagen">
                         </img>
                     </div>˝

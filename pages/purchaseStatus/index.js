@@ -3,6 +3,7 @@ import React from "react";
 import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
 import "/app/globals.css";
+import { ImagesPath } from "@/app/utils/imagesPath";
 
 /**
  * PurchaseStatus Page
@@ -16,9 +17,9 @@ export default function PurchaseStatus() {
   return (
     <div className="flex h-screen">
       {/* Sección izquierda - Imagen corporativa */}
-      <div className="w-full h-screen m-0 bg-[#004F9F]">
+      <div className="w-full h-screen m-0 bg-blueSecundary">
         <img
-          src="/images/logo-vertical.png"
+          src={ImagesPath.logoVertical}
           alt="Descripción de la imagen"
           className="w-screen h-screen"
         />

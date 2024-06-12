@@ -5,6 +5,7 @@ import {useState} from "react";
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGCampus, ENGCulturaNew } from '@/app/data/language/english';
 import { ESPCampus } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 export default function Members() {
     const isEnglish = useSelector((state) => state.isEnglish);
@@ -24,7 +25,7 @@ export default function Members() {
 
                     {/* Sección de Texto */}
                     <div className="md:w-1/2 text-center md:text-left px-4">
-                        <h1 className="text-3xl font-bold text-[#444444] mb-4">
+                        <h1 className="text-3xl font-bold text-grayTerciary mb-4">
                             {isEnglish ? "Sailors and crew members committed to the navigation route:" : "Marineros y tripulantes comprometidos con la ruta de navegación:" }
                         </h1>
                         <p className="text-[13px]">
@@ -41,7 +42,7 @@ export default function Members() {
                     {/* Sección de Imagen */}
                     <div className="md:w-1/2 flex justify-center">
                         <img className="md:w-[520px] h-[300px] rounded-lg object-cover shadow-lg"
-                            src="/images/about_us/our_proposal/photo13.jpg"
+                            src={ImagesPath.photo13}
                             alt="Descripción de la imagen">
                         </img>
                     </div>

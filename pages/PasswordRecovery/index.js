@@ -16,7 +16,7 @@ import "/app/globals.css";
 export default function PasswordRecovery() {
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-[#004F9F]">
+      <div className="flex justify-center items-center h-screen bg-blueSecundary">
         {/* Sección del formulario */}
         <div className="w-1/3 p-8 bg-white shadow-md rounded-md">
           {/* Título del formulario */}

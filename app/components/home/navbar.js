@@ -75,7 +75,7 @@ const Navbar = () => {
               {/* Menú de navegación (oculto en dispositivos móviles y visible en pantallas más grandes) */}
               <div className={`md:flex items-center flex-grow ${isMobileMenuOpen ? 'flex' : 'hidden'} flex-col md:flex-row`}>
                 {/* Inicio */}
-                <a href="/" className="text-[#2991D6] py-1 ml-[20px]">HOME</a>
+                <a href="/" className="text-blueButton py-1 ml-[20px]">HOME</a>
 
                 {/* Separador */}
                 <div style={dividerStyle} className="mx-2"></div>
@@ -87,7 +87,7 @@ const Navbar = () => {
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}>
                   {/* Trigger del menú */}
-                  <a href="#" className="text-[#2991D6] py-1 mb-0 focus:outline-none" aria-haspopup="true">
+                  <a href="#" className="text-blueButton py-1 mb-0 focus:outline-none" aria-haspopup="true">
                     ABOUT US
                   </a>
 
@@ -121,17 +121,17 @@ const Navbar = () => {
 
                 {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view?usp=sharing" className="text-[#2991D6] py-1" target="_blank">SCHEDULE</a>
+                <a href="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view?usp=sharing" className="text-blueButton py-1" target="_blank">SCHEDULE</a>
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view" className="text-[#2991D6] py-1" target="_blank">CALENDAR</a>
+                <a href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view" className="text-blueButton py-1" target="_blank">CALENDAR</a>
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="/admissions/form" className="text-[#2991D6] py-1">ADMISSIONS</a>
+                <a href="/admissions/form" className="text-blueButton py-1">ADMISSIONS</a>
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="/news/blog" className="text-[#2991D6] py-1">NEWS</a>
+                <a href="/news/blog" className="text-blueButton py-1">NEWS</a>
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="/communications/circulares" className="text-[#2991D6] py-1">COMMUNICATIONS</a>
+                <a href="/communications/circulares" className="text-blueButton py-1">COMMUNICATIONS</a>
                 <div style={dividerStyle} className="mx-2"></div>
-                <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1" className="text-[#2991D6] py-1" target="_blank">INSPIRING PARENTS TNS</a>
+                <a href="https://thenewschooledu-my.sharepoint.com/personal/orientacionescolar_thenewschool_edu_co/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Forientacionescolar%5Fthenewschool%5Fedu%5Fco%2FDocuments%2F5%20ESPACIO%20FORMATIVO%20LIFE%20SKILLS%2FINSPIRING%20PARENTS%20TNS&fromShare=true&ga=1" className="text-blueButton py-1" target="_blank">INSPIRING PARENTS TNS</a>
 
               </div>
               <LanguageToggle />

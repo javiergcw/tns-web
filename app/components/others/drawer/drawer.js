@@ -8,6 +8,7 @@ import {
   MdExitToApp,
 } from 'react-icons/md';
 import Text from '@/app/components/others/text/text';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 /**
  * Drawer Component
@@ -22,7 +23,7 @@ import Text from '@/app/components/others/text/text';
 const Drawer = ({ isOpen, onToggle }) => {
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${
+      className={`fixed top-0 left-0 h-full bg-blueSecundary text-white z-50 ${
         isOpen ? 'w-64' : 'w-16'
       } transition-all duration-300 ease-in-out flex flex-col items-center`}
     >
@@ -35,7 +36,7 @@ const Drawer = ({ isOpen, onToggle }) => {
       <div className={`flex flex-col items-center w-full mt-4 flex-1 ${isOpen ? 'block' : 'hidden'}`}>
         <div className="flex flex-col sm:flex-row items-center w-full px-4">
           <img
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={ImagesPath.drawerPhoto}
             alt="Profile"
             className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"
           />
@@ -45,23 +46,23 @@ const Drawer = ({ isOpen, onToggle }) => {
           </div>
         </div>
         <ul className="mt-6 space-y-4 w-full flex-1">
-          <li className="px-4 py-2 hover:bg-[#004695] cursor-pointer flex items-center">
+          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdDashboard className="mr-2 text-green-500" />
             <Text texto="Item 1" color="white" type="normal" />
           </li>
-          <li className="px-4 py-2 hover:bg-[#004695] cursor-pointer flex items-center">
+          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdSettings className="mr-2 text-green-500" />
             <Text texto="Item 2" color="white" type="normal" />
           </li>
-          <li className="px-4 py-2 hover:bg-[#004695] cursor-pointer flex items-center">
+          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdPerson className="mr-2 text-green-500" />
             <Text texto="Item 3" color="white" type="normal" />
           </li>
-          <li className="px-4 py-2 hover:bg-[#004695] cursor-pointer flex items-center">
+          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdHelp className="mr-2 text-green-500" />
             <Text texto="Item 4" color="white" type="normal" />
           </li>
-          <li className="px-4 py-2 hover:bg-[#004695] cursor-pointer flex items-center">
+          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdExitToApp className="mr-2 text-green-500" />
             <Text texto="Item 5" color="white" type="normal" />
           </li>

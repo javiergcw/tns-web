@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGCulturaNew } from '@/app/data/language/english';
 import { ESPCulturaNew } from '@/app/data/language/spanish';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 const valuesEs = [
     {
@@ -98,7 +99,7 @@ export default function Filosofia() {
                             </div>
                             <div className="md:col-span-3">
                                 <Image
-                                    src="/images/about_us/our_proposal/photo7.jpg"
+                                    src={ImagesPath.photo7}
                                     alt="Our Proposal"
                                     className="rounded-lg object-cover shadow-lg"
                                     width={800}
