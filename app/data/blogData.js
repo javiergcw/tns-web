@@ -22,10 +22,10 @@ const blogList = [
         <p>En conclusión, la articulación de la tecnología y las matemáticas es un proceso dinámico y mutuamente enriquecedor que impulsa el progreso en diversos ámbitos. La comprensión profunda de esta relación es crucial para formar las próximas generaciones de científicos, tecnólogos y matemáticos, todos capaces de abordar los desafíos del mundo actual y asumir los retos del futuro.</p>
         </br>
         <center>
-        <a href="/images/blogs/endBlog.jpg"><img class="alignleft wp-image-2121" src="/images/blogs/endBlog.jpg" alt="tnsmun" width="600" "/></a>
-        </center>      
+        <a href="/images/blogs/pikachuArt.jpg"><img class="alignleft wp-image-2121" src="/images/blogs/pikachuArt.jpg" alt="tnsmun" width="400" "/></a>
+        </center>    
         `,
-        banner:true,
+        banner: true,
     }
     ,
     {
