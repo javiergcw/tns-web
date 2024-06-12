@@ -1,5 +1,34 @@
 const blogList = [
     {
+        date: "June  20,2024",
+        imageUrl: '/images/blogs/20_jun_2024.jpg',
+        title: "The importance of mathematics and technology in education today",
+        body: `
+        <p> En la era actual, la tecnología ha revolucionado la forma en que vivimos, trabajamos y nos relacionamos. En el ámbito educativo y para The New School, la tecnología ha jugado un papel fundamental en la calidad educativa; y si ésta además es transversalizada con las matemáticas, el proceso se enriquece, favoreciendo el aprendizaje de los estudiantes.  </p>
+        </br>
+        <center>
+        <a href="/images/blogs/pikachuArt.jpg"><img class="alignleft wp-image-2121" src="/images/blogs/pikachuArt.jpg" alt="tnsmun" width="400" "/></a>
+        </center>
+        </br>
+        <p>Las matemáticas son una herramienta fundamental en la formación académica de los estudiantes, ya que les permite desarrollar habilidades de razonamiento lógico, solución de problemas y pensamiento crítico. Aunque muchas veces los estudiantes encuentran esta disciplina intimidante y difícil de entender, al relacionarla con la tecnología, encontramos que es más práctica y atractiva para niños y jóvenes, lo cual la sitúa como una aliada invaluable en los procesos metodológicos del aula. </p>
+        </br>
+        <p>Entre múltiples formas que hemos explorado en The New School, para lograr esta integración de áreas del saber, encontramos el uso de programas educativos en línea (software), aplicaciones móviles y herramientas en línea especializadas en matemáticas, los cuales permiten a nuestros estudiantes aplicar conceptos matemáticos de manera interactiva y dinámica. Estas herramientas ofrecen la posibilidad de visualizar gráficos, realizar cálculos complejos y practicar ejercicios de manera autodidacta para asimilar la comprensión de los conceptos matemáticos.</p>
+        </br>
+        <p>Al mismo tiempo, la tecnología permite a los docentes personalizar la enseñanza de las matemáticas, adaptando los recursos y actividades, a las necesidades específicas de cada estudiante, dado que, mediante el uso de plataformas de aprendizaje en línea, los profesores pueden realizar un seguimiento individualizado del progreso de cada estudiante, identificar áreas de oportunidad y ofrecer retroalimentación más exacta.</p>
+        </br>
+        <p>De igual forma, la tecnología también ha facilitado la realización de experimentos y actividades prácticas en el aula, que antes eran difíciles de llevar a cabo. Con la ayuda de simuladores virtuales y herramientas de programación, los estudiantes pueden explorar conceptos matemáticos de manera experimental y ver la aplicación de las matemáticas en la vida real.</p>
+        </br>
+        <p>La apuesta que The New School, deposita en el Aprendizaje Significativo para la enseñanza de asignaturas como tecnología y matemáticas, está intrínsecamente ligado al impulso mutuo que ambas le dan al avance innovador en diversos campos. La matemática proporciona la base teórica y los algoritmos esenciales para el desarrollo de nuevas tecnologías, mientras que la tecnología, a su vez, ofrece herramientas poderosas para el estudio y la aplicación de conceptos matemáticos.</p>
+        <p>En conclusión, la articulación de la tecnología y las matemáticas es un proceso dinámico y mutuamente enriquecedor que impulsa el progreso en diversos ámbitos. La comprensión profunda de esta relación es crucial para formar las próximas generaciones de científicos, tecnólogos y matemáticos, todos capaces de abordar los desafíos del mundo actual y asumir los retos del futuro.</p>
+        </br>
+        <center>
+        <a href="/images/blogs/endBlog.jpg"><img class="alignleft wp-image-2121" src="/images/blogs/endBlog.jpg" alt="tnsmun" width="600" "/></a>
+        </center>      
+        `,
+        banner:true,
+    }
+    ,
+    {
         date: "April 26,2024",
         imageUrl: '/images/blogs/portada9.jpg',
         title: "Multilingual Music Festival A space to celebrate linguistic diversity at The New School",

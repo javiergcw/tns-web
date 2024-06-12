@@ -119,6 +119,15 @@ body {
   background-position: center;
   /* Centra la imagen en el contenedor */
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 /* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
 /* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
 /* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
