@@ -21,9 +21,7 @@ const blogList = [
         <p>La apuesta que The New School, deposita en el Aprendizaje Significativo para la enseñanza de asignaturas como tecnología y matemáticas, está intrínsecamente ligado al impulso mutuo que ambas le dan al avance innovador en diversos campos. La matemática proporciona la base teórica y los algoritmos esenciales para el desarrollo de nuevas tecnologías, mientras que la tecnología, a su vez, ofrece herramientas poderosas para el estudio y la aplicación de conceptos matemáticos.</p>
         <p>En conclusión, la articulación de la tecnología y las matemáticas es un proceso dinámico y mutuamente enriquecedor que impulsa el progreso en diversos ámbitos. La comprensión profunda de esta relación es crucial para formar las próximas generaciones de científicos, tecnólogos y matemáticos, todos capaces de abordar los desafíos del mundo actual y asumir los retos del futuro.</p>
         </br>
-        <center>
-        <a href="/images/blogs/endBlog.png"><img class="alignleft wp-image-2121" src="/images/blogs/endBlog.png" alt="tnsmun" "/></a>
-        </center>    
+  
         `,
         banner: true,
     }
