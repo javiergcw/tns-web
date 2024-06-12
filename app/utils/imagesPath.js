@@ -1,7 +1,8 @@
 //PATH de imagenes
 
 export const ImagesPath = {
-
+    //LOGO
+    logoH:'/images/logo-new-school.png',
     cloud:'/images/services/cloud.png',
     services:'/images/services/services.png',
     beam:'/images/services/beam.png',
@@ -85,7 +86,7 @@ export const ImagesPath = {
     fmOMrRR:'https://i.imgur.com/FmOMrRR.png',
     JfxxUvB:'https://i.imgur.com/JfxxUvB.png',
     GbIxdbI:'https://i.imgur.com/GbIxdbI.png',
-    blog6:'images/blogs/blog6.jpeg',
+    blog6:'/images/blogs/blog6.jpeg',
     YSVQujq:'https://i.imgur.com/YSVQujq.png',
     iWdkbXY:'https://i.imgur.com/iWdkbXY.png',
     WHxCIKW:'https://i.imgur.com/WHxCIKW.png',
@@ -101,6 +102,9 @@ export const ImagesPath = {
     group3:'/images/services/beam/Group-3-1.png',
     group2:'/images/services/beam/Group-2.png',
     group1:'/images/services/beam/Group-1-1.png',
+    group5:'/images/services/other/Group-5.png',
+    group6:'/images/services/other/Group-6.png',
+
 
 
 

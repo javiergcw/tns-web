@@ -66,8 +66,8 @@ const blogList = [
     },
     {
         date: "March 22,2024",
-        imageUrl: ImagesPath.blog8,
-        title: "The New School: Educación Bilingüe de calidad",
+        imageUrl: ImagesPath.blog7,
+        title: "The New School: Educacion Bilingue de calidad",
         body: `
         <p>Desde su fundación, The New School ha centrado su interés y compromiso con la formación en consciencia y la promoción del bilingüismo en sus estudiantes. En 2010, nuestro colegio alcanzó un hito significativo, al ser certificado como colegio bilingüe por el Ministerio de Educación de Colombia, gracias al deseo constante de ofrecer calidad educativa y facilitar herramientas competitivas para nuestros niños y jóvenes. Esta certificación reconoció el compromiso de The New School con la enseñanza bilingüe y otorgó a nuestros egresados la valiosa certificación en su segunda lengua, inglés, con el objetivo de fortalecer su perfil académico y profesional en un mundo cada vez más globalizado.</p>
        <br/>
@@ -97,7 +97,7 @@ const blogList = [
     {
         date: "February 27,2024",
         imageUrl: ImagesPath.blog27,
-        title: "Explorando y Aprendiendo a través de las Expediciones Pedagógicas",
+        title: "Explorando y Aprendiendo a traves de las Expediciones Pedagogicas",
         body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
         <br/>
         <br/>
@@ -141,7 +141,7 @@ const blogList = [
     {
         date: "January 19,2024",
         imageUrl: ImagesPath.blog0,
-        title: "Formación por la vida y para la vida",
+        title: "Formacion por la vida y para la vida",
         body: `<h4><strong>Formar por la vida y para la vida es tarea permanente de El Nuevo Colegio, en su búsqueda por facilitar un camino de formación del Ser en su integralidad, en cada uno de los integrantes de la Comunidad Educativa.</strong></h4>   <br/>
         Educar es un proceso que va más allá de la transmisión del conocimiento y las habilidades. Implica, el desarrollo integral de la persona, su capacidad para reflexionar sobre sí misma y sobre el mundo que la rodea. Formar en consciencia es una búsqueda de sentido y de trascendencia, la cual permite a cada integrante de la comunidad educativa descubrir y potenciar su propio talento, su conocimiento, sus habilidades y manejo de emociones; así como la posibilidad de contribuir al mejoramiento de su entorno más próximo y de la sociedad. De otro lado, es un proceso de autoconocimiento, de reflexión y de sensibilidad, el cual nos permite comprender mejor quiénes somos e identificar el por qué y el para qué de lo que nos acontece. Esta dinámica nos ayuda a tomar decisiones libres, responsables, y a relacionarnos mejor con nosotros mismos y con los demás a partir del respeto por la diversidad y la colaboración.
         
@@ -282,8 +282,8 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
     },
     {
         date: "August 1,2023",
-        imageUrl: ImagesPath.blog3,
-        title: "La investigación y el aprendizaje experiencial, el motor formativo el Nuevo colegio",
+        imageUrl: ImagesPath.blog5,
+        title: "La investigacion y el aprendizaje experiencial, el motor formativo el Nuevo colegio",
         body: `<h2 style="text-align: center;"><strong>A través de la investigación escolar, la creatividad, la experimentación y el compartir de saberes en The New School buscamos formar por y para la vida. </strong></h2>  <br/>
         <br/>  <p style="text-align: justify;">En The New School tenemos una estrategia metodológica llamada CAMPOS, para la cual hemos diseñado una estructura de trabajo que organiza los estudiantes de preescolar a undécimo en CICLOS; a cada uno de ellos, le asignamos una dimensión del Ser Humano de acuerdo con las características de cada etapa evolutiva, buscando que, en cada una de ellas, haya un mayor enfoque en las respectivas dimensiones del SER, así:</p>
         <br/>  

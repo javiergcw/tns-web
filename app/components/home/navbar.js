@@ -6,6 +6,7 @@ import TopHeader from './header/topHeader';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Asegúrate de tener 'react-icons' instalado
 import LanguageToggle from '../others/button/LanguageToggle';
+import { ImagesPath } from '@/app/utils/imagesPath';
 
 const Navbar = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -64,7 +65,7 @@ const Navbar = () => {
               {/* Logo */}
 
               <a href="/" className="flex items-center">
-                <img src="/images/logo-new-school.png" alt="Logo The New School" style={{ marginRight: '0.5rem', height: '3rem' }} />
+                <img src={ImagesPath.logoH} alt="Logo The New School" style={{ marginRight: '0.5rem', height: '3rem' }} />
               </a>
 
               {/* Botón de hamburguesa para dispositivos móviles */}
