@@ -452,12 +452,12 @@ const Form = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Número de documento</label>
-                <input type="text" name="numeroDocumentoMama" value={formData.numeroDocumentoMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="number" name="numeroDocumentoMama" value={formData.numeroDocumentoMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
                 {errors.numeroDocumentoMama && <span className="text-red-500 text-sm">{errors.numeroDocumentoMama}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Celular mamá</label>
-                <input type="text" name="celularMama" value={formData.celularMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="number" name="celularMama" value={formData.celularMama} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
                 {errors.celularMama && <span className="text-red-500 text-sm">{errors.celularMama}</span>}
               </div>
               <div className="mb-4">
@@ -502,12 +502,12 @@ const Form = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Número de documento</label>
-                <input type="text" name="numeroDocumentoPapa" value={formData.numeroDocumentoPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="number" name="numeroDocumentoPapa" value={formData.numeroDocumentoPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
                 {errors.numeroDocumentoPapa && <span className="text-red-500 text-sm">{errors.numeroDocumentoPapa}</span>}
               </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Celular papá</label>
-                <input type="text" name="celularPapa" value={formData.celularPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
+                <input type="number" name="celularPapa" value={formData.celularPapa} onChange={handleChange} className="w-full px-3 py-2 border rounded" />
                 {errors.celularPapa && <span className="text-red-500 text-sm">{errors.celularPapa}</span>}
               </div>
               <div className="mb-4">
