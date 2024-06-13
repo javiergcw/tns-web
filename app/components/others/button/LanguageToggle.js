@@ -8,7 +8,7 @@ export default function LanguageToggle() {
   return (
     <div className="flex items-center">
       <p className='mx-2'>
-        {isEnglish ? "Translate" : "Traducir:"}
+        {isEnglish ? "Translate:" : "Traducir:"}
 
       </p>
       <div

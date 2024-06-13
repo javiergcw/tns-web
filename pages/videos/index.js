@@ -1,10 +1,9 @@
 import VideoCard from "@/app/components/others/container/videoCard";
-import Pagination from "@/app/components/others/button/pagination";
+
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Footer from '@/app/components/home/footer/footer'
+
 import '/app/globals.css'
-import Navbar from '@/app/components/home/navbar'
-import FooterTwo from '@/app/components/home/footer/footerTwo'
+
 import "/app/globals.css";
 import React from 'react'
 import { useState } from 'react';
@@ -12,6 +11,7 @@ import SearchFilterBar from "@/app/components/others/container/searchFilterBar";
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
 import HeaderInitial from "@/app/components/others/headerInitial";
+import MainLayout from "@/app/components/layouts/mainLayout";
 
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -84,7 +84,7 @@ export default function Home() {
         <Provider store={store}>
 
       
-                <Navbar />
+                <MainLayout>
                 <HeaderInitial/>
                 <div className="container mx-auto mt-10">
                 <h1 className="text-4xl font-bold mb-6">VIDEOS</h1>
@@ -115,8 +115,7 @@ export default function Home() {
                 </div>
                 <br/>
                 <br/>
-                <FooterTwo />
-                <Footer />
+                </MainLayout>
     
         </Provider>
     );

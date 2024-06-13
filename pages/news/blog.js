@@ -1,21 +1,19 @@
 
 import '/app/globals.css'
 
-import Footer from '@/app/components/home/footer/footer'
-import Navbar from '@/app/components/home/navbar'
-import FooterTwo from '@/app/components/home/footer/footerTwo'
 import HeaderInitial from '@/app/components/others/headerInitial'
 import CardNew from '@/app/components/news/cardNew'
 import blogList from '@/app/data/blogData'
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
+import MainLayout from '@/app/components/layouts/mainLayout'
 
 
 const blog = () => {
 
     return (
         <Provider store={store}>
-            <Navbar />
+            <MainLayout>
             <HeaderInitial />
             <br />
             <div className="flex flex-wrap justify-center gap-4">
@@ -26,8 +24,7 @@ const blog = () => {
                 ))}
             </div>
             <br />
-            <FooterTwo />
-            <Footer />
+            </MainLayout>
         </Provider>
     )
 }

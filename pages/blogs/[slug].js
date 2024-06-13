@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import blogList from '@/app/data/blogData';
 import { Dialog } from '@headlessui/react';
-import Footer from '@/app/components/home/footer/footer';
-import Navbar from '@/app/components/home/navbar';
-import FooterTwo from '@/app/components/home/footer/footerTwo';
+
 import SocialShareButtons from '@/app/components/news/socialShareButtons';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
+import MainLayout from '@/app/components/layouts/mainLayout';
 
 const BlogDetail = () => {
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);
@@ -33,7 +32,7 @@ const BlogDetail = () => {
 
     return (
         <Provider store={store}>
-            <Navbar />
+            <MainLayout>
             <div className='flex flex-col px-4 md:px-24 pb-22 my-8'>
                 <div className="md:flex-row flex flex-col-reverse items-start gap-4 md:gap-8">
                     <div className="w-full md:w-1/5 flex flex-col justify-start">
@@ -91,9 +90,7 @@ const BlogDetail = () => {
                     </div>
                 </Dialog>
             </div>
-
-            <FooterTwo />
-            <Footer />
+            </MainLayout>
         </Provider>
     );
 };

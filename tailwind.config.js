@@ -14,10 +14,7 @@ module.exports = {
         '144': '36rem', // 576px
         // Añade más tamaños según lo necesites
       },
-      colors:
-      {
-        colors,
-      },
+      colors: colors,
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

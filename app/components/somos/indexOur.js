@@ -9,19 +9,19 @@ import Footer from "@/app/components/home/footer/footer";
 import HeaderSomos from "@/app/components/home/headersomos";
 import { Provider } from 'react-redux';
 import store from '../../../app/store/store';
+import MainLayout from '../layouts/mainLayout';
 
 
 export default function AsiSomos() {
   return (
     <Provider store={store}>
-      <Navbar />
+      <MainLayout>
       <HeaderSomos />
       <RazonDeSeR />
       <MisionVision />
       <Historia />
       <Valores />
-      <FooterTwo />
-      <Footer />
+      </MainLayout>
     </Provider>
   );
 }
