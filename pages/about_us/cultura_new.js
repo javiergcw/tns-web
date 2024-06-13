@@ -2,7 +2,10 @@
 import IndexCulturaNew from "@/app/components/cultura/indexCulturaNew";
 
 const CulturaNewPage = () => {
-    return <IndexCulturaNew />;
+    return (
+    <IndexCulturaNew />
+
+    );
 };
 
 export default CulturaNewPage;

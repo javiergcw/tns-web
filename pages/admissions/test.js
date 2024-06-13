@@ -7,6 +7,7 @@ import Form from '@/app/components/admisionForm';
 import MainLayout from '@/app/components/layouts/mainLayout';
 
 
+
 export default function admissions() {
     return (
         <Provider store={store}>
