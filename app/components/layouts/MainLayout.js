@@ -8,7 +8,7 @@ import Navbar from "../home/navbarTest";
 const MainLayout = ({ children }) => {
   return (
     <div>
-      <Navbar/>
+      <Navbar></Navbar>
       <main>{children}</main>
       <FooterTwo/>
       <Footer></Footer>
