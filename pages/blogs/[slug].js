@@ -6,7 +6,7 @@ import { Dialog } from '@headlessui/react';
 import SocialShareButtons from '@/app/components/news/socialShareButtons';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
-import MainLayout from '@/app/components/layouts/mainLayout';
+import MainLayout from '@/app/components/layout/mainLayout';
 
 const BlogDetail = () => {
     const [isImagePopupOpen, setImagePopupOpen] = useState(false);

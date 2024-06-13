@@ -11,7 +11,7 @@ import SearchFilterBar from "@/app/components/others/container/searchFilterBar";
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
 import HeaderInitial from "@/app/components/others/headerInitial";
-import MainLayout from "@/app/components/layouts/mainLayout";
+import MainLayout from "@/app/components/layout/mainLayout";
 
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');

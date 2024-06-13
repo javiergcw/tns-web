@@ -5,7 +5,7 @@ import Formacion from "../somos/formacion";
 import Bilingue from "../somos/bilingue";
 import { Provider } from "react-redux";
 import store from '../../../app/store/store';
-import MainLayout from "../layouts/mainLayout";
+import MainLayout from '../layout/mainLayout';
 
 
 export default function IndexCulturaNew() {

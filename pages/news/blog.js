@@ -6,7 +6,7 @@ import CardNew from '@/app/components/news/cardNew'
 import blogList from '@/app/data/blogData'
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
-import MainLayout from '@/app/components/layouts/mainLayout'
+import MainLayout from '@/app/components/layout/mainLayout'
 
 
 const blog = () => {

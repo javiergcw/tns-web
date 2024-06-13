@@ -5,7 +5,7 @@ import CircularesComponent from '@/app/components/others/circularesComponent';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
 import { ImagesPath } from '@/app/utils/imagesPath';
-import MainLayout from '@/app/components/layouts/mainLayout';
+import MainLayout from '@/app/components/layout/mainLayout';
 
 
 const Beam = () => {

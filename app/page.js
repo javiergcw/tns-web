@@ -12,7 +12,7 @@ import './globals.css'
 import { Provider } from 'react-redux';
 import store from './store/store'
 import { ImagesPath } from "./utils/imagesPath";
-import MainLayout from './components/layouts/mainLayout';
+import MainLayout from './components/layout/mainLayout';
 
 
 export default function Home() {

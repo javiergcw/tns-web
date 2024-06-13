@@ -6,7 +6,7 @@ import Valores from './valores'
 import HeaderSomos from "@/app/components/home/headersomos";
 import { Provider } from 'react-redux';
 import store from '../../../app/store/store';
-import MainLayout from '../layouts/mainLayout';
+import MainLayout from '../layout/mainLayout';
 
 
 

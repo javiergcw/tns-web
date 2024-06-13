@@ -8,7 +8,7 @@ import CircularList from '@/app/components/others/circularesComponent2024'
 
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
-import MainLayout from '@/app/components/layouts/mainLayout'
+import MainLayout from '@/app/components/layout/mainLayout'
 
 const circulares = () => {
 
