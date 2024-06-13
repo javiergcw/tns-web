@@ -26,6 +26,7 @@ export default async function handler(req, res) {
         caption
       });
     });
+    //hola
 
     res.status(200).json({ posts });
   } catch (error) {

@@ -14,6 +14,7 @@ import store from './store/store'
 import { ImagesPath } from "./utils/imagesPath";
 import MainLayout from './components/layouts/mainLayout';
 
+
 export default function Home() {
   const [showModal, setShowModal] = useState(true); // Establece el estado inicial del modal en true
 
