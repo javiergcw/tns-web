@@ -1,6 +1,8 @@
 //PATH de imagenes
 
 export const ImagesPath = {
+
+    //Ciculares
     //LOGO
     logoH:'/images/logo-new-school.png',
     cloud:'/images/services/cloud.png',
