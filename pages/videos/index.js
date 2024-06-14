@@ -21,10 +21,9 @@ export default function Home() {
     const allVideos = [
         {
             link: VideoPath.inscription,
-            title: 'Video de ejemplo',
-            date: 'Septiembre 29',
-            duration: '12 min',
-            category: 'Category 1',
+            title: 'Paso a paso inscripcion',
+            date: 'Junio 14',
+            category: 'Matricula',
             color: 'bg-green-500',
         },
 
