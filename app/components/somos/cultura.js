@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGEducationModel } from '@/app/data/language/english';
 import { ESPEducationModel } from '@/app/data/language/spanish';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 export default function Cultura() {
     const isEnglish = useSelector((state) => state.isEnglish);

@@ -4,7 +4,7 @@ import HeaderInitial from '@/app/components/others/headerInitial';
 import CircularesComponent from '@/app/components/others/circularesComponent';
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 import MainLayout from '@/app/components/layout/mainLayout';
 
 

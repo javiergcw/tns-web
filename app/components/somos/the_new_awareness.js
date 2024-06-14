@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGTheNewAwareness } from '@/app/data/language/english';
 import { ESPTheNewAwareness } from '@/app/data/language/spanish';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 const TheNewAwareness = () => {
     const isEnglish = useSelector((state) => state.isEnglish);

@@ -5,7 +5,7 @@ import {useState} from "react";
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGCampus, ENGCulturaNew } from '@/app/data/language/english';
 import { ESPCampus } from '@/app/data/language/spanish';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 export default function Members() {
     const isEnglish = useSelector((state) => state.isEnglish);

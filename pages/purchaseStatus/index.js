@@ -3,7 +3,7 @@ import React from "react";
 import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
 import "/app/globals.css";
-import { ImagesPath } from "@/app/utils/imagesPath";
+import { ImagesPath } from "@/app/utils/assetsPath";
 
 /**
  * PurchaseStatus Page

@@ -15,8 +15,8 @@ const circulares = () => {
     return (
         <Provider store={store}>
             <MainLayout>
-            <HeaderInitial />
-            <CircularList />
+                <HeaderInitial />
+                <CircularList />
             </MainLayout>
         </Provider>
 

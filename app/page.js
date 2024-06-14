@@ -11,7 +11,7 @@ import blogList from "./data/blogData";
 import './globals.css'
 import { Provider } from 'react-redux';
 import store from './store/store'
-import { ImagesPath } from "./utils/imagesPath";
+import { ImagesPath } from "./utils/assetsPath";
 import MainLayout from './components/layout/mainLayout';
 
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaTrash } from 'react-icons/fa';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 import Pagination from '../others/button/pagination';
 
 const articles = [
@@ -476,7 +476,7 @@ const NewsList = () => {
   const [searchTitle, setSearchTitle] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const articlesPerPage = 6; // Número de artículos por página
+  const articlesPerPage = 9; // Número de artículos por página
 
   useEffect(() => {
     filterArticles();

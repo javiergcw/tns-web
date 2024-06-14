@@ -1,4 +1,4 @@
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 import React from 'react';
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from 'react-share';
 
