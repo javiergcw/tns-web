@@ -1,5 +1,5 @@
 import { ImagesPath } from '@/app/utils/imagesPath';
-import '/app/globals.css'
+import '/app/globals.css';
 export default function FooterTwo() {
     return (
         <footer className="bg-[url('/images/footer/background.png')] bg-cover p-4 md:p-10 w-full h-auto pb-12 md:pb-24">
@@ -9,7 +9,7 @@ export default function FooterTwo() {
                     <img src="/images/logo-vertical.jpeg" alt="Descripción de la imagen" className="h-24 md:h-44 mb-4 md:mb-0" />
                     <div className="flex-1 ml-4">
                         <p><strong>Dirección:</strong> Carrera 9 #11 Sur-338 Medellín - Antioquía</p>
-                        
+
                         <p className='py-2'><strong>Teléfono:</strong> (604) 520 7270</p>
                         <p><strong>E-mails:</strong> Correo@thenewschool.edu.co</p>
                     </div>
@@ -23,7 +23,7 @@ export default function FooterTwo() {
                         height="200"
                         frameBorder="0"
                         style={{ border: 0 }}
-                      
+
                     ></iframe>
                 </div>
 
@@ -49,6 +49,11 @@ export default function FooterTwo() {
                     <a href="https://drive.google.com/file/d/1TEh7VuTRxOraGW_rzIeSs9Bb_g5Z8kDX/view?usp=share_link" target="_blank">
                         <p>Política de Protección de Datos Personales</p>
                     </a>
+                    {/* Botón Flowbite */}
+                    <br></br>
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <a href="/videos" target="_blank">Ver videos</a>
+                    </button>
                 </div>
             </div>
         </footer>
