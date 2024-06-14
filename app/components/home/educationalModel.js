@@ -1,4 +1,4 @@
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 import '/app/globals.css'
 
 import React from 'react';

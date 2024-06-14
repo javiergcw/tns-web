@@ -1,5 +1,6 @@
 import { ImagesPath } from '@/app/utils/imagesPath';
 import '/app/globals.css';
+
 export default function FooterTwo() {
     return (
         <footer className="bg-[url('/images/footer/background.png')] bg-cover p-4 md:p-10 w-full h-auto pb-12 md:pb-24">

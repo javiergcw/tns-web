@@ -8,7 +8,7 @@ import {
   MdExitToApp,
 } from 'react-icons/md';
 import Text from '@/app/components/others/text/text';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 /**
  * Drawer Component

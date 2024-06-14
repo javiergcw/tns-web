@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import LanguageToggle from '../others/button/LanguageToggle';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 const Navbar = () => {
     const [isHovering, setIsHovering] = useState(false);

@@ -6,7 +6,7 @@ import TopHeader from './header/topHeader';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Asegúrate de tener 'react-icons' instalado
 import LanguageToggle from '../others/button/LanguageToggle';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 const Navbar = () => {
   const [isHovering, setIsHovering] = useState(false);

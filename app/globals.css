@@ -172,3 +172,22 @@ nav {
   font-family: 'Dosis', sans-serif;
 
 }
+
+.fade-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 500ms, transform 500ms;
+}

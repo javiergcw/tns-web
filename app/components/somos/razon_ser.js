@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGOurProposal } from '@/app/data/language/english';
 import { ESPOurProposal } from '@/app/data/language/spanish';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 
 export default function RazonDeSeR() {

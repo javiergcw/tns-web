@@ -1,4 +1,4 @@
-import { ImagesPath } from "../utils/imagesPath";
+import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
@@ -67,7 +67,7 @@ const blogList = [
     {
         date: "March 22,2024",
         imageUrl: ImagesPath.blog7,
-        title: "The New School: Educacion Bilingue de calidad",
+        title: "The New School Educacion Bilingue de calidad",
         body: `
         <p>Desde su fundación, The New School ha centrado su interés y compromiso con la formación en consciencia y la promoción del bilingüismo en sus estudiantes. En 2010, nuestro colegio alcanzó un hito significativo, al ser certificado como colegio bilingüe por el Ministerio de Educación de Colombia, gracias al deseo constante de ofrecer calidad educativa y facilitar herramientas competitivas para nuestros niños y jóvenes. Esta certificación reconoció el compromiso de The New School con la enseñanza bilingüe y otorgó a nuestros egresados la valiosa certificación en su segunda lengua, inglés, con el objetivo de fortalecer su perfil académico y profesional en un mundo cada vez más globalizado.</p>
        <br/>
@@ -193,7 +193,7 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
     },
     {
         date: "October 4,2023",
-        imageUrl:ImagesPath.blog2,
+        imageUrl: ImagesPath.blog2,
         title: "Padres inspiradores",
         body: `<b>Una iniciativa innovadora para fortalecer la comunicación y el acompañamiento entre padres e hijos en The New School </b>
         <br/>
@@ -242,7 +242,7 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
     {
         date: "August 1,2023",
         imageUrl: ImagesPath.blog3,
-        title: "El Modelo de la Organización de las Naciones Unidas (ONU) cumple tres años en The New School. ¡Tejidos de sueños que se proyectan en el tiempo!",
+        title: "El Modelo de la Organizacion de las Naciones Unidas (ONU) cumple tres años en The New School Tejidos de sueños que se proyectan en el tiempo",
         body: `<p style="text-align: right;"><em><span style="color: #2479a3;">Por Santiago Hoyos Giraldo</span></em>
         <br/>
         <em><span style="color: #2479a3;"> Normalista, Licenciado en Inglés. Estudiante de Ciencias Políticas y de Maestría en Educación desde la Diversidad.</span></em></p>
@@ -337,7 +337,7 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
     },
     {
         date: "2022-03-10",
-        imageUrl:ImagesPath.blog5,
+        imageUrl: ImagesPath.blog5,
         title: "5 tips para fortalecer el proceso de lecto-escritura",
         body: `
         <a href="https://i.imgur.com/d4qCEEn.png"><img class="alignleft size-medium wp-image-1816" src="https://imgur.com/URuGwcQ.png" alt="Lecto escritura" width="225" height="300" /></a>La adquisición de las competencias de lectura y escritura se da poco a poco en los niños de acuerdo con las características y ritmos de aprendizaje de cada uno de ellos. Este proceso comienza desde que nacemos y es en el hogar donde se cimientan las bases que luego se fortalecen en la escuela. Por eso, queremos compartirles algunas recomendaciones que podemos poner en marcha para fortalecer dicho aprendizaje:

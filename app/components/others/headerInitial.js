@@ -1,4 +1,4 @@
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 import React from 'react';
 
 const HeaderInitial = () => {

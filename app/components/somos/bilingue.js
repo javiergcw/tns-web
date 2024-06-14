@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleLanguage } from '@/app/store/actions';
 import { ENGCulturaNew } from '@/app/data/language/english';
 import { ESPCulturaNew } from '@/app/data/language/spanish';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 export default function Bilingue() {
     const isEnglish = useSelector((state) => state.isEnglish);

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import SocialMedia from './socialMedia';
 import ResponsiveTriangles from './triangle';
-import { ImagesPath } from '@/app/utils/imagesPath';
+import { ImagesPath } from '@/app/utils/assetsPath';
 
 // Componente ServicesStandart
 const ServicesStandart = () => {

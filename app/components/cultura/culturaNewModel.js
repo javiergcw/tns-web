@@ -1,4 +1,4 @@
-import { ImagesPath } from "@/app/utils/imagesPath";
+import { ImagesPath } from "@/app/utils/assetsPath";
 
 export default function CulturaNewModel() {
     return (
