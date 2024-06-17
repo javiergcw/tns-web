@@ -33,6 +33,7 @@ export default function Home() {
     { href: 'http://mail.thenewschool.edu.co/', src: ImagesPath.cloud, alt: 'TNS CLOUD' },
     { href: 'services/others', src: ImagesPath.services, alt: 'Services' },
     { href: 'services/beam', src: ImagesPath.beam, alt: 'Beam' },
+    { href: 'https://podcasters.spotify.com/pod/show/the-new-school', src: ImagesPath.podcast, alt: 'Podcast' },
   ];
 
   const toggleModal = () => {
