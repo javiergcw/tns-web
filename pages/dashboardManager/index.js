@@ -162,8 +162,6 @@ export default function dashboardManager() {
         <RequestsCarousel requestsData={requestsData} />
         <hr className="my-5" />
         {/* Componente de gastos mensuales */}
-     
-        <hr className="my-5" />
         {/* Tabla de seguimiento de peticiones */}
         <TrackingTable data={trackingData} />
       </Container>

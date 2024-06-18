@@ -2,6 +2,7 @@
 import React from "react";
 import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
+import Text from "@/app/components/others/text/text";
 import "/app/globals.css";
 import { ImagesPath } from "@/app/utils/assetsPath";
 
@@ -17,30 +18,30 @@ export default function PurchaseStatus() {
   return (
     <div className="flex h-screen">
       {/* Sección izquierda - Imagen corporativa */}
-      <div className="w-full h-screen m-0 bg-blueSecundary">
+      <div className="w-full h-screen m-0 bg-blue-700 flex justify-center items-center">
         <img
           src={ImagesPath.logoVertical}
           alt="Descripción de la imagen"
-          className="w-screen h-screen"
+          className="w-2/3 h-2/3 object-contain"
         />
       </div>
       {/* Sección derecha - Formulario de consulta */}
-      <div className="w-2/3 flex justify-center items-center bg-slate-100">
-        <div className="w-2/3 p-8 bg-white shadow-md rounded-md">
+      <div className="w-2/3 flex justify-center items-center bg-gray-100">
+        <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
           {/* Título del formulario */}
-          <h1 className="text-[#1e73be] text-2xl font-bold mb-6">
-            CONSULTA ESTADO DE COMPRA
-          </h1>
+          <Text texto="CONSULTA ESTADO DE COMPRA" color="blue" type="header" />
           {/* Campo de entrada para el número de compra */}
-          <TextInput
-            labelText="Ingresa tu número de compra"
-            labelColor="grey"
-            inputSize="large"
-          />
+          <div className="mt-4">
+            <TextInput
+              labelText="Ingresa tu número de compra"
+              labelColor="grey"
+              inputSize="large"
+            />
+          </div>
           {/* Botones de acción */}
-          <div className="flex justify-between mt-6">
-            <NormalButton color="red" size="medium" text="Cancelar" />
-            <NormalButton color="blue" size="medium" text="Buscar" />
+          <div className="flex justify-between ">
+            <NormalButton color="green" size="large" text="Buscar" />
+            <NormalButton color="red" size="large" text="Cancelar" />
           </div>
         </div>
       </div>

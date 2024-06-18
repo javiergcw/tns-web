@@ -43,7 +43,7 @@ const NormalButton = ({
   const getColorClass = () => {
     switch (color) {
       case "blue":
-        return "bg-blue-500 hover:bg-blue-600";
+        return "bg-[#004F9F] hover:bg-blue-600";
       case "green":
         return "bg-green-500 hover:bg-green-600";
       case "red":
@@ -58,7 +58,7 @@ const NormalButton = ({
       onClick={handleClick}
       className={`flex items-center px-3 py-2 border border-gray-300 rounded-lg overflow-hidden focus:outline-none group transition-colors duration-300 ease-in-out mt-5 ${getColorClass()} ${getSizeClass()}`}
     >
-      <span className="flex-1">{text}</span>
+      <span className="flex-1 text-white">{text}</span>
     </button>
   );
 };

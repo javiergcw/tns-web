@@ -14,31 +14,17 @@ import Text from '@/app/components/others/text/text';
  * @component
  */
 const LastRequests = ({ area, leader, description }) => {
-    return (
-      <div className="p-6 bg-white shadow-md rounded-md max-w-md mx-auto">
-        <Text texto={area} color="blue" type="title" className="text-left mb-1" />
-        <hr className="border-black my-1" />
-        <Text
-          texto={leader}
-          color="green"
-          type="subtitle"
-          className="text-left mb-1 font-bold"
-        />
-        <Text
-          texto="description:"
-          color="blue"
-          type="normal"
-          className="text-left mt-1 font-bold"
-        />
-        <Text
-          texto={description}
-          color="grey"
-          type="normal"
-          className="text-left mt-1"
-        />
+  return (
+    <div className="p-6 bg-white shadow-lg rounded-lg max-w-md mx-auto border border-gray-200">
+      <div className="flex items-center mb-4">
+        <Text texto={area} color="blue" type="title" className="mr-2" />
+        <div className="flex-1 border-t border-gray-300"></div>
       </div>
-    );
-  };
-  
-  export default LastRequests;
-  
+      <Text texto={leader} color="green" type="subtitle" className="mb-2" />
+      <Text texto="Description:" color="blue" type="normal" className="font-semibold mb-1" />
+      <Text texto={description} color="grey" type="normal" className="text-gray-600" />
+    </div>
+  );
+};
+
+export default LastRequests;
