@@ -31,6 +31,7 @@ export default function PasswordRecovery() {
             color="grey" 
             type="subtitle" 
           />
+          <br></br>
           {/* Campo de entrada para la dirección de correo electrónico */}
           <TextInput 
             labelText="Correo Electrónico"
