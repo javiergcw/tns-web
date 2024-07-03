@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { register } from '@/app/services/apiService';
 
 const RegisterForm = () => {
   const [name, setName] = useState('');
@@ -6,6 +8,8 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,19 +19,23 @@ const RegisterForm = () => {
       return;
     }
 
-    const res = await fetch('https://d6d0-190-27-163-119.ngrok-free.app/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      setMessage('Usuario registrado con éxito');
-    } else {
-      setMessage(`Error: ${data.message}`);
+    try {
+      const response = await register(email, password, confirmPassword, name);
+      if (response) {
+        setMessage('Usuario registrado con éxito');
+        setShowModal(true); // Mostrar el modal
+        // Guardar el token y redirigir a la página de inicio después de un tiempo
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userId', response.id);
+        setTimeout(() => {
+          setShowModal(false); // Ocultar el modal
+          router.push('/login');
+        }, 5000); // 3 segundos de espera
+      } else {
+        setMessage('Error en el registro');
+      }
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
     }
   };
 
@@ -112,7 +120,7 @@ const RegisterForm = () => {
               type="submit"
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-3 text-center"
             >
-              Iniciar Sesión
+              Registrarse
             </button>
             {message && <p className="mt-4 text-green-500">{message}</p>}
           </form>
@@ -121,6 +129,22 @@ const RegisterForm = () => {
           </p>
         </div>
       </div>
+
+      {/* Modal de registro exitoso */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-bold mb-4">Registro Exitoso</h2>
+            <p>Serás redirigido a la página de inicio en breve.</p>
+            <button
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={() => setShowModal(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
