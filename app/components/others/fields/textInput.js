@@ -1,20 +1,24 @@
 import React from "react";
 /**
  * TextInput Component
- * 
+ *
  * Este componente genera un input de texto con un label personalizable.
- * 
+ *
  * @param {string} labelText - El texto que se mostrará en el label del input.
  * @param {string} labelColor - El color del texto del label ("blue", "green", "grey").
  * @param {string} inputSize - El tamaño del input ("small", "medium", "large").
  * @param {string} inputType - El tipo del input ("text", "email", "password").
- * 
+ * @param {string} value - El valor del input.
+ * @param {function} onChange - La función para manejar el cambio del input.
+ *
  **/
 const TextInput = ({
   labelText = "Label",
   labelColor = "blue",
   inputSize = "medium",
   inputType = "text",
+  value = "",
+  onChange,
 }) => {
   // Función para obtener el tamaño del input
   const getInputSizeClass = () => {
@@ -66,6 +70,8 @@ const TextInput = ({
         required
         autoComplete={getAutocompleteAttribute()}
         className={`block mb-5 pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${getInputSizeClass()} `}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

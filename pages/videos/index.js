@@ -22,6 +22,13 @@ export default function Home() {
         {
             link: VideoPath.inscription,
             title: 'Paso a paso inscripcion',
+            date: 'Julio 04',
+            category: 'Matricula',
+            color: 'bg-green-500',
+        },
+        {
+            link: VideoPath.inscription2,
+            title: 'Paso a paso inscripcion 2',
             date: 'Junio 14',
             category: 'Matricula',
             color: 'bg-green-500',
