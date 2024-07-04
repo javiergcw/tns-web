@@ -47,12 +47,7 @@ const RequestsCarousel = ({ requestsData }) => {
 
   return (
     <div className="w-full">
-      <Text
-        texto="ÚLTIMAS PETICIONES"
-        color="blue"
-        type="header"
-        className="text-left mb-1 font-bold"
-      />
+      <Text texto="ÚLTIMAS PETICIONES" color="blue" type="header" className="text-left mb-1 font-bold" />
 
       <div className="flex justify-between items-center mt-8">
         <button
@@ -77,9 +72,9 @@ const RequestsCarousel = ({ requestsData }) => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
-                    area={request.area}
-                    leader={request.leader}
-                    description={request.description}
+                    area={request.category.name}
+                    leader={request.user_id}
+                    description={request.products.map(product => product.name).join(", ")}
                   />
                 ))}
             </motion.div>

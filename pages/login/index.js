@@ -1,9 +1,11 @@
-'use client';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
 import "/app/globals.css";
-
+import Link from "next/link";
 /**
  * Login Page
  *
@@ -13,6 +15,30 @@ import "/app/globals.css";
  * @component
  */
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const res = await fetch("https://d6d0-190-27-163-119.ngrok-free.app/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      router.push("/dashboard"); 
+    } else {
+      setMessage(`Error: ${data.message}`);
+    }
+  };
+
   return (
     <>
       <div className="flex h-screen">
@@ -61,12 +87,14 @@ export default function Login() {
               inputType="password"
             />
             {/* Enlace para recuperar la contraseña */}
-            <Text
-              texto="Forgot your password?"
-              color="blue"
-              type="normal"
-              className="mt-5"
-            />
+            <Link href="/PasswordRecovery">
+              <Text
+                texto="Forgot your password?"
+                color="blue"
+                type="normal"
+                className="mt-5"
+              />
+            </Link>
             {/* Botón de envío del formulario */}
             <NormalButton text="Login" color="blue" size="large" />
           </form>

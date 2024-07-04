@@ -4,30 +4,31 @@ import Text from "@/app/components/others/text/text";
 
 /**
  * TrackingTable Component
- *
  * Este componente muestra una tabla de seguimiento de peticiones.
- *
  * @param {Array} data - Una lista de objetos que contiene los detalles de las peticiones.
- *
  * @component
  */
 const TrackingTable = ({ data }) => {
   const columns = [
     "ITEM",
-    "LIDER DE AREA",
+    "CATEGORÍA",
     "ESTADO",
     "FECHA PETICIÓN",
+    "FECHA PENDIENTE",
     "FECHA APROBADO",
-    "FECHA FINALIZACIÓN",
   ];
-  const rows = data.map((item) => [
-    item.item,
-    item.leader,
-    item.status,
-    item.requestDate,
-    item.approvedDate,
-    item.endDate,
-  ]);
+
+  // Verifica que data es un arreglo antes de mapear
+  const rows = Array.isArray(data)
+    ? data.map((item) => [
+        item.products ? item.products.map((product) => product.name).join(", ") : "N/A",
+        item.category ? item.category.name : "N/A",
+        item.status ? item.status.name : "N/A",
+        item.request_date ? new Date(item.request_date).toLocaleDateString() : "N/A",
+        item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
+        item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
+      ])
+    : [];
 
   return (
     <>

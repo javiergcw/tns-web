@@ -1,6 +1,6 @@
 'use client';
 import "/app/globals.css";
-import Drawer from "@/app/components/others/drawer/drawer";
+import CircularDiagram from "@/app/components/others/graph/circularDiagram";
 
 export default function Login() {
   const columns = ["Nombre", "Apellido", "Edad", "Correo"];
@@ -13,7 +13,7 @@ export default function Login() {
   return (
     <>
       <div className="w-2/3 flex justify-center items-center bg-slate-100">
-        <Drawer />
+        <CircularDiagram/>
       </div>
     </>
   );
