@@ -1,9 +1,19 @@
-import { useState } from 'react';
+// src/components/ProfileForm.js
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/app/store/authContext';
 
 const ProfileForm = () => {
-  const [name, setName] = useState('Felipe Loaiza Moreno');
+  const { user } = useAuth();
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setPhone(user.phone);
+    }
+  }, [user]);
 
   return (
     <div className="w-2/3 pl-8">
