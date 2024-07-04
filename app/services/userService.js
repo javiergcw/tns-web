@@ -30,7 +30,8 @@ export const getUserProfile = async () => {
   try {
     // Hacer la solicitud para obtener el perfil del usuario
     const url = ENDPOINTS.getProfileById(userId);
-    console.log("Requesting profile with URL:", url); // Para depuración
+    console.log('Requesting profile with URL:', url); // Para depuración
+
 
     const response = await axios.get(url, getAuthHeaders());
     console.log("Profile response:", response.data); // Para depuración

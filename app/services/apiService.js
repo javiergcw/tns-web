@@ -11,7 +11,7 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
     };
 
     if (authRequired) {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
@@ -54,11 +54,11 @@ export const login = async (email, password) => {
 
     if (authResponse.data.token) {
       console.log('Token is present, storing in localStorage'); // Para depuración
-      localStorage.setItem('token', authResponse.data.token);
-      console.log('Token stored:', localStorage.getItem('token')); // Verificar almacenamiento
+      localStorage.setItem("token", authResponse.data.token);
+      console.log('Token stored:', localStorage.getItem("token")); // Verificar almacenamiento
 
-      localStorage.setItem('userId', authResponse.data.id);
-      console.log('User ID stored:', localStorage.getItem('userId')); // Verificar almacenamiento
+      localStorage.setItem("userId", authResponse.data.id);
+      console.log('User ID stored:', localStorage.getItem("userId")); // Verificar almacenamiento
     }
     return authResponse;
   } catch (error) {
