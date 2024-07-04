@@ -6,27 +6,27 @@ import "/app/globals.css";
 import React, { useEffect, useState } from 'react';
 
 const Profile = () => {
-  const [role, setRole] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [role, setRole] = useState(null);
+   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const profile = await getUserProfile();
-        console.log('Fetched user profile:', profile); // Para depuración
-        if (!profile.rolId) {
-          setErrorMessage('Comuniquese con el grupo de TECH para adquirir su rol');
-        } else {
-          setRole(profile.rolId);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user profile:', error); // Para depuración
-        setErrorMessage('Failed to fetch user profile. Please try again.');
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserProfile = async () => {
+  //     try {
+  //       const profile = await getUserProfile();
+  //       console.log('Fetched user profile:', profile); // Para depuración
+  //       if (!profile.rolId) {
+  //         setErrorMessage('Comuniquese con el grupo de TECH para adquirir su rol');
+  //       } else {
+  //         setRole(profile.rolId);
+  //       }
+  //     } catch (error) {
+  //       console.error('Failed to fetch user profile:', error); // Para depuración
+  //       setErrorMessage('Failed to fetch user profile. Please try again.');
+  //     }
+  //   };
 
-    fetchUserProfile();
-  }, []);
+  //   fetchUserProfile();
+  // }, []);
 
   return (
     <>
@@ -37,7 +37,7 @@ const Profile = () => {
           </div>
         ) : (
           <>
-            {role && (
+            
               <>
                 <ProfileImage />
                 <ProfileForm />
@@ -45,7 +45,7 @@ const Profile = () => {
                   <CategoryTable />
                 </div>
               </>
-            )}
+      
           </>
         )}
       </div>
