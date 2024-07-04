@@ -1,19 +1,34 @@
-// src/components/ProfileForm.js
-import { useState, useEffect } from 'react';
-import { useAuth } from '@/app/store/authContext';
+import { useState, useEffect } from "react";
+import TextInput from "@/app/components/others/fields/textInput";
+import { getUserProfile } from "@/app/services/userService";
 
 const ProfileForm = () => {
-  const { user } = useAuth();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
 
+  // Usar useEffect para obtener y establecer el perfil del usuario cuando el componente se monte
   useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setPhone(user.phone);
-    }
-  }, [user]);
+    const fetchProfile = async () => {
+      try {
+        const profile = await getUserProfile();
+        setName(profile.name);
+        setId(profile.id);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleNameChange = (e) => {
+    console.log("Name input value:", e.target.value); // Log para depuración
+    setName(e.target.value);
+  };
+  const handleIdChange = (e) => {
+    console.log("ID input value:", e.target.value); // Log para depuración
+    setId(e.target.value);
+  };
 
   return (
     <div className="w-2/3 pl-8">
@@ -21,33 +36,21 @@ const ProfileForm = () => {
         <label className="block text-blue-700 font-bold mb-2">
           Nombre completo:
         </label>
-        <input
-          type="text"
+        <TextInput
+          labelText="Nombre"
+          labelColor="blue"
+          inputSize="large"
+          inputType="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md"
+          onChange={handleNameChange}
         />
-      </div>
-      <div className="mb-4">
-        <label className="block text-blue-700 font-bold mb-2">
-          Celular:
-        </label>
-        <input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-blue-700 font-bold mb-2">
-          Contraseña:
-        </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md"
+        <TextInput
+          labelText="ID"
+          labelColor="blue"
+          inputSize="large"
+          inputType="text"
+          value={id}
+          onChange={handleIdChange}
         />
       </div>
     </div>
