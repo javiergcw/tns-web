@@ -1,6 +1,6 @@
 // config/apiConfig.js
 const API_BASE_URL = 'https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1';
-const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjAxMTg5OTl9.EIHSzokYlkKmiRxToxjHKn3JcC2UYRmzaloLPTMeMzY';
+const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjAyMDY3MTJ9.WxgeovaSKugkW-HhB9wwC-AcK4qRHur6Bsc9iYoKYr4';
 
 const ENDPOINTS = {
     login: `${API_BASE_URL}/login`,
@@ -9,6 +9,7 @@ const ENDPOINTS = {
     perfil: `${API_BASE_URL}/profile`,
     categories: `${API_BASE_URL}/categories`,
     getProfileById: (id) => `${API_BASE_URL}/profiles/${id}`,
+     getAllProfiles: `${API_BASE_URL}/profiles`,
     updateProfile: (id) => `${API_BASE_URL}/profiles/${id}`,
     deleteCategory: `${API_BASE_URL}/categories/delete`,
     

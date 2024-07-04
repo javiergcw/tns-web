@@ -10,7 +10,7 @@ const CategoryTable = () => {
     useEffect(() => {
       fetchCategories();
     }, []);
-  
+                               
     const fetchCategories = async () => {
       try {
         const data = await getCategories();

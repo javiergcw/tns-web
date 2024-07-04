@@ -16,7 +16,7 @@ const getAuthHeaders = () => {
 // Obtener el perfil del usuario logueado
 export const getUserProfile = async () => {
   // Recuperar el ID del usuario desde localStorage
-  let userId = localStorage.getItem('userId');
+  let userId = localStorage.getItem("userId");
 
   // Si no hay userId en localStorage, lo establecemos con un valor quemado (solo para desarrollo)
   if (!userId) {
@@ -29,7 +29,7 @@ export const getUserProfile = async () => {
 
   try {
     // Hacer la solicitud para obtener el perfil del usuario
-    const url = ENDPOINTS.getProfileById(35);
+    const url = ENDPOINTS.getProfileById(userId);
     console.log('Requesting profile with URL:', url); // Para depuración
 
     const response = await axios.get(url, getAuthHeaders());
