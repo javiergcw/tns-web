@@ -7,9 +7,34 @@ import { AuthProvider, useAuth } from '@/app/store/authContext'; // Importa el c
 import '/app/globals.css';
 import React from 'react';
 
-const Profile = () => {
-  const { errorMessage } = useAuth();
 
+const Profile = () => {
+  /*   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfile = await getUserProfile();
+        setProfile(userProfile);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  } */
   return (
     <div className="min-h-screen justify-center bg-gray-100">
       {errorMessage ? (
@@ -28,14 +53,11 @@ const Profile = () => {
           </div>
         </>
       )}
+
     </div>
   );
 };
 
-const ProfilePage = () => (
-  <AuthProvider>
-    <Profile />
-  </AuthProvider>
-);
+const ProfilePage = () => <Profile />;
 
 export default ProfilePage;

@@ -15,11 +15,9 @@ const ENDPOINTS = {
     
 
 
-
-
-    //getUsers: `${API_BASE_URL}/users`,
-    getPosts: `${API_BASE_URL}/posts`,
-    // Agrega más endpoints según sea necesario
+  //getUsers: `${API_BASE_URL}/users`,
+  getPosts: `${API_BASE_URL}/posts`,
+  // Agrega más endpoints según sea necesario
 };
 
 export { API_BASE_URL, BEARER_TOKEN, ENDPOINTS };
