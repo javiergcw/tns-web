@@ -121,4 +121,6 @@ export const ImagesPath = {
 
 export const VideoPath = {
     inscription: '/videos/inscription.mp4',
+    inscription2: '/videos/inscription2.mp4',
+
 }

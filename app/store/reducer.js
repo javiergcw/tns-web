@@ -17,7 +17,7 @@ const languageReducer = (state = initialState, action) => {
         localStorage.setItem('isEnglish', JSON.stringify(newState.isEnglish));
       }
       return newState;
-    default:
+    default: 
       return state;
   }
 };

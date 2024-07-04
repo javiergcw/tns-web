@@ -30,10 +30,12 @@ export default function Login() {
 
       const response = await login(email, password);
       // Guardar el token y redirigir a la página de inicio
+      console.log('Login response:', response); // Para depuración
       localStorage.setItem('token', response.token);
       localStorage.setItem('userId', response.id);
       router.push('/home');
     } catch (error) {
+      console.error('Login error:', error); // Para depuración
       setError('Invalid email or password');
     }
   };

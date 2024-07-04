@@ -8,6 +8,8 @@ const ENDPOINTS = {
     home: `${API_BASE_URL}/home`,
     perfil: `${API_BASE_URL}/profile`,
     categories: `${API_BASE_URL}/categories`,
+    getProfileById: (id) => `${API_BASE_URL}/profiles/${id}`,
+    
     deleteCategory: `${API_BASE_URL}/categories/delete`,
     
 
