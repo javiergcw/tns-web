@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { ImagesPath } from "@/app/utils/assetsPath";
+import { useState } from "react";
 
 const ProfileImage = () => {
-  const [image, setImage] = useState('/path/to/default/image.jpg');
+  const [image, setImage] = useState(ImagesPath.logoH);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
