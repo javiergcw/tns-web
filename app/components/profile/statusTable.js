@@ -61,17 +61,17 @@ const StatusTable = () => {
       <table className="min-w-full bg-white border">
         <thead>
           <tr>
-            <th className="border px-4 py-2">ID</th>
-            <th className="border px-4 py-2">Nombre</th>
-            <th className="border px-2 py-2">Acciones</th>
+            <th className="border text-black px-4 py-2">ID</th>
+            <th className="border text-black px-4 py-2">Nombre</th>
+            <th className="border text-black px-2 py-2">Acciones</th>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
           {statuses.map((status) => (
             <tr key={status.id}>
-              <td className="border px-4 py-2">{status.id}</td>
-              <td className="border px-4 py-2">{status.name}</td>
-              <td className="border px-4 py-2">
+              <td className="border text-black px-4 py-2">{status.id}</td>
+              <td className="border text-black px-4 py-2">{status.name}</td>
+              <td className="border text-black px-4 py-2">
                 <button
                   onClick={() => handleDeleteStatus(status.id)}
                   className="bg-red-500 text-white px-4 py-2 rounded"

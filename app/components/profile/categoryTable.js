@@ -61,16 +61,16 @@ const CategoryTable = () => {
       <table className="min-w-full bg-white border-collapse border border-gray-300">
         <thead>
           <tr>
-            <th className="py-1 px-2 border border-gray-300 text-sm">ID</th>
-            <th className="py-1 px-2 border border-gray-300 text-sm">Nombre</th>
-            <th className="py-1 px-2 border border-gray-300 text-sm">Acciones</th>
+            <th className="py-1 px-2 border text-black  border-gray-300 text-sm">ID</th>
+            <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
+            <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {categories.map((category) => (
             <tr key={category.id} className="border-t border-gray-200">
-              <td className="py-1 px-2 border border-gray-300 text-sm">{category.id}</td>
-              <td className="py-1 px-2 border border-gray-300 text-sm">{category.name}</td>
+              <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.id}</td>
+              <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.name}</td>
               <td className="py-1 px-2 border border-gray-300 text-sm">
                 <button
                   onClick={() => handleDeleteCategory(category.id)}

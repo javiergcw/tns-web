@@ -1,6 +1,6 @@
-// src/components/profile/ProfileTable.js
 import { useState, useEffect } from 'react';
 import { getAllProfiles, updateProfile } from '@/app/services/profileService';
+import { getRoles } from '@/app/services/roleService'; // Asegúrate de que la ruta sea correcta
 import { register } from '@/app/services/loginService';
 import Modal from 'react-modal';
 import { handleIdentificationNumberChange } from '@/app/utils/handleNumber';
@@ -10,6 +10,7 @@ Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento cor
 
 const ProfileTable = () => {
   const [profiles, setProfiles] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,10 +19,12 @@ const ProfileTable = () => {
   const [name, setName] = useState('');
   const [identificationType, setIdentificationType] = useState('');
   const [identificationNumber, setIdentificationNumber] = useState('');
+  const [selectedRoleId, setSelectedRoleId] = useState('');
   const [newUser, setNewUser] = useState({ name: '', email: '', password: '', password_confirmation: '' });
 
   useEffect(() => {
     fetchProfiles();
+    fetchRoles();
   }, []);
 
   const fetchProfiles = async () => {
@@ -36,11 +39,21 @@ const ProfileTable = () => {
     }
   };
 
+  const fetchRoles = async () => {
+    try {
+      const data = await getRoles();
+      setRoles(data);
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    }
+  };
+
   const handleEdit = (profile) => {
     setSelectedProfile(profile);
     setName(profile.name);
     setIdentificationType(profile.identificationType || ''); // Asegúrate de establecer un valor por defecto
     setIdentificationNumber(profile.identificationNumber);
+    setSelectedRoleId(profile.rol ? profile.rol.id : ''); // Establecer el rol actual del perfil
     setIsModalOpen(true);
   };
 
@@ -55,6 +68,7 @@ const ProfileTable = () => {
         name,
         identification_type: identificationType,
         identification_number: identificationNumber,
+        rol_id: selectedRoleId, // Incluye el rol seleccionado
       });
       setIsModalOpen(false);
       fetchProfiles();
@@ -108,27 +122,27 @@ const ProfileTable = () => {
         <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
             <tr>
-              <th className="py-1 px-2 border border-gray-300 text-sm">ID</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Nombre</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Tipo de Identificación</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Número de Identificación</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Rol</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Creado en</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Actualizado en</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Acciones</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">ID</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Tipo de Identificación</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Número de Identificación</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Rol</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Creado en</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Actualizado en</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {profiles.map((profile) => (
               <tr key={profile.id} className="border-t border-gray-200">
-                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.id}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.name}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.identificationType}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.identificationNumber}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.rol ? profile.rol.name : 'N/A'}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(profile.createdAt).toLocaleString()}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(profile.updatedAt).toLocaleString()}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.id}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.name}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.identificationType}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.identificationNumber}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.rol ? profile.rol.name : 'N/A'}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(profile.createdAt).toLocaleString()}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(profile.updatedAt).toLocaleString()}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">
                   <button
                     onClick={() => handleEdit(profile)}
                     className="bg-blue-500 text-white px-2 py-1 rounded"
@@ -184,6 +198,21 @@ const ProfileTable = () => {
             pattern="\d*"
             title="Por favor ingrese solo números"
           />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Rol</label>
+          <select
+            value={selectedRoleId}
+            onChange={(e) => setSelectedRoleId(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">Selecciona un rol</option>
+            {roles.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button onClick={handleUpdateProfile} className="bg-blue-500 text-white px-4 py-2 rounded">
           Guardar

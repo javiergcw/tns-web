@@ -74,21 +74,21 @@ const RoleTable = () => {
         <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
             <tr>
-              <th className="py-1 px-2 border border-gray-300 text-sm">ID</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Nombre</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Creado en</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Actualizado en</th>
-              <th className="py-1 px-2 border border-gray-300 text-sm">Acciones</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">ID</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Creado en</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Actualizado en</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {roles.map((role) => (
               <tr key={role.id} className="border-t border-gray-200">
-                <td className="py-1 px-2 border border-gray-300 text-sm">{role.id}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{role.name}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(role.created_at).toLocaleString()}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(role.updated_at).toLocaleString()}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{role.id}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{role.name}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(role.created_at).toLocaleString()}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(role.updated_at).toLocaleString()}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">
                   <button
                     onClick={() => handleDeleteRole(role.id)}
                     className="bg-red-500 text-white px-2 py-1 rounded"
@@ -101,13 +101,6 @@ const RoleTable = () => {
           </tbody>
         </table>
       </div>
-
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="mt-4 p-2 bg-blue-500 text-white rounded-md"
-      >
-        Añadir Rol
-      </button>
 
       <Modal
         isOpen={isModalOpen}
