@@ -1,3 +1,4 @@
+// src/components/drawer/Drawer.js
 import React from 'react';
 import { IoMenu } from 'react-icons/io5';
 import {
@@ -8,7 +9,6 @@ import {
   MdExitToApp,
 } from 'react-icons/md';
 import Text from '@/app/components/others/text/text';
-import { ImagesPath } from '@/app/utils/assetsPath';
 
 /**
  * Drawer Component
@@ -17,10 +17,11 @@ import { ImagesPath } from '@/app/utils/assetsPath';
  *
  * @param {boolean} isOpen - Estado de si el drawer está abierto.
  * @param {function} onToggle - Función para alternar el estado del drawer.
+ * @param {object} profile - Datos del perfil del usuario logueado.
  *
  * @component
  */
-const Drawer = ({ isOpen, onToggle }) => {
+const Drawer = ({ isOpen, onToggle, profile }) => {
   return (
     <div
       className={`fixed top-0 left-0 h-full bg-blueSecundary text-white z-50 ${
@@ -35,36 +36,42 @@ const Drawer = ({ isOpen, onToggle }) => {
       </button>
       <div className={`flex flex-col items-center w-full mt-4 flex-1 ${isOpen ? 'block' : 'hidden'}`}>
         <div className="flex flex-col sm:flex-row items-center w-full px-4">
-          <img
-            src={ImagesPath.drawerPhoto}
-            alt="Profile"
-            className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"
-          />
-          <div className="text-center sm:text-left">
-            <Text texto="Nombre Apellido1 Apellido2" color="white" type="normal" />
-            <Text texto="Jefe de área" color="green" type="normal" />
-          </div>
+          {profile?.photo ? (
+            <img
+              src={profile.photo}
+              alt="Profile"
+              className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"></div>
+          )}
+          {isOpen && (
+            <div className="text-center sm:text-left">
+              <Text texto={profile?.name || ''} color="white" type="normal" />
+              <Text texto={profile?.rol?.name || ''} color="green" type="normal" />
+            </div>
+          )}
         </div>
         <ul className="mt-6 space-y-4 w-full flex-1">
           <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdDashboard className="mr-2 text-green-500" />
-            <Text texto="Item 1" color="white" type="normal" />
+            {isOpen && <Text texto="Item 1" color="white" type="normal" />}
           </li>
           <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdSettings className="mr-2 text-green-500" />
-            <Text texto="Item 2" color="white" type="normal" />
+            {isOpen && <Text texto="Item 2" color="white" type="normal" />}
           </li>
           <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdPerson className="mr-2 text-green-500" />
-            <Text texto="Item 3" color="white" type="normal" />
+            {isOpen && <Text texto="Item 3" color="white" type="normal" />}
           </li>
           <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdHelp className="mr-2 text-green-500" />
-            <Text texto="Item 4" color="white" type="normal" />
+            {isOpen && <Text texto="Item 4" color="white" type="normal" />}
           </li>
           <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
             <MdExitToApp className="mr-2 text-green-500" />
-            <Text texto="Item 5" color="white" type="normal" />
+            {isOpen && <Text texto="Item 5" color="white" type="normal" />}
           </li>
         </ul>
       </div>

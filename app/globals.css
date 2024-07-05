@@ -1,7 +1,8 @@
+/* src/app.css */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2? family= Patua+One & display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
 /* Resto de estilos de tu archivo global.css */
 @tailwind base;
@@ -23,7 +24,6 @@
 }
 
 @keyframes bounce {
-
   0%,
   100% {
     transform: scale(1);
@@ -33,6 +33,7 @@
     transform: scale(1.1);
   }
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -67,81 +68,122 @@ body {
   background: white;
 }
 
-/* Archivo CSS (puede ser index.css, tailwind.css, etc.) */
-
-/* Estilo de los puntos (dots) */
 .slick-dots li button:before {
   color: white;
-  /* Color blanco por defecto */
 }
 
 .slick-dots li.slick-active button:before {
   color: var(--bluePrimary);
-  /* Color azul cuando está activo */
 }
 
-/* Hacer los puntos más grandes */
 .slick-dots li button:before {
   font-size: 12px;
   display: none !important;
-
-
-  /* Ajusta el tamaño según prefieras */
 }
 
-/* Estilo de las flechas */
 .slick-prev:before,
 .slick-next:before {
   color: white;
-
-  /* Color blanco para las flechas */
 }
 
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
-/* globals.css */
+.flex {
+  display: flex;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-blueSecundary {
+  background-color: #007BFF;
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.transition-all {
+  transition: all 0.3s;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.ease-in-out {
+  transition-timing-function: ease-in-out;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.ml-64 {
+  margin-left: 16rem;
+}
+
+.ml-16 {
+  margin-left: 4rem;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+.table-container {
+  max-height: calc(100vh - 200px); /* Ajusta el valor según sea necesario */
+  overflow-y: auto;
+}
+
 .backgroundImage {
   background-image: url('/images/others/tablero.jpg');
-  /* Asegúrate de que la ruta de la imagen es correcta */
   background-repeat: no-repeat;
 }
 
 .backgroundImagetwo {
   background-image: url('/images/others/tablero053.jpg');
-  /* Asegúrate de que la ruta de la imagen es correcta */
   background-repeat: no-repeat;
   background-size: auto;
-  /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center;
-  /* Centra la imagen en el contenedor */
 }
 
 .backgroundImagethree {
   background-image: url('/images/others/tablero02.jpg');
   background-repeat: no-repeat;
   background-size: auto;
-  /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center;
-  /* Centra la imagen en el contenedor */
 }
 
 .backgroundImagefour {
   background-image: url('/images/others/tablero04.jpg');
   background-repeat: no-repeat;
   background-size: 100% auto;
-  /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center;
-  /* Centra la imagen en el contenedor */
 }
-
 
 .backgroundImagefaith {
   background-image: url('/images/others/tablero05.jpg');
   background-repeat: no-repeat;
   background-size: auto;
-  /* Ajusta el tamaño para que coincida con el de tu imagen */
   background-position: center;
-  /* Centra la imagen en el contenedor */
 }
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -151,15 +193,13 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
-/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
-/* Ocultar la barra de desplazamiento en contenedores con overflow-x-auto */
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .fade-enter {
   opacity: 0;
@@ -180,7 +220,6 @@ input[type="number"] {
   transition: opacity 300ms, transform 300ms;
 }
 
-
 h1 {
   font-family: "Patua One", Arial, Tahoma, sans-serif;
   font-size: 40px;
@@ -193,7 +232,6 @@ p {
 
 nav {
   font-family: 'Dosis', sans-serif;
-
 }
 
 .fade-enter {
