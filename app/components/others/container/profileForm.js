@@ -4,6 +4,7 @@ import TextInput from '@/app/components/others/fields/textInput';
 import TextDisplay from './textDisplay';
 import { updateProfile, getProfileById } from '@/app/services/profileService';
 import { ImagesPath } from '@/app/utils/assetsPath';
+import { documentTypeOptions } from '@/app/utils/dataGeneral'; // Importar opciones de tipos de documentos
 
 Modal.setAppElement('#__next');
 
@@ -13,6 +14,8 @@ const ProfileForm = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const [photo, setPhoto] = useState('');
+  const [identificationType, setIdentificationType] = useState('');
+  const [identificationNumber, setIdentificationNumber] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userId, setUserId] = useState('');
   const [error, setError] = useState(null);
@@ -31,6 +34,8 @@ const ProfileForm = () => {
           setPhone(profile.identificationNumber); // Assuming this field is used for phone number
           setRole(profile.rol ? profile.rol.name : ''); // Assuming role name is available
           setPhoto(profile.photo); // Set the photo URL
+          setIdentificationType(profile.identificationType || '');
+          setIdentificationNumber(profile.identificationNumber || '');
         } else {
           throw new Error('User ID not found in localStorage');
         }
@@ -68,6 +73,16 @@ const ProfileForm = () => {
     }
   };
 
+  const handleIdentificationTypeChange = (e) => {
+    setIdentificationType(e.target.value);
+  };
+
+  const handleIdentificationNumberChange = (e) => {
+    if (/^\d*$/.test(e.target.value)) {
+      setIdentificationNumber(e.target.value);
+    }
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -79,8 +94,9 @@ const ProfileForm = () => {
   const handleSave = async () => {
     const updatedProfile = {
       name,
-      identification_type: 'Phone', // Assuming this field is used for phone number type
-      identification_number: phone,
+      identification_type: identificationType,
+      identification_number: identificationNumber,
+      phone,
       rol_id: 1, // Replace with actual role ID if necessary
       password,
       photo,
@@ -95,49 +111,58 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 sm:px-8">
-      <div className="mb-4">
-        <div className="flex justify-center mb-4 relative">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-8">
+      <div className="mb-4 flex flex-col sm:flex-row items-center sm:items-start">
+        <div className="flex flex-col items-center sm:mr-8">
           <img
             src={photo || ImagesPath.defaultProfilePhoto}
             alt="Profile"
-            className="w-32 h-32 rounded-full border-2 border-green-500"
+            className="w-40 h-40 rounded-full border-2 border-green-500"
+          />
+          <button
+            onClick={openModal}
+            className="mt-4 p-2 bg-blue-500 text-white rounded-md w-full sm:w-auto"
+          >
+            Editar Perfil
+          </button>
+        </div>
+        <div className="w-full space-y-4">
+          <TextDisplay
+            labelText="Nombre"
+            labelColor="blue"
+            displaySize="large"
+            value={name}
+          />
+
+          <TextDisplay
+            labelText="Celular"
+            labelColor="blue"
+            displaySize="large"
+            value={phone}
+          />
+
+          <TextDisplay
+            labelText="Rol"
+            labelColor="blue"
+            displaySize="large"
+            value={role}
+          />
+
+          <TextDisplay
+            labelText="Tipo de Documento"
+            labelColor="blue"
+            displaySize="large"
+            value={identificationType}
+          />
+
+          <TextDisplay
+            labelText="Número de Documento"
+            labelColor="blue"
+            displaySize="large"
+            value={identificationNumber}
           />
         </div>
-        <TextDisplay
-          labelText="Nombre"
-          labelColor="blue"
-          displaySize="large"
-          value={name}
-        />
-
-        <TextDisplay
-          labelText="Celular"
-          labelColor="blue"
-          displaySize="large"
-          value={phone}
-        />
-
-        <TextDisplay
-          labelText="Contraseña"
-          labelColor="blue"
-          displaySize="large"
-          value={password}
-        />
-
-        <TextDisplay
-          labelText="Rol"
-          labelColor="blue"
-          displaySize="large"
-          value={role}
-        />
       </div>
-      <button
-        onClick={openModal}
-        className="mt-4 p-2 bg-blue-500 text-white rounded-md w-full sm:w-auto"
-      >
-        Editar Perfil
-      </button>
 
       <Modal
         isOpen={isModalOpen}
@@ -152,7 +177,7 @@ const ProfileForm = () => {
             <img
               src={photo || ImagesPath.defaultProfilePhoto}
               alt="Profile"
-              className="w-32 h-32 rounded-full border-2 border-green-500 cursor-pointer mb-2"
+              className="w-40 h-40 rounded-full border-2 border-green-500 cursor-pointer mb-2"
               onClick={() => fileInputRef.current.click()}
             />
             <input
@@ -184,13 +209,28 @@ const ProfileForm = () => {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Tipo de Documento</label>
+            <select
+              value={identificationType}
+              onChange={handleIdentificationTypeChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="">Selecciona un tipo</option>
+              {documentTypeOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-4">
             <TextInput
-              labelText="Contraseña"
+              labelText="Número de Documento"
               labelColor="blue"
               inputSize="large"
-              inputType="password"
-              value={password}
-              onChange={handlePasswordChange}
+              inputType="text"
+              value={identificationNumber}
+              onChange={handleIdentificationNumberChange}
             />
           </div>
           <div className="flex flex-col sm:flex-row justify-end">

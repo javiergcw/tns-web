@@ -37,6 +37,7 @@ class Product {
     this.name = name;
     this.description = description;
     this.price = price;
+    this.url=this.url;
   }
 }
 
