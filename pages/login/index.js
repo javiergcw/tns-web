@@ -1,12 +1,12 @@
 "use client";
+import "/app/globals.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
-import "/app/globals.css";
+
 import { login } from "@/app/services/apiService";
-import colors from "@/app/styles/colors";
 import RememberMeAndForgotPassword from "@/app/components/login/rememberAndForgotpassword";
 import RegisterStandart from "@/app/components/login/registerStandart";
 import { ImagesPath } from "@/app/utils/assetsPath";
@@ -56,69 +56,61 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="flex h-screen">
-        {/* Sección izquierda - Imagen corporativa */}
-        <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
-          <img
-            src={ImagesPath.logoVertical}
-            alt="Descripción de la imagen"
-            className="max-w-full max-h-full object-contain"
-          />
-        </div>
-        {/* Sección derecha - Formulario de inicio de sesión */}
-        <div className=" w-2/4 h-screen flex justify-center items-center ">
-          <form className="" onSubmit={handleLogin}>
-            {/* Título del formulario */}
-            <Text texto="Iniciar Sesión" color="blueMain" type="bigTitle" />
-            {/* Subtítulo del formulario */}
-
-            <Text
-              texto="Ingresa tu correo y contraseña para iniciar sesión"
-              color="gray6th"
-              type="description"
-            />
-            <br />
-            {/* Campo de entrada para la dirección de correo electrónico */}
-            <TextInput
-              labelText="Correo"
-              labelColor="gray6th"
-              inputSize="large"
-              inputType="email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            {/* Campo de entrada para la contraseña */}
-
-            <TextInput
-              labelText="Contraseña"
-              labelColor="gray6th"
-              inputSize="large"
-              inputType="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            {/* Enlace para recuperar la contraseña */}
-
-            <RememberMeAndForgotPassword />
-
-
-       
-            {/* Botón de envío del formulario */}
-            <NormalButton
-              text="Iniciar sesión"
-              color="blueButton"
-              size="large"
-            />
-
-            <RegisterStandart />
-            {/* Mensaje de error */}
-            {error && (
-              <Text texto={error} color="red" type="error" className="mt-5" />
-            )}
-          </form>
-        </div>
+    <div className="flex h-screen">
+      {/* Sección izquierda - Imagen corporativa */}
+      <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
+        <img
+          src={ImagesPath.logoVertical}
+          alt="Descripción de la imagen"
+          className="max-w-full max-h-full object-contain"
+        />
       </div>
-    </>
+      {/* Sección derecha - Formulario de inicio de sesión */}
+      <div className=" w-2/4 h-screen flex justify-center items-center ">
+        <form className="" onSubmit={handleLogin}>
+          {/* Título del formulario */}
+          <Text texto="Iniciar Sesión" color="blueMain" type="bigTitle" />
+          {/* Subtítulo del formulario */}
+
+          <Text
+            texto="Ingresa tu correo y contraseña para iniciar sesión"
+            color="gray6th"
+            type="description"
+          />
+          <br />
+          {/* Campo de entrada para la dirección de correo electrónico */}
+          <TextInput
+            labelText="Correo"
+            labelColor="gray6th"
+            inputSize="large"
+            inputType="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          {/* Campo de entrada para la contraseña */}
+
+          <TextInput
+            labelText="Contraseña"
+            labelColor="gray6th"
+            inputSize="large"
+            inputType="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          {/* Enlace para recuperar la contraseña */}
+
+          <RememberMeAndForgotPassword />
+
+          {/* Botón de envío del formulario */}
+          <NormalButton text="Iniciar sesión" color="blueButton" size="large" />
+
+          <RegisterStandart />
+          {/* Mensaje de error */}
+          {error && (
+            <Text texto={error} color="red" type="error" className="mt-5" />
+          )}
+        </form>
+      </div>
+    </div>
   );
 }

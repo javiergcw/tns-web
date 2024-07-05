@@ -83,7 +83,7 @@ const TextInput = ({
           type={inputType === "password" && showPassword ? "text" : inputType}
           required
           autoComplete={getAutocompleteAttribute()}
-          className={`block mb-5 pl-2 pr-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:text-blueButton sm:text-sm sm:leading-6 ${getInputSizeClass()} `}
+          className={`block mb-5 pl-2 pr-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blueButton focus:border-blueButton sm:text-sm sm:leading-6 ${getInputSizeClass()} `}
           value={value}
           onChange={onChange}
         />
