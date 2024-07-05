@@ -1,4 +1,4 @@
-// src/pages/index.js
+
 import React from "react";
 import MainLayout from "@/app/components/layout/drawerLayout"; // Asegúrate de que la ruta sea correcta
 import ProfileForm from "@/app/components/others/container/profileForm";

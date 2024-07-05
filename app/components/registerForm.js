@@ -1,13 +1,19 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { register } from '@/app/services/apiService';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { register } from "@/app/services/loginService";
+import { ImagesPath } from "@/app/utils/assetsPath";
+import Text from "./others/text/text";
+import TextInput from "./others/fields/textInput";
+import NormalButton from "./others/button/normalButton";
+import Link from "next/link";
 
 const RegisterForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -15,24 +21,24 @@ const RegisterForm = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage('Las contraseñas no coinciden');
+      setMessage("Las contraseñas no coinciden");
       return;
     }
 
     try {
       const response = await register(email, password, confirmPassword, name);
       if (response) {
-        setMessage('Usuario registrado con éxito');
+        setMessage("Usuario registrado con éxito");
         setShowModal(true); // Mostrar el modal
         // Guardar el token y redirigir a la página de inicio después de un tiempo
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userId', response.id);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.id);
         setTimeout(() => {
           setShowModal(false); // Ocultar el modal
-          router.push('/login');
-        }, 5000); // 3 segundos de espera
+          router.push("/login");
+        }, 3000); // 3 segundos de espera
       } else {
-        setMessage('Error en el registro');
+        setMessage("Error en el registro");
       }
     } catch (error) {
       setMessage(`Error: ${error.message}`);
@@ -40,97 +46,82 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-white">
-      <div className="w-full md:w-1/2 flex justify-center items-center p-6 bg-white">
+    <div className="flex h-screen">
+      <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
         <img
-          src="https://thenewschool.edu.co/images/logo-vertical.jpeg"
-          alt="Imagen de registro"
-          className="max-w-full h-auto"
+          src={ImagesPath.logoVertical}
+          alt="Descripción de la imagen"
+          className="max-w-full max-h-full object-contain"
         />
       </div>
-      <div className="w-full md:w-1/2 flex justify-center items-center p-6 bg-white">
+
+      <div className="w-2/4 h-screen flex justify-center items-center">
         <div className="w-full max-w-md">
-          <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full">
-            <h2 className="text-4xl font-bold mb-2 text-blue-600">Regístrate</h2>
-            <p className="text-lg text-gray-600 mb-6">Ingresa tu nombre, correo y contraseña para registrarte</p>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-900">Nombre</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-                placeholder="Nombre completo"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-900">Correo</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-                placeholder="mail@simmmple.com"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-900">Contraseña</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-                placeholder="Min. 8 caracteres"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900">Confirmar Contraseña</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-                placeholder="Min. 8 caracteres"
-                required
-              />
-            </div>
-            <div className="flex items-start mb-4">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                />
-              </div>
-              <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900">Recuérdame</label>
-            </div>
-            <button
-              type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-3 text-center"
-            >
-              Registrarse
-            </button>
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white p-8 rounded-lg w-full"
+          >
+            <Text texto="Regístrate" color="blueMain" type="bigTitle" />
+            <Text
+              texto="Ingresa tu nombre, correo y contraseña para registrarte"
+              color="gray6th"
+              type="description"
+            />
+            <br />
+
+            <TextInput
+              labelText="Nombre"
+              labelColor="gray6th"
+              inputSize="large"
+              inputType="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <TextInput
+              labelText="Email"
+              labelColor="gray6th"
+              inputSize="large"
+              inputType="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <TextInput
+              labelText="Contraseña"
+              labelColor="gray6th"
+              inputSize="large"
+              inputType="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <TextInput
+              labelText="Confirmar Contraseña"
+              labelColor="gray6th"
+              inputSize="large"
+              inputType="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
+            <NormalButton text="Registrarse" color="blueButton" size="large" />
+
             {message && <p className="mt-4 text-green-500">{message}</p>}
+            <br />
+            <label className="flex items-center">
+              <span className="mr-2 text-gray6th">¿Ya tienes cuenta? </span>
+
+              <Link href="/login">
+                <p className="text-blueButton hover:text-blueLight">
+                  Inicia sesión aquí
+                </p>
+              </Link>
+            </label>
           </form>
-          <p className="mt-6 text-sm text-center text-gray-600">
-            ¿Ya tienes cuenta? <a href="/login" className="text-blue-600 hover:underline">Inicia sesión aquí</a>.
-          </p>
         </div>
       </div>
 
-      {/* Modal de registro exitoso */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
