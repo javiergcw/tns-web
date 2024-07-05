@@ -1,27 +1,71 @@
-// src/components/ProfileTable.js
 import { useState, useEffect } from 'react';
-import { getAllProfiles } from '@/app/services/profileService';
+import { getAllProfiles, updateProfile } from '@/app/services/profileService';
+import Modal from 'react-modal';
+import { handleIdentificationNumberChange } from '@/app/utils/handleNumber';
+import { documentTypeOptions } from '@/app/utils/dataGeneral';
+
+Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
 
 const ProfileTable = () => {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState(null);
+  const [name, setName] = useState('');
+  const [identificationType, setIdentificationType] = useState('');
+  const [identificationNumber, setIdentificationNumber] = useState('');
 
   useEffect(() => {
-    const fetchProfiles = async () => {
-      try {
-        const data = await getAllProfiles();
-        setProfiles(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching profiles:', error);  // Añade esta línea para depuración
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
     fetchProfiles();
   }, []);
+
+  const fetchProfiles = async () => {
+    try {
+      const data = await getAllProfiles();
+      setProfiles(data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching profiles:', error);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  const handleEdit = (profile) => {
+    setSelectedProfile(profile);
+    setName(profile.name);
+    setIdentificationType(profile.identificationType || ''); // Asegúrate de establecer un valor por defecto
+    setIdentificationNumber(profile.identificationNumber);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdateProfile = async () => {
+    if (!/^\d+$/.test(identificationNumber)) {
+      alert('El número de identificación solo debe contener números.');
+      return;
+    }
+
+    try {
+      await updateProfile(selectedProfile.id, {
+        name,
+        identification_type: identificationType,
+        identification_number: identificationNumber,
+      });
+      setIsModalOpen(false);
+      fetchProfiles();
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      setError('Failed to update profile. Please check your authorization.');
+    }
+  };
+
+  const handleIdentificationNumberChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setIdentificationNumber(value);
+    }
+  };
 
   if (loading) {
     return <p>Cargando perfiles...</p>;
@@ -32,35 +76,99 @@ const ProfileTable = () => {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">ID</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Nombre</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Tipo de Identificación</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Número de Identificación</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Rol ID</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Usuario ID</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Creado en</th>
-            <th className="py-1 px-2 border-b-2 border-gray-300 text-sm">Actualizado en</th>
-          </tr>
-        </thead>
-        <tbody>
-          {profiles.map(profile => (
-            <tr key={profile.id} className="border-b border-gray-200">
-              <td className="py-1 px-2 text-sm">{profile.id}</td>
-              <td className="py-1 px-2 text-sm">{profile.name}</td>
-              <td className="py-1 px-2 text-sm">{profile.identificationType}</td>
-              <td className="py-1 px-2 text-sm">{profile.identificationNumber}</td>
-              <td className="py-1 px-2 text-sm">{profile.rolId}</td>
-              <td className="py-1 px-2 text-sm">{profile.userId}</td>
-              <td className="py-1 px-2 text-sm">{new Date(profile.createdAt).toLocaleString()}</td>
-              <td className="py-1 px-2 text-sm">{new Date(profile.updatedAt).toLocaleString()}</td>
+      <div className="container mx-auto p-4">
+        <h2 className="text-2xl font-bold mb-4">Usuarios</h2>
+      <div className="overflow-y-auto h-full">
+        <table className="min-w-full bg-white border-collapse border border-gray-300">
+          <thead>
+            <tr>
+              <th className="py-1 px-2 border border-gray-300 text-sm">ID</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Nombre</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Tipo de Identificación</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Número de Identificación</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Rol</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Creado en</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Actualizado en</th>
+              <th className="py-1 px-2 border border-gray-300 text-sm">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {profiles.map((profile) => (
+              <tr key={profile.id} className="border-t border-gray-200">
+                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.id}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.name}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.identificationType}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.identificationNumber}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{profile.rol ? profile.rol.name : 'N/A'}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(profile.createdAt).toLocaleString()}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">{new Date(profile.updatedAt).toLocaleString()}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">
+                  <button
+                    onClick={() => handleEdit(profile)}
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                  >
+                    Editar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        contentLabel="Editar Perfil"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-2xl font-bold mb-4">Editar Perfil</h2>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Nombre</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Tipo de Identificación</label>
+          <select
+            value={identificationType}
+            onChange={(e) => setIdentificationType(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">Selecciona un tipo</option>
+            {documentTypeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Número de Identificación</label>
+          <input
+            type="text"
+            value={identificationNumber}
+            onChange={handleIdentificationNumberChange}
+            className="w-full p-2 border border-gray-300 rounded"
+            pattern="\d*"
+            title="Por favor ingrese solo números"
+          />
+        </div>
+        <button onClick={handleUpdateProfile} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Guardar
+        </button>
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+        >
+          Cancelar
+        </button>
+      </Modal>
     </div>
   );
 };
