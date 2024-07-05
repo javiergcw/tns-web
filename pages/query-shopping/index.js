@@ -27,7 +27,7 @@ const QueryShopping = () => {
             className="bg-white p-8 rounded-lg w-full"
           >
             <Text
-              texto="CONSULTA ESTADO DE COMPRA"
+              texto="CONSULTA ESTADƒO DE COMPRA"
               color="blueMain"
               type="bigTitle"
             />

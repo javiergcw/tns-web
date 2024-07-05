@@ -1,14 +1,14 @@
-// src/components/drawer/Drawer.js
-import React from 'react';
-import { IoMenu } from 'react-icons/io5';
+import React from "react";
+import { IoMenu } from "react-icons/io5";
 import {
   MdDashboard,
   MdSettings,
   MdPerson,
   MdHelp,
   MdExitToApp,
-} from 'react-icons/md';
-import Text from '@/app/components/others/text/text';
+} from "react-icons/md";
+import Text from "@/app/components/others/text/text";
+import { ImagesPath } from "@/app/utils/assetsPath";
 
 /**
  * Drawer Component
@@ -17,15 +17,14 @@ import Text from '@/app/components/others/text/text';
  *
  * @param {boolean} isOpen - Estado de si el drawer está abierto.
  * @param {function} onToggle - Función para alternar el estado del drawer.
- * @param {object} profile - Datos del perfil del usuario logueado.
  *
  * @component
  */
-const Drawer = ({ isOpen, onToggle, profile }) => {
+const Drawer = ({ isOpen, onToggle }) => {
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-blueSecundary text-white z-50 ${
-        isOpen ? 'w-64' : 'w-16'
+      className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${
+        isOpen ? "w-64" : "w-20"
       } transition-all duration-300 ease-in-out flex flex-col items-center`}
     >
       <button
@@ -34,42 +33,62 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       >
         <IoMenu className="text-green-500 text-2xl" />
       </button>
-      <div className={`flex flex-col items-center w-full mt-4 flex-1 ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="flex flex-col sm:flex-row items-center w-full px-4">
-          {profile?.photo ? (
-            <img
-              src={profile.photo}
-              alt="Profile"
-              className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"
-            />
-          ) : (
-            <div className="w-12 h-12 rounded-full sm:mr-3 border-2 border-green-500 mb-2 sm:mb-0"></div>
-          )}
+      <div className="flex flex-col items-center w-full mt-4 flex-1">
+        <div className="flex flex-col items-center w-full px-4">
+          <img
+            src={ImagesPath.drawerPhoto}
+            alt="Profile"
+            className="w-12 h-12 rounded-full border-2 border-green-500 mb-2"
+          />
           {isOpen && (
-            <div className="text-center sm:text-left">
-              <Text texto={profile?.name || ''} color="white" type="normal" />
-              <Text texto={profile?.rol?.name || ''} color="green" type="normal" />
+            <div className="text-center">
+              <Text
+                texto="Nombre Apellido1 Apellido2"
+                color="white"
+                type="normal"
+              />
+              <Text texto="Jefe de área" color="green" type="normal" />
             </div>
           )}
         </div>
         <ul className="mt-6 space-y-4 w-full flex-1">
-          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
+          <li
+            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+              isOpen ? "items-center" : "justify-center"
+            }`}
+          >
             <MdDashboard className="mr-2 text-green-500" />
             {isOpen && <Text texto="Item 1" color="white" type="normal" />}
           </li>
-          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
+          <li
+            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+              isOpen ? "items-center" : "justify-center"
+            }`}
+          >
             <MdSettings className="mr-2 text-green-500" />
             {isOpen && <Text texto="Item 2" color="white" type="normal" />}
           </li>
-          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
+          <li
+            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+              isOpen ? "items-center" : "justify-center"
+            }`}
+          >
             <MdPerson className="mr-2 text-green-500" />
             {isOpen && <Text texto="Item 3" color="white" type="normal" />}
           </li>
-          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
+          <li
+            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+              isOpen ? "items-center" : "justify-center"
+            }`}
+          >
             <MdHelp className="mr-2 text-green-500" />
             {isOpen && <Text texto="Item 4" color="white" type="normal" />}
           </li>
-          <li className="px-4 py-2 hover:bg-blueHard cursor-pointer flex items-center">
+          <li
+            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+              isOpen ? "items-center" : "justify-center"
+            }`}
+          >
             <MdExitToApp className="mr-2 text-green-500" />
             {isOpen && <Text texto="Item 5" color="white" type="normal" />}
           </li>
