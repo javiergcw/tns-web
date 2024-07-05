@@ -13,22 +13,20 @@ import Text from "@/app/components/others/text/text";
  */
 const MonthlyExpenses = ({ total = 0, data = [] }) => {
   useEffect(() => {
-    console.log("data del total");
-    console.log(data);
   }, []);
 
   return (
-    <div className="bg-white p-4 rounded-lg mt-4 w-1/2 b">
-      <Text texto="GASTOS DEL MES" color="blue" type="header" />
+    <div className="bg-white p-4 rounded-lg shadow-md h-64 w-1/3">
+      <Text texto="GASTOS DEL MES" color="blue" type="title" />
       <Text
-        texto={total.toLocaleString("es-CO", {
+        texto={"Total: "+ total.toLocaleString("es-CO", {
           style: "currency",
           currency: "COP",
         })}
         color="green"
         type="title"
       />
-      <ul className="mt-4">
+      <ul className="mt-4 overflow-y-scroll" >
         {data.map((item, index) => (
           <li
             key={index}

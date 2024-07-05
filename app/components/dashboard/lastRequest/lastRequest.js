@@ -15,7 +15,7 @@ import Text from '@/app/components/others/text/text';
  */
 const LastRequests = ({ area, leader, description }) => {
     return (
-      <div className="p-6 bg-white shadow-md rounded-md max-w-md mx-auto">
+      <div className="p-6 bg-white shadow-md rounded-md max-w-md mx-auto h-64 w-1/3">
         <Text texto={area} color="blue" type="title" className="text-left mb-1" />
         <hr className="border-black my-1" />
         <Text

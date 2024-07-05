@@ -10,6 +10,7 @@ import Text from "@/app/components/others/text/text";
  */
 const TrackingTable = ({ data }) => {
   const columns = [
+    "ID",
     "ITEM",
     "CATEGORÍA",
     "ESTADO",
@@ -20,14 +21,17 @@ const TrackingTable = ({ data }) => {
 
   // Verifica que data es un arreglo antes de mapear
   const rows = Array.isArray(data)
-    ? data.map((item) => [
-        item.products ? item.products.map((product) => product.name).join(", ") : "N/A",
-        item.category ? item.category.name : "N/A",
-        item.status ? item.status.name : "N/A",
-        item.request_date ? new Date(item.request_date).toLocaleDateString() : "N/A",
-        item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
-        item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
-      ])
+    ? data.flatMap((item) =>
+        item.products.map((product) => [
+          item.id,
+          product.name,
+          item.category ? item.category.name : "N/A",
+          item.status ? item.status.name : "N/A",
+          item.request_date ? new Date(item.request_date).toLocaleDateString() : "N/A",
+          item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
+          item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
+        ])
+      )
     : [];
 
   return (
