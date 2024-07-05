@@ -1,27 +1,31 @@
 // config/apiConfig.js
-const API_BASE_URL =
-  "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
-const BEARER_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjAyMDY3MTJ9.WxgeovaSKugkW-HhB9wwC-AcK4qRHur6Bsc9iYoKYr4"
+const API_BASE_URL = "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
+const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjAyMDY3MTJ9.WxgeovaSKugkW-HhB9wwC-AcK4qRHur6Bsc9iYoKYr4"
 const ENDPOINTS = {
   login: `${API_BASE_URL}/login`,
   register: `${API_BASE_URL}/users`,
   home: `${API_BASE_URL}/home`,
   perfil: `${API_BASE_URL}/profile`,
   categories: `${API_BASE_URL}/categories`,
-  statuses:`${API_BASE_URL}/statuses`,
+  statuses: `${API_BASE_URL}/statuses`,
   getProfileById: (id) => `${API_BASE_URL}/profiles/${id}`,
   getAllProfiles: `${API_BASE_URL}/profiles`,
   updateProfile: (id) => `${API_BASE_URL}/profiles/${id}`,
   deleteCategory: `${API_BASE_URL}/categories/delete`,
-  //ENDPOINTS DE COMPRAS
+  
+  // ENDPOINTS DE COMPRAS
   shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
 
-  //getUsers: `${API_BASE_URL}/users`,
+  // POSTS
   getPosts: `${API_BASE_URL}/posts`,
+
+  // ROLES
+  roles: `${API_BASE_URL}/roles`,
+  deleteRole: `${API_BASE_URL}/roles/delete`,
+
   // Agrega más endpoints según sea necesario
 };
 

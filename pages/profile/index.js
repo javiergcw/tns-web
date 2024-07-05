@@ -4,7 +4,8 @@ import MainLayout from "@/app/components/layout/drawerLayout"; // Asegúrate de 
 import ProfileForm from "@/app/components/others/container/profileForm";
 import CategoryTable from "@/app/components/profile/categoryTable";
 import ProfileTable from "@/app/components/profile/profileTable";
-import StatusTable from "@/app/components/profile/statusTable"; // Importa StatusTable
+import StatusTable from "@/app/components/profile/statusTable";
+import RoleTable from "@/app/components/profile/roleTable"; // Importa StatusTable
 import "/app/globals.css";
 
 const Profile = () => {
@@ -20,6 +21,9 @@ const Profile = () => {
       </div>
       <div className="mt-8">
         <StatusTable /> {/* Añade StatusTable aquí */}
+      </div>
+      <div className="mt-8">
+        <RoleTable /> {/* Añade StatusTable aquí */}
       </div>
 
     </div>
