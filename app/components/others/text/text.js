@@ -1,4 +1,5 @@
 "use client";
+import colors from "@/app/styles/colors";
 import React from "react";
 
 /**
@@ -16,6 +17,10 @@ const Text = ({ texto, color = "black", type = "normal" }) => {
   // Función para obtener la clase CSS correspondiente al color del texto
   const getColorClass = () => {
     switch (color) {
+      case "gray6th":
+        return "text-gray6th";
+      case "blueMain":
+        return "text-blueButton";
       case "blue":
         return "text-blue-500";
       case "grey":
@@ -34,14 +39,21 @@ const Text = ({ texto, color = "black", type = "normal" }) => {
   // Función para obtener la clase CSS correspondiente al tipo de texto
   const getTypeClass = () => {
     switch (type) {
+      case "bigTitle":
+        return "text-5xl font-bold";
       case "title":
         return "mb-2 mt-4 font-bold text-base md:text-lg lg:text-xl";
       case "subtitle":
         return "block text-sm font-medium leading-6 font-bold text-sm md:text-base lg:text-lg";
       case "normal":
         return "text-xs md:text-sm lg:text-base";
+      case "small":
+        return "text-base";
       case "header":
         return "text-lg md:text-xl lg:text-2xl font-bold";
+      case "description":
+        return "text=base";
+
       default:
         return "text-xs md:text-sm lg:text-base";
     }
@@ -50,6 +62,10 @@ const Text = ({ texto, color = "black", type = "normal" }) => {
   // Función para renderizar el elemento HTML adecuado según el tipo de texto
   const getElement = () => {
     switch (type) {
+      case "bigTitle":
+        return (
+          <h1 className={`${getColorClass()} ${getTypeClass()}`}>{texto}</h1>
+        );
       case "title":
         return (
           <h1 className={`${getColorClass()} ${getTypeClass()}`}>{texto}</h1>

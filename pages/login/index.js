@@ -6,6 +6,10 @@ import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
 import "/app/globals.css";
 import { login } from "@/app/services/apiService";
+import colors from "@/app/styles/colors";
+import RememberMeAndForgotPassword from "@/app/components/login/rememberAndForgotpassword";
+import RegisterStandart from "@/app/components/login/registerStandart";
+import { ImagesPath } from "@/app/utils/assetsPath";
 
 /**
  * Login Page
@@ -55,61 +59,56 @@ export default function Login() {
     <>
       <div className="flex h-screen">
         {/* Sección izquierda - Imagen corporativa */}
-        <div className="w-full h-screen m-0 bg-blueSecundary">
+        <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
           <img
-            src="/images/logo-vertical.png"
+            src={ImagesPath.logoVertical}
             alt="Descripción de la imagen"
-            className="w-screen h-screen"
+            className="max-w-full max-h-full object-contain"
           />
         </div>
         {/* Sección derecha - Formulario de inicio de sesión */}
-        <div className="w-2/3 flex justify-center items-center bg-slate-100">
-          <form
-            className="w-1/2 m-8 p-10 bg-white shadow-md"
-            onSubmit={handleLogin}
-          >
+        <div className=" w-2/4 h-screen flex justify-center items-center ">
+          <form className="" onSubmit={handleLogin}>
             {/* Título del formulario */}
-            <Text texto="LOGIN" color="blue" type="title" />
+            <Text texto="Iniciar Sesión" color="blueMain" type="bigTitle" />
             {/* Subtítulo del formulario */}
+
             <Text
-              texto="Enter your email and password to login"
-              color="green"
+              texto="Ingresa tu correo y contraseña para iniciar sesión"
+              color="gray6th"
               type="description"
             />
+            <br />
             {/* Campo de entrada para la dirección de correo electrónico */}
-            <Text texto="Email address" color="black" type="normal" />
             <TextInput
-              labelText=""
-              labelColor="blue"
+              labelText="Correo"
+              labelColor="gray6th"
               inputSize="large"
               inputType="email"
               value={email}
               onChange={handleEmailChange}
             />
             {/* Campo de entrada para la contraseña */}
-            <Text
-              texto="Password"
-              color="black"
-              type="normal"
-              className="mt-5"
-            />
+
             <TextInput
-              labelText=""
-              labelColor="blue"
+              labelText="Contraseña"
+              labelColor="gray6th"
               inputSize="large"
               inputType="password"
               value={password}
               onChange={handlePasswordChange}
             />
             {/* Enlace para recuperar la contraseña */}
-            <Text
-              texto="Forgot your password?"
-              color="blue"
-              type="normal"
-              className="mt-5"
-            />
+            <RememberMeAndForgotPassword />
+
             {/* Botón de envío del formulario */}
-            <NormalButton text="Login" color="blue" size="large" />
+            <NormalButton
+              text="Iniciar sesión"
+              color="blueButton"
+              size="large"
+            />
+
+            <RegisterStandart />
             {/* Mensaje de error */}
             {error && (
               <Text texto={error} color="red" type="error" className="mt-5" />
