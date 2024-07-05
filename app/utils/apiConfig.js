@@ -19,6 +19,7 @@ const ENDPOINTS = {
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+
   //getUsers: `${API_BASE_URL}/users`,
   getPosts: `${API_BASE_URL}/posts`,
   // Agrega más endpoints según sea necesario
