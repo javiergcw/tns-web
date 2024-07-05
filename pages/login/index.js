@@ -102,12 +102,14 @@ export default function Login() {
               onChange={handlePasswordChange}
             />
             {/* Enlace para recuperar la contraseña */}
-            <Text
-              texto="Forgot your password?"
-              color="blue"
-              type="normal"
-              className="mt-5"
-            />
+            <Link href="/PasswordRecovery">
+              <Text
+                texto="Forgot your password?"
+                color="blue"
+                type="normal"
+                className="mt-5"
+              />
+            </Link>
             {/* Botón de envío del formulario */}
             <NormalButton text="Login" color="blue" size="large" />
             {/* Mensaje de error */}

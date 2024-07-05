@@ -46,15 +46,9 @@ const RequestsCarousel = ({ requestsData }) => {
   };
 
   return (
-    <div className="w-full">
-      <Text
-        texto="ÚLTIMAS PETICIONES"
-        color="blue"
-        type="header"
-        className="text-left mb-1 font-bold"
-      />
-
-      <div className="flex justify-between items-center mt-8">
+    <div className="w-full ">
+      <Text texto="ÚLTIMAS PETICIONES DE COMPRA" color="blue" type="header" />
+      <div className="flex justify-between items-center mt-2">
         <button
           onClick={prev}
           disabled={currentIndex === 0}
@@ -62,7 +56,7 @@ const RequestsCarousel = ({ requestsData }) => {
         >
           &lt;
         </button>
-        <div className="relative w-full flex space-x-4 overflow-hidden">
+        <div className="flex">
           <AnimatePresence initial={false}>
             <motion.div
               key={currentIndex}
@@ -77,9 +71,13 @@ const RequestsCarousel = ({ requestsData }) => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
-                    area={request.area}
-                    leader={request.leader}
-                    description={request.description}
+                    area={"Are de Sistemas"}
+                    leader={request.products
+                      .map((product) => product.name)
+                      .join(", ")}
+                    description={request.products
+                      .map((product) => product.description)
+                      .join(", ")}
                   />
                 ))}
             </motion.div>

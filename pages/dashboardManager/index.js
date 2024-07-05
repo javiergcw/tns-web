@@ -3,152 +3,119 @@ import "/app/globals.css";
 import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
 import Drawer from "@/app/components/others/drawer/drawer";
 import Container from "@/app/components/dashboard/container/container";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
-
-/**
- * Login Page
- *
- * Esta página muestra un dashboard con un drawer navegable, un carrusel de peticiones recientes,
- * un componente de gastos mensuales y una tabla de seguimiento de peticiones.
- *
- * @component
- */
-
-// Datos de ejemplo para MonthlyExpenses
-const expensesData = [
-  { value: 456100, title: "Compra computador" },
-  { value: 456200, title: "Compra cuadernos" },
-  { value: 456100, title: "Compra curso" },
-  { value: 1456100, title: "Compra libros" },
-  { value: 456100, title: "Compra computador" },
-];
-
-// Datos de ejemplo para RequestsCarousel
-const requestsData = [
-  {
-    area: "SISTEMAS",
-    leader: "Jaime Piedrata Lozano",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in ex a lorem viverra eleifend ac ut massa. Vestibulum ante ipsum primis in faucibus orci.",
-  },
-  {
-    area: "FINANZAS",
-    leader: "María García Pérez",
-    description:
-      "Suspendisse potenti. Sed ut eros vitae ipsum convallis venenatis. Curabitur at velit sit amet est consequat bibendum.",
-  },
-  {
-    area: "RECURSOS HUMANOS",
-    leader: "Carlos Rodríguez Díaz",
-    description:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean nec arcu efficitur, fermentum nisi et, pretium urna.",
-  },
-  {
-    area: "COMPRAS",
-    leader: "Ana Fernández López",
-    description:
-      "Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.",
-  },
-  {
-    area: "RECURSOS HUMANOS",
-    leader: "Carlos Rodríguez Díaz",
-    description:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean nec arcu efficitur, fermentum nisi et, pretium urna.",
-  },
-  {
-    area: "COMPRAS",
-    leader: "Ana Fernández López",
-    description:
-      "Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.",
-  },
-  {
-    area: "RECURSOS HUMANOS",
-    leader: "Carlos Rodríguez Díaz",
-    description:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean nec arcu efficitur, fermentum nisi et, pretium urna.",
-  },
-  {
-    area: "COMPRAS",
-    leader: "Ana Fernández López",
-    description:
-      "Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.",
-  },
-];
-
-// Calcula el total de los gastos
-const totalExpenses = expensesData.reduce(
-  (acc, expense) => acc + expense.value,
-  0
-);
-
-// Datos de ejemplo para TrackingTable
-const trackingData = [
-  {
-    item: "computador",
-    leader: "Mateo Lopez",
-    status: "Aprobado",
-    requestDate: "01/01/1999",
-    approvedDate: "02/01/1999",
-    endDate: "03/01/1999",
-  },
-  {
-    item: "libro la trova",
-    leader: "Bibliotecaria",
-    status: "cancelado",
-    requestDate: "05/05/2023",
-    approvedDate: "",
-    endDate: "05/06/2024",
-  },
-  {
-    item: "computador",
-    leader: "Mateo Lopez",
-    status: "Aprobado",
-    requestDate: "01/01/1999",
-    approvedDate: "02/01/1999",
-    endDate: "03/01/1999",
-  },
-  {
-    item: "libro la trova",
-    leader: "Bibliotecaria",
-    status: "cancelado",
-    requestDate: "05/05/2023",
-    approvedDate: "",
-    endDate: "05/06/2024",
-  },
-  {
-    item: "computador",
-    leader: "Mateo Lopez",
-    status: "Aprobado",
-    requestDate: "01/01/1999",
-    approvedDate: "02/01/1999",
-    endDate: "03/01/1999",
-  },
-  {
-    item: "libro la trova",
-    leader: "Bibliotecaria",
-    status: "cancelado",
-    requestDate: "05/05/2023",
-    approvedDate: "",
-    endDate: "05/06/2024",
-  },
-];
+import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
+import CircularDiagram from "@/app/components/others/graph/circularDiagram";
+import { getAllShoppings } from "@/app/services/shoppingService";
+import Text from "@/app/components/others/text/text";
 
 /**
  * dashboardManager Page
  *
- * Esta page muestra la inofrmacion necesaria para el administrador
- * @component
+ * Esta página es el área de trabajo general del administrador que aprueba o niega las peticiones de compras.
+ * Aquí se muestra un dashboard con un drawer navegable, un carrusel de peticiones recientes,
+ * un componente de gastos mensuales y una tabla de seguimiento de peticiones.
+ *
+ * @page
  */
 
+/*
+ * NOMBRE: fetchData
+ * DESCRIPCIÓN: Función para obtener todas las compras.
+ * @return: arreglo con todas las compras
+ */
+const fetchData = async () => {
+  try {
+    const res = await getAllShoppings();
+    return res;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
+/*
+ * NOMBRE: getApprovedExpenses
+ * DESCRIPCIÓN: Función para obtener el valor total de las compras aprobadas en el mes y un array con estas compras aprobadas.
+ * @param data: es la lista de las compras que devuelve el endpoint.
+ * @return: 1) valor total de las compras aprobadas. 2) Array modificado.
+ */
+const getApprovedExpenses = (data) => {
+  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const ApprovedExpenses = data.filter(
+    (item) =>
+      item.status &&
+      item.status.id === 2 &&
+      new Date(item.updated_at).getMonth() + 1 === currentMonth
+  );
+
+  const total = ApprovedExpenses.reduce((accumulator, item) => {
+    const productTotal = item.products.reduce(
+      (sum, product) => sum + product.price,
+      0
+    );
+    return accumulator + productTotal;
+  }, 0);
+  const flattenedExpenses = ApprovedExpenses.flatMap((item) =>
+    item.products.map((product) => ({
+      price: product.price,
+      name: product.description,
+    }))
+  );
+  return { ApprovedExpenses: flattenedExpenses, total };
+};
+
+/*
+ * NOMBRE: getUnapprovedExpenses
+ * DESCRIPCIÓN: Función para obtener las compras no aprobadas del mes hasta el momento.
+ * @param data: es la lista de las compras que devuelve el endpoint.
+ * @return: Array con las compras no aprobadas del mes.
+ */
+const getUnapprovedExpenses = (data) => {
+  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const pendingExpenses = data.filter(
+    (item) =>
+      item.status &&
+      item.status.id === 1 &&
+      new Date(item.updated_at).getMonth() + 1 === currentMonth
+  );
+  return pendingExpenses;
+};
+
 export default function dashboardManager() {
-  // Estado para controlar si el drawer está abierto o cerrado
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [data, setData] = useState([]);
+  const [expensesData, setExpensesData] = useState([]);
+  const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
 
   // Función para alternar el estado del drawer
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+
+  // Obtener los datos de gastos cuando el componente se monta
+  useEffect(() => {
+    const fetchAndProcessData = async () => {
+      const fetchedData = await fetchData();
+      setData(fetchedData);
+      const { ApprovedExpenses, total } = getApprovedExpenses(fetchedData);
+      setExpensesData(ApprovedExpenses);
+      setTotalExpenses(total);
+
+      const unapproved = getUnapprovedExpenses(fetchedData);
+      setUnapprovedExpenses(unapproved);
+    };
+
+    fetchAndProcessData();
+  }, []);
+
+  // Se ejecuta cada vez que `data` cambia
+  useEffect(() => {
+    if (data.length > 0) {
+    }
+  }, [data]);
 
   return (
     // Contenedor principal con flex para el layout
@@ -158,14 +125,22 @@ export default function dashboardManager() {
       {/* Contenedor principal que ajusta su margen según el estado del drawer */}
       <Container isDrawerOpen={isDrawerOpen}>
         <hr className="my-5" />
-        {/* Carrusel de peticiones recientes */}
-        <RequestsCarousel requestsData={requestsData} />
+        {/* Carrusel de peticiones del mes sin revisar */}
+        <RequestsCarousel requestsData={unapprovedExpenses} />
         <hr className="my-5" />
         {/* Componente de gastos mensuales */}
-     
+        <Text texto="ESTADISTICAS" color="blue" type="header" />
+        <div className="flex flex-row space-x-4 pt-8">
+          <CircularDiagram className="basis-1/2" type={"month"} data={data} />
+          <MonthlyExpenses
+            className="basis-1/2"
+            total={totalExpenses}
+            data={expensesData}
+          />
+        </div>
         <hr className="my-5" />
         {/* Tabla de seguimiento de peticiones */}
-        <TrackingTable data={trackingData} />
+        <TrackingTable data={data} />
       </Container>
     </div>
   );
