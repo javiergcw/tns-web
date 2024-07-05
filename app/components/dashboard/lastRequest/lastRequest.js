@@ -9,24 +9,31 @@ import Text from '@/app/components/others/text/text';
  *
  * @param {string} area - El título que representa el área.
  * @param {string} leader - El subtítulo que representa el nombre del líder.
+ * @param {string} tittle - La descripción del área o solicitud.
  * @param {string} description - La descripción del área o solicitud.
  *
  * @component
  */
-const LastRequests = ({ area, leader, description }) => {
+const LastRequests = ({ area, leader,tittle, description }) => {
     return (
-      <div className="p-6 bg-white shadow-md rounded-md max-w-md mx-auto h-64 w-1/3">
+      <div className="px-4 bg-white shadow-md rounded-md max-w-md mx-auto h-64 w-1/3">
         <Text texto={area} color="blue" type="title" className="text-left mb-1" />
-        <hr className="border-black my-1" />
         <Text
           texto={leader}
           color="green"
           type="subtitle"
           className="text-left mb-1 font-bold"
         />
+        <hr className="border-black my-1" />
+        <Text
+          texto={tittle}
+          color="blue"
+          type="subtitle"
+          className="text-left mb-1 font-bold"
+        />
         <Text
           texto="description:"
-          color="blue"
+          color="green"
           type="normal"
           className="text-left mt-1 font-bold"
         />

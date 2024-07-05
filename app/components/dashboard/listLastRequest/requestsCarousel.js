@@ -72,9 +72,10 @@ const RequestsCarousel = ({ requestsData }) => {
                   <LastRequests
                     key={index}
                     area={"Are de Sistemas"}
-                    leader={request.products
-                      .map((product) => product.name)
-                      .join(", ")}
+                    leader={request.user.profile.name}
+                      tittle={request.products
+                        .map((product) => product.name)
+                        .join(", ")}
                     description={request.products
                       .map((product) => product.description)
                       .join(", ")}
