@@ -119,7 +119,7 @@ export default function dashboardManager() {
 
   return (
     // Contenedor principal con flex para el layout
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden">
       {/* Drawer que se puede alternar */}
       <Drawer isOpen={isDrawerOpen} onToggle={handleDrawerToggle} />
       {/* Contenedor principal que ajusta su margen según el estado del drawer */}
@@ -129,11 +129,11 @@ export default function dashboardManager() {
         <RequestsCarousel requestsData={unapprovedExpenses} />
         <hr className="my-5" />
         {/* Componente de gastos mensuales */}
-        <Text texto="ESTADISTICAS" color="blue" type="header" />
-        <div className="flex flex-row space-x-4 pt-8">
-          <CircularDiagram className="basis-1/2" type={"month"} data={data} />
+        <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
+        <div className="flex flex-row space-x-4 pt-8 w-full">
+          <CircularDiagram className="w-1/2" type={"month"} data={data} />
           <MonthlyExpenses
-            className="basis-1/2"
+            className="w-1/2"
             total={totalExpenses}
             data={expensesData}
           />

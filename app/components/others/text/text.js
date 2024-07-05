@@ -31,6 +31,8 @@ const Text = ({ texto, color = "black", type = "normal" }) => {
         return "text-white";
       case "black":
         return "text-black";
+      case "blue-secondary":
+        return "text-[#004F9F]";
       default:
         return "text-black";
     }

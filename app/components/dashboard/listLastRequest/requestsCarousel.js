@@ -47,7 +47,11 @@ const RequestsCarousel = ({ requestsData }) => {
 
   return (
     <div className="w-full ">
-      <Text texto="ÚLTIMAS PETICIONES DE COMPRA" color="blue" type="header" />
+      <Text
+        texto="ÚLTIMAS PETICIONES DE COMPRA"
+        color="blue-secondary"
+        type="header"
+      />
       <div className="flex justify-between items-center mt-2">
         <button
           onClick={prev}
@@ -71,7 +75,7 @@ const RequestsCarousel = ({ requestsData }) => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
-                    area={"Are de Sistemas"}
+                    area={"Area de Sistemas"}
                     leader={request.products
                       .map((product) => product.name)
                       .join(", ")}

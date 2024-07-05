@@ -27,16 +27,22 @@ const TrackingTable = ({ data }) => {
           product.name,
           item.category ? item.category.name : "N/A",
           item.status ? item.status.name : "N/A",
-          item.request_date ? new Date(item.request_date).toLocaleDateString() : "N/A",
-          item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
-          item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
+          item.request_date
+            ? new Date(item.request_date).toLocaleDateString()
+            : "N/A",
+          item.pending_date
+            ? new Date(item.pending_date).toLocaleDateString()
+            : "N/A",
+          item.date_approval
+            ? new Date(item.date_approval).toLocaleDateString()
+            : "N/A",
         ])
       )
     : [];
 
   return (
     <>
-      <Text texto="TRACKING PETICIONES" color="blue" type="header" />
+      <Text texto="TRACKING PETICIONES" color="blue-secondary" type="header" />
       <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
         <Table columns={columns} data={rows} />
       </div>

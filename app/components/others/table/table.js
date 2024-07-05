@@ -16,12 +16,9 @@ const Table = ({ columns = [], data = [] }) => {
         <thead>
           <tr>
             {columns.map((column, index) => (
-
-
-
-              < th
+              <th
                 key={index}
-                className="py-2 px-4 border border-gray-400 bg-blueSecundary text-white"
+                className="py-2 px-4 border border-gray-400 bg-[#004F9F] text-white"
               >
                 {column}
               </th>
@@ -43,7 +40,7 @@ const Table = ({ columns = [], data = [] }) => {
           ))}
         </tbody>
       </table>
-    </div >
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+import "/app/globals.css";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
 import {
@@ -9,6 +10,7 @@ import {
 } from "react-icons/md";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
+import Link from "next/link";
 
 /**
  * Drawer Component
@@ -21,6 +23,15 @@ import { ImagesPath } from "@/app/utils/assetsPath";
  * @component
  */
 const Drawer = ({ isOpen, onToggle }) => {
+  // Listado de ítems con enlaces, nombres e íconos
+  const menuItems = [
+    { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard /> },
+    { link: "/view-product", name: "View Product", icon: <MdSettings /> },
+    { link: "/profile", name: "Profile", icon: <MdPerson /> },
+    { link: "/create-product", name: "Create", icon: <MdHelp /> },
+    { link: "/logout", name: "Logout", icon: <MdExitToApp /> },
+  ];
+
   return (
     <div
       className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${
@@ -52,46 +63,32 @@ const Drawer = ({ isOpen, onToggle }) => {
           )}
         </div>
         <ul className="mt-6 space-y-4 w-full flex-1">
-          <li
-            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-              isOpen ? "items-center" : "justify-center"
-            }`}
-          >
-            <MdDashboard className="mr-2 text-green-500" />
-            {isOpen && <Text texto="Item 1" color="white" type="normal" />}
-          </li>
-          <li
-            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-              isOpen ? "items-center" : "justify-center"
-            }`}
-          >
-            <MdSettings className="mr-2 text-green-500" />
-            {isOpen && <Text texto="Item 2" color="white" type="normal" />}
-          </li>
-          <li
-            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-              isOpen ? "items-center" : "justify-center"
-            }`}
-          >
-            <MdPerson className="mr-2 text-green-500" />
-            {isOpen && <Text texto="Item 3" color="white" type="normal" />}
-          </li>
-          <li
-            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-              isOpen ? "items-center" : "justify-center"
-            }`}
-          >
-            <MdHelp className="mr-2 text-green-500" />
-            {isOpen && <Text texto="Item 4" color="white" type="normal" />}
-          </li>
-          <li
-            className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-              isOpen ? "items-center" : "justify-center"
-            }`}
-          >
-            <MdExitToApp className="mr-2 text-green-500" />
-            {isOpen && <Text texto="Item 5" color="white" type="normal" />}
-          </li>
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+                isOpen ? "items-center" : "justify-center"
+              }`}
+            >
+              <Link href={item.link} className="flex items-center w-full">
+                <span
+                  className={`text-green-500 ${
+                    isOpen ? "text-2xl" : "text-4xl"
+                  } flex items-center justify-center`}
+                >
+                  {item.icon}
+                </span>
+                {isOpen && (
+                  <Text
+                    texto={item.name}
+                    color="white"
+                    type="normal"
+                    className="ml-2"
+                  />
+                )}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

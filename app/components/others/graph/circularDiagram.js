@@ -56,10 +56,10 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   const dataset = chartData.datasets[0];
 
   return (
-    <div className="bg-white shadow-md rounded-lg px-8 text-center w-1/3 h-64">
+    <div className="bg-white shadow-md rounded-lg px-8  w-1/2 h-64">
       <Text
         texto={type === "month" ? "PETICIONES MENSUAL" : "PETICIONES ANUAL"}
-        color="blue"
+        color="blue-secondary"
         type="title"
       />
       <div className="w-40 h-40 mx-auto mb-8">
