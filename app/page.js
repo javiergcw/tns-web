@@ -1,6 +1,6 @@
-'use client'
-import { useState, useEffect } from 'react';
-
+"use client";
+import "./globals.css";
+import { useState, useEffect } from "react";
 import Modal from "./components/modal"; // Importa el componente del modal
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
@@ -8,12 +8,10 @@ import CalendarScheduleHome from "./components/home/calendarScheduleHome";
 import BlogsSection from "./components/home/blogsSection";
 import ServicesStandart from "./components/home/servicesSandart";
 import blogList from "./data/blogData";
-import './globals.css'
-import { Provider } from 'react-redux';
-import store from './store/store'
+import { Provider } from "react-redux";
+import store from "./store/store";
 import { ImagesPath } from "./utils/assetsPath";
-import MainLayout from './components/layout/mainLayout';
-
+import MainLayout from "./components/layout/mainLayout";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true); // Establece el estado inicial del modal en true
@@ -30,10 +28,18 @@ export default function Home() {
   ];
 
   const servicesList = [
-    { href: 'http://mail.thenewschool.edu.co/', src: ImagesPath.cloud, alt: 'TNS CLOUD' },
-    { href: 'services/others', src: ImagesPath.services, alt: 'Services' },
-    { href: 'services/beam', src: ImagesPath.beam, alt: 'Beam' },
-    { href: 'https://podcasters.spotify.com/pod/show/the-new-school', src: ImagesPath.podcast, alt: 'Podcast' },
+    {
+      href: "http://mail.thenewschool.edu.co/",
+      src: ImagesPath.cloud,
+      alt: "TNS CLOUD",
+    },
+    { href: "services/others", src: ImagesPath.services, alt: "Services" },
+    { href: "services/beam", src: ImagesPath.beam, alt: "Beam" },
+    {
+      href: "https://podcasters.spotify.com/pod/show/the-new-school",
+      src: ImagesPath.podcast,
+      alt: "Podcast",
+    },
   ];
 
   const toggleModal = () => {
@@ -51,5 +57,5 @@ export default function Home() {
         <ServicesStandart />
       </MainLayout>
     </Provider>
-  )
+  );
 }

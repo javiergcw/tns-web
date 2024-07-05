@@ -42,8 +42,8 @@ const TrackingTable = ({ data }) => {
 
   return (
     <>
-      <Text texto="TRACKING PETICIONES" color="blue-secondary" type="header" />
-      <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
+      <Text texto="" color="blue-secondary" type="header" />
+      <div className="bg-white rounded-lg p-4  mt-4 overflow-x-auto">
         <Table columns={columns} data={rows} />
       </div>
     </>
