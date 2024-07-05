@@ -2,16 +2,16 @@ import React from "react";
 
 /**
  * NormalButton Component
- * 
+ *
  * Este componente genera un botón personalizable que puede tener diferentes colores, tamaños y textos.
  * También puede redirigir a una URL cuando se hace clic en él.
- * 
+ *
  * @param {string} color - El color del botón ("blue", "green", "red").
  * @param {string} size - El tamaño del botón ("small", "medium", "large").
  * @param {string} text - El texto que se mostrará en el botón.
  * @param {string} redirectUrl - La URL a la que redirige el botón al hacer clic.
- * 
- **/ 
+ *
+ **/
 
 const NormalButton = ({
   color = "blue",
@@ -42,6 +42,8 @@ const NormalButton = ({
   // Función para obtener el color del botón
   const getColorClass = () => {
     switch (color) {
+      case "blueButton":
+        return "bg-blueButton hover:bg-blueLight";
       case "blue":
         return "bg-blue-500 hover:bg-blue-600";
       case "green":
