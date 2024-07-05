@@ -41,11 +41,11 @@ const getAllProfiles = async () => {
 
     const data = await response.json();
     console.log('Respuesta del servidor:', data);  // Añade esta línea para depuración
-    if (!data || !Array.isArray(data.profiles)) {
+    if (!Array.isArray(data)) {
       throw new Error('Formato de respuesta inválido');
     }
 
-    return data.profiles.map(profile => new Profile(profile));
+    return data.map(profile => new Profile(profile));
   } catch (error) {
     console.error('Error:', error);
     throw error;
