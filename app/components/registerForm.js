@@ -31,8 +31,8 @@ const RegisterForm = () => {
         setMessage("Usuario registrado con éxito");
         setShowModal(true); // Mostrar el modal
         // Guardar el token y redirigir a la página de inicio después de un tiempo
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.id);
+      //  localStorage.setItem("token", response.data.token);
+       // localStorage.setItem("userId", response.data.id);
         setTimeout(() => {
           setShowModal(false); // Ocultar el modal
           router.push("/login");

@@ -1,5 +1,7 @@
+// src/components/profile/ProfileTable.js
 import { useState, useEffect } from 'react';
 import { getAllProfiles, updateProfile } from '@/app/services/profileService';
+import { register } from '@/app/services/loginService';
 import Modal from 'react-modal';
 import { handleIdentificationNumberChange } from '@/app/utils/handleNumber';
 import { documentTypeOptions } from '@/app/utils/dataGeneral';
@@ -11,10 +13,12 @@ const ProfileTable = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [name, setName] = useState('');
   const [identificationType, setIdentificationType] = useState('');
   const [identificationNumber, setIdentificationNumber] = useState('');
+  const [newUser, setNewUser] = useState({ name: '', email: '', password: '', password_confirmation: '' });
 
   useEffect(() => {
     fetchProfiles();
@@ -60,10 +64,26 @@ const ProfileTable = () => {
     }
   };
 
-  const handleIdentificationNumberChange = (e) => {
-    const value = e.target.value;
-    if (/^\d*$/.test(value)) {
-      setIdentificationNumber(value);
+  const handleAddUserChange = (e) => {
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
+
+  const handleAddUser = async () => {
+    if (newUser.password !== newUser.password_confirmation) {
+      alert('Las contraseñas no coinciden.');
+      return;
+    }
+
+    try {
+      await register(newUser.email,
+        newUser.password, newUser.password_confirmation,
+        newUser.name,
+      );
+      setIsAddModalOpen(false);
+      fetchProfiles();
+    } catch (error) {
+      console.error('Error adding user:', error);
+      setError('Failed to add user. Please check your input.');
     }
   };
 
@@ -76,8 +96,14 @@ const ProfileTable = () => {
   }
 
   return (
-      <div className="container mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4">Usuarios</h2>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Usuarios</h2>
+      <button
+        onClick={() => setIsAddModalOpen(true)}
+        className="bg-green-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Agregar Usuario
+      </button>
       <div className="overflow-y-auto h-full">
         <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
@@ -164,6 +190,65 @@ const ProfileTable = () => {
         </button>
         <button
           onClick={() => setIsModalOpen(false)}
+          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+        >
+          Cancelar
+        </button>
+      </Modal>
+
+      <Modal
+        isOpen={isAddModalOpen}
+        onRequestClose={() => setIsAddModalOpen(false)}
+        contentLabel="Agregar Usuario"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-2xl font-bold mb-4">Agregar Usuario</h2>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Nombre</label>
+          <input
+            type="text"
+            name="name"
+            value={newUser.name}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={newUser.email}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Contraseña</label>
+          <input
+            type="password"
+            name="password"
+            value={newUser.password}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Confirmar Contraseña</label>
+          <input
+            type="password"
+            name="password_confirmation"
+            value={newUser.password_confirmation}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <button onClick={handleAddUser} className="bg-green-500 text-white px-4 py-2 rounded">
+          Guardar
+        </button>
+        <button
+          onClick={() => setIsAddModalOpen(false)}
           className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
         >
           Cancelar

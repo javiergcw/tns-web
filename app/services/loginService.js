@@ -35,14 +35,14 @@ export const register = async (email, password, passwordConfirmation, name) => {
 
     console.log("Parsed AuthResponse:", authResponse); // Para depuración
 
-    if (authResponse.data.token) {
+  /*   if (authResponse.data.token) {
       console.log("Token is present, storing in localStorage"); // Para depuración
       localStorage.setItem("token", authResponse.data.token);
       console.log("Token stored:", localStorage.getItem("token")); // Verificar almacenamiento
       localStorage.setItem("userId", authResponse.data.id);
       console.log("User ID stored:", localStorage.getItem("userId")); // Verificar almacenamiento
     }
-
+ */
     return authResponse;
   } catch (error) {
     console.error(
