@@ -75,7 +75,9 @@ const TextInput = ({
 
   return (
     <div className="flex flex-col items-start">
-      <label className={`mb-1 text-sm font-medium ${getLabelColorClass()} `}>
+      <label
+        className={`mb-1 text-black text-sm font-medium ${getLabelColorClass()} `}
+      >
         {labelText}
       </label>
       <div className="relative w-full">

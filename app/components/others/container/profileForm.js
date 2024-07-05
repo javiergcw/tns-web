@@ -1,46 +1,46 @@
-import { useState, useEffect, useRef } from 'react';
-import Modal from 'react-modal';
-import TextInput from '@/app/components/others/fields/textInput';
-import TextDisplay from './textDisplay';
-import { updateProfile, getProfileById } from '@/app/services/profileService';
-import { ImagesPath } from '@/app/utils/assetsPath';
-import { documentTypeOptions } from '@/app/utils/dataGeneral'; // Importar opciones de tipos de documentos
+import { useState, useEffect, useRef } from "react";
+import Modal from "react-modal";
+import TextInput from "@/app/components/others/fields/textInput";
+import TextDisplay from "./textDisplay";
+import { updateProfile, getProfileById } from "@/app/services/profileService";
+import { ImagesPath } from "@/app/utils/assetsPath";
+import { documentTypeOptions } from "@/app/utils/dataGeneral"; // Importar opciones de tipos de documentos
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 
 const ProfileForm = () => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [photo, setPhoto] = useState('');
-  const [identificationType, setIdentificationType] = useState('');
-  const [identificationNumber, setIdentificationNumber] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [identificationType, setIdentificationType] = useState("");
+  const [identificationNumber, setIdentificationNumber] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const storedUserId = localStorage.getItem('userId');
-        console.log('Retrieved userId from localStorage:', storedUserId); // Depuración
+        const storedUserId = localStorage.getItem("userId");
+        console.log("Retrieved userId from localStorage:", storedUserId); // Depuración
         if (storedUserId) {
           setUserId(storedUserId);
           const profile = await getProfileById(storedUserId);
-          console.log('Fetched profile:', profile); // Depuración
+          console.log("Fetched profile:", profile); // Depuración
           setName(profile.name);
           setPhone(profile.identificationNumber); // Assuming this field is used for phone number
-          setRole(profile.rol ? profile.rol.name : ''); // Assuming role name is available
+          setRole(profile.rol ? profile.rol.name : ""); // Assuming role name is available
           setPhoto(profile.photo); // Set the photo URL
-          setIdentificationType(profile.identificationType || '');
-          setIdentificationNumber(profile.identificationNumber || '');
+          setIdentificationType(profile.identificationType || "");
+          setIdentificationNumber(profile.identificationNumber || "");
         } else {
-          throw new Error('User ID not found in localStorage');
+          throw new Error("User ID not found in localStorage");
         }
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error("Error fetching profile:", error);
         setError(error.message);
       }
     };
@@ -106,7 +106,7 @@ const ProfileForm = () => {
       await updateProfile(userId, updatedProfile);
       closeModal();
     } catch (error) {
-      console.error('Error actualizando el perfil:', error);
+      console.error("Error actualizando el perfil:", error);
     }
   };
 
@@ -183,7 +183,7 @@ const ProfileForm = () => {
             <input
               type="file"
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               accept="image/*"
               onChange={handlePhotoChange}
             />
@@ -209,7 +209,9 @@ const ProfileForm = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Tipo de Documento</label>
+            <label className="block text-sm font-medium mb-2 text-sky-500">
+              Tipo de Documento
+            </label>
             <select
               value={identificationType}
               onChange={handleIdentificationTypeChange}
