@@ -13,7 +13,7 @@ import React from 'react';
  */
 const Container = ({ isDrawerOpen, children }) => {
   return (
-    <div className={`flex-1 transition-all duration-300 ease-in-out p-8 bg-bgPrimary ${isDrawerOpen ? 'ml-64' : 'ml-16'} h-full max-h-screen overflow-y-auto`}>
+    <div className={`flex-1 transition-all duration-300 ease-in-out px-8 bg-bgPrimary ${isDrawerOpen ? 'ml-64' : 'ml-16'} h-full max-h-screen overflow-y-auto`}>
       {children}
     </div>
   );
