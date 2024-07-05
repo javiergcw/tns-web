@@ -1,4 +1,4 @@
-import ProfileForm from "@/app/components/others/container/profileForm";
+/*  import ProfileForm from "@/app/components/others/container/profileForm";
 import "/app/globals.css";
 import React from 'react'
 import BarChart from "@/app/components/others/graph/linealProviderDiagram";
@@ -67,4 +67,4 @@ const Profile = () => {
 
 }
 
-export default Profile
+export default Profile */
