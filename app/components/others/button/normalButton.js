@@ -44,6 +44,9 @@ const NormalButton = ({
     switch (color) {
       case "blueButton":
         return "bg-blueButton hover:bg-blueLight";
+
+      case "redPrimary":
+        return "bg-redPrimary";
       case "blue":
         return "bg-blue-500 hover:bg-blue-600";
       case "green":

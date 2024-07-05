@@ -3,6 +3,7 @@
 const colors = {
   bluePrimary: "#007bff",
   greenPrimary: "#96C11F",
+  redPrimary: "#D62929",
   grayPrimary: "#9F9F9F",
   graySecundary: "#4F4F4F",
   gray3th: "#8D8D8D",
