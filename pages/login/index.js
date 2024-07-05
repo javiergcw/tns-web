@@ -38,7 +38,7 @@ export default function Login() {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.id);
-      router.push("/home");
+      router.push("/dashboardManager");
     } catch (error) {
       console.error("Login error:", error); // Para depuración
       setError("Invalid email or password");
