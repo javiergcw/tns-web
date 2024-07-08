@@ -1,6 +1,6 @@
 // config/apiConfig.js
 const API_BASE_URL = "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
-const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjAyMDY3MTJ9.WxgeovaSKugkW-HhB9wwC-AcK4qRHur6Bsc9iYoKYr4"
+const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM0LCJqdGkiOiI2NzZhZTc4ZC04MDEyLTRmYTItOTljYi0zODM1NjUwNzFiNjMiLCJleHAiOjE3MjA1Mzc4MDd9.sdbG4FGyfscZmAkiXvEiePrm8uqQjYZ8OPaUj8mYHCM"
 const ENDPOINTS = {
   login: `${API_BASE_URL}/login`,
   register: `${API_BASE_URL}/users`,

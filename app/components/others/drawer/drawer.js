@@ -19,10 +19,11 @@ import Link from "next/link";
  *
  * @param {boolean} isOpen - Estado de si el drawer está abierto.
  * @param {function} onToggle - Función para alternar el estado del drawer.
+ * @param {object} profile - Datos del perfil del usuario logueado.
  *
  * @component
  */
-const Drawer = ({ isOpen, onToggle }) => {
+const Drawer = ({ isOpen, onToggle, profile }) => {
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
     { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard /> },
@@ -45,20 +46,29 @@ const Drawer = ({ isOpen, onToggle }) => {
         <IoMenu className="text-green-500 text-2xl" />
       </button>
       <div className="flex flex-col items-center w-full mt-4 flex-1">
-        <div className="flex flex-col items-center w-full px-4">
+        <div className="flex items-center w-full px-4">
           <img
-            src={ImagesPath.drawerPhoto}
+            src={profile?.photo || ImagesPath.drawerPhoto}
             alt="Profile"
-            className="w-12 h-12 rounded-full border-2 border-green-500 mb-2"
+            className="w-16 h-16 rounded-full border-2 border-green-500 mb-2"
           />
           {isOpen && (
-            <div className="text-center">
+            <div className="text-left ml-4">
               <Text
-                texto="Nombre Apellido1 Apellido2"
+                texto={profile?.name || "Nombre Apellido1 Apellido2"}
                 color="white"
                 type="normal"
+                className="font-bold text-[15px] text-white"
+                style={{ fontFamily: 'Patua One, sans-serif' }}
               />
-              <Text texto="Jefe de área" color="green" type="normal" />
+              <div className="border-t border-green-500 w-full my-1"></div>
+              <Text 
+                texto={profile?.rol?.name || "Jefe de área"}
+                color="white"
+                type="normal"
+                className="text-[10px] text-white mt-1"
+                style={{ fontFamily: 'Patua One, sans-serif' }}
+              />
             </div>
           )}
         </div>
@@ -84,6 +94,7 @@ const Drawer = ({ isOpen, onToggle }) => {
                     color="white"
                     type="normal"
                     className="ml-2"
+                    style={{ fontFamily: 'Patua One, sans-serif' }}
                   />
                 )}
               </Link>

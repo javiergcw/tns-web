@@ -5,6 +5,7 @@ import TextDisplay from "./textDisplay";
 import { updateProfile, getProfileById } from "@/app/services/profileService";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import { documentTypeOptions } from "@/app/utils/dataGeneral"; // Importar opciones de tipos de documentos
+import { FiEdit } from "react-icons/fi";
 
 Modal.setAppElement("#__next");
 
@@ -173,13 +174,16 @@ const ProfileForm = () => {
       >
         <div className="p-6 bg-white rounded-md w-full max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">Editar Perfil</h2>
-          <div className="mb-4 flex flex-col items-center">
+          <div className="mb-4 flex flex-col items-center relative">
             <img
               src={photo || ImagesPath.defaultProfilePhoto}
               alt="Profile"
               className="w-40 h-40 rounded-full border-2 border-green-500 cursor-pointer mb-2"
               onClick={() => fileInputRef.current.click()}
             />
+            <div className="absolute top-0 left-0 w-40 h-40 flex items-center justify-center">
+              <FiEdit className="text-white text-4xl bg-black bg-opacity-50 rounded-full p-2 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
+            </div>
             <input
               type="file"
               ref={fileInputRef}
@@ -196,6 +200,7 @@ const ProfileForm = () => {
               inputType="text"
               value={name}
               onChange={handleNameChange}
+              className="text-base p-2"
             />
           </div>
           <div className="mb-4">
@@ -206,16 +211,17 @@ const ProfileForm = () => {
               inputType="text"
               value={phone}
               onChange={handlePhoneChange}
+              className="text-base p-2"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-sky-500">
+            <label className="block text-large font-medium mb-2 text-sky-500">
               Tipo de Documento
             </label>
             <select
               value={identificationType}
               onChange={handleIdentificationTypeChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-base p-2"
             >
               <option value="">Selecciona un tipo</option>
               {documentTypeOptions.map((option) => (
@@ -233,6 +239,7 @@ const ProfileForm = () => {
               inputType="text"
               value={identificationNumber}
               onChange={handleIdentificationNumberChange}
+              className="text-base p-2"
             />
           </div>
           <div className="flex flex-col sm:flex-row justify-end">
