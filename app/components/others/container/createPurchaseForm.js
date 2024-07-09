@@ -1,15 +1,17 @@
+// components/others/container/CreatePurchaseForm.js
 import React, { useState, useEffect } from 'react';
 import { getCategories } from '@/app/services/categoryService';
 import { createShopping } from '@/app/services/shoppingService';
 
-const CreatePurchaseForm = ({ products }) => {
+const CreatePurchaseForm = ({ proveedores }) => {
   const [categories, setCategories] = useState([]);
   const [category_id, setCategoryId] = useState('');
-  const [status_id, setStatusId] = useState('');
+  const [selectedProveedores, setSelectedProveedores] = useState([]);
   const [request_date, setRequestDate] = useState('');
   const [pending_date, setPendingDate] = useState('');
   const [date_approval, setDateApproval] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const status_id = 1; // Valor quemado para el ID del Estado
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -19,21 +21,43 @@ const CreatePurchaseForm = ({ products }) => {
     fetchCategories();
   }, []);
 
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedProveedores((prevSelected) =>
+      checked
+        ? [...prevSelected, value]
+        : prevSelected.filter((proveedor) => proveedor !== value)
+    );
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!termsAccepted) {
       alert('Debes aceptar los términos y condiciones');
       return;
     }
+
+    const productsData = proveedores.filter(proveedor => selectedProveedores.includes(proveedor.title))
+                                   .map(proveedor => ({
+                                      name: proveedor.title,
+                                      url: proveedor.url,
+                                      description: proveedor.description,
+                                      price: parseFloat(proveedor.price.replace(/\./g, ''))
+                                   }));
+
     const shoppingData = {
-      category_id,
-      status_id,
-      request_date,
-      pending_date,
-      date_approval,
+      shopping: {
+        category_id,
+        status_id,
+        request_date,
+        pending_date,
+        date_approval,
+      },
+      products: productsData,
     };
+
     try {
-      await createShopping(shoppingData, products);
+      await createShopping(shoppingData);
       alert('Compra creada exitosamente');
     } catch (error) {
       console.error('Error creating purchase:', error);
@@ -60,15 +84,23 @@ const CreatePurchaseForm = ({ products }) => {
         </select>
       </div>
       <div className="mb-4">
-        <input
-          type="number"
-          name="status_id"
-          placeholder="ID del Estado"
-          value={status_id}
-          onChange={(e) => setStatusId(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
-          required
-        />
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Selecciona Proveedores:
+        </label>
+        {proveedores.map((proveedor, index) => (
+          <div key={index} className="flex items-center mb-2">
+            <input
+              type="checkbox"
+              id={`proveedor-${index}`}
+              value={proveedor.title}
+              onChange={handleCheckboxChange}
+              className="mr-2 leading-tight"
+            />
+            <label htmlFor={`proveedor-${index}`} className="text-gray-700">
+              {proveedor.title}
+            </label>
+          </div>
+        ))}
       </div>
       <div className="mb-4">
         <input

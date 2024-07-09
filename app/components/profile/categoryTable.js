@@ -9,17 +9,21 @@ const CategoryTable = () => {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
   const fetchCategories = async () => {
+    setLoading(true);
     try {
       const data = await getCategories();
       setCategories(data);
     } catch (error) {
       setError("Failed to fetch categories. Please check your authorization.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -27,6 +31,7 @@ const CategoryTable = () => {
     if (newCategoryName.trim() === '') {
       return;
     }
+    setLoading(true);
     try {
       await addCategory(newCategoryName);
       setNewCategoryName('');
@@ -34,21 +39,26 @@ const CategoryTable = () => {
       fetchCategories();
     } catch (error) {
       setError("Failed to add category. Please check your authorization.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeleteCategory = async (id) => {
+    setLoading(true);
     try {
       await deleteCategory(id);
       fetchCategories();
     } catch (error) {
       setError("Failed to delete category. Please check your authorization.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Categorías</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-800">Categorías</h2>
       {error && <p className="text-red-500">{error}</p>}
       <div className="mb-4">
         <button
@@ -58,31 +68,37 @@ const CategoryTable = () => {
           Agregar Categoría
         </button>
       </div>
-      <table className="min-w-full bg-white border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-1 px-2 border text-black  border-gray-300 text-sm">ID</th>
-            <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
-            <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((category) => (
-            <tr key={category.id} className="border-t border-gray-200">
-              <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.id}</td>
-              <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.name}</td>
-              <td className="py-1 px-2 border border-gray-300 text-sm">
-                <button
-                  onClick={() => handleDeleteCategory(category.id)}
-                  className="bg-red-500 text-white px-2 py-1 rounded"
-                >
-                  Eliminar
-                </button>
-              </td>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <table className="min-w-full bg-white border-collapse border border-gray-300">
+          <thead>
+            <tr>
+              <th className="py-1 px-2 border text-black  border-gray-300 text-sm">ID</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
+              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {categories.map((category) => (
+              <tr key={category.id} className="border-t border-gray-200">
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.id}</td>
+                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.name}</td>
+                <td className="py-1 px-2 border border-gray-300 text-sm">
+                  <button
+                    onClick={() => handleDeleteCategory(category.id)}
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <Modal
         isOpen={isModalOpen}

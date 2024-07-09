@@ -7,6 +7,8 @@ import Text from "./others/text/text";
 import TextInput from "./others/fields/textInput";
 import NormalButton from "./others/button/normalButton";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -14,34 +16,40 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden");
+      toast.error("Las contraseñas no coinciden");
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await register(email, password, confirmPassword, name);
       if (response) {
         setMessage("Usuario registrado con éxito");
-        setShowModal(true); // Mostrar el modal
+        toast.success("Usuario registrado con éxito");
         // Guardar el token y redirigir a la página de inicio después de un tiempo
-      //  localStorage.setItem("token", response.data.token);
-       // localStorage.setItem("userId", response.data.id);
+        // localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("userId", response.data.id);
         setTimeout(() => {
-          setShowModal(false); // Ocultar el modal
+          setLoading(false);
           router.push("/login");
         }, 3000); // 3 segundos de espera
       } else {
         setMessage("Error en el registro");
+        toast.error("Error en el registro");
+        setLoading(false);
       }
     } catch (error) {
       setMessage(`Error: ${error.message}`);
+      toast.error(`Error: ${error.message}`);
+      setLoading(false);
     }
   };
 
@@ -105,7 +113,12 @@ const RegisterForm = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
 
-            <NormalButton text="Registrarse" color="blueButton" size="large" />
+            <NormalButton
+              text="Registrarse"
+              color="blueButton"
+              size="large"
+              additionalClasses="text-white"
+            />
 
             {message && <p className="mt-4 text-green-500">{message}</p>}
             <br />
@@ -122,20 +135,13 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      {showModal && (
+      {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">Registro Exitoso</h2>
-            <p>Serás redirigido a la página de inicio en breve.</p>
-            <button
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={() => setShowModal(false)}
-            >
-              Cerrar
-            </button>
-          </div>
+          <div className="loader"></div>
         </div>
       )}
+
+      <ToastContainer />
     </div>
   );
 };

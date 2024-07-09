@@ -19,6 +19,8 @@ const colors = {
   whiteBg1: "#F6F6F6",
   whiteBg2: "#EAEAEA",
   whiteBg3: "#DEDEDE",
+  greenDrawer: "#96C11F"
+
 };
 
 module.exports = colors;

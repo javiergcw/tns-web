@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LastRequests from "@/app/components/dashboard/lastRequest/lastRequest";
 import Text from "@/app/components/others/text/text";
+import { getAllShoppings } from "@/app/services/shoppingService";
 
 /**
  * RequestsCarousel Component
  *
  * Este componente muestra una lista de componentes LastRequests en un carrusel que se puede desplazar.
  *
- * @param {Array} requestsData - Lista de datos para las últimas peticiones.
- *
  * @component
  */
-const RequestsCarousel = ({ requestsData }) => {
+const RequestsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [requestsData, setRequestsData] = useState([]);
 
   const updateItemsPerPage = () => {
     const width = window.innerWidth;
@@ -28,6 +28,17 @@ const RequestsCarousel = ({ requestsData }) => {
   };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const products = await getAllShoppings();
+        console.log("Fetched products:", products); // Log para depuración
+        setRequestsData(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
     updateItemsPerPage();
     window.addEventListener("resize", updateItemsPerPage);
     return () => window.removeEventListener("resize", updateItemsPerPage);
@@ -75,13 +86,9 @@ const RequestsCarousel = ({ requestsData }) => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
-                    area={"Area de Sistemas"}
-                    leader={request.products
-                      .map((product) => product.name)
-                      .join(", ")}
-                    description={request.products
-                      .map((product) => product.description)
-                      .join(", ")}
+                    area={request.name || "N/A"} // Aquí se usa el nombre del producto
+                    leader={request.name || "N/A"}
+                    description={request.description || "N/A"}
                   />
                 ))}
             </motion.div>

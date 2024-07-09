@@ -20,6 +20,7 @@ const ProfileForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -93,6 +94,7 @@ const ProfileForm = () => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
     const updatedProfile = {
       name,
       identification_type: identificationType,
@@ -108,6 +110,8 @@ const ProfileForm = () => {
       closeModal();
     } catch (error) {
       console.error("Error actualizando el perfil:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -118,11 +122,11 @@ const ProfileForm = () => {
           <img
             src={photo || ImagesPath.defaultProfilePhoto}
             alt="Profile"
-            className="w-40 h-40 rounded-full border-2 border-green-500"
+            className="w-60 h-60 rounded-full border-2 border-green-500"
           />
           <button
             onClick={openModal}
-            className="mt-4 p-2 bg-blue-500 text-white rounded-md w-full sm:w-auto"
+            className="mt-4 p-4 bg-blue-500 text-white rounded-md w-full sm:w-auto text-lg"
           >
             Editar Perfil
           </button>
@@ -182,7 +186,7 @@ const ProfileForm = () => {
               onClick={() => fileInputRef.current.click()}
             />
             <div className="absolute top-0 left-0 w-40 h-40 flex items-center justify-center">
-              <FiEdit className="text-white text-4xl bg-black bg-opacity-50 rounded-full p-2 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
+              <FiEdit className="text-white text-4xl bg-black bg-opacity-50 rounded-full p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
             </div>
             <input
               type="file"
@@ -221,7 +225,7 @@ const ProfileForm = () => {
             <select
               value={identificationType}
               onChange={handleIdentificationTypeChange}
-              className="w-full p-2 border border-gray-300 rounded text-base p-2"
+              className="w-full p-2 border border-gray-300 rounded text-base"
             >
               <option value="">Selecciona un tipo</option>
               {documentTypeOptions.map((option) => (
@@ -256,6 +260,11 @@ const ProfileForm = () => {
               Guardar
             </button>
           </div>
+          {loading && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="loader"></div>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

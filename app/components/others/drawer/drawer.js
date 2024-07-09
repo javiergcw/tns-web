@@ -7,10 +7,14 @@ import {
   MdPerson,
   MdHelp,
   MdExitToApp,
+  MdVisibility,
+  MdAddBox
 } from "react-icons/md";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import Link from "next/link";
+
+const greenDrawer = "#96C11F";
 
 /**
  * Drawer Component
@@ -26,31 +30,30 @@ import Link from "next/link";
 const Drawer = ({ isOpen, onToggle, profile }) => {
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
-    { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard /> },
-    { link: "/view-product", name: "View Product", icon: <MdSettings /> },
-    { link: "/profile", name: "Profile", icon: <MdPerson /> },
-    { link: "/create-product", name: "Create", icon: <MdHelp /> },
-    { link: "/logout", name: "Logout", icon: <MdExitToApp /> },
+    { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard style={{ color: greenDrawer }} /> },
+    { link: "/view-product", name: "View Product", icon: <MdVisibility style={{ color: greenDrawer }} /> },
+    { link: "/profile", name: "Profile", icon: <MdPerson style={{ color: greenDrawer }} /> },
+    { link: "/create-product", name: "Create Product", icon: <MdAddBox style={{ color: greenDrawer }} /> },
+    { link: "/logout", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} /> }
   ];
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${
-        isOpen ? "w-64" : "w-20"
-      } transition-all duration-300 ease-in-out flex flex-col items-center`}
+      className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${isOpen ? "w-64" : "w-20"
+        } transition-all duration-300 ease-in-out flex flex-col items-center`}
     >
       <button
         onClick={onToggle}
         className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
       >
-        <IoMenu className="text-green-500 text-2xl" />
+        <IoMenu className="text-greenDrawer text-2xl" />
       </button>
       <div className="flex flex-col items-center w-full mt-4 flex-1">
         <div className="flex items-center w-full px-4">
           <img
             src={profile?.photo || ImagesPath.drawerPhoto}
             alt="Profile"
-            className="w-16 h-16 rounded-full border-2 border-green-500 mb-2"
+            className="w-16 h-16 rounded-full border-2 border-greenDrawer mb-2"
           />
           {isOpen && (
             <div className="text-left ml-4">
@@ -62,7 +65,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                 style={{ fontFamily: 'Patua One, sans-serif' }}
               />
               <div className="border-t border-green-500 w-full my-1"></div>
-              <Text 
+              <Text
                 texto={profile?.rol?.name || "Jefe de área"}
                 color="white"
                 type="normal"
@@ -76,15 +79,13 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
           {menuItems.map((item, index) => (
             <li
               key={index}
-              className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-                isOpen ? "items-center" : "justify-center"
-              }`}
+              className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
+                }`}
             >
               <Link href={item.link} className="flex items-center w-full">
                 <span
-                  className={`text-green-500 ${
-                    isOpen ? "text-2xl" : "text-4xl"
-                  } flex items-center justify-center`}
+                  className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
+                    } flex items-center justify-center`}
                 >
                   {item.icon}
                 </span>

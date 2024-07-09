@@ -1,47 +1,21 @@
-import axios from 'axios';
-import { ENDPOINTS, BEARER_TOKEN } from "@/app/utils/apiConfig";
+import { get,post } from "./apiRequest";
+import { ENDPOINTS } from "@/app/utils/apiConfig";
 import Shopping from "@/app/models/shoppings/shoppingsModel"; // Asegúrate de que la ruta sea correcta
 
 const getAllShoppings = async () => {
   try {
-    const response = await fetch(`${ENDPOINTS.shoppings}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': "application/json",
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al obtener las compras");
-    }
-
-    const data = await response.json();
-    return data;
+    const response = await get(ENDPOINTS.shoppings);
+    return response;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error al obtener las compras:", error);
     throw error;
   }
 };
 
-const createShopping = async (shoppingData, productsData) => {
-  const shopping = new Shopping({
-    ...shoppingData,
-    products: productsData,
-  });
-
+const createShopping = async (shoppingData) => {
   try {
-    const response = await axios.post(
-      ENDPOINTS.createShopping,
-      { shopping, products: shopping.products },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${BEARER_TOKEN}`,
-        },
-      }
-    );
-    return response.data;
+    const response = await post(ENDPOINTS.createShopping, shoppingData);
+    return response;
   } catch (error) {
     console.error('Failed to create shopping:', error);
     throw error;

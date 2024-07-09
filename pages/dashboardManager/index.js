@@ -1,7 +1,6 @@
 "use client";
 import "/app/globals.css";
 import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
-import Drawer from "@/app/components/others/drawer/drawer";
 import Container from "@/app/components/dashboard/container/container";
 import { useState, useEffect } from "react";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
@@ -9,6 +8,7 @@ import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyE
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import Text from "@/app/components/others/text/text";
+import MainLayout from "@/app/components/layout/drawerLayout";
 
 /**
  * dashboardManager Page
@@ -84,16 +84,10 @@ const getUnapprovedExpenses = (data) => {
 };
 
 export default function dashboardManager() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
   const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
-
-  // Función para alternar el estado del drawer
-  const handleDrawerToggle = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
 
   // Obtener los datos de gastos cuando el componente se monta
   useEffect(() => {
@@ -111,37 +105,32 @@ export default function dashboardManager() {
     fetchAndProcessData();
   }, []);
 
-  // Se ejecuta cada vez que `data` cambia
-  useEffect(() => {
-    if (data.length > 0) {
-    }
-  }, [data]);
-
   return (
     // Contenedor principal con flex para el layout
     <div className="flex h-screen w-full overflow-hidden">
       {/* Drawer que se puede alternar */}
-      <Drawer isOpen={isDrawerOpen} onToggle={handleDrawerToggle} />
-      {/* Contenedor principal que ajusta su margen según el estado del drawer */}
-      <Container isDrawerOpen={isDrawerOpen}>
-        <hr className="my-5" />
-        {/* Carrusel de peticiones del mes sin revisar */}
-        <RequestsCarousel requestsData={unapprovedExpenses} />
-        <hr className="my-5" />
-        {/* Componente de gastos mensuales */}
-        <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
-        <div className="flex flex-row space-x-4 pt-8 w-full">
-          <CircularDiagram className="w-1/2" type={"month"} data={data} />
-          <MonthlyExpenses
-            className="w-1/2"
-            total={totalExpenses}
-            data={expensesData}
-          />
-        </div>
-        <hr className="my-5" />
-        {/* Tabla de seguimiento de peticiones */}
-        <TrackingTable data={data} />
-      </Container>
+      <MainLayout>
+        {/* Contenedor principal que ajusta su margen según el estado del drawer */}
+        <Container>
+          <hr className="my-5" />
+          {/* Carrusel de peticiones del mes sin revisar */}
+          <RequestsCarousel requestsData={unapprovedExpenses} />
+          <hr className="my-5" />
+          {/* Componente de gastos mensuales */}
+          <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
+          <div className="flex flex-row space-x-4 pt-8 w-full">
+            <CircularDiagram className="w-1/2" type={"month"} data={data} />
+            <MonthlyExpenses
+              className="w-1/2"
+              total={totalExpenses}
+              data={expensesData}
+            />
+          </div>
+          <hr className="my-5" />
+          {/* Tabla de seguimiento de peticiones */}
+          <TrackingTable data={data} />
+        </Container>
+      </MainLayout>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import "/app/globals.css";
 import DetailPetition from '@/app/components/others/container/detailPetition';
 import MonthlyExpenses from '@/app/components/others/container/monthlyExpenses';
-import ProveedorForm from '@/app/components/others/fields/proveedorForm';
+import ProveedorForm from '@/app/components/others/fields/productForm';
 
 const petitionData = {
   title: "Petición Ejemplo",

@@ -1,19 +1,14 @@
-import ProveedorDetails from '../container/proovedorDetails';
+// components/others/fields/ProveedorForm.js
 import React, { useState, useRef } from 'react';
+import ProveedorDetails from '../container/proveedorDetails';
 
-/**
- * ProveedorForm Component
- *
- * Este componente muestra una lista de proveedores y un formulario para agregar nuevos proveedores.
- *
- * @component
- */
-const ProveedorForm = () => {
-  const [proveedores, setProveedores] = useState([]);
+const ProveedorForm = ({ setProveedores }) => {
+  const [proveedoresList, setProveedoresList] = useState([]);
   const [formData, setFormData] = useState({
     image: '',
     title: '',
     description: '',
+    url: '',
     price: ''
   });
   const [selectedProveedor, setSelectedProveedor] = useState(null);
@@ -57,18 +52,20 @@ const ProveedorForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.image && formData.title && formData.description && formData.price) {
+    if (formData.image && formData.title && formData.description && formData.price && formData.url) {
+      let updatedProveedores;
       if (isEditing) {
-        const updatedProveedores = proveedores.map((proveedor, index) =>
+        updatedProveedores = proveedoresList.map((proveedor, index) =>
           index === editIndex ? formData : proveedor
         );
-        setProveedores(updatedProveedores);
         setIsEditing(false);
         setEditIndex(null);
       } else {
-        setProveedores([...proveedores, formData]);
+        updatedProveedores = [...proveedoresList, formData];
       }
-      setFormData({ image: '', title: '', description: '', price: '' });
+      setProveedoresList(updatedProveedores);
+      setProveedores(updatedProveedores); // Actualiza el estado en el componente padre
+      setFormData({ image: '', title: '', description: '', url: '', price: '' });
     } else {
       alert('Todos los campos son requeridos');
     }
@@ -83,15 +80,16 @@ const ProveedorForm = () => {
   };
 
   const handleDelete = (index) => {
-    const newProveedores = proveedores.filter((_, i) => i !== index);
-    setProveedores(newProveedores);
-    if (selectedProveedor && proveedores[index] === selectedProveedor) {
+    const newProveedores = proveedoresList.filter((_, i) => i !== index);
+    setProveedoresList(newProveedores);
+    setProveedores(newProveedores); // Actualiza el estado en el componente padre
+    if (selectedProveedor && proveedoresList[index] === selectedProveedor) {
       setSelectedProveedor(null);
     }
   };
 
   const handleEdit = (index) => {
-    const proveedor = proveedores[index];
+    const proveedor = proveedoresList[index];
     setFormData(proveedor);
     setIsEditing(true);
     setEditIndex(index);
@@ -106,7 +104,7 @@ const ProveedorForm = () => {
           onMouseLeave={handleMouseLeave}
         >
           <div className="flex overflow-x-auto space-x-4 mb-4 no-scrollbar" ref={listRef}>
-            {proveedores.map((proveedor, index) => (
+            {proveedoresList.map((proveedor, index) => (
               <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
                 <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
@@ -192,6 +190,17 @@ const ProveedorForm = () => {
               value={formData.description}
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded h-24"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="url"
+              name="url"
+              placeholder="URL"
+              value={formData.url}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
               required
             />
           </div>

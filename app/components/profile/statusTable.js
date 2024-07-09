@@ -8,6 +8,7 @@ const StatusTable = () => {
   const [statuses, setStatuses] = useState([]);
   const [newStatusName, setNewStatusName] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // Estado de carga
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -16,10 +17,13 @@ const StatusTable = () => {
 
   const fetchStatuses = async () => {
     try {
+      setLoading(true); // Inicia la carga
       const data = await getStatuses();
       setStatuses(data);
+      setLoading(false); // Finaliza la carga
     } catch (error) {
       setError("Failed to fetch statuses. Please check your authorization.");
+      setLoading(false); // Finaliza la carga
     }
   };
 
@@ -28,27 +32,33 @@ const StatusTable = () => {
       return;
     }
     try {
+      setLoading(true); // Inicia la carga
       await addStatus(newStatusName);
       setNewStatusName('');
       fetchStatuses();
       setIsModalOpen(false);
     } catch (error) {
       setError("Failed to add status. Please check your authorization.");
+    } finally {
+      setLoading(false); // Finaliza la carga
     }
   };
 
   const handleDeleteStatus = async (id) => {
     try {
+      setLoading(true); // Inicia la carga
       await deleteStatus(id);
       fetchStatuses();
     } catch (error) {
       setError("Failed to delete status. Please check your authorization.");
+    } finally {
+      setLoading(false); // Finaliza la carga
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Estados</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-800">Estados</h2>
       {error && <p className="text-red-500">{error}</p>}
       <div className="mb-4">
         <button
@@ -58,6 +68,11 @@ const StatusTable = () => {
           Agregar Estado
         </button>
       </div>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="loader"></div>
+        </div>
+      )}
       <table className="min-w-full bg-white border">
         <thead>
           <tr>
@@ -65,7 +80,7 @@ const StatusTable = () => {
             <th className="border text-black px-4 py-2">Nombre</th>
             <th className="border text-black px-2 py-2">Acciones</th>
           </tr>
-        </thead> 
+        </thead>
         <tbody>
           {statuses.map((status) => (
             <tr key={status.id}>

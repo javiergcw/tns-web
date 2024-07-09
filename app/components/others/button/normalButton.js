@@ -10,7 +10,7 @@ import React from "react";
  * @param {string} size - El tamaño del botón ("small", "medium", "large").
  * @param {string} text - El texto que se mostrará en el botón.
  * @param {string} redirectUrl - La URL a la que redirige el botón al hacer clic.
- *
+ * @param {string} additionalClasses - Clases CSS adicionales para personalizar el botón.
  **/
 
 const NormalButton = ({
@@ -18,6 +18,7 @@ const NormalButton = ({
   size = "medium",
   text = "LOGIN",
   redirectUrl,
+  additionalClasses = "",
 }) => {
   const handleClick = () => {
     if (redirectUrl) {
@@ -44,7 +45,6 @@ const NormalButton = ({
     switch (color) {
       case "blueButton":
         return "bg-blueButton hover:bg-blueLight";
-
       case "redPrimary":
         return "bg-redPrimary";
       case "blue":
@@ -61,9 +61,9 @@ const NormalButton = ({
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center px-3 py-2 border border-gray-300 rounded-lg overflow-hidden focus:outline-none group transition-colors duration-300 ease-in-out mt-5 ${getColorClass()} ${getSizeClass()}`}
+      className={`flex items-center px-3 py-2 border border-gray-300 rounded-lg overflow-hidden focus:outline-none group transition-colors duration-300 ease-in-out mt-5 ${getColorClass()} ${getSizeClass()} ${additionalClasses}`}
     >
-      <span className="flex-1">{text}</span>
+      <span className="flex-1 text-white">{text}</span>
     </button>
   );
 };

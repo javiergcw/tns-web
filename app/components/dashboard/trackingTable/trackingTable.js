@@ -27,8 +27,8 @@ const TrackingTable = ({ data }) => {
           product.name,
           item.category ? item.category.name : "N/A",
           item.status ? item.status.name : "N/A",
-          item.request_date
-            ? new Date(item.request_date).toLocaleDateString()
+          item.created_at
+            ? new Date(item.created_at).toLocaleDateString()
             : "N/A",
           item.pending_date
             ? new Date(item.pending_date).toLocaleDateString()
@@ -40,10 +40,13 @@ const TrackingTable = ({ data }) => {
       )
     : [];
 
+  console.log("TrackingTable input data:", data);
+  console.log("TrackingTable rows:", rows);
+
   return (
     <>
-      <Text texto="" color="blue-secondary" type="header" />
-      <div className="bg-white rounded-lg p-4  mt-4 overflow-x-auto">
+      <Text texto="TRACKING PETICIONES" color="blue-secondary" type="header" />
+      <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
         <Table columns={columns} data={rows} />
       </div>
     </>

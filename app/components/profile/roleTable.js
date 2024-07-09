@@ -1,4 +1,3 @@
-// src/components/profile/RoleTable.js
 import { useState, useEffect } from 'react';
 import { getRoles, addRole, deleteRole } from '@/app/services/roleService';
 import Modal from 'react-modal';
@@ -19,39 +18,50 @@ const RoleTable = () => {
 
   const fetchRoles = async () => {
     try {
+      setLoading(true); // Inicia la carga
       const data = await getRoles();
       setRoles(data);
-      setLoading(false);
+      setLoading(false); // Finaliza la carga
     } catch (error) {
       console.error('Error fetching roles:', error);
       setError(error.message);
-      setLoading(false);
+      setLoading(false); // Finaliza la carga
     }
   };
 
   const handleAddRole = async () => {
     try {
+      setLoading(true); // Inicia la carga
       await addRole(newRoleName);
       fetchRoles();
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error adding role:', error);
       setError('Failed to add role.');
+    } finally {
+      setLoading(false); // Finaliza la carga
     }
   };
 
   const handleDeleteRole = async (id) => {
     try {
+      setLoading(true); // Inicia la carga
       await deleteRole(id);
       fetchRoles();
     } catch (error) {
       console.error('Error deleting role:', error);
       setError('Failed to delete role.');
+    } finally {
+      setLoading(false); // Finaliza la carga
     }
   };
 
   if (loading) {
-    return <p>Cargando roles...</p>;
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   if (error) {
@@ -60,15 +70,14 @@ const RoleTable = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Roles</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-800">Roles</h2>
       <div className='mb-4'>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="mt-4 p-2 bg-blue-500 text-white rounded-md"
-      >
-        Añadir Rol
-      </button>
-
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="mt-4 p-2 bg-blue-500 text-white rounded-md"
+        >
+          Añadir Rol
+        </button>
       </div>
       <div className="overflow-y-auto h-full">
         <table className="min-w-full bg-white border-collapse border border-gray-300">
@@ -129,6 +138,11 @@ const RoleTable = () => {
           Cancelar
         </button>
       </Modal>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,12 +1,7 @@
 "use client";
+import Table from "@/app/components/others/table/table";
+import Text from "@/app/components/others/text/text";
 
-/**
- * Simulación de datos para las compras.
- */
-
-/**
- * Componente de filtros y tabla de productos.
- */
 /**
  * ProductTable Component
  * Este componente muestra una tabla de seguimiento de peticiones.
@@ -34,6 +29,9 @@ const ProductTable = ({ data }) => {
         item.endDate,
       ])
     : [];
+
+  console.log("ProductTable data:", data);
+  console.log("ProductTable rows:", rows);
 
   return (
     <>

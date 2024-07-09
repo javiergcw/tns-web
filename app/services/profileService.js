@@ -1,30 +1,17 @@
-// src/services/profileService.js
-import { ENDPOINTS, BEARER_TOKEN } from '@/app/utils/apiConfig';
+import { get,patch } from "./apiRequest";
+import { ENDPOINTS } from "@/app/utils/apiConfig";
 import Profile from '../models/profile/profileModel';
-
-
 
 const getAllProfiles = async () => {
   try {
-    const response = await fetch(ENDPOINTS.getAllProfiles, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BEARER_TOKEN}`
-      }
-    });
+    const response = await get(ENDPOINTS.getAllProfiles);
+    console.log('Respuesta del servidor:', response);  // Añade esta línea para depuración
 
-    if (!response.ok) {
-      throw new Error('Error al obtener los perfiles');
-    }
-
-    const data = await response.json();
-    console.log('Respuesta del servidor:', data);  // Añade esta línea para depuración
-    if (!Array.isArray(data)) {
+    if (!Array.isArray(response)) {
       throw new Error('Formato de respuesta inválido');
     }
 
-    return data.map(profile => new Profile(profile));
+    return response.map(profile => new Profile(profile));
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -33,47 +20,26 @@ const getAllProfiles = async () => {
 
 const getProfileById = async (id) => {
   try {
-    const response = await fetch(ENDPOINTS.getProfileById(id), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BEARER_TOKEN}`
-      }
-    });
+    const response = await get(ENDPOINTS.getProfileById(id));
+    console.log('Respuesta del servidor en getProfileById:', response);  // Añade esta línea para depuración
 
-    if (!response.ok) {
-      throw new Error('Error al obtener el perfil');
-    }
-
-    const data = await response.json();
-    console.log('Respuesta del servidor en getProfileById:', data);  // Añade esta línea para depuración
-
-    return new Profile(data);  // Ajusta esta línea según la estructura real de tu respuesta
+    return new Profile(response);  // Ajusta esta línea según la estructura real de tu respuesta
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
 };
+
 const updateProfile = async (id, profileData) => {
   try {
-    const response = await fetch(ENDPOINTS.updateProfile(id), {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BEARER_TOKEN}`
-      },
-      body: JSON.stringify({ profile: profileData })
-    });
+    const response = await patch(ENDPOINTS.updateProfile(id), { profile: profileData });
+    console.log('Respuesta del servidor en updateProfile:', response);  // Añade esta línea para depuración
 
-    if (!response.ok) {
-      throw new Error('Error al actualizar el perfil');
-    }
-
-    const data = await response.json();
-    return new Profile(data.profile);
+    return new Profile(response.profile);
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
 };
+
 export { updateProfile, getAllProfiles, getProfileById };

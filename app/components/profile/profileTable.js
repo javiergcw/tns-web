@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getAllProfiles, updateProfile } from '@/app/services/profileService';
-import { getRoles } from '@/app/services/roleService'; // Asegúrate de que la ruta sea correcta
+import { getRoles } from '@/app/services/roleService';
 import { register } from '@/app/services/loginService';
 import Modal from 'react-modal';
-import { handleIdentificationNumberChange } from '@/app/utils/handleNumber';
 import { documentTypeOptions } from '@/app/utils/dataGeneral';
 
-Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
+Modal.setAppElement('#__next');
 
 const ProfileTable = () => {
   const [profiles, setProfiles] = useState([]);
@@ -51,10 +50,16 @@ const ProfileTable = () => {
   const handleEdit = (profile) => {
     setSelectedProfile(profile);
     setName(profile.name);
-    setIdentificationType(profile.identificationType || ''); // Asegúrate de establecer un valor por defecto
+    setIdentificationType(profile.identificationType || '');
     setIdentificationNumber(profile.identificationNumber);
-    setSelectedRoleId(profile.rol ? profile.rol.id : ''); // Establecer el rol actual del perfil
+    setSelectedRoleId(profile.rol ? profile.rol.id : '');
     setIsModalOpen(true);
+  };
+
+  const handleIdentificationNumberChange = (e) => {
+    if (/^\d*$/.test(e.target.value)) {
+      setIdentificationNumber(e.target.value);
+    }
   };
 
   const handleUpdateProfile = async () => {
@@ -63,18 +68,21 @@ const ProfileTable = () => {
       return;
     }
 
+    setLoading(true);
     try {
       await updateProfile(selectedProfile.id, {
         name,
         identification_type: identificationType,
         identification_number: identificationNumber,
-        rol_id: selectedRoleId, // Incluye el rol seleccionado
+        rol_id: selectedRoleId,
       });
       setIsModalOpen(false);
       fetchProfiles();
     } catch (error) {
       console.error('Error updating profile:', error);
       setError('Failed to update profile. Please check your authorization.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,36 +96,34 @@ const ProfileTable = () => {
       return;
     }
 
+    setLoading(true);
     try {
-      await register(newUser.email,
-        newUser.password, newUser.password_confirmation,
-        newUser.name,
-      );
+      console.log("Adding user:", newUser); // Log para depuración
+      await register(newUser.email, newUser.password, newUser.password_confirmation, newUser.name);
       setIsAddModalOpen(false);
       fetchProfiles();
     } catch (error) {
       console.error('Error adding user:', error);
       setError('Failed to add user. Please check your input.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) {
-    return <p>Cargando perfiles...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Usuarios</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-800">Usuarios</h2>
       <button
         onClick={() => setIsAddModalOpen(true)}
-        className="bg-green-500 text-white px-4 py-2 rounded mb-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
       >
         Agregar Usuario
       </button>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="loader"></div>
+        </div>
+      )}
       <div className="overflow-y-auto h-full">
         <table className="min-w-full bg-white border-collapse border border-gray-300">
           <thead>
@@ -223,6 +229,11 @@ const ProfileTable = () => {
         >
           Cancelar
         </button>
+        {loading && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="loader"></div>
+          </div>
+        )}
       </Modal>
 
       <Modal
@@ -282,6 +293,11 @@ const ProfileTable = () => {
         >
           Cancelar
         </button>
+        {loading && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="loader"></div>
+          </div>
+        )}
       </Modal>
     </div>
   );
