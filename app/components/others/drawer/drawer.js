@@ -1,11 +1,9 @@
 import "/app/globals.css";
-import React from "react";
+import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import {
   MdDashboard,
-  MdSettings,
   MdPerson,
-  MdHelp,
   MdExitToApp,
   MdVisibility,
   MdAddBox
@@ -13,6 +11,8 @@ import {
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import Link from "next/link";
+import LoaderOverlay from "@/app/utils/loaderOverlay";
+import { useRouter } from "next/router";
 
 const greenDrawer = "#96C11F";
 
@@ -28,82 +28,101 @@ const greenDrawer = "#96C11F";
  * @component
  */
 const Drawer = ({ isOpen, onToggle, profile }) => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleNavigation = (link) => {
+    setLoading(true);
+    router.push(link);
+  };
+
+  const handleLogout = () => {
+    setLoading(true);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    router.push("/login");
+  };
+
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
     { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard style={{ color: greenDrawer }} /> },
     { link: "/view-product", name: "View Product", icon: <MdVisibility style={{ color: greenDrawer }} /> },
     { link: "/profile", name: "Profile", icon: <MdPerson style={{ color: greenDrawer }} /> },
     { link: "/create-product", name: "Create Product", icon: <MdAddBox style={{ color: greenDrawer }} /> },
-    { link: "/logout", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} /> }
+    { link: "/logout", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} />, onClick: handleLogout }
   ];
 
   return (
-    <div
-      className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 ${isOpen ? "w-64" : "w-20"
-        } transition-all duration-300 ease-in-out flex flex-col items-center`}
-    >
-      <button
-        onClick={onToggle}
-        className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
+    <>
+      <div
+        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
+          } transition-all duration-300 ease-in-out flex flex-col items-center`}
       >
-        <IoMenu className="text-greenDrawer text-2xl" />
-      </button>
-      <div className="flex flex-col items-center w-full mt-4 flex-1">
-        <div className="flex items-center w-full px-4">
-          <img
-            src={profile?.photo || ImagesPath.drawerPhoto}
-            alt="Profile"
-            className="w-16 h-16 rounded-full border-2 border-greenDrawer mb-2"
-          />
-          {isOpen && (
-            <div className="text-left ml-4">
-              <Text
-                texto={profile?.name || "Nombre Apellido1 Apellido2"}
-                color="white"
-                type="normal"
-                className="font-bold text-[15px] text-white"
-                style={{ fontFamily: 'Patua One, sans-serif' }}
-              />
-              <div className="border-t border-green-500 w-full my-1"></div>
-              <Text
-                texto={profile?.rol?.name || "Jefe de área"}
-                color="white"
-                type="normal"
-                className="text-[10px] text-white mt-1"
-                style={{ fontFamily: 'Patua One, sans-serif' }}
-              />
-            </div>
-          )}
+        <button
+          onClick={onToggle}
+          className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
+        >
+          <IoMenu className="text-greenDrawer text-2xl" />
+        </button>
+        <div className="flex flex-col items-center w-full mt-4 flex-1">
+          <div className="flex items-center w-full px-4">
+            <img
+              src={profile?.photo || ImagesPath.drawerPhoto}
+              alt="Profile"
+              className="w-16 h-16 rounded-full border-2 border-greenDrawer mb-2"
+            />
+            {isOpen && (
+              <div className="text-left ml-4">
+                <Text
+                  texto={profile?.name || "Nombre Apellido1 Apellido2"}
+                  color="white"
+                  type="normal"
+                  className="font-bold text-[15px] text-white"
+                  style={{ fontFamily: 'Patua One, sans-serif' }}
+                />
+                <div className="border-t border-green-500 w-full my-1"></div>
+                <Text
+                  texto={profile?.rol?.name || "Sin rol"}
+                  color="white"
+                  type="normal"
+                  className="text-[10px] text-white mt-1"
+                  style={{ fontFamily: 'Patua One, sans-serif' }}
+                />
+              </div>
+            )}
+          </div>
+          <ul className="mt-6 space-y-4 w-full flex-1">
+            {menuItems.map((item, index) => (
+              <li
+                key={index}
+                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
+                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                onClick={item.onClick ? item.onClick : () => handleNavigation(item.link)}
+              >
+                <div className="flex items-center w-full">
+                  <span
+                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
+                      } flex items-center justify-center`}
+                  >
+                    {item.icon}
+                  </span>
+                  {isOpen && (
+                    <Text
+                      texto={item.name}
+                      color="white"
+                      type="normal"
+                      className="ml-2"
+                      style={{ fontFamily: 'Patua One, sans-serif' }}
+                    />
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="mt-6 space-y-4 w-full flex-1">
-          {menuItems.map((item, index) => (
-            <li
-              key={index}
-              className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
-                }`}
-            >
-              <Link href={item.link} className="flex items-center w-full">
-                <span
-                  className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
-                    } flex items-center justify-center`}
-                >
-                  {item.icon}
-                </span>
-                {isOpen && (
-                  <Text
-                    texto={item.name}
-                    color="white"
-                    type="normal"
-                    className="ml-2"
-                    style={{ fontFamily: 'Patua One, sans-serif' }}
-                  />
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
-    </div>
+      {loading && <LoaderOverlay />}
+    </>
   );
 };
 

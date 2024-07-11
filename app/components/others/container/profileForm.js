@@ -4,7 +4,7 @@ import TextInput from "@/app/components/others/fields/textInput";
 import TextDisplay from "./textDisplay";
 import { updateProfile, getProfileById } from "@/app/services/profileService";
 import { ImagesPath } from "@/app/utils/assetsPath";
-import { documentTypeOptions } from "@/app/utils/dataGeneral"; // Importar opciones de tipos de documentos
+import { documentTypeOptions } from "@/app/utils/dataGeneral"; 
 import { FiEdit } from "react-icons/fi";
 
 Modal.setAppElement("#__next");
@@ -27,15 +27,15 @@ const ProfileForm = () => {
     const fetchProfile = async () => {
       try {
         const storedUserId = localStorage.getItem("userId");
-        console.log("Retrieved userId from localStorage:", storedUserId); // Depuración
+        console.log("Retrieved userId from localStorage:", storedUserId); 
         if (storedUserId) {
           setUserId(storedUserId);
           const profile = await getProfileById(storedUserId);
-          console.log("Fetched profile:", profile); // Depuración
+          console.log("Fetched profile:", profile); 
           setName(profile.name);
-          setPhone(profile.identificationNumber); // Assuming this field is used for phone number
-          setRole(profile.rol ? profile.rol.name : ""); // Assuming role name is available
-          setPhoto(profile.photo); // Set the photo URL
+          setPhone(profile.identificationNumber); 
+          setRole(profile.rol ? profile.rol.name : ""); 
+          setPhoto(profile.photo); 
           setIdentificationType(profile.identificationType || "");
           setIdentificationNumber(profile.identificationNumber || "");
         } else {
@@ -100,7 +100,7 @@ const ProfileForm = () => {
       identification_type: identificationType,
       identification_number: identificationNumber,
       phone,
-      rol_id: 1, // Replace with actual role ID if necessary
+      rol_id: 1, 
       password,
       photo,
     };
@@ -116,22 +116,22 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-8">
-      <div className="mb-4 flex flex-col sm:flex-row items-center sm:items-start">
-        <div className="flex flex-col items-center sm:mr-8">
-          <img
+    <div className="w-full  mx-auto px-4 sm:px-8">
+      <div className="mb-4 flex flex-col items-center sm:flex-row sm:items-start">
+        <div className="flex w-1/4 flex-col items-center sm:mr-8">
+        <img
             src={photo || ImagesPath.defaultProfilePhoto}
             alt="Profile"
-            className="w-60 h-60 rounded-full border-2 border-green-500"
+            className="w-32 h-32 sm:w-60 sm:h-60 rounded-full border-2 border-green-500 object-cover"
           />
           <button
             onClick={openModal}
-            className="mt-4 p-4 bg-blue-500 text-white rounded-md w-full sm:w-auto text-lg"
+            className="mt-4 p-2 bg-blue-500 text-white rounded-md w-full sm:w-auto text-lg"
           >
             Editar Perfil
           </button>
         </div>
-        <div className="w-full space-y-4">
+        <div className=" w-2/4 space-y-4 mt-4 sm:mt-0">
           <TextDisplay
             labelText="Nombre"
             labelColor="blue"
@@ -182,11 +182,11 @@ const ProfileForm = () => {
             <img
               src={photo || ImagesPath.defaultProfilePhoto}
               alt="Profile"
-              className="w-40 h-40 rounded-full border-2 border-green-500 cursor-pointer mb-2"
+              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-green-500 cursor-pointer mb-2"
               onClick={() => fileInputRef.current.click()}
             />
-            <div className="absolute top-0 left-0 w-40 h-40 flex items-center justify-center">
-              <FiEdit className="text-white text-4xl bg-black bg-opacity-50 rounded-full p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
+            <div className="absolute top-0 left-0 w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+              <FiEdit className="text-white text-2xl sm:text-4xl bg-black bg-opacity-50 rounded-full p-2 sm:p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
             </div>
             <input
               type="file"
@@ -196,7 +196,7 @@ const ProfileForm = () => {
               onChange={handlePhotoChange}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 w-full">
             <TextInput
               labelText="Nombre"
               labelColor="blue"
@@ -204,10 +204,10 @@ const ProfileForm = () => {
               inputType="text"
               value={name}
               onChange={handleNameChange}
-              className="text-base p-2"
+              className="w-full text-base p-2"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 w-full">
             <TextInput
               labelText="Celular"
               labelColor="blue"
@@ -215,10 +215,10 @@ const ProfileForm = () => {
               inputType="text"
               value={phone}
               onChange={handlePhoneChange}
-              className="text-base p-2"
+              className="w-full text-base p-2"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 w-full">
             <label className="block text-large font-medium mb-2 text-sky-500">
               Tipo de Documento
             </label>
@@ -235,7 +235,7 @@ const ProfileForm = () => {
               ))}
             </select>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 w-full">
             <TextInput
               labelText="Número de Documento"
               labelColor="blue"
@@ -243,7 +243,7 @@ const ProfileForm = () => {
               inputType="text"
               value={identificationNumber}
               onChange={handleIdentificationNumberChange}
-              className="text-base p-2"
+              className="w-full text-base p-2"
             />
           </div>
           <div className="flex flex-col sm:flex-row justify-end">

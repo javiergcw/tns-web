@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MainLayout from '@/app/components/layout/drawerLayout'; // Ajusta la ruta según tu estructura
 import ProveedorForm from '@/app/components/others/fields/proveedorForm'; // Ajusta la ruta según tu estructura
 import CreatePurchaseForm from '@/app/components/others/container/createPurchaseForm'; // Ajusta la ruta según tu estructura
+import PrivateRoute from '@/app/components/privateRoute'; // Importa el HOC PrivateRoute
 
 const ComprasPage = () => {
   const [products, setProducts] = useState([]);
@@ -23,4 +24,5 @@ const ComprasPage = () => {
   );
 };
 
-export default ComprasPage;
+// Envuelve ComprasPage con PrivateRoute para proteger la ruta
+export default PrivateRoute(ComprasPage);

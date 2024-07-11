@@ -9,6 +9,7 @@ import NormalButton from "./others/button/normalButton";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoaderOverlay from "@/app/utils/loaderOverlay";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -135,11 +136,7 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="loader"></div>
-        </div>
-      )}
+      {loading && <LoaderOverlay />}
 
       <ToastContainer />
     </div>

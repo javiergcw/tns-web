@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
-import { getRoles, addRole, deleteRole } from '@/app/services/roleService';
-import Modal from 'react-modal';
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
+import Table from "@/app/components/others/table/table"; // Importar el componente Table
+import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
+import { VideoPath } from "@/app/utils/assetsPath";
+import Lottie from 'react-lottie';
+import animationData from "@/public/videos/errorData.json";
 
-Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
+Modal.setAppElement("#__next");
 
 const RoleTable = () => {
   const [roles, setRoles] = useState([]);
@@ -10,7 +14,6 @@ const RoleTable = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newRoleName, setNewRoleName] = useState('');
-  const [selectedRole, setSelectedRole] = useState(null);
 
   useEffect(() => {
     fetchRoles();
@@ -18,20 +21,20 @@ const RoleTable = () => {
 
   const fetchRoles = async () => {
     try {
-      setLoading(true); // Inicia la carga
+      setLoading(true);
       const data = await getRoles();
       setRoles(data);
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching roles:', error);
       setError(error.message);
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     }
   };
 
   const handleAddRole = async () => {
     try {
-      setLoading(true); // Inicia la carga
+      setLoading(true);
       await addRole(newRoleName);
       fetchRoles();
       setIsModalOpen(false);
@@ -39,34 +42,53 @@ const RoleTable = () => {
       console.error('Error adding role:', error);
       setError('Failed to add role.');
     } finally {
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     }
   };
 
   const handleDeleteRole = async (id) => {
     try {
-      setLoading(true); // Inicia la carga
+      setLoading(true);
       await deleteRole(id);
       fetchRoles();
     } catch (error) {
       console.error('Error deleting role:', error);
       setError('Failed to delete role.');
     } finally {
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     }
   };
 
-  if (loading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="loader"></div>
-      </div>
-    );
-  }
+  const columns = [
+    "ID",
+    "Nombre",
+    "Creado en",
+    "Actualizado en",
+    "Acciones"
+  ];
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  const rows = roles.map(role => [
+    role.id,
+    role.name,
+    new Date(role.created_at).toLocaleString(),
+    new Date(role.updated_at).toLocaleString(),
+    <button
+      onClick={() => handleDeleteRole(role.id)}
+      className="bg-red-500 text-white px-2 py-1 rounded"
+    >
+      Eliminar
+    </button>
+  ]);
+
+  // Configuración de la animación Lottie
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -79,38 +101,28 @@ const RoleTable = () => {
           Añadir Rol
         </button>
       </div>
-      <div className="overflow-y-auto h-full">
-        <table className="min-w-full bg-white border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">ID</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Creado en</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Actualizado en</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {roles.map((role) => (
-              <tr key={role.id} className="border-t border-gray-200">
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{role.id}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{role.name}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(role.created_at).toLocaleString()}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(role.updated_at).toLocaleString()}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">
-                  <button
-                    onClick={() => handleDeleteRole(role.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="loader"></div>
+        </div>
+      )}
+      {!loading && roles.length === 0 && !error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
+        </div>
+      )}
+      {!loading && roles.length > 0 && (
+        <div className="overflow-y-auto h-full">
+          <Table columns={columns} data={rows} />
+        </div>
+      )}
+      {error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-red-500 text-lg mt-4">Error: {error}</p>
+        </div>
+      )}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
@@ -138,11 +150,6 @@ const RoleTable = () => {
           Cancelar
         </button>
       </Modal>
-      {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="loader"></div>
-        </div>
-      )}
     </div>
   );
 };

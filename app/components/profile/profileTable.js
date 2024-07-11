@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import Modal from 'react-modal';
+import Table from '@/app/components/others/table/table'; // Importar el componente Table
 import { getAllProfiles, updateProfile } from '@/app/services/profileService';
 import { getRoles } from '@/app/services/roleService';
 import { register } from '@/app/services/loginService';
-import Modal from 'react-modal';
 import { documentTypeOptions } from '@/app/utils/dataGeneral';
+import Lottie from 'react-lottie';
+import animationData from '@/public/videos/errorData.json';
 
 Modal.setAppElement('#__next');
 
@@ -28,6 +31,7 @@ const ProfileTable = () => {
 
   const fetchProfiles = async () => {
     try {
+      setLoading(true);
       const data = await getAllProfiles();
       setProfiles(data);
       setLoading(false);
@@ -110,6 +114,43 @@ const ProfileTable = () => {
     }
   };
 
+  const columns = [
+    "ID",
+    "Nombre",
+    "Tipo de Identificación",
+    "Número de Identificación",
+    "Rol",
+    "Creado en",
+    "Actualizado en",
+    "Acciones"
+  ];
+
+  const rows = profiles.map(profile => [
+    profile.id,
+    profile.name,
+    profile.identificationType,
+    profile.identificationNumber,
+    profile.rol ? profile.rol.name : 'N/A',
+    new Date(profile.createdAt).toLocaleString(),
+    new Date(profile.updatedAt).toLocaleString(),
+    <button
+      onClick={() => handleEdit(profile)}
+      className="bg-blue-500 text-white px-2 py-1 rounded"
+    >
+      Editar
+    </button>
+  ]);
+
+  // Configuración de la animación Lottie
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Usuarios</h2>
@@ -124,44 +165,23 @@ const ProfileTable = () => {
           <div className="loader"></div>
         </div>
       )}
-      <div className="overflow-y-auto h-full">
-        <table className="min-w-full bg-white border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">ID</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Tipo de Identificación</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Número de Identificación</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Rol</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Creado en</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Actualizado en</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {profiles.map((profile) => (
-              <tr key={profile.id} className="border-t border-gray-200">
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.id}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.name}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.identificationType}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.identificationNumber}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{profile.rol ? profile.rol.name : 'N/A'}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(profile.createdAt).toLocaleString()}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{new Date(profile.updatedAt).toLocaleString()}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">
-                  <button
-                    onClick={() => handleEdit(profile)}
-                    className="bg-blue-500 text-white px-2 py-1 rounded"
-                  >
-                    Editar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+      {!loading && profiles.length === 0 && !error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
+        </div>
+      )}
+      {!loading && profiles.length > 0 && (
+        <div className="overflow-y-auto h-full">
+          <Table columns={columns} data={rows} />
+        </div>
+      )}
+      {error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-red-500 text-lg mt-4">Error: {error}</p>
+        </div>
+      )}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
@@ -229,11 +249,6 @@ const ProfileTable = () => {
         >
           Cancelar
         </button>
-        {loading && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="loader"></div>
-          </div>
-        )}
       </Modal>
 
       <Modal
@@ -293,12 +308,24 @@ const ProfileTable = () => {
         >
           Cancelar
         </button>
-        {loading && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="loader"></div>
-          </div>
-        )}
       </Modal>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="loader"></div>
+        </div>
+      )}
+      {!loading && profiles.length === 0 && !error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
+        </div>
+      )}
+      {error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-red-500 text-lg mt-4">Error: {error}</p>
+        </div>
+      )}
     </div>
   );
 };

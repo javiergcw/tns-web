@@ -1,10 +1,10 @@
-// pages/index.js
 "use client";
 import "/app/globals.css";
 import React, { useState } from "react";
 import MainLayout from "@/app/components/layout/drawerLayout";
 import CreatePurchaseForm from "@/app/components/others/container/createPurchaseForm";
 import ProveedorForm from "@/app/components/others/fields/proveedorForm";
+import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 
 const CreateProduct = () => {
   const [proveedores, setProveedores] = useState([]);
@@ -23,4 +23,5 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+// Envuelve CreateProduct con PrivateRoute para proteger la ruta
+export default PrivateRoute(CreateProduct);

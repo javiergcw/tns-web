@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
-import { getStatuses, addStatus, deleteStatus } from '@/app/services/statusService';
-import Modal from 'react-modal';
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
+import Table from "@/app/components/others/table/table"; // Importar el componente Table
+import { getStatuses, addStatus, deleteStatus } from "@/app/services/statusService";
+import Lottie from 'react-lottie';
+import animationData from "@/public/videos/errorData.json";
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 
 const StatusTable = () => {
   const [statuses, setStatuses] = useState([]);
@@ -56,6 +59,33 @@ const StatusTable = () => {
     }
   };
 
+  const columns = [
+    "ID",
+    "Nombre",
+    "Acciones"
+  ];
+
+  const rows = statuses.map(status => [
+    status.id,
+    status.name,
+    <button
+      onClick={() => handleDeleteStatus(status.id)}
+      className="bg-red-500 text-white px-2 py-1 rounded"
+    >
+      Eliminar
+    </button>
+  ]);
+
+  // Configuración de la animación Lottie
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData, // Utilizar directamente el objeto JSON de la animación
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Estados</h2>
@@ -73,39 +103,25 @@ const StatusTable = () => {
           <div className="loader"></div>
         </div>
       )}
-      <table className="min-w-full bg-white border">
-        <thead>
-          <tr>
-            <th className="border text-black px-4 py-2">ID</th>
-            <th className="border text-black px-4 py-2">Nombre</th>
-            <th className="border text-black px-2 py-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {statuses.map((status) => (
-            <tr key={status.id}>
-              <td className="border text-black px-4 py-2">{status.id}</td>
-              <td className="border text-black px-4 py-2">{status.name}</td>
-              <td className="border text-black px-4 py-2">
-                <button
-                  onClick={() => handleDeleteStatus(status.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
+      {!loading && statuses.length === 0 && !error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
+        </div>
+      )}
+      {!loading && statuses.length > 0 && (
+        <div className="overflow-y-auto h-full">
+          <Table columns={columns} data={rows} />
+        </div>
+      )}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Agregar Estado"
-        className="modal"
-        overlayClassName="modal-overlay"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
+
         <div className="p-6 bg-white rounded-md w-full max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4">Agregar Estado</h2>
           <div className="mb-4">

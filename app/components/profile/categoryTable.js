@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { getCategories, addCategory, deleteCategory } from '@/app/services/categoryService';
 import Modal from 'react-modal';
+import Table from '@/app/components/others/table/table'; // Importa el componente Table
+import { getCategories, addCategory, deleteCategory } from '@/app/services/categoryService';
+import Lottie from 'react-lottie';
+import animationData from '@/public/videos/errorData.json';
 
 Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
 
@@ -20,9 +23,9 @@ const CategoryTable = () => {
     try {
       const data = await getCategories();
       setCategories(data);
+      setLoading(false);
     } catch (error) {
       setError("Failed to fetch categories. Please check your authorization.");
-    } finally {
       setLoading(false);
     }
   };
@@ -56,6 +59,29 @@ const CategoryTable = () => {
     }
   };
 
+  const columns = ["ID", "Nombre", "Acciones"];
+
+  const rows = categories.map(category => [
+    category.id,
+    category.name,
+    <button
+      onClick={() => handleDeleteCategory(category.id)}
+      className="bg-red-500 text-white px-2 py-1 rounded"
+    >
+      Eliminar
+    </button>
+  ]);
+
+  // Configuración de la animación Lottie
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Categorías</h2>
@@ -68,38 +94,28 @@ const CategoryTable = () => {
           Agregar Categoría
         </button>
       </div>
-      {loading ? (
-        <div className="flex justify-center items-center">
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="loader"></div>
         </div>
-      ) : (
-        <table className="min-w-full bg-white border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-1 px-2 border text-black  border-gray-300 text-sm">ID</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Nombre</th>
-              <th className="py-1 px-2 border text-black border-gray-300 text-sm">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((category) => (
-              <tr key={category.id} className="border-t border-gray-200">
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.id}</td>
-                <td className="py-1 px-2 border text-black border-gray-300 text-sm">{category.name}</td>
-                <td className="py-1 px-2 border border-gray-300 text-sm">
-                  <button
-                    onClick={() => handleDeleteCategory(category.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       )}
-
+      {!loading && categories.length === 0 && !error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
+        </div>
+      )}
+      {!loading && categories.length > 0 && (
+        <div className="overflow-x-auto">
+          <Table columns={columns} data={rows} />
+        </div>
+      )}
+      {error && (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p className="text-red-500 text-lg mt-4">Error: {error}</p>
+        </div>
+      )}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}

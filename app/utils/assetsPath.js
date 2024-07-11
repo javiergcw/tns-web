@@ -8,7 +8,7 @@ export const ImagesPath = {
     cloud: '/images/services/cloud.png',
     services: '/images/services/services.png',
     beam: '/images/services/beam.png',
-    podcast:'/images/services/podcast.png',
+    podcast: '/images/services/podcast.png',
 
     //Banner carousel
     banner8: '/images/banner/banner8.gif',
@@ -42,7 +42,7 @@ export const ImagesPath = {
 
     //Components
     drawerPhoto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    profileDefaultPhoto:'/images/profile-default-icon',
+    profileDefaultPhoto: '/images/profile-default-icon',
     //HeaderInitial
     bk: '/images/bk.jpeg',
     //Somos
@@ -108,20 +108,5 @@ export const ImagesPath = {
     group1: '/images/services/beam/Group-1-1.png',
     group5: '/images/services/other/Group-5.png',
     group6: '/images/services/other/Group-6.png',
-
-
-
-
-
-
-
-
-
-
-}
-
-export const VideoPath = {
-    inscription: '/videos/inscription.mp4',
-    inscription2: '/videos/inscription2.mp4',
 
 }

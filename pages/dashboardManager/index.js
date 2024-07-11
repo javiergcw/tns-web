@@ -9,6 +9,7 @@ import CircularDiagram from "@/app/components/others/graph/circularDiagram";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
+import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 
 /**
  * dashboardManager Page
@@ -83,7 +84,7 @@ const getUnapprovedExpenses = (data) => {
   return pendingExpenses;
 };
 
-export default function dashboardManager() {
+const DashboardManager = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
@@ -107,7 +108,7 @@ export default function dashboardManager() {
 
   return (
     // Contenedor principal con flex para el layout
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
       {/* Drawer que se puede alternar */}
       <MainLayout>
         {/* Contenedor principal que ajusta su margen según el estado del drawer */}
@@ -133,4 +134,7 @@ export default function dashboardManager() {
       </MainLayout>
     </div>
   );
-}
+};
+
+// Envuelve DashboardManager con PrivateRoute para proteger la ruta
+export default PrivateRoute(DashboardManager);

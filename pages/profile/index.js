@@ -6,12 +6,13 @@ import ProfileTable from "@/app/components/profile/profileTable";
 import StatusTable from "@/app/components/profile/statusTable";
 import RoleTable from "@/app/components/profile/roleTable"; // Importa StatusTable
 import { getProfileById } from "@/app/services/profileService";
+import PrivateRoute from "@/app/components/privateRoute";
 import "/app/globals.css";
 
 const Profile = ({ role }) => {
   return (
     <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
-      <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12">
+      <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12 max-w-full">
         <ProfileForm />
       </div>
       {role === "admin" && (
@@ -62,4 +63,5 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+// Envuelve ProfilePage con PrivateRoute para proteger la ruta
+export default PrivateRoute(ProfilePage);
