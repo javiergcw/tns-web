@@ -110,3 +110,11 @@ export const ImagesPath = {
     group6: '/images/services/other/Group-6.png',
 
 }
+
+export const VideoPath =
+{
+    inscription:"/videos/inscription.mp4",
+    inscription2:"/videos/inscription2.mp4"
+
+
+}
