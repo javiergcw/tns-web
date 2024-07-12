@@ -1,4 +1,3 @@
-// components/others/container/CreatePurchaseForm.js
 import React, { useState, useEffect } from 'react';
 import { getCategories } from '@/app/services/categoryService';
 import { createShopping } from '@/app/services/shoppingService';
@@ -67,12 +66,12 @@ const CreatePurchaseForm = ({ proveedores }) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Creación de compra</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black">Creación de compra</h2>
       <div className="mb-4">
         <select
           value={category_id}
           onChange={(e) => setCategoryId(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full p-2 border border-gray-300 rounded text-black"
           required
         >
           <option value="">Selecciona una categoría</option>
@@ -84,7 +83,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
         </select>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label className="block text-black text-sm font-bold mb-2">
           Selecciona Proveedores:
         </label>
         {proveedores.map((proveedor, index) => (
@@ -94,44 +93,47 @@ const CreatePurchaseForm = ({ proveedores }) => {
               id={`proveedor-${index}`}
               value={proveedor.title}
               onChange={handleCheckboxChange}
-              className="mr-2 leading-tight"
+              className="mr-2 leading-tight text-black"
             />
-            <label htmlFor={`proveedor-${index}`} className="text-gray-700">
+            <label htmlFor={`proveedor-${index}`} className="text-black">
               {proveedor.title}
             </label>
           </div>
         ))}
       </div>
       <div className="mb-4">
+        <label className="block text-black text-sm font-bold mb-2">Fecha de Solicitud</label>
         <input
           type="date"
           name="request_date"
           placeholder="Fecha de Solicitud"
           value={request_date}
           onChange={(e) => setRequestDate(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full p-2 border border-gray-300 rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
+        <label className="block text-black text-sm font-bold mb-2">Fecha Pendiente</label>
         <input
           type="date"
           name="pending_date"
           placeholder="Fecha Pendiente"
           value={pending_date}
           onChange={(e) => setPendingDate(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full p-2 border border-gray-300 rounded text-black"
           required
         />
       </div>
       <div className="mb-4">
+        <label className="block text-black text-sm font-bold mb-2">Fecha de Aprobación</label>
         <input
           type="date"
           name="date_approval"
           placeholder="Fecha de Aprobación"
           value={date_approval}
           onChange={(e) => setDateApproval(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full p-2 border border-gray-300 rounded text-black"
           required
         />
       </div>
@@ -140,10 +142,10 @@ const CreatePurchaseForm = ({ proveedores }) => {
           type="checkbox"
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
-          className="mr-2"
+          className="mr-2 text-black"
           required
         />
-        <label>Acepto los términos y condiciones</label>
+        <label className="text-black">Acepto los términos y condiciones</label>
       </div>
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
         Registrar

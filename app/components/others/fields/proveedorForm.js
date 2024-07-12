@@ -1,4 +1,3 @@
-// components/others/fields/ProveedorForm.js
 import React, { useState, useRef } from 'react';
 import ProveedorDetails from '../container/proveedorDetails';
 
@@ -124,8 +123,8 @@ const ProveedorForm = ({ setProveedores }) => {
                     <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-blueSecundary">{proveedor.title}</div>
-                    <div className="text-sm">Valor {proveedor.price}</div>
+                    <div className="font-bold text-sm text-black">{proveedor.title}</div>
+                    <div className="text-sm text-black">Valor {proveedor.price}</div>
                   </div>
                 </div>
               </div>
@@ -173,45 +172,49 @@ const ProveedorForm = ({ setProveedores }) => {
             </label>
           </div>
           <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2">Título</label>
             <input
               type="text"
               name="title"
               placeholder="Título"
               value={formData.title}
               onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black"
               required
             />
           </div>
           <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2">Descripción</label>
             <textarea
               name="description"
               placeholder="Descripción"
               value={formData.description}
               onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded h-24"
+              className="w-full p-2 border border-gray-300 rounded h-24 text-black"
               required
             />
           </div>
           <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2">URL</label>
             <input
               type="url"
               name="url"
               placeholder="URL"
               value={formData.url}
               onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black"
               required
             />
           </div>
           <div className="mb-4">
+            <label className="block text-black text-sm font-bold mb-2">Precio</label>
             <input
               type="text"
               name="price"
               placeholder="Precio"
               value={formData.price}
               onChange={handlePriceChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black"
               required
             />
           </div>

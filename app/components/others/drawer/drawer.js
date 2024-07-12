@@ -6,15 +6,18 @@ import {
   MdPerson,
   MdExitToApp,
   MdVisibility,
-  MdAddBox
+  MdAddBox,
+  MdSettings
 } from "react-icons/md";
+import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
-import Link from "next/link";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
+import Modal from "react-modal";
 import { useRouter } from "next/router";
 
 const greenDrawer = "#96C11F";
+const redDrawer = "#FF0000";
 
 /**
  * Drawer Component
@@ -29,11 +32,17 @@ const greenDrawer = "#96C11F";
  */
 const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigation = (link) => {
-    setLoading(true);
-    router.push(link);
+    if (router.pathname === link) {
+      // Si la ruta actual es la misma que la ruta de destino, recarga la página
+      router.reload();
+    } else {
+      setLoading(true);
+      router.push(link);
+    }
   };
 
   const handleLogout = () => {
@@ -43,12 +52,27 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     router.push("/login");
   };
 
+  const handleAlertClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalSubmit = (event) => {
+    event.preventDefault();
+    // Lógica para manejar la solicitud del modal
+    setIsModalOpen(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
     { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard style={{ color: greenDrawer }} /> },
     { link: "/view-product", name: "View Product", icon: <MdVisibility style={{ color: greenDrawer }} /> },
     { link: "/profile", name: "Profile", icon: <MdPerson style={{ color: greenDrawer }} /> },
     { link: "/create-product", name: "Create Product", icon: <MdAddBox style={{ color: greenDrawer }} /> },
+    { link: "/settings", name: "Settings", icon: <MdSettings style={{ color: greenDrawer }} /> }, // Nueva sección Settings
     { link: "/logout", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} />, onClick: handleLogout }
   ];
 
@@ -62,7 +86,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
           onClick={onToggle}
           className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
         >
-          <IoMenu className="text-greenDrawer text-2xl" />
+          <IoMenu className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"} transition-all duration-300`} />
         </button>
         <div className="flex flex-col items-center w-full mt-4 flex-1">
           <div className="flex items-center w-full px-4">
@@ -99,29 +123,97 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                   } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
                 onClick={item.onClick ? item.onClick : () => handleNavigation(item.link)}
               >
-                <div className="flex items-center w-full">
+                <div className={`flex items-center w-full ${isOpen ? "" : "justify-center"}`}>
                   <span
                     className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
-                      } flex items-center justify-center`}
+                      } flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>
                   {isOpen && (
-                    <Text
-                      texto={item.name}
-                      color="white"
-                      type="normal"
-                      className="ml-2"
-                      style={{ fontFamily: 'Patua One, sans-serif' }}
-                    />
+                    <span className="ml-3">
+                      <Text
+                        texto={item.name}
+                        color="white"
+                        type="normal"
+                        className="ml-3"
+                        style={{ fontFamily: 'Patua One, sans-serif' }}
+                      />
+                    </span>
                   )}
                 </div>
               </li>
             ))}
           </ul>
         </div>
+        <div className="mb-4 flex flex-col items-center">
+          <button
+            onClick={handleAlertClick}
+            className="bg-red-500 p-2 rounded-full mb-2"
+          >
+            <FiAlertTriangle className="text-white text-2xl" />
+          </button>
+          <Text
+            texto="TNS V.1"
+            color="white"
+            type="normal"
+            className="font-bold text-white"
+            style={{ fontFamily: 'Patua One, sans-serif' }}
+          />
+        </div>
       </div>
       {loading && <LoaderOverlay />}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Solicitud de Alerta"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-2xl font-bold mb-4">Solicitud de Alerta</h2>
+        <form onSubmit={handleModalSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Input 1</label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Input 2</label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Input 3</label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={closeModal
+              }
+              className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </Modal>
     </>
   );
 };

@@ -4,6 +4,8 @@ import Table from '@/app/components/others/table/table'; // Importa el component
 import { getCategories, addCategory, deleteCategory } from '@/app/services/categoryService';
 import Lottie from 'react-lottie';
 import animationData from '@/public/videos/errorData.json';
+import RedButton from '@/app/utils/buttonConfirmation'; // Importar el botón constante
+import LoaderOverlay from '@/app/utils/loaderOverlay'; // Importar el LoaderOverlay
 
 Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
 
@@ -12,7 +14,9 @@ const CategoryTable = () => {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     fetchCategories();
@@ -47,11 +51,17 @@ const CategoryTable = () => {
     }
   };
 
-  const handleDeleteCategory = async (id) => {
+  const openDeleteModal = (category) => {
+    setSelectedCategory(category);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteCategory = async () => {
     setLoading(true);
     try {
-      await deleteCategory(id);
+      await deleteCategory(selectedCategory.id);
       fetchCategories();
+      setIsDeleteModalOpen(false);
     } catch (error) {
       setError("Failed to delete category. Please check your authorization.");
     } finally {
@@ -64,12 +74,11 @@ const CategoryTable = () => {
   const rows = categories.map(category => [
     category.id,
     category.name,
-    <button
-      onClick={() => handleDeleteCategory(category.id)}
-      className="bg-red-500 text-white px-2 py-1 rounded"
-    >
-      Eliminar
-    </button>
+    <RedButton
+      text="Eliminar"
+      onClick={() => openDeleteModal(category)}
+      className="px-2 py-1"
+    />
   ]);
 
   // Configuración de la animación Lottie
@@ -95,9 +104,7 @@ const CategoryTable = () => {
         </button>
       </div>
       {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="loader"></div>
-        </div>
+        <LoaderOverlay />
       )}
       {!loading && categories.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
@@ -140,6 +147,29 @@ const CategoryTable = () => {
         >
           Cancelar
         </button>
+      </Modal>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={() => setIsDeleteModalOpen(false)}
+        contentLabel="Confirmar Eliminación"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-2xl font-bold mb-4">Confirmar Eliminación</h2>
+        <p>¿Está seguro que desea eliminar la categoría "{selectedCategory?.name}"?</p>
+        <div className="mt-4 flex justify-end">
+          <RedButton
+            text="Eliminar"
+            onClick={handleDeleteCategory}
+            className="mr-2"
+          />
+          <button
+            onClick={() => setIsDeleteModalOpen(false)}
+            className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+          >
+            Cancelar
+          </button>
+        </div>
       </Modal>
     </div>
   );

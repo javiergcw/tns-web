@@ -1,7 +1,6 @@
 "use client";
-
 import "/app/globals.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
@@ -14,7 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import LoaderOverlay from "@/app/utils/loaderOverlay";
-import Link from "next/link";
+import PublicRoute   from "./publicRoute"; // Importa el HOC PublicRoute
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -45,12 +44,6 @@ const LoginForm = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-  };
-
-  const handleRegisterClick = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    router.push("/register");
   };
 
   return (
@@ -96,15 +89,14 @@ const LoginForm = () => {
             />
             <RememberMeAndForgotPassword />
             <NormalButton text="Iniciar sesión" color="blueButton" size="large" additionalClasses="text-white" />
-            <RegisterStandart/>
-            <br />
+            <RegisterStandart />
           </form>
         </div>
       </div>
-
       {loading && <LoaderOverlay />}
     </div>
   );
 };
 
-export default LoginForm;
+// Envuelve LoginForm con PublicRoute para proteger la ruta
+export default PublicRoute(LoginForm);

@@ -5,15 +5,19 @@ import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
 import { VideoPath } from "@/app/utils/assetsPath";
 import Lottie from 'react-lottie';
 import animationData from "@/public/videos/errorData.json";
+import RedButton from "@/app/utils/buttonConfirmation"; // Importar el botón constante
+import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 
 Modal.setAppElement("#__next");
 
 const RoleTable = () => {
   const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Estado de carga ajustado a false inicialmente
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [newRoleName, setNewRoleName] = useState('');
+  const [selectedRole, setSelectedRole] = useState(null);
 
   useEffect(() => {
     fetchRoles();
@@ -36,6 +40,7 @@ const RoleTable = () => {
     try {
       setLoading(true);
       await addRole(newRoleName);
+      setNewRoleName(''); // Limpiar el campo de entrada
       fetchRoles();
       setIsModalOpen(false);
     } catch (error) {
@@ -46,11 +51,17 @@ const RoleTable = () => {
     }
   };
 
-  const handleDeleteRole = async (id) => {
+  const openDeleteModal = (role) => {
+    setSelectedRole(role);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteRole = async () => {
     try {
       setLoading(true);
-      await deleteRole(id);
+      await deleteRole(selectedRole.id);
       fetchRoles();
+      setIsDeleteModalOpen(false);
     } catch (error) {
       console.error('Error deleting role:', error);
       setError('Failed to delete role.');
@@ -72,12 +83,11 @@ const RoleTable = () => {
     role.name,
     new Date(role.created_at).toLocaleString(),
     new Date(role.updated_at).toLocaleString(),
-    <button
-      onClick={() => handleDeleteRole(role.id)}
-      className="bg-red-500 text-white px-2 py-1 rounded"
-    >
-      Eliminar
-    </button>
+    <RedButton
+      text="Eliminar"
+      onClick={() => openDeleteModal(role)}
+      className="px-2 py-1"
+    />
   ]);
 
   // Configuración de la animación Lottie
@@ -102,9 +112,7 @@ const RoleTable = () => {
         </button>
       </div>
       {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="loader"></div>
-        </div>
+        <LoaderOverlay />
       )}
       {!loading && roles.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
@@ -149,6 +157,29 @@ const RoleTable = () => {
         >
           Cancelar
         </button>
+      </Modal>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={() => setIsDeleteModalOpen(false)}
+        contentLabel="Confirmar Eliminación"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-2xl font-bold mb-4">Confirmar Eliminación</h2>
+        <p>¿Está seguro que desea eliminar el rol "{selectedRole?.name}"?</p>
+        <div className="mt-4 flex justify-end">
+          <RedButton
+            text="Eliminar"
+            onClick={handleDeleteRole}
+            className="mr-2"
+          />
+          <button
+            onClick={() => setIsDeleteModalOpen(false)}
+            className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+          >
+            Cancelar
+          </button>
+        </div>
       </Modal>
     </div>
   );
