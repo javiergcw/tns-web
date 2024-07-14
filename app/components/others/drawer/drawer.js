@@ -1,4 +1,5 @@
 import "/app/globals.css";
+import Modal from 'react-modal';
 import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import {
@@ -13,11 +14,12 @@ import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
-import Modal from "react-modal";
 import { useRouter } from "next/router";
+import { RedButton,BlueButton } from "@/app/utils/Buttons";// Importar los botones constantes
+import ConfirmationModal from "../../modals/modalConfirmation"; // Importar el modal de confirmación
+import react from "@heroicons/react";
 
 const greenDrawer = "#96C11F";
-const redDrawer = "#FF0000";
 
 /**
  * Drawer Component
@@ -33,20 +35,28 @@ const redDrawer = "#FF0000";
 const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigation = (link) => {
     if (router.pathname === link) {
-      // Si la ruta actual es la misma que la ruta de destino, recarga la página
       router.reload();
     } else {
       setLoading(true);
-      router.push(link);
+      setTimeout(() => {
+        router.push(link);
+        setLoading(false);
+      }, 300); // Asegurar tiempo suficiente para desmontar componentes
     }
   };
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const confirmLogout = () => {
     setLoading(true);
+    setIsLogoutModalOpen(false); // Cerrar el modal antes de redirigir
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     router.push("/login");
@@ -66,6 +76,10 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsModalOpen(false);
   };
 
+  const closeLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
+
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
     { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard style={{ color: greenDrawer }} /> },
@@ -73,7 +87,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     { link: "/profile", name: "Profile", icon: <MdPerson style={{ color: greenDrawer }} /> },
     { link: "/create-product", name: "Create Product", icon: <MdAddBox style={{ color: greenDrawer }} /> },
     { link: "/settings", name: "Settings", icon: <MdSettings style={{ color: greenDrawer }} /> }, // Nueva sección Settings
-    { link: "/logout", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} />, onClick: handleLogout }
+    { link: "#", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} />, onClick: handleLogout }
   ];
 
   return (
@@ -197,23 +211,25 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={closeModal
-              }
-              className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Enviar
-            </button>
+            <RedButton
+              text="Cancelar"
+              onClick={closeModal}
+              className="mr-2"
+            />
+            <BlueButton
+              text="Enviar"
+              onClick={handleModalSubmit}
+            />
           </div>
         </form>
       </Modal>
+      <ConfirmationModal
+        isOpen={isLogoutModalOpen}
+        onRequestClose={closeLogoutModal}
+        onConfirm={confirmLogout}
+        title="Confirmar Cierre de Sesión"
+        message="¿Estás seguro que deseas cerrar sesión?"
+      />
     </>
   );
 };

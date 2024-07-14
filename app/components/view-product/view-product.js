@@ -16,7 +16,7 @@ const fetchData = async () => {
 };
 
 const getApprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const currentMonth = new Date().getMonth() + 1;
   const ApprovedExpenses = data.filter(
     (item) =>
       item.status &&
@@ -39,8 +39,9 @@ const getApprovedExpenses = (data) => {
   );
   return { ApprovedExpenses: flattenedExpenses, total };
 };
+
 const getUnapprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const currentMonth = new Date().getMonth() + 1;
   const pendingExpenses = data.filter(
     (item) =>
       item.status &&
@@ -49,22 +50,16 @@ const getUnapprovedExpenses = (data) => {
   );
   return pendingExpenses;
 };
+
 const FiltersComponent = () => {
   const [itemName, setItemName] = useState("");
   const [areaLeader, setAreaLeader] = useState("");
   const [status, setStatus] = useState("");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
   const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
 
-  // Función para alternar el estado del drawer
-  const handleDrawerToggle = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
-
-  // Obtener los datos de gastos cuando el componente se monta
   useEffect(() => {
     const fetchAndProcessData = async () => {
       const fetchedData = await fetchData();
@@ -80,12 +75,6 @@ const FiltersComponent = () => {
     fetchAndProcessData();
   }, []);
 
-  // Se ejecuta cada vez que `data` cambia
-  useEffect(() => {
-    if (data.length > 0) {
-    }
-  }, [data]);
-
   const handleFilterReset = () => {
     setItemName("");
     setAreaLeader("");
@@ -94,11 +83,11 @@ const FiltersComponent = () => {
 
   return (
     <div className="p-4 border bg-white rounded-lg shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold">Filtros</h2>
+      <h2 className="mb-4 text-lg font-semibold text-black">Filtros</h2>
       <div className="grid grid-cols-4 gap-4 mb-4">
         <TextInput
           labelText="Nombre de item"
-          labelColor="grey"
+          labelColor="black"
           inputSize="large"
           inputType="text"
           value={itemName}
@@ -106,7 +95,7 @@ const FiltersComponent = () => {
         />
         <TextInput
           labelText="Líder de área"
-          labelColor="grey"
+          labelColor="black"
           inputSize="large"
           inputType="text"
           value={areaLeader}
@@ -114,7 +103,7 @@ const FiltersComponent = () => {
         />
         <TextInput
           labelText="Estado"
-          labelColor="grey"
+          labelColor="black"
           inputSize="large"
           inputType="text"
           value={status}

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import Table from '@/app/components/others/table/table'; // Importa el componente Table
 import { getCategories, addCategory, deleteCategory } from '@/app/services/categoryService';
 import Lottie from 'react-lottie';
+import Modal from 'react-modal';
 import animationData from '@/public/videos/errorData.json';
-import RedButton from '@/app/utils/buttonConfirmation'; // Importar el botón constante
-import LoaderOverlay from '@/app/utils/loaderOverlay'; // Importar el LoaderOverlay
-
-Modal.setAppElement('#__next'); // Asegúrate de que esto apunta al elemento correcto
+import { RedButton,BlueButton } from '@/app/utils/Buttons'; // Importa los botones constantes
+import LoaderOverlay from '@/app/utils/loaderOverlay'; // Importa el LoaderOverlay
+import ConfirmationModal from '../modals/modalConfirmation'; // Importa el modal de confirmación
 
 const CategoryTable = () => {
   const [categories, setCategories] = useState([]);
@@ -96,12 +95,10 @@ const CategoryTable = () => {
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Categorías</h2>
       {error && <p className="text-red-500">{error}</p>}
       <div className="mb-4">
-        <button
+        <BlueButton
+          text="Agregar Categoría"
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Agregar Categoría
-        </button>
+        />
       </div>
       {loading && (
         <LoaderOverlay />
@@ -138,39 +135,23 @@ const CategoryTable = () => {
           placeholder="Nombre de la Categoría"
           className="border px-2 py-1 mb-4 w-full"
         />
-        <button onClick={handleAddCategory} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Agregar
-        </button>
-        <button
+        <BlueButton
+          text="Agregar"
+          onClick={handleAddCategory}
+        />
+        <RedButton
+          text="Cancelar"
           onClick={() => setIsModalOpen(false)}
-          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-        >
-          Cancelar
-        </button>
+          className="ml-2"
+        />
       </Modal>
-      <Modal
+      <ConfirmationModal
         isOpen={isDeleteModalOpen}
         onRequestClose={() => setIsDeleteModalOpen(false)}
-        contentLabel="Confirmar Eliminación"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-      >
-        <h2 className="text-2xl font-bold mb-4">Confirmar Eliminación</h2>
-        <p>¿Está seguro que desea eliminar la categoría "{selectedCategory?.name}"?</p>
-        <div className="mt-4 flex justify-end">
-          <RedButton
-            text="Eliminar"
-            onClick={handleDeleteCategory}
-            className="mr-2"
-          />
-          <button
-            onClick={() => setIsDeleteModalOpen(false)}
-            className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-          >
-            Cancelar
-          </button>
-        </div>
-      </Modal>
+        onConfirm={handleDeleteCategory}
+        title="Confirmar Eliminación"
+        message={`¿Está seguro que desea eliminar la categoría "${selectedCategory?.name}"?`}
+      />
     </div>
   );
 };

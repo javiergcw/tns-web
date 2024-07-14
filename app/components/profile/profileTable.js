@@ -7,6 +7,7 @@ import { register } from '@/app/services/loginService';
 import { documentTypeOptions } from '@/app/utils/dataGeneral';
 import Lottie from 'react-lottie';
 import animationData from '@/public/videos/errorData.json';
+import { BlueButton, RedButton } from '@/app/utils/Buttons'; // Importar los botones constantes
 
 Modal.setAppElement('#__next');
 
@@ -133,12 +134,11 @@ const ProfileTable = () => {
     profile.rol ? profile.rol.name : 'N/A',
     new Date(profile.createdAt).toLocaleString(),
     new Date(profile.updatedAt).toLocaleString(),
-    <button
+    <BlueButton
+      text="Editar"
       onClick={() => handleEdit(profile)}
-      className="bg-blue-500 text-white px-2 py-1 rounded"
-    >
-      Editar
-    </button>
+      className="px-2 py-1"
+    />
   ]);
 
   // Configuración de la animación Lottie
@@ -154,12 +154,11 @@ const ProfileTable = () => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Usuarios</h2>
-      <button
+      <BlueButton
+        text="Agregar Usuario"
         onClick={() => setIsAddModalOpen(true)}
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-      >
-        Agregar Usuario
-      </button>
+        className="mb-4"
+      />
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="loader"></div>
@@ -240,15 +239,15 @@ const ProfileTable = () => {
             ))}
           </select>
         </div>
-        <button onClick={handleUpdateProfile} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Guardar
-        </button>
-        <button
+        <BlueButton
+          text="Guardar"
+          onClick={handleUpdateProfile}
+        />
+        <RedButton
+          text="Cancelar"
           onClick={() => setIsModalOpen(false)}
-          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-        >
-          Cancelar
-        </button>
+          className="ml-2"
+        />
       </Modal>
 
       <Modal
@@ -299,15 +298,15 @@ const ProfileTable = () => {
             className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        <button onClick={handleAddUser} className="bg-green-500 text-white px-4 py-2 rounded">
-          Guardar
-        </button>
-        <button
+        <BlueButton
+          text="Guardar"
+          onClick={handleAddUser}
+        />
+        <RedButton
+          text="Cancelar"
           onClick={() => setIsAddModalOpen(false)}
-          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-        >
-          Cancelar
-        </button>
+          className="ml-2"
+        />
       </Modal>
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

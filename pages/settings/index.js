@@ -7,7 +7,7 @@ import PrivateRoute from '@/app/components/privateRoute'; // Importa el HOC Priv
 const SettingsPage = () => {
   return (
     <MainLayout>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-start px-20">
         <SMTPForm />
       </div>
     </MainLayout>

@@ -5,8 +5,9 @@ import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
 import { VideoPath } from "@/app/utils/assetsPath";
 import Lottie from 'react-lottie';
 import animationData from "@/public/videos/errorData.json";
-import RedButton from "@/app/utils/buttonConfirmation"; // Importar el botón constante
+import { RedButton,BlueButton } from "@/app/utils/Buttons";// Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
+import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
 
 Modal.setAppElement("#__next");
 
@@ -104,12 +105,11 @@ const RoleTable = () => {
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Roles</h2>
       <div className='mb-4'>
-        <button
+        <BlueButton
+          text="Añadir Rol"
           onClick={() => setIsModalOpen(true)}
-          className="mt-4 p-2 bg-blue-500 text-white rounded-md"
-        >
-          Añadir Rol
-        </button>
+          className="mt-4 p-2"
+        />
       </div>
       {loading && (
         <LoaderOverlay />
@@ -148,39 +148,23 @@ const RoleTable = () => {
             className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        <button onClick={handleAddRole} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Guardar
-        </button>
-        <button
+        <BlueButton
+          text="Guardar"
+          onClick={handleAddRole}
+        />
+        <RedButton
+          text="Cancelar"
           onClick={() => setIsModalOpen(false)}
-          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-        >
-          Cancelar
-        </button>
+          className="ml-2"
+        />
       </Modal>
-      <Modal
+      <ConfirmationModal
         isOpen={isDeleteModalOpen}
         onRequestClose={() => setIsDeleteModalOpen(false)}
-        contentLabel="Confirmar Eliminación"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-      >
-        <h2 className="text-2xl font-bold mb-4">Confirmar Eliminación</h2>
-        <p>¿Está seguro que desea eliminar el rol "{selectedRole?.name}"?</p>
-        <div className="mt-4 flex justify-end">
-          <RedButton
-            text="Eliminar"
-            onClick={handleDeleteRole}
-            className="mr-2"
-          />
-          <button
-            onClick={() => setIsDeleteModalOpen(false)}
-            className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-          >
-            Cancelar
-          </button>
-        </div>
-      </Modal>
+        onConfirm={handleDeleteRole}
+        title="Confirmar Eliminación"
+        message={`¿Está seguro que desea eliminar el rol "${selectedRole?.name}"?`}
+      />
     </div>
   );
 };
