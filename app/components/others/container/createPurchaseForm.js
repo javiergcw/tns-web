@@ -10,7 +10,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
   const [pending_date, setPendingDate] = useState('');
   const [date_approval, setDateApproval] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const status_id = 1; // Valor quemado para el ID del Estado
+  const status_id = 1;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -65,7 +65,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md">
+    <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md bg-white">
       <h2 className="text-2xl font-bold mb-4 text-black">Creación de compra</h2>
       <div className="mb-4">
         <select
@@ -93,7 +93,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
               id={`proveedor-${index}`}
               value={proveedor.title}
               onChange={handleCheckboxChange}
-              className="mr-2 leading-tight text-black"
+              className="mr-2 leading-tight text-black checked:text-green-500"
             />
             <label htmlFor={`proveedor-${index}`} className="text-black">
               {proveedor.title}
@@ -142,7 +142,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
           type="checkbox"
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
-          className="mr-2 text-black"
+          className="mr-2 text-black checked:text-green-500"
           required
         />
         <label className="text-black">Acepto los términos y condiciones</label>

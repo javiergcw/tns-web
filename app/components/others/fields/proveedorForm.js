@@ -44,8 +44,8 @@ const ProveedorForm = ({ setProveedores }) => {
 
   const handlePriceChange = (e) => {
     const { value } = e.target;
-    const numericValue = value.replace(/\D/g, ''); // Eliminar todo lo que no sea dígito
-    const formattedValue = new Intl.NumberFormat('es-CO').format(numericValue); // Formatear el valor
+    const numericValue = value.replace(/\D/g, '');
+    const formattedValue = new Intl.NumberFormat('es-CO').format(numericValue);
     setFormData({ ...formData, price: formattedValue });
   };
 
@@ -63,7 +63,7 @@ const ProveedorForm = ({ setProveedores }) => {
         updatedProveedores = [...proveedoresList, formData];
       }
       setProveedoresList(updatedProveedores);
-      setProveedores(updatedProveedores); // Actualiza el estado en el componente padre
+      setProveedores(updatedProveedores);
       setFormData({ image: '', title: '', description: '', url: '', price: '' });
     } else {
       alert('Todos los campos son requeridos');
@@ -81,7 +81,7 @@ const ProveedorForm = ({ setProveedores }) => {
   const handleDelete = (index) => {
     const newProveedores = proveedoresList.filter((_, i) => i !== index);
     setProveedoresList(newProveedores);
-    setProveedores(newProveedores); // Actualiza el estado en el componente padre
+    setProveedores(newProveedores);
     if (selectedProveedor && proveedoresList[index] === selectedProveedor) {
       setSelectedProveedor(null);
     }
@@ -95,141 +95,137 @@ const ProveedorForm = ({ setProveedores }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <div 
-          className="relative"
+    <div className="flex flex-col items-start">
+      <h2 className="text-2xl font-bold mb-4 text-black">Proveedores</h2>
+      <div className="relative mb-4">
+        <div
+          className="flex overflow-x-auto space-x-4 no-scrollbar"
+          ref={listRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div className="flex overflow-x-auto space-x-4 mb-4 no-scrollbar" ref={listRef}>
-            {proveedoresList.map((proveedor, index) => (
-              <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
-                <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17h2m-2-2h2m4-6a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11a7 7 0 0114 0v2a7 7 0 01-14 0v-2z"></path>
-                    </svg>
-                  </button>
-                  <button onClick={() => handleDelete(index)} className="text-red-500 hover:text-red-700">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                  </button>
+          {proveedoresList.map((proveedor, index) => (
+            <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
+              <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17h2m-2-2h2m4-6a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11a7 7 0 0114 0v2a7 7 0 01-14 0v-2z"></path>
+                  </svg>
+                </button>
+                <button onClick={() => handleDelete(index)} className="text-red-500 hover:text-red-700">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+              <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProveedorClick(proveedor)}>
+                <div className="flex-shrink-0">
+                  <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
                 </div>
-                <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProveedorClick(proveedor)}>
-                  <div className="flex-shrink-0">
-                    <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-sm text-black">{proveedor.title}</div>
-                    <div className="text-sm text-black">Valor {proveedor.price}</div>
-                  </div>
+                <div>
+                  <div className="font-bold text-sm text-black">{proveedor.title}</div>
+                  <div className="text-sm text-black">Valor {proveedor.price}</div>
                 </div>
               </div>
-            ))}
-          </div>
-          {showScrollButtons && (
-            <>
-              <button
-                onClick={handleScrollLeft}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
-              >
-                &lt;
-              </button>
-              <button
-                onClick={handleScrollRight}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
-              >
-                &gt;
-              </button>
-            </>
-          )}
+            </div>
+          ))}
         </div>
-
-        <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-lg">
-          <div className="mb-4">
-            <label className="w-full flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-400 hover:text-white">
-              {formData.image ? (
-                <img src={formData.image} alt="Vista previa de la imagen" className="w-24 h-24 object-cover mb-2" />
-              ) : (
-                <>
-                  <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M16.88 9.94a1 1 0 00-.76-.35H13V3a1 1 0 00-1-1H8a1 1 0 00-1 1v6.59L4.71 8.3a1 1 0 10-1.42 1.42l3 3a1 1 0 001.42 0l3-3a1 1 0 00.29-.7 1 1 0 00-.3-.71zM15 17H5a2 2 0 010-4h1.5a1 1 0 010 2H5a.5.5 0 000 1h10a.5.5 0 000-1h-1.5a1 1 0 010-2H15a2 2 0 010 4z"/>
-                  </svg>
-                  <span className="mt-2 text-base leading-normal">Seleccionar una imagen</span>
-                </>
-              )}
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={handleInputChange}
-                className="hidden"
-                required
-              />
-            </label>
-          </div>
-          <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-2">Título</label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Título"
-              value={formData.title}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-2">Descripción</label>
-            <textarea
-              name="description"
-              placeholder="Descripción"
-              value={formData.description}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded h-24 text-black"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-2">URL</label>
-            <input
-              type="url"
-              name="url"
-              placeholder="URL"
-              value={formData.url}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-2">Precio</label>
-            <input
-              type="text"
-              name="price"
-              placeholder="Precio"
-              value={formData.price}
-              onChange={handlePriceChange}
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded w-full"
-          >
-            {isEditing ? 'Guardar cambios' : 'Añadir un artículo'}
-          </button>
-        </form>
+        {showScrollButtons && (
+          <>
+            <button
+              onClick={handleScrollLeft}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={handleScrollRight}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
+            >
+              &gt;
+            </button>
+          </>
+        )}
       </div>
-
-      <div>
-        <ProveedorDetails proveedor={selectedProveedor} onClose={closeModal} />
-      </div>
+      <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-lg">
+        <div className="mb-4">
+          <label className="w-full flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-400 hover:text-white">
+            {formData.image ? (
+              <img src={formData.image} alt="Vista previa de la imagen" className="w-24 h-24 object-cover mb-2" />
+            ) : (
+              <>
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M16.88 9.94a1 1 0 00-.76-.35H13V3a1 1 0 00-1-1H8a1 1 0 00-1 1v6.59L4.71 8.3a1 1 0 10-1.42 1.42l3 3a1 1 0 001.42 0l3-3a1 1 0 00.29-.7 1 1 0 00-.3-.71zM15 17H5a2 2 0 010-4h1.5a1 1 0 010 2H5a.5.5 0 000 1h10a.5.5 0 000-1h-1.5a1 1 0 010-2H15a2 2 0 010 4z"/>
+                </svg>
+                <span className="mt-2 text-base leading-normal">Seleccionar una imagen</span>
+              </>
+            )}
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleInputChange}
+              className="hidden"
+              required
+            />
+          </label>
+        </div>
+        <div className="mb-4">
+          <label className="block text-black text-sm font-bold mb-2">Título</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Título"
+            value={formData.title}
+            onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded text-black"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-black text-sm font-bold mb-2">Descripción</label>
+          <textarea
+            name="description"
+            placeholder="Descripción"
+            value={formData.description}
+            onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded h-24 text-black"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-black text-sm font-bold mb-2">URL</label>
+          <input
+            type="url"
+            name="url"
+            placeholder="URL"
+            value={formData.url}
+            onChange={handleInputChange}
+            className="w-full p-2 border border-gray-300 rounded text-black"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-black text-sm font-bold mb-2">Precio</label>
+          <input
+            type="text"
+            name="price"
+            placeholder="Precio"
+            value={formData.price}
+            onChange={handlePriceChange}
+            className="w-full p-2 border border-gray-300 rounded text-black"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+        >
+          {isEditing ? 'Guardar cambios' : 'Añadir un artículo'}
+        </button>
+      </form>
+      <ProveedorDetails proveedor={selectedProveedor} onClose={closeModal} />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+// components/view-product/view-product.js
 "use client";
 import TextInput from "../others/fields/textInput";
 import { useState, useEffect } from "react";
@@ -82,8 +83,8 @@ const FiltersComponent = () => {
   };
 
   return (
-    <div className="p-4 border bg-white rounded-lg shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-black">Filtros</h2>
+    <div>
+      <h2 className="mb-4 text-lg font-semibold text-blue-800">Filtros</h2>
       <div className="grid grid-cols-4 gap-4 mb-4">
         <TextInput
           labelText="Nombre de item"
