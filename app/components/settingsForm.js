@@ -29,7 +29,7 @@ const SMTPForm = () => {
   return (
     <div className="flex flex-col items-start my-10">
       <h1 className="text-3xl font-bold mb-6 text-blue-800 i">Configuraciones</h1>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
+      <form onSubmit={handleSubmit} className="bg-bgPrimary p-6 rounded-lg shadow-md w-full max-w-2xl">
         <h2 className="text-2xl font-bold mb-4 px-20 text-blue-800">Configuración SMTP</h2>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">Mail To</label>

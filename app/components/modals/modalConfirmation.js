@@ -21,7 +21,7 @@ const ConfirmationModal = ({ isOpen, onRequestClose, onConfirm, title, message }
       >
         <IoClose size={24} />
       </button>
-      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black">{title}</h2>
       <p className="mb-4">{message}</p>
       <div className="flex justify-end">
         <BlueButton
