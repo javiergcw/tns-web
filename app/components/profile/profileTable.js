@@ -254,12 +254,18 @@ const ProfileTable = () => {
         isOpen={isAddModalOpen}
         onRequestClose={() => setIsAddModalOpen(false)}
         contentLabel="Agregar Usuario"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Agregar Usuario</h2>
+        <button
+          onClick={() => setIsAddModalOpen(false)}
+          className="absolute top-1 right-2 text-black text-4xl font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-black">Agregar Usuario</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Nombre</label>
+          <label className="block text-sm font-medium mb-2 text-black">Nombre</label>
           <input
             type="text"
             name="name"
@@ -269,7 +275,7 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Email</label>
+          <label className="block text-sm font-medium mb-2 text-black">Email</label>
           <input
             type="email"
             name="email"
@@ -279,7 +285,7 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Contraseña</label>
+          <label className="block text-sm font-medium mb-2 text-black">Contraseña</label>
           <input
             type="password"
             name="password"
@@ -289,7 +295,7 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Confirmar Contraseña</label>
+          <label className="block text-sm font-medium mb-2 text-black">Confirmar Contraseña</label>
           <input
             type="password"
             name="password_confirmation"

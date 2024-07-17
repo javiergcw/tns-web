@@ -95,60 +95,60 @@ const ProveedorForm = ({ setProveedores }) => {
   };
 
   return (
-    <div className="flex flex-col items-start">
-      <h2 className="text-2xl font-bold mb-4 text-black">Proveedores</h2>
-      <div className="relative mb-4">
-        <div
-          className="flex overflow-x-auto space-x-4 no-scrollbar"
-          ref={listRef}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {proveedoresList.map((proveedor, index) => (
-            <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
-              <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17h2m-2-2h2m4-6a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11a7 7 0 0114 0v2a7 7 0 01-14 0v-2z"></path>
-                  </svg>
-                </button>
-                <button onClick={() => handleDelete(index)} className="text-red-500 hover:text-red-700">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-              <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProveedorClick(proveedor)}>
-                <div className="flex-shrink-0">
-                  <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
+    <div className={`flex flex-col md:flex-row w-full ${selectedProveedor ? 'md:space-x-4' : ''} space-y-4 md:space-y-0`}>
+      <form onSubmit={handleSubmit} className={`w-full ${selectedProveedor ? 'md:w-1/2' : 'md:w-full'} bg-white p-6 rounded-lg shadow-md`}>
+        <h2 className="text-2xl font-bold mb-4 text-black">Proveedores</h2>
+        <div className="relative mb-4">
+          <div
+            className="flex overflow-x-auto space-x-4 no-scrollbar"
+            ref={listRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {proveedoresList.map((proveedor, index) => (
+              <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
+                <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17h2m-2-2h2m4-6a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11a7 7 0 0114 0v2a7 7 0 01-14 0v-2z"></path>
+                    </svg>
+                  </button>
+                  <button onClick={() => handleDelete(index)} className="text-red-500 hover:text-red-700">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
                 </div>
-                <div>
-                  <div className="font-bold text-sm text-black">{proveedor.title}</div>
-                  <div className="text-sm text-black">Valor {proveedor.price}</div>
+                <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProveedorClick(proveedor)}>
+                  <div className="flex-shrink-0">
+                    <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-black">{proveedor.title}</div>
+                    <div className="text-sm text-black">Valor {proveedor.price}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          {showScrollButtons && (
+            <>
+              <button
+                onClick={handleScrollLeft}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
+              >
+                &lt;
+              </button>
+              <button
+                onClick={handleScrollRight}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
+              >
+                &gt;
+              </button>
+            </>
+          )}
         </div>
-        {showScrollButtons && (
-          <>
-            <button
-              onClick={handleScrollLeft}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
-            >
-              &lt;
-            </button>
-            <button
-              onClick={handleScrollRight}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-blue-500 text-2xl"
-            >
-              &gt;
-            </button>
-          </>
-        )}
-      </div>
-      <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-lg">
         <div className="mb-4">
           <label className="w-full flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-400 hover:text-white">
             {formData.image ? (
@@ -225,7 +225,11 @@ const ProveedorForm = ({ setProveedores }) => {
           {isEditing ? 'Guardar cambios' : 'Añadir un artículo'}
         </button>
       </form>
-      <ProveedorDetails proveedor={selectedProveedor} onClose={closeModal} />
+      {selectedProveedor && (
+        <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md overflow-auto">
+          <ProveedorDetails proveedor={selectedProveedor} onClose={closeModal} />
+        </div>
+      )}
     </div>
   );
 };

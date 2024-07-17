@@ -1,19 +1,14 @@
 // pages/404.js
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-const Custom404 = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace('/');
-  }, [router]);
-
+export default function Custom404() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-2xl">Redireccionando a la página principal...</h1>
+    <div style={{ textAlign: 'center', padding: '50px' }}>
+      <h1>404 - Página No Encontrada</h1>
+      <p>Lo sentimos, la página que estás buscando no existe.</p>
+      <Link href="/">
+        <a style={{ color: 'blue', textDecoration: 'underline' }}>Volver a la página de inicio</a>
+      </Link>
     </div>
   );
-};
-
-export default Custom404;
+}

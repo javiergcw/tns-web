@@ -4,7 +4,7 @@ import TextInput from "@/app/components/others/fields/textInput";
 import TextDisplay from "./textDisplay";
 import { updateProfile, getProfileById } from "@/app/services/profileService";
 import { ImagesPath } from "@/app/utils/assetsPath";
-import { documentTypeOptions } from "@/app/utils/dataGeneral"; 
+import { documentTypeOptions } from "@/app/utils/dataGeneral";
 import { FiEdit } from "react-icons/fi";
 
 Modal.setAppElement("#__next");
@@ -27,15 +27,15 @@ const ProfileForm = () => {
     const fetchProfile = async () => {
       try {
         const storedUserId = localStorage.getItem("userId");
-        console.log("Retrieved userId from localStorage:", storedUserId); 
+        console.log("Retrieved userId from localStorage:", storedUserId);
         if (storedUserId) {
           setUserId(storedUserId);
           const profile = await getProfileById(storedUserId);
-          console.log("Fetched profile:", profile); 
+          console.log("Fetched profile:", profile);
           setName(profile.name);
-          setPhone(profile.identificationNumber); 
-          setRole(profile.rol ? profile.rol.name : ""); 
-          setPhoto(profile.photo); 
+          setPhone(profile.identificationNumber);
+          setRole(profile.rol ? profile.rol.name : "");
+          setPhoto(profile.photo);
           setIdentificationType(profile.identificationType || "");
           setIdentificationNumber(profile.identificationNumber || "");
         } else {
@@ -100,7 +100,7 @@ const ProfileForm = () => {
       identification_type: identificationType,
       identification_number: identificationNumber,
       phone,
-      rol_id: 1, 
+      rol_id: 1,
       password,
       photo,
     };
@@ -119,7 +119,7 @@ const ProfileForm = () => {
     <div className="w-full  mx-auto px-4 sm:px-8">
       <div className="mb-4 flex flex-col items-center sm:flex-row sm:items-start">
         <div className="flex w-1/4 flex-col items-center sm:mr-8">
-        <img
+          <img
             src={photo || ImagesPath.defaultProfilePhoto}
             alt="Profile"
             className="w-32 h-32 sm:w-60 sm:h-60 rounded-full border-2 border-green-500 object-cover"
@@ -173,100 +173,107 @@ const ProfileForm = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Editar Perfil"
-        className="modal"
-        overlayClassName="modal-overlay"
+        className="bg-white rounded-md p-6 w-full max-w-lg mx-auto relative"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <div className="p-6 bg-white rounded-md w-full max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4">Editar Perfil</h2>
-          <div className="mb-4 flex flex-col items-center relative">
-            <img
-              src={photo || ImagesPath.defaultProfilePhoto}
-              alt="Profile"
-              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-green-500 cursor-pointer mb-2"
-              onClick={() => fileInputRef.current.click()}
-            />
-            <div className="absolute top-0 left-0 w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-              <FiEdit className="text-white text-2xl sm:text-4xl bg-black bg-opacity-50 rounded-full p-2 sm:p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
-            </div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={handlePhotoChange}
-            />
+        <button
+          onClick={closeModal}
+          className="absolute top-0 right-2 text-black text-4xl font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-black">Editar Perfil</h2>
+        <div className="mb-4 flex flex-col items-center relative">
+          <img
+            src={photo || ImagesPath.defaultProfilePhoto}
+            alt="Profile"
+            className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-greenDrawer cursor-pointer mb-2"
+            onClick={() => fileInputRef.current.click()}
+          />
+          <div className="absolute top-0 left-0 w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+            <FiEdit className="text-white text-2xl sm:text-4xl bg-black bg-opacity-50 rounded-full p-2 sm:p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
           </div>
-          <div className="mb-4 w-full">
-            <TextInput
-              labelText="Nombre"
-              labelColor="blue"
-              inputSize="large"
-              inputType="text"
-              value={name}
-              onChange={handleNameChange}
-              className="w-full text-base p-2"
-            />
-          </div>
-          <div className="mb-4 w-full">
-            <TextInput
-              labelText="Celular"
-              labelColor="blue"
-              inputSize="large"
-              inputType="text"
-              value={phone}
-              onChange={handlePhoneChange}
-              className="w-full text-base p-2"
-            />
-          </div>
-          <div className="mb-4 w-full">
-            <label className="block text-large font-medium mb-2 text-sky-500">
-              Tipo de Documento
-            </label>
-            <select
-              value={identificationType}
-              onChange={handleIdentificationTypeChange}
-              className="w-full p-2 border border-gray-300 rounded text-base"
-            >
-              <option value="">Selecciona un tipo</option>
-              {documentTypeOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-4 w-full">
-            <TextInput
-              labelText="Número de Documento"
-              labelColor="blue"
-              inputSize="large"
-              inputType="text"
-              value={identificationNumber}
-              onChange={handleIdentificationNumberChange}
-              className="w-full text-base p-2"
-            />
-          </div>
-          <div className="flex flex-col sm:flex-row justify-end">
-            <button
-              onClick={closeModal}
-              className="mt-4 p-2 bg-red-500 text-white rounded-md w-full sm:w-auto"
-            >
-              Cancelar
-            </button>
-            <button
-              onClick={handleSave}
-              className="mt-4 p-2 bg-blue-500 text-white rounded-md sm:ml-2 w-full sm:w-auto"
-            >
-              Guardar
-            </button>
-          </div>
-          {loading && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="loader"></div>
-            </div>
-          )}
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handlePhotoChange}
+          />
         </div>
+        <div className="mb-4 w-full">
+          <TextInput
+            labelText="Nombre"
+            labelColor="blue"
+            inputSize="large"
+            inputType="text"
+            value={name}
+            onChange={handleNameChange}
+            className="w-full text-base p-2"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <TextInput
+            labelText="Celular"
+            labelColor="blue"
+            inputSize="large"
+            inputType="text"
+            value={phone}
+            onChange={handlePhoneChange}
+            className="w-full text-base p-2"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <label className="block text-large font-medium mb-2 text-sky-500">
+            Tipo de Documento
+          </label>
+          <select
+            value={identificationType}
+            onChange={handleIdentificationTypeChange}
+            className="w-full p-2 border border-gray-300 rounded text-base"
+          >
+            <option value="">Selecciona un tipo</option>
+            {documentTypeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-4 w-full">
+          <TextInput
+            labelText="Número de Documento"
+            labelColor="blue"
+            inputSize="large"
+            inputType="text"
+            value={identificationNumber}
+            onChange={handleIdentificationNumberChange}
+            className="w-full text-base p-2"
+          />
+        </div>
+        <div className="flex flex-col sm:flex-row justify-end">
+          <button
+            onClick={closeModal}
+            className="mt-4 p-2 bg-red-500 text-white rounded-md w-full sm:w-auto"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleSave}
+            className="mt-4 p-2 bg-blue-500 text-white rounded-md sm:ml-2 w-full sm:w-auto"
+          >
+            Guardar
+          </button>
+        </div>
+        {loading && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="loader"></div>
+          </div>
+        )}
       </Modal>
+
+
+
     </div>
   );
 };

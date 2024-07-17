@@ -5,7 +5,7 @@ import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
 import { VideoPath } from "@/app/utils/assetsPath";
 import Lottie from 'react-lottie';
 import animationData from "@/public/videos/errorData.json";
-import { RedButton,BlueButton } from "@/app/utils/Buttons";// Importar los botones
+import { RedButton, BlueButton } from "@/app/utils/Buttons";// Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
 
@@ -135,12 +135,18 @@ const RoleTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Añadir Rol"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Añadir Rol</h2>
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="absolute top-0 right-2 text-black text-4xl font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-black">Añadir Rol</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Nombre del Rol</label>
+          <label className="block text-sm font-medium mb-2 text-black">Nombre del Rol</label>
           <input
             type="text"
             value={newRoleName}
@@ -158,6 +164,7 @@ const RoleTable = () => {
           className="ml-2"
         />
       </Modal>
+
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
         onRequestClose={() => setIsDeleteModalOpen(false)}

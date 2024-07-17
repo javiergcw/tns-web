@@ -11,13 +11,13 @@ const CreateProduct = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col items-start my-10 px-20 w-full">
+      <div className="w-full bg-bgPrimary min-h-screen px-4 md:px-20 py-10 overflow-auto">
         <h1 className="text-3xl font-bold mb-6 text-blue-800">Crear Producto</h1>
-        <div className="bg-bgPrimary p-8 rounded-lg shadow-lg w-full max-w-6xl flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
-          <div className="md:w-1/2">
+        <div className="w-full bg-Primary p-4 md:p-8 rounded-lg  flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
+          <div className="w-full md:w-1/2">
             <CreatePurchaseForm products={[]} proveedores={proveedores} />
           </div>
-          <div className="md:w-1/2">
+          <div className="w-full md:w-1/2">
             <ProveedorForm setProveedores={setProveedores} />
           </div>
         </div>

@@ -184,10 +184,10 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Solicitud de Alerta</h2>
+        <h2 className="text-2xl font-bold mb-4 text-black">Solicitud de Alerta</h2>
         <form onSubmit={handleModalSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Input 1</label>
+            <label className="block text-sm font-medium text-black mb-2">Input 1</label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
@@ -195,7 +195,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Input 2</label>
+            <label className="block text-sm font-medium text-black mb-2">Input 2</label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
@@ -203,7 +203,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Input 3</label>
+            <label className="block text-sm font-medium text-black mb-2">Input 3</label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"

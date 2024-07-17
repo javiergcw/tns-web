@@ -1,7 +1,7 @@
 // components/view-product/view-product.js
 "use client";
 import TextInput from "../others/fields/textInput";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaTrash } from "react-icons/fa";
 import TrackingTable from "../dashboard/trackingTable/trackingTable";
 import { getAllShoppings } from "@/app/services/shoppingService";
@@ -61,6 +61,11 @@ const FiltersComponent = () => {
   const [expensesData, setExpensesData] = useState([]);
   const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
 
+  // Crear referencias para los inputs
+  const itemNameRef = useRef(null);
+  const areaLeaderRef = useRef(null);
+  const statusRef = useRef(null);
+
   useEffect(() => {
     const fetchAndProcessData = async () => {
       const fetchedData = await fetchData();
@@ -74,6 +79,17 @@ const FiltersComponent = () => {
     };
 
     fetchAndProcessData();
+
+    return () => {
+      // Limpiar el estado de los inputs al desmontar el componente
+      setItemName("");
+      setAreaLeader("");
+      setStatus("");
+      // Desenfocar los inputs
+      if (itemNameRef.current) itemNameRef.current.blur();
+      if (areaLeaderRef.current) areaLeaderRef.current.blur();
+      if (statusRef.current) statusRef.current.blur();
+    };
   }, []);
 
   const handleFilterReset = () => {
@@ -93,6 +109,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
+          inputRef={itemNameRef} // Pasar la referencia al input
         />
         <TextInput
           labelText="Líder de área"
@@ -101,6 +118,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={areaLeader}
           onChange={(e) => setAreaLeader(e.target.value)}
+          inputRef={areaLeaderRef} // Pasar la referencia al input
         />
         <TextInput
           labelText="Estado"
@@ -109,6 +127,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
+          inputRef={statusRef} // Pasar la referencia al input
         />
         <button
           onClick={handleFilterReset}

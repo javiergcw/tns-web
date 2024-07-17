@@ -4,7 +4,7 @@ import { getCategories, addCategory, deleteCategory } from '@/app/services/categ
 import Lottie from 'react-lottie';
 import Modal from 'react-modal';
 import animationData from '@/public/videos/errorData.json';
-import { RedButton,BlueButton } from '@/app/utils/Buttons'; // Importa los botones constantes
+import { RedButton, BlueButton } from '@/app/utils/Buttons'; // Importa los botones constantes
 import LoaderOverlay from '@/app/utils/loaderOverlay'; // Importa el LoaderOverlay
 import ConfirmationModal from '../modals/modalConfirmation'; // Importa el modal de confirmación
 
@@ -124,10 +124,16 @@ const CategoryTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Agregar Categoría"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Agregar Nueva Categoría</h2>
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="absolute top-0 right-2 text-black text-4xl font-bold"
+        >
+          ×
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-black">Agregar Nueva Categoría</h2>
         <input
           type="text"
           value={newCategoryName}
@@ -145,6 +151,7 @@ const CategoryTable = () => {
           className="ml-2"
         />
       </Modal>
+
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
         onRequestClose={() => setIsDeleteModalOpen(false)}

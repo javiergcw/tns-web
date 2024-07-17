@@ -65,7 +65,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md bg-white">
+    <form onSubmit={handleSubmit} className="w-full p-6 rounded-lg shadow-md bg-white">
       <h2 className="text-2xl font-bold mb-4 text-black">Creación de compra</h2>
       <div className="mb-4">
         <select
@@ -93,7 +93,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
               id={`proveedor-${index}`}
               value={proveedor.title}
               onChange={handleCheckboxChange}
-              className="mr-2 leading-tight text-black checked:text-green-500"
+              className="mr-2 leading-tight text-black checked:text-greenDrawer"
             />
             <label htmlFor={`proveedor-${index}`} className="text-black">
               {proveedor.title}
@@ -142,7 +142,7 @@ const CreatePurchaseForm = ({ proveedores }) => {
           type="checkbox"
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
-          className="mr-2 text-black checked:text-green-500"
+          className="mr-2 text-black checked:text-greenDrawer"
           required
         />
         <label className="text-black">Acepto los términos y condiciones</label>

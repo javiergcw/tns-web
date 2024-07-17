@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 /**
@@ -12,16 +12,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
  * @param {string} inputType - El tipo del input ("text", "email", "password").
  * @param {string} value - El valor del input.
  * @param {function} onChange - La función para manejar el cambio del input.
- *
+ * @param {object} inputRef - La referencia del input.
  **/
-const TextInput = ({
+const TextInput = forwardRef(({
   labelText = "Label",
   labelColor = "blue",
   inputSize = "medium",
   inputType = "text",
   value = "",
   onChange,
-}) => {
+  inputRef
+}, ref) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Función para obtener el tamaño del input
@@ -82,6 +83,7 @@ const TextInput = ({
       </label>
       <div className="relative w-full">
         <input
+          ref={ref || inputRef} // Usar la referencia pasada como prop
           type={inputType === "password" && showPassword ? "text" : inputType}
           required
           autoComplete={getAutocompleteAttribute()}
@@ -105,6 +107,6 @@ const TextInput = ({
       </div>
     </div>
   );
-};
+});
 
 export default TextInput;
