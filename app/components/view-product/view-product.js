@@ -1,4 +1,3 @@
-// components/view-product/view-product.js
 "use client";
 import TextInput from "../others/fields/textInput";
 import { useState, useEffect, useRef } from "react";
@@ -60,6 +59,7 @@ const FiltersComponent = () => {
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
   const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Crear referencias para los inputs
   const itemNameRef = useRef(null);
@@ -76,26 +76,30 @@ const FiltersComponent = () => {
 
       const unapproved = getUnapprovedExpenses(fetchedData);
       setUnapprovedExpenses(unapproved);
+
+      setIsLoading(false); // Terminar la carga
     };
 
     fetchAndProcessData();
-
-    return () => {
-      // Limpiar el estado de los inputs al desmontar el componente
-      setItemName("");
-      setAreaLeader("");
-      setStatus("");
-      // Desenfocar los inputs
-      if (itemNameRef.current) itemNameRef.current.blur();
-      if (areaLeaderRef.current) areaLeaderRef.current.blur();
-      if (statusRef.current) statusRef.current.blur();
-    };
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      // Desenfocar los inputs cuando la carga de datos se complete
+      // if (itemNameRef.current) itemNameRef.current.blur();
+      // if (areaLeaderRef.current) areaLeaderRef.current.blur();
+      // if (statusRef.current) statusRef.current.blur();
+    }
+  }, [isLoading]);
 
   const handleFilterReset = () => {
     setItemName("");
     setAreaLeader("");
     setStatus("");
+    // Desenfocar los inputs al limpiar los filtros
+    // if (itemNameRef.current) itemNameRef.current.blur();
+    // if (areaLeaderRef.current) areaLeaderRef.current.blur();
+    // if (statusRef.current) areaLeaderRef.current.blur();
   };
 
   return (
@@ -109,7 +113,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
-          inputRef={itemNameRef} // Pasar la referencia al input
+          inputRef={itemNameRef}
         />
         <TextInput
           labelText="Líder de área"
@@ -118,7 +122,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={areaLeader}
           onChange={(e) => setAreaLeader(e.target.value)}
-          inputRef={areaLeaderRef} // Pasar la referencia al input
+          inputRef={areaLeaderRef}
         />
         <TextInput
           labelText="Estado"
@@ -127,7 +131,7 @@ const FiltersComponent = () => {
           inputType="text"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          inputRef={statusRef} // Pasar la referencia al input
+          inputRef={statusRef}
         />
         <button
           onClick={handleFilterReset}
@@ -137,7 +141,13 @@ const FiltersComponent = () => {
           Limpiar
         </button>
       </div>
-      <TrackingTable data={data} />
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <TrackingTable data={data} />
+      )}
     </div>
   );
 };
