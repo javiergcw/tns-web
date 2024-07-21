@@ -1,5 +1,5 @@
 import "/app/globals.css";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import {
@@ -8,14 +8,14 @@ import {
   MdExitToApp,
   MdVisibility,
   MdAddBox,
-  MdSettings
+  MdSettings,
 } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import { useRouter } from "next/router";
-import { RedButton,BlueButton } from "@/app/utils/Buttons";// Importar los botones constantes
+import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones constantes
 import ConfirmationModal from "../../modals/modalConfirmation"; // Importar el modal de confirmación
 import react from "@heroicons/react";
 
@@ -82,25 +82,55 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
   // Listado de ítems con enlaces, nombres e íconos
   const menuItems = [
-    { link: "/dashboardManager", name: "Dashboard", icon: <MdDashboard style={{ color: greenDrawer }} /> },
-    { link: "/view-product", name: "View Product", icon: <MdVisibility style={{ color: greenDrawer }} /> },
-    { link: "/profile", name: "Profile", icon: <MdPerson style={{ color: greenDrawer }} /> },
-    { link: "/create-product", name: "Create Product", icon: <MdAddBox style={{ color: greenDrawer }} /> },
-    { link: "/settings", name: "Settings", icon: <MdSettings style={{ color: greenDrawer }} /> }, // Nueva sección Settings
-    { link: "#", name: "Logout", icon: <MdExitToApp style={{ color: greenDrawer }} />, onClick: handleLogout }
+    {
+      link: "/dashboardManager",
+      name: "Dashboard",
+      icon: <MdDashboard style={{ color: greenDrawer }} />,
+    },
+    {
+      link: "/view-product",
+      name: "View Product",
+      icon: <MdVisibility style={{ color: greenDrawer }} />,
+    },
+    {
+      link: "/profile",
+      name: "Profile",
+      icon: <MdPerson style={{ color: greenDrawer }} />,
+    },
+    {
+      link: "/create-product",
+      name: "Create Product",
+      icon: <MdAddBox style={{ color: greenDrawer }} />,
+    },
+    {
+      link: "/settings",
+      name: "Settings",
+      icon: <MdSettings style={{ color: greenDrawer }} />,
+    }, // Nueva sección Settings
+    {
+      link: "#",
+      name: "Logout",
+      icon: <MdExitToApp style={{ color: greenDrawer }} />,
+      onClick: handleLogout,
+    },
   ];
 
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
-          } transition-all duration-300 ease-in-out flex flex-col items-center`}
+        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${
+          isOpen ? "w-64" : "w-24"
+        } transition-all duration-300 ease-in-out flex flex-col items-center`}
       >
         <button
           onClick={onToggle}
           className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
         >
-          <IoMenu className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"} transition-all duration-300`} />
+          <IoMenu
+            className={`text-greenDrawer ${
+              isOpen ? "text-2xl" : "text-4xl"
+            } transition-all duration-300`}
+          />
         </button>
         <div className="flex flex-col items-center w-full mt-4 flex-1">
           <div className="flex items-center w-full px-4">
@@ -116,7 +146,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                   color="white"
                   type="normal"
                   className="font-bold text-[15px] text-white"
-                  style={{ fontFamily: 'Patua One, sans-serif' }}
+                  style={{ fontFamily: "Patua One, sans-serif" }}
                 />
                 <div className="border-t border-green-500 w-full my-1"></div>
                 <Text
@@ -124,7 +154,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                   color="white"
                   type="normal"
                   className="text-[10px] text-white mt-1"
-                  style={{ fontFamily: 'Patua One, sans-serif' }}
+                  style={{ fontFamily: "Patua One, sans-serif" }}
                 />
               </div>
             )}
@@ -133,14 +163,24 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             {menuItems.map((item, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
-                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
-                onClick={item.onClick ? item.onClick : () => handleNavigation(item.link)}
+                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+                  isOpen ? "items-center" : "justify-center"
+                } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                onClick={
+                  item.onClick
+                    ? item.onClick
+                    : () => handleNavigation(item.link)
+                }
               >
-                <div className={`flex items-center w-full ${isOpen ? "" : "justify-center"}`}>
+                <div
+                  className={`flex items-center w-full ${
+                    isOpen ? "" : "justify-center"
+                  }`}
+                >
                   <span
-                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
-                      } flex items-center justify-center transition-all duration-300`}
+                    className={`text-green-500 ${
+                      isOpen ? "text-2xl" : "text-4xl"
+                    } flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>
@@ -151,7 +191,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                         color="white"
                         type="normal"
                         className="ml-3"
-                        style={{ fontFamily: 'Patua One, sans-serif' }}
+                        style={{ fontFamily: "Patua One, sans-serif" }}
                       />
                     </span>
                   )}
@@ -172,7 +212,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             color="white"
             type="normal"
             className="font-bold text-white"
-            style={{ fontFamily: 'Patua One, sans-serif' }}
+            style={{ fontFamily: "Patua One, sans-serif" }}
           />
         </div>
       </div>
@@ -184,10 +224,22 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4 text-black">Solicitud de Alerta</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-black">
+            Solicitud de Alertas
+          </h2>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="text-black text-4xl font-bold"
+          >
+            ×
+          </button>
+        </div>
         <form onSubmit={handleModalSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">Input 1</label>
+            <label className="block text-sm font-medium text-black mb-2">
+              Input 1
+            </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
@@ -195,7 +247,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">Input 2</label>
+            <label className="block text-sm font-medium text-black mb-2">
+              Input 2
+            </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
@@ -203,7 +257,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">Input 3</label>
+            <label className="block text-sm font-medium text-black mb-2">
+              Input 3
+            </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
@@ -211,15 +267,8 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             />
           </div>
           <div className="flex justify-end">
-            <RedButton
-              text="Cancelar"
-              onClick={closeModal}
-              className="mr-2"
-            />
-            <BlueButton
-              text="Enviar"
-              onClick={handleModalSubmit}
-            />
+            <RedButton text="Cancelar" onClick={closeModal} className="mr-2" />
+            <BlueButton text="Enviar" onClick={handleModalSubmit} />
           </div>
         </form>
       </Modal>

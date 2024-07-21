@@ -14,99 +14,104 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
  * @param {function} onChange - La función para manejar el cambio del input.
  * @param {object} inputRef - La referencia del input.
  **/
-const TextInput = forwardRef(({
-  labelText = "Label",
-  labelColor = "blue",
-  inputSize = "medium",
-  inputType = "text",
-  value = "",
-  onChange,
-  inputRef
-}, ref) => {
-  const [showPassword, setShowPassword] = useState(false);
+const TextInput = forwardRef(
+  (
+    {
+      labelText = "Label",
+      labelColor = "blue",
+      inputSize = "medium",
+      inputType = "text",
+      value = "",
+      onChange,
+      inputRef,
+    },
+    ref
+  ) => {
+    const [showPassword, setShowPassword] = useState(false);
 
-  // Función para obtener el tamaño del input
-  const getInputSizeClass = () => {
-    switch (inputSize) {
-      case "small":
-        return "w-1/3 text-sm";
-      case "medium":
-        return "w-1/2 text-base";
-      case "large":
-        return "w-full text-lg";
-      default:
-        return "w-full text-base";
-    }
-  };
+    // Función para obtener el tamaño del input
+    const getInputSizeClass = () => {
+      switch (inputSize) {
+        case "small":
+          return "w-1/3 text-sm";
+        case "medium":
+          return "w-1/2 text-base";
+        case "large":
+          return "w-full text-lg";
+        default:
+          return "w-full text-base";
+      }
+    };
 
-  // Función para obtener el color del label
-  const getLabelColorClass = () => {
-    switch (labelColor) {
-      case "blue":
-        return "text-sky-500";
-      case "green":
-        return "text-lime-500";
-      case "grey":
-        return "text-gray-500";
-      case "gray6th":
-        return "text-gray6th";
-      default:
-        return "text-slate-950";
-    }
-  };
+    // Función para obtener el color del label
+    const getLabelColorClass = () => {
+      switch (labelColor) {
+        case "blue":
+          return "text-sky-500";
+        case "green":
+          return "text-lime-500";
+        case "grey":
+          return "text-gray-500";
+        case "gray6th":
+          return "text-gray6th";
+        default:
+          return "text-slate-950";
+      }
+    };
 
-  // Función para obtener el atributo autocomplete
-  const getAutocompleteAttribute = () => {
-    switch (inputType) {
-      case "email":
-        return "email";
-      case "password":
-        return "current-password";
-      case "text":
-        return "text";
-      default:
-        return "text";
-    }
-  };
+    // Función para obtener el atributo autocomplete
+    const getAutocompleteAttribute = () => {
+      switch (inputType) {
+        case "email":
+          return "email";
+        case "password":
+          return "current-password";
+        case "text":
+          return "text";
+        default:
+          return "text";
+      }
+    };
 
-  // Función para alternar la visibilidad de la contraseña
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    // Función para alternar la visibilidad de la contraseña
+    const toggleShowPassword = () => {
+      setShowPassword(!showPassword);
+    };
 
-  return (
-    <div className="flex flex-col items-start">
-      <label
-        className={`mb-1 text-black text-sm font-medium ${getLabelColorClass()} `}
-      >
-        {labelText}
-      </label>
-      <div className="relative w-full">
-        <input
-          ref={ref || inputRef} // Usar la referencia pasada como prop
-          type={inputType === "password" && showPassword ? "text" : inputType}
-          required
-          autoComplete={getAutocompleteAttribute()}
-          className={`block mb-5 pl-2 pr-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blueButton focus:border-blueButton sm:text-sm sm:leading-6 ${getInputSizeClass()} `}
-          value={value}
-          onChange={onChange}
-        />
-        {inputType === "password" && (
-          <button
-            type="button"
-            onClick={toggleShowPassword}
-            className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
-          >
-            {showPassword ? (
-              <FaEyeSlash className="h-5 w-5 mb-4 " />
-            ) : (
-              <FaEye className="h-5 w-5 mb-4" />
-            )}
-          </button>
-        )}
+    return (
+      <div className="flex flex-col items-start">
+        <label
+          className={`mb-1 text-black text-sm font-medium ${getLabelColorClass()} `}
+        >
+          {labelText}
+        </label>
+        <div className={`w-full ${inputType != "password" ? "" : "relative"}`}>
+          <input
+            ref={ref || inputRef} // Usar la referencia pasada como prop
+            type={inputType === "password" && showPassword ? "text" : inputType}
+            required
+            autoComplete={getAutocompleteAttribute()}
+            className={`block mb-5 pl-2 pr-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blueButton focus:border-blueButton sm:text-sm sm:leading-6 ${getInputSizeClass()} `}
+            value={value}
+            onChange={onChange}
+          />
+          {inputType === "password" && (
+            <button
+              type="button"
+              onClick={toggleShowPassword}
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+            >
+              {showPassword ? (
+                <FaEyeSlash className="h-5 w-5 mb-4 " />
+              ) : (
+                <FaEye className="h-5 w-5 mb-4" />
+              )}
+            </button>
+          )}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default TextInput;

@@ -1,22 +1,21 @@
 // pages/_document.js
 
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-    render() {
-        return (
-            <Html>
-                <Head>
-                    {/* Otros elementos del Head */}
-                </Head>
-                <body>
-                    <div id="root">
-                        <Main />
-                    </div>
-                    <NextScript />
-                    <div id="fb-root"></div>
-                    <script dangerouslySetInnerHTML={{
-                        __html: `
+  render() {
+    return (
+      <Html>
+        <Head>{/* Otros elementos del Head */}</Head>
+        <body>
+          <div id="root">
+            <Main />
+          </div>
+          <NextScript />
+          <div id="fb-root"></div>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
                         (function(d, s, id){
                             var js, fjs = d.getElementsByTagName(s)[0];
                             if (d.getElementById(id)) return;
@@ -26,11 +25,12 @@ class MyDocument extends Document {
                             fjs.parentNode.insertBefore(js, fjs);
                         }(document, 'script', 'facebook-jssdk'));
                     `,
-                    }} />
-                </body>
-            </Html>
-        );
-    }
+            }}
+          />
+        </body>
+      </Html>
+    );
+  }
 }
 
 export default MyDocument;

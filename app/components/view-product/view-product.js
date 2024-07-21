@@ -83,15 +83,6 @@ const FiltersComponent = () => {
     fetchAndProcessData();
   }, []);
 
-  useEffect(() => {
-    if (!isLoading) {
-      // Desenfocar los inputs cuando la carga de datos se complete
-      // if (itemNameRef.current) itemNameRef.current.blur();
-      // if (areaLeaderRef.current) areaLeaderRef.current.blur();
-      // if (statusRef.current) statusRef.current.blur();
-    }
-  }, [isLoading]);
-
   const handleFilterReset = () => {
     setItemName("");
     setAreaLeader("");
@@ -115,6 +106,7 @@ const FiltersComponent = () => {
           onChange={(e) => setItemName(e.target.value)}
           inputRef={itemNameRef}
         />
+
         <TextInput
           labelText="Líder de área"
           labelColor="black"

@@ -1,13 +1,15 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import SocialMedia from "./socialMedia";
 import ResponsiveTriangles from "./triangle";
+import "../../globals.css";
 import { ImagesPath } from "@/app/utils/assetsPath";
 
 // Componente ServicesStandart
 const ServicesStandart = () => {
   return (
-    <div className="flex flex-wrap justify-center gap-4 w-full bg-blueSecundary px-4 py-8">
+    <div className="flex flex-wrap justify-center gap-4 w-full bg-[#004f9f] px-4 py-8">
       <ContainerService
         title="Proyecto educativo"
         text="Conoce nuestro proyecto educativo"
