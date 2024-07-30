@@ -64,7 +64,7 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See calendar"
           imgSrc="/images/others/calendar.png"
           imgAlt="Calendar"
-          url="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view"
+          url="https://drive.google.com/file/d/1I_elynX5MX3KGKW2XO5s3y0_e7niIPwb/view?usp=sharing"
         />
       </div>
     </div>
