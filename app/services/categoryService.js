@@ -23,7 +23,7 @@ export const addCategory = async (name) => {
 
 export const deleteCategory = async (id) => {
   try {
-    console.log("id", id);
+    //console.log("id", id);
     const response = await post(ENDPOINTS.deleteCategory, { id });
     return response;
   } catch (error) {

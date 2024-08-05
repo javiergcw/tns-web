@@ -25,9 +25,7 @@ class Shopping {
     this.dateApproval = date_approval;
     this.category = new Category(category); // Instancia de la clase Category
     this.status = new Status(status); // Instancia de la clase Status
-    this.products = products.map(
-      (product) => new Product(product)
-    );
+    this.products = products.map((product) => new Product(product));
   }
 }
 
@@ -37,7 +35,7 @@ class Product {
     this.name = name;
     this.description = description;
     this.price = price;
-    this.url=this.url;
+    this.url = this.url;
   }
 }
 
@@ -54,3 +52,4 @@ class Status {
     this.name = name;
   }
 }
+export { Shopping, Product, Category, Status };

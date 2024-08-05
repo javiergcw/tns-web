@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BEARER_TOKEN } from "../utils/apiConfig";
 
 const apiRequest = async (method, url, data = null, params = null, authRequired = true) => {
   try {
@@ -8,11 +7,17 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
     };
 
     if (authRequired) {
-      headers["Authorization"] = `Bearer ${BEARER_TOKEN}`;
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      } else {
+        throw new Error("Token not found");
+      }
     }
 
-    console.log("Making request to:", url); // Para depuración
-    console.log("Request data:", data); // Para depuración
+    //////console.log("Making request to:", url); // Para depuración
+    //////console.log("Request headers:", headers); // Para depuración
+    //////console.log("Request data:", data); // Para depuración
 
     const response = await axios({
       method,
@@ -22,7 +27,7 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
       headers,
     });
 
-    console.log("Response data:", response.data); // Para depuración
+    //////console.log("Response data:", response.data); // Para depuración
 
     if (response.status < 300) {
       return response.data;

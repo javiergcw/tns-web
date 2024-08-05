@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import LastRequests from "@/app/components/dashboard/lastRequest/lastRequest";
 import Text from "@/app/components/others/text/text";
 import { getAllShoppings } from "@/app/services/shoppingService";
-
+import PurchaseDetail from "@/app/components/dashboard/purchaseDetails/purchaseDetails";
 /**
  * RequestsCarousel Component
  *
@@ -86,10 +86,14 @@ const RequestsCarousel = () => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
-                    area={request.name || "N/A"} // Aquí se usa el nombre del producto
-                    leader={request.name || "N/A"}
-                    description={request.description || "N/A"}
-                  />
+                    cardTitle="Purchase Request"
+                    buttonText="View Details"
+                    area="Electronics"
+                    leader="John Doe"
+                    description="Request for new monitors."
+                  >
+                    <PurchaseDetail />
+                  </LastRequests>
                 ))}
             </motion.div>
           </AnimatePresence>

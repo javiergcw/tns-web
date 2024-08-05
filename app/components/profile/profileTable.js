@@ -103,7 +103,7 @@ const ProfileTable = () => {
 
     setLoading(true);
     try {
-      console.log("Adding user:", newUser); // Log para depuración
+      //console.log("Adding user:", newUser); // Log para depuración
       await register(newUser.email, newUser.password, newUser.password_confirmation, newUser.name);
       setIsAddModalOpen(false);
       fetchProfiles();

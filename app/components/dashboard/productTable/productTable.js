@@ -29,10 +29,6 @@ const ProductTable = ({ data }) => {
         item.endDate,
       ])
     : [];
-
-  console.log("ProductTable data:", data);
-  console.log("ProductTable rows:", rows);
-
   return (
     <>
       <Text texto="TRACKING PETICIONES" color="blue-secondary" type="header" />
