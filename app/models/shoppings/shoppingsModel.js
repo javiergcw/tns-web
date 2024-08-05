@@ -1,10 +1,8 @@
-// models/Profile.js
+// models/shoppings/shoppingsModel.js
+
 class Shopping {
   constructor({
     id,
-    status_id,
-    user_id,
-    category_id,
     created_at,
     updated_at,
     request_date,
@@ -12,12 +10,10 @@ class Shopping {
     date_approval,
     category,
     status,
+    user,
     products,
   }) {
     this.id = id;
-    this.statusId = status_id;
-    this.userId = user_id;
-    this.categoryId = category_id;
     this.createdAt = created_at;
     this.updatedAt = updated_at;
     this.requestDate = request_date;
@@ -25,6 +21,7 @@ class Shopping {
     this.dateApproval = date_approval;
     this.category = new Category(category); // Instancia de la clase Category
     this.status = new Status(status); // Instancia de la clase Status
+    this.user = new User(user); // Instancia de la clase User
     this.products = products.map(
       (product) => new Product(product)
     );
@@ -32,12 +29,12 @@ class Shopping {
 }
 
 class Product {
-  constructor({ id, name, description, price }) {
+  constructor({ id, name, description, price, url }) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;
-    this.url=this.url;
+    this.url = url;
   }
 }
 
@@ -54,3 +51,19 @@ class Status {
     this.name = name;
   }
 }
+
+class User {
+  constructor({ id, profile }) {
+    this.id = id;
+    this.profile = new Profile(profile); // Instancia de la clase Profile
+  }
+}
+
+class Profile {
+  constructor({ id, name }) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+export default Shopping;
