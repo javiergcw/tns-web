@@ -1,9 +1,11 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
 import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
 import "/app/globals.css";
 import { ImagesPath } from "@/app/utils/assetsPath";
+import { getShoppingById } from "@/app/services/shoppingService";
 
 /**
  * PurchaseStatus Page
@@ -14,6 +16,32 @@ import { ImagesPath } from "@/app/utils/assetsPath";
  * @component
  */
 export default function PurchaseStatus() {
+  const [purchaseId, setPurchaseId] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleInputChange = (e) => {
+    console.log("Input Changed:", e.target.value); // Agregado para depuración
+    setPurchaseId(e.target.value);
+  };
+
+  const handleSearchClick = async () => {
+    console.log("Search Clicked"); // Agregado para depuración
+    try {
+      const response = await getShoppingById(purchaseId);
+      console.log("API Response:", response); // Agregado para depuración
+      setError("");
+      // Navegar a la vista de detalles con los datos de la compra
+      router.push({
+        pathname: '/shopping/detail',
+        query: { data: JSON.stringify(response) },
+      });
+    } catch (error) {
+      console.error("Error al obtener el estado de la compra:", error); // Agregado para depuración
+      setError("Error al obtener el estado de la compra. Por favor, intenta nuevamente.");
+    }
+  };
+
   return (
     <div className="flex h-screen">
       {/* Sección izquierda - Imagen corporativa */}
@@ -36,12 +64,20 @@ export default function PurchaseStatus() {
             labelText="Ingresa tu número de compra"
             labelColor="grey"
             inputSize="large"
+            value={purchaseId}
+            onChange={handleInputChange}
           />
           {/* Botones de acción */}
           <div className="flex justify-between mt-6">
             <NormalButton color="red" size="medium" text="Cancelar" />
-            <NormalButton color="blue" size="medium" text="Buscar" />
+            <NormalButton color="blue" size="medium" text="Buscar" onClick={handleSearchClick} />
           </div>
+          {/* Mostrar errores */}
+          {error && (
+            <div className="mt-6 text-red-500">
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

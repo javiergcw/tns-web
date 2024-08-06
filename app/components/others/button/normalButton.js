@@ -11,6 +11,7 @@ import React from "react";
  * @param {string} text - El texto que se mostrará en el botón.
  * @param {string} redirectUrl - La URL a la que redirige el botón al hacer clic.
  * @param {string} additionalClasses - Clases CSS adicionales para personalizar el botón.
+ * @param {function} onClick - Función que se ejecuta al hacer clic en el botón.
  **/
 
 const NormalButton = ({
@@ -19,10 +20,13 @@ const NormalButton = ({
   text = "LOGIN",
   redirectUrl,
   additionalClasses = "",
+  onClick, // Agregado para aceptar la función onClick
 }) => {
   const handleClick = () => {
     if (redirectUrl) {
       window.open(redirectUrl, "_blank");
+    } else if (onClick) {
+      onClick(); // Ejecuta la función onClick pasada como prop
     }
   };
 

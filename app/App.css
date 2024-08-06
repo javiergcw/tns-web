@@ -1,0 +1,95 @@
+/* En tu archivo CSS */
+body {
+  background-color: #000;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 50px;
+}
+
+h1 {
+  color: #004F9F;
+  margin-bottom: 20px;
+}
+
+.filters-container,
+.table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1500px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.filters-container {
+  margin-left: 0px;
+  /* Agrega padding a la izquierda */
+}
+
+.filter-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filters-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.clear-filters-button {
+  padding: 5px 10px;
+  background-color: #004F9F;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.clear-filters-button:hover {
+  background-color: #003366;
+}
+
+.table-wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.shopping-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.shopping-table th,
+.shopping-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  width: 16.66%;
+}
+
+.shopping-table th {
+  background-color: #004F9F;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
