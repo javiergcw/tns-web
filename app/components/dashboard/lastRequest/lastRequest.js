@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "react-modal";
+import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
 
+Modal.setAppElement("#__next"); // Asegúrate de que esto apunta al elemento correcto en tu aplicación
+
 /**
- * LastRequests Component
+ * CardModal Component
  *
- * Este componente muestra información sobre un área, su líder y una descripción.
- * Es un componente donde el administrador puede ver las últimas peticiones que hacen los jefes de área.
+ * Este componente representa una tarjeta que contiene un botón para abrir un modal. El modal muestra cualquier contenido pasado como `children`.
  *
- * @param {string} area - El título que representa el área.
- * @param {string} leader - El subtítulo que representa el nombre del líder.
- * @param {string} description - La descripción del área o solicitud.
+ * @param {object} children
+ * @param {string} cardTitle
+ * @param {string} buttonText
+ * @param {string} area
+ * @param {string} leader
+ * @param {string} description
  *
  * @component
  */
-const LastRequests = ({ area, leader, description }) => {
+const lastRequest = ({ children, cardTitle, buttonText, area, leader, description }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div className="p-6 bg-white shadow-md rounded-md max-w-md mx-auto h-64 w-1/3">
       <Text
@@ -41,8 +53,16 @@ const LastRequests = ({ area, leader, description }) => {
         type="normal"
         className="text-left mt-1"
       />
+      <NormalButton text={buttonText} onClick={handleModalToggle} />
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleModalToggle}
+        contentLabel="Example Modal"
+      >
+        {children}
+      </Modal>
     </div>
   );
 };
 
-export default LastRequests;
+export default lastRequest;

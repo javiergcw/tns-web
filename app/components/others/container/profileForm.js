@@ -27,11 +27,11 @@ const ProfileForm = () => {
     const fetchProfile = async () => {
       try {
         const storedUserId = localStorage.getItem("userId");
-        console.log("Retrieved userId from localStorage:", storedUserId);
+        //console.log("Retrieved userId from localStorage:", storedUserId);
         if (storedUserId) {
           setUserId(storedUserId);
           const profile = await getProfileById(storedUserId);
-          console.log("Fetched profile:", profile);
+          //console.log("Fetched profile:", profile);
           setName(profile.name);
           setPhone(profile.identificationNumber);
           setRole(profile.rol ? profile.rol.name : "");

@@ -1,23 +1,20 @@
-/** servicios */
 "use client";
-import { useState, useEffect } from "react";
-import { getAllShoppings } from "@/app/services/shoppingService";
-
-/** Componentes */
 import "/app/globals.css";
-
+import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
+import Container from "@/app/components/dashboard/container/container";
+import { useState, useEffect } from "react";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
-import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
-import Container from "@/app/components/dashboard/container/container";
+import { getAllShoppings } from "@/app/services/shoppingService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
+
 /**
- * dashboardManager Page
+ * dashboardPurchasing Page
  *
- * Esta página es el área de trabajo general del administrador que aprueba o niega las peticiones de compras.
+ * Esta página es el área de trabajo general del are de compras.
  * Aquí se muestra un dashboard con un drawer navegable, un carrusel de peticiones recientes,
  * un componente de gastos mensuales y una tabla de seguimiento de peticiones.
  *
@@ -32,10 +29,7 @@ import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC Priv
 const fetchData = async () => {
   try {
     const res = await getAllShoppings();
-    if (res) {
-      console.log(res)
-      return res;
-    }
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];
@@ -90,7 +84,7 @@ const getUnapprovedExpenses = (data) => {
   return pendingExpenses;
 };
 
-const DashboardManager = () => {
+const DashboardPurchasing = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
@@ -142,4 +136,4 @@ const DashboardManager = () => {
   );
 };
 
-export default PrivateRoute(DashboardManager);
+export default PrivateRoute(DashboardPurchasing);

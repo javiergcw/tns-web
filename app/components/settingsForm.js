@@ -23,7 +23,7 @@ const SMTPForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aquí puedes manejar el envío de los datos del formulario
-    console.log("Datos enviados:", formData);
+    //console.log("Datos enviados:", formData);
   };
 
   return (
