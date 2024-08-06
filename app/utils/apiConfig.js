@@ -16,6 +16,8 @@ const ENDPOINTS = {
   // ENDPOINTS DE COMPRAS
   shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+  getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
+
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   create_shopping: `${API_BASE_URL}/create_shopping`,
