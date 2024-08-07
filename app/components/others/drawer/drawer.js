@@ -9,6 +9,7 @@ import {
   MdVisibility,
   MdAddBox,
   MdSettings,
+  MdShoppingCart,
 } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
@@ -20,6 +21,13 @@ import ConfirmationModal from "../../modals/modalConfirmation"; // Importar el m
 import react from "@heroicons/react";
 
 const greenDrawer = "#96C11F";
+
+// Definición de roles y sus accesos
+const roleAccess = {
+  admin: ["/dashboardManager", "/view-product", "/profile", "/shoppings", "/create-product", "/settings"],
+  "Jefe de area": ["/dashboardManager", "/shoppings", "/profile", "/create-product"],
+  "Purchasing Area": ["/profile"],
+};
 
 /**
  * Drawer Component
@@ -81,7 +89,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   };
 
   // Listado de ítems con enlaces, nombres e íconos
-  const menuItems = [
+  const allMenuItems = [
     {
       link: "/dashboardManager",
       name: "Dashboard",
@@ -98,6 +106,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       icon: <MdPerson style={{ color: greenDrawer }} />,
     },
     {
+      link: "/shoppings",
+      name: "Shoppings",
+      icon: <MdShoppingCart style={{ color: greenDrawer }} />,
+    },
+    {
       link: "/create-product",
       name: "Create Product",
       icon: <MdAddBox style={{ color: greenDrawer }} />,
@@ -107,29 +120,34 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       name: "Settings",
       icon: <MdSettings style={{ color: greenDrawer }} />,
     }, // Nueva sección Settings
-    {
-      link: "#",
-      name: "Logout",
-      icon: <MdExitToApp style={{ color: greenDrawer }} />,
-      onClick: handleLogout,
-    },
   ];
+
+  // Filtrar las rutas según el rol del usuario
+  const accessibleMenuItems = allMenuItems.filter(item =>
+    roleAccess[profile?.rol?.name]?.includes(item.link)
+  );
+
+  // Agregar la opción de Logout que estará disponible para todos
+  accessibleMenuItems.push({
+    link: "#",
+    name: "Logout",
+    icon: <MdExitToApp style={{ color: greenDrawer }} />,
+    onClick: handleLogout,
+  });
 
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${
-          isOpen ? "w-64" : "w-24"
-        } transition-all duration-300 ease-in-out flex flex-col items-center`}
+        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
+          } transition-all duration-300 ease-in-out flex flex-col items-center`}
       >
         <button
           onClick={onToggle}
           className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
         >
           <IoMenu
-            className={`text-greenDrawer ${
-              isOpen ? "text-2xl" : "text-4xl"
-            } transition-all duration-300`}
+            className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"
+              } transition-all duration-300`}
           />
         </button>
         <div className="flex flex-col items-center w-full mt-4 flex-1">
@@ -160,12 +178,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             )}
           </div>
           <ul className="mt-6 space-y-4 w-full flex-1">
-            {menuItems.map((item, index) => (
+            {accessibleMenuItems.map((item, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-                  isOpen ? "items-center" : "justify-center"
-                } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
+                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
                 onClick={
                   item.onClick
                     ? item.onClick
@@ -173,14 +190,12 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                 }
               >
                 <div
-                  className={`flex items-center w-full ${
-                    isOpen ? "" : "justify-center"
-                  }`}
+                  className={`flex items-center w-full ${isOpen ? "" : "justify-center"
+                    }`}
                 >
                   <span
-                    className={`text-green-500 ${
-                      isOpen ? "text-2xl" : "text-4xl"
-                    } flex items-center justify-center transition-all duration-300`}
+                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
+                      } flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>

@@ -31,7 +31,7 @@ const SMTPForm = () => {
       <h1 className="text-3xl font-bold mb-6 text-blue-800">Configuraciones</h1>
       <form
         onSubmit={handleSubmit}
-        className="bg-bgPrimary p-6 rounded-lg shadow-md w-full max-w-2xl"
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl"
       >
         <h2 className="text-2xl font-bold mb-4  text-blue-800">
           Configuración SMTP
