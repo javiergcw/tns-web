@@ -1,4 +1,3 @@
-// services/apiService.js
 import { post } from "./apiRequest";
 import { ENDPOINTS } from "../utils/apiConfig";
 import { AuthResponse, AuthData } from "../models/login/authModel";
@@ -38,5 +37,28 @@ export const login = async (email, password) => {
       error.response ? error.response.data : error.message
     );
     throw new Error("Login failed");
+  }
+};
+
+// Función para logout
+export const logout = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No token found");
+
+    const response = await post(ENDPOINTS.logout, {}, true); // True porque requiere autenticación
+
+    console.log("Logout response:", response); // Para depuración
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
+    return response;
+  } catch (error) {
+    console.error(
+      "Logout failed:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error("Logout failed");
   }
 };

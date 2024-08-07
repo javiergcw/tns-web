@@ -22,22 +22,22 @@ const TrackingTable = ({ data }) => {
   // Verifica que data es un arreglo antes de mapear
   const rows = Array.isArray(data)
     ? data.flatMap((item) =>
-        item.products.map((product) => [
-          item.id,
-          product.name,
-          item.category ? item.category.name : "N/A",
-          item.status ? item.status.name : "N/A",
-          item.created_at
-            ? new Date(item.created_at).toLocaleDateString()
-            : "N/A",
-          item.pending_date
-            ? new Date(item.pending_date).toLocaleDateString()
-            : "N/A",
-          item.date_approval
-            ? new Date(item.date_approval).toLocaleDateString()
-            : "N/A",
-        ])
-      )
+      item.products.map((product) => [
+        item.id,
+        product.name,
+        item.category ? item.category.name : "N/A",
+        item.status ? item.status.name : "N/A",
+        item.created_at
+          ? new Date(item.created_at).toLocaleDateString()
+          : "N/A",
+        item.pending_date
+          ? new Date(item.pending_date).toLocaleDateString()
+          : "N/A",
+        item.date_approval
+          ? new Date(item.date_approval).toLocaleDateString()
+          : "N/A",
+      ])
+    )
     : [];
 
   console.log("TrackingTable input data:", data);
@@ -46,7 +46,7 @@ const TrackingTable = ({ data }) => {
   return (
     <>
       <Text texto="TRACKING PETICIONES" color="blue-secondary" type="header" />
-      <div className="bg-whit  p-4 rounded-lg mt-4 overflow-x-auto">
+      <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
         <Table columns={columns} data={rows} />
       </div>
     </>
