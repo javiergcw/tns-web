@@ -1,3 +1,5 @@
+import createProduct from "@/pages/create-product";
+
 // config/apiConfig.js
 const API_BASE_URL = "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
 
@@ -18,10 +20,17 @@ const ENDPOINTS = {
   shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
+  getLatestStatisticalRequestsOfTheMonth:`${API_BASE_URL}/shoppings/summary`,
+  
 
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   create_shopping: `${API_BASE_URL}/create_shopping`,
+
+//ENDPOINTS PRODUCTOS
+products: `${API_BASE_URL}/products`,
+createProduct:`${API_BASE_URL}/products`,
+
   // POSTS
   getPosts: `${API_BASE_URL}/posts`,
   // ROLES

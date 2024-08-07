@@ -56,7 +56,7 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   const dataset = chartData.datasets[0];
 
   return (
-    <div className="bg-white shadow-md rounded-lg px-8  w-1/2 h-64">
+    <div className="bg-white shadow-md rounded-lg px-8 py-6 w-full sm:w-1/2 h-auto">
       <Text
         texto={type === "month" ? "PETICIONES MENSUAL" : "PETICIONES ANUAL"}
         color="blue-secondary"
@@ -67,7 +67,16 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
       </div>
       <div className="mt-8 space-y-4">
         {chartData.labels.map((label, index) => (
-          <div key={index} className="flex items-center justify-center"></div>
+          <div key={index} className="flex items-center justify-start space-x-4">
+            <div className="flex items-center">
+              <div
+                className="w-4 h-4 mr-2"
+                style={{ backgroundColor: dataset.backgroundColor[index] }}
+              ></div>
+              <span className="text-black font-bold">{label}:</span>
+            </div>
+            <span className="font-bold">{dataset.data[index]}</span>
+          </div>
         ))}
       </div>
     </div>

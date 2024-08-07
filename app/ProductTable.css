@@ -1,0 +1,30 @@
+/* components/ProductTable.css */
+
+.product-table th {
+    background-color: #004F9F;
+    color: white;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .product-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .product-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .product-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #004F9F;
+    color: white;
+  }
+  

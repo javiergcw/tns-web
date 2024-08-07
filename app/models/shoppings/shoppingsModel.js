@@ -38,6 +38,9 @@ class StatusDTO {
 }
 
 class ShoppingDTO {
+
+  constructor({ id, created_at, updated_at, request_date, pending_date, date_approval, title, description, category, status, user, products }) {
+
   constructor({
     id,
     created_at,
@@ -50,12 +53,15 @@ class ShoppingDTO {
     user,
     products,
   }) {
+
     this.id = id;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.request_date = request_date;
     this.pending_date = pending_date;
     this.date_approval = date_approval;
+    this.title = title; // Añadido campo title
+    this.description = description; // Añadido campo description
     this.category = new CategoryDTO(category);
     this.status = new StatusDTO(status);
     this.user = new UserDTO(user);

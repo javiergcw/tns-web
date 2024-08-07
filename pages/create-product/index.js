@@ -3,11 +3,11 @@ import "/app/globals.css";
 import React, { useState } from "react";
 import MainLayout from "@/app/components/layout/drawerLayout";
 import CreatePurchaseForm from "@/app/components/others/container/createPurchaseForm";
-import ProveedorForm from "@/app/components/others/fields/proveedorForm";
+import ProductForm from "@/app/components/others/fields/productForm";
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 
 const CreateProduct = () => {
-  const [proveedores, setProveedores] = useState([]);
+  const [products, setProducts] = useState([]);
 
   return (
     <MainLayout>
@@ -15,10 +15,10 @@ const CreateProduct = () => {
         <h1 className="text-3xl font-bold mb-6 text-blue-800">Crear Producto</h1>
         <div className="w-full bg-Primary p-4 md:p-8 rounded-lg  flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
           <div className="w-full md:w-1/2">
-            <CreatePurchaseForm products={[]} proveedores={proveedores} />
+          <ProductForm setProducts={setProducts} />
           </div>
           <div className="w-full md:w-1/2">
-            <ProveedorForm setProveedores={setProveedores} />
+          <CreatePurchaseForm  products={products} />
           </div>
         </div>
       </div>

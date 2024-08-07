@@ -12,10 +12,12 @@ import Text from "@/app/components/others/text/text";
  * @component
  */
 const MonthlyExpenses = ({ total = 0, data = [] }) => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("Datos recibidos en MonthlyExpenses:", data);
+  }, [data]);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md h-64 w-1/2">
+    <div className="bg-white p-4 rounded-lg shadow-md h-auto w-full sm:w-1/2">
       <Text texto="GASTOS DEL MES" color="blue-secondary" type="title" />
       <Text
         texto={
@@ -28,7 +30,7 @@ const MonthlyExpenses = ({ total = 0, data = [] }) => {
         color="green"
         type="title"
       />
-      <ul className="mt-4 overflow-y-scroll">
+      <ul className="mt-4 overflow-y-auto max-h-48">
         {data.map((item, index) => (
           <li
             key={index}
@@ -37,9 +39,9 @@ const MonthlyExpenses = ({ total = 0, data = [] }) => {
             <span>
               {item.price
                 ? item.price.toLocaleString("es-CO", {
-                    style: "currency",
-                    currency: "COP",
-                  })
+                  style: "currency",
+                  currency: "COP",
+                })
                 : "N/A"}
             </span>
             <span className="ml-4">{item.name}</span>

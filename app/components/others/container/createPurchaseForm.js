@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getCategories } from '@/app/services/categoryService';
 import { createShopping } from '@/app/services/shoppingService';
 
-const CreatePurchaseForm = ({ proveedores }) => {
+const CreatePurchaseForm = ({ products }) => {
   const [categories, setCategories] = useState([]);
   const [category_id, setCategoryId] = useState('');
-  const [selectedProveedores, setSelectedProveedores] = useState([]);
+  const [selectedproducts, setSelectedproducts] = useState([]);
   const [request_date, setRequestDate] = useState('');
   const [pending_date, setPendingDate] = useState('');
   const [date_approval, setDateApproval] = useState('');
@@ -22,10 +22,10 @@ const CreatePurchaseForm = ({ proveedores }) => {
 
   const handleCheckboxChange = (event) => {
     const { value, checked } = event.target;
-    setSelectedProveedores((prevSelected) =>
+    setSelectedproducts((prevSelected) =>
       checked
         ? [...prevSelected, value]
-        : prevSelected.filter((proveedor) => proveedor !== value)
+        : prevSelected.filter((product) => product !== value)
     );
   };
 
@@ -36,13 +36,14 @@ const CreatePurchaseForm = ({ proveedores }) => {
       return;
     }
 
-    const productsData = proveedores.filter(proveedor => selectedProveedores.includes(proveedor.title))
-                                   .map(proveedor => ({
-                                      name: proveedor.title,
-                                      url: proveedor.url,
-                                      description: proveedor.description,
-                                      price: parseFloat(proveedor.price.replace(/\./g, ''))
-                                   }));
+    const productsData = products
+      .filter((product) => selectedproducts.includes(product.title))
+      .map((product) => ({
+        name: product.title,
+        url: product.url,
+        description: product.description,
+        price: parseFloat(product.price.replace(/\./g, '').replace(/,/g, '')),
+      }));
 
     const shoppingData = {
       shopping: {
@@ -55,11 +56,13 @@ const CreatePurchaseForm = ({ proveedores }) => {
       products: productsData,
     };
 
+    console.log('Datos de la compra que se están enviando:', shoppingData); // Línea de depuración
+
     try {
       await createShopping(shoppingData);
       alert('Compra creada exitosamente');
     } catch (error) {
-      console.error('Error creating purchase:', error);
+      console.error('Error al crear la compra:', error);
       alert('Error al crear la compra');
     }
   };
@@ -84,19 +87,19 @@ const CreatePurchaseForm = ({ proveedores }) => {
       </div>
       <div className="mb-4">
         <label className="block text-black text-sm font-bold mb-2">
-          Selecciona Proveedores:
+          Selecciona productos:
         </label>
-        {proveedores.map((proveedor, index) => (
+        {products.map((product, index) => (
           <div key={index} className="flex items-center mb-2">
             <input
               type="checkbox"
-              id={`proveedor-${index}`}
-              value={proveedor.title}
+              id={`product-${index}`}
+              value={product.title}
               onChange={handleCheckboxChange}
               className="mr-2 leading-tight text-black checked:text-greenDrawer"
             />
-            <label htmlFor={`proveedor-${index}`} className="text-black">
-              {proveedor.title}
+            <label htmlFor={`product-${index}`} className="text-black">
+              {product.title}
             </label>
           </div>
         ))}

@@ -1,9 +1,16 @@
+"use client";
+import "/app/globals.css";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LastRequests from "@/app/components/dashboard/lastRequest/lastRequest";
 import Text from "@/app/components/others/text/text";
+
+import { getLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
+
+
 import { getAllShoppings } from "@/app/services/shoppingService";
 import PurchaseDetail from "@/app/components/dashboard/purchaseDetails/purchaseDetails";
+
 /**
  * RequestsCarousel Component
  *
@@ -28,17 +35,17 @@ const RequestsCarousel = () => {
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRequests = async () => {
       try {
-        const products = await getAllShoppings();
-        console.log("Fetched products:", products); // Log para depuración
-        setRequestsData(products);
+        const requests = await getLatestStatisticalRequestsOfTheMonth();
+        console.log("Fetched requests:", requests); // Log para depuración
+        setRequestsData(requests);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching requests:", error);
       }
     };
 
-    fetchProducts();
+    fetchRequests();
     updateItemsPerPage();
     window.addEventListener("resize", updateItemsPerPage);
     return () => window.removeEventListener("resize", updateItemsPerPage);
@@ -57,7 +64,7 @@ const RequestsCarousel = () => {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Text
         texto="ÚLTIMAS PETICIONES DE COMPRA"
         color="blue-secondary"
@@ -71,7 +78,7 @@ const RequestsCarousel = () => {
         >
           &lt;
         </button>
-        <div className="flex">
+        <div className="flex overflow-x-hidden">
           <AnimatePresence initial={false}>
             <motion.div
               key={currentIndex}
@@ -86,6 +93,12 @@ const RequestsCarousel = () => {
                 .map((request, index) => (
                   <LastRequests
                     key={index}
+
+                    area={request.category.name || "N/A"} // Categoría de la compra
+                    leader={request.user.profile.name || "N/A"} // Nombre del usuario que hizo la solicitud
+                    description={request.description || "N/A"} // Descripción de la compra
+                  />
+
                     cardTitle="Purchase Request"
                     buttonText="View Details"
                     area="Electronics"
@@ -94,6 +107,7 @@ const RequestsCarousel = () => {
                   >
                     <PurchaseDetail />
                   </LastRequests>
+
                 ))}
             </motion.div>
           </AnimatePresence>

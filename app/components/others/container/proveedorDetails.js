@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ProveedorDetails = ({ proveedor, onClose }) => {
-  if (!proveedor) {
-    return <div className="text-center">Seleccione un proveedor para ver los detalles</div>;
+const ProductDetails = ({ product, onClose }) => {
+  if (!product) {
+    return <div className="text-center">Seleccione un product para ver los detalles</div>;
   }
 
   return (
@@ -12,15 +12,15 @@ const ProveedorDetails = ({ proveedor, onClose }) => {
       </div>
       <div className="mb-4">
         <div className="bg-gray-100 p-4 rounded-lg mb-4">
-          <img src={proveedor.image} alt="Imagen del Proveedor" className="h-24 mx-auto mb-4" />
+          <img src={product.image} alt="Imagen del product" className="h-24 mx-auto mb-4" />
         </div>
-        <div className="text-2xl font-bold text-blue-600 mb-2">Información del proveedor</div>
-        <div className="text-lg font-semibold mb-2">{proveedor.title}</div>
-        <div className="text-gray-700 mb-4 break-words">{proveedor.description}</div>
-        <div className="text-lg">Valor: {proveedor.price}</div>
+        <div className="text-2xl font-bold text-blue-600 mb-2">Información del product</div>
+        <div className="text-lg font-semibold mb-2">{product.title}</div>
+        <div className="text-gray-700 mb-4 break-words">{product.description}</div>
+        <div className="text-lg">Valor: {product.price}</div>
       </div>
     </div>
   );
 };
 
-export default ProveedorDetails;
+export default ProductDetails;

@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import ProveedorDetails from '../container/proveedorDetails';
+import ProductDetails from '../container/proveedorDetails';
+import { createProduct } from '@/app/services/productService';
 
-const ProveedorForm = ({ setProveedores }) => {
-  const [proveedoresList, setProveedoresList] = useState([]);
+const ProductForm = ({ setProducts }) => {
+  const [productsList, setProductsList] = useState([]);
   const [formData, setFormData] = useState({
     image: '',
     title: '',
@@ -10,7 +11,7 @@ const ProveedorForm = ({ setProveedores }) => {
     url: '',
     price: ''
   });
-  const [selectedProveedor, setSelectedProveedor] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
 
@@ -49,55 +50,74 @@ const ProveedorForm = ({ setProveedores }) => {
     setFormData({ ...formData, price: formattedValue });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.image && formData.title && formData.description && formData.price && formData.url) {
-      let updatedProveedores;
+      let updatedProducts;
       if (isEditing) {
-        updatedProveedores = proveedoresList.map((proveedor, index) =>
-          index === editIndex ? formData : proveedor
+        updatedProducts = productsList.map((product, index) =>
+          index === editIndex ? formData : product
         );
         setIsEditing(false);
         setEditIndex(null);
       } else {
-        updatedProveedores = [...proveedoresList, formData];
+        try {
+          const newProduct = {
+            name: formData.title,
+            url: formData.url,
+            description: formData.description,
+            price: parseFloat(formData.price.replace(/,/g, ''))
+          };
+          const createdProduct = await createProduct(newProduct);
+          const productWithImage = { ...createdProduct, image: formData.image };
+          updatedProducts = [...productsList, productWithImage];
+        } catch (error) {
+          console.error('Error al crear el producto:', error);
+          return;
+        }
       }
-      setProveedoresList(updatedProveedores);
-      setProveedores(updatedProveedores);
+      setProductsList(updatedProducts);
+      setProducts(updatedProducts);
       setFormData({ image: '', title: '', description: '', url: '', price: '' });
     } else {
       alert('Todos los campos son requeridos');
     }
   };
 
-  const handleProveedorClick = (proveedor) => {
-    setSelectedProveedor(proveedor);
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
   };
 
   const closeModal = () => {
-    setSelectedProveedor(null);
+    setSelectedProduct(null);
   };
 
   const handleDelete = (index) => {
-    const newProveedores = proveedoresList.filter((_, i) => i !== index);
-    setProveedoresList(newProveedores);
-    setProveedores(newProveedores);
-    if (selectedProveedor && proveedoresList[index] === selectedProveedor) {
-      setSelectedProveedor(null);
+    const newProducts = productsList.filter((_, i) => i !== index);
+    setProductsList(newProducts);
+    setProducts(newProducts);
+    if (selectedProduct && productsList[index] === selectedProduct) {
+      setSelectedProduct(null);
     }
   };
 
   const handleEdit = (index) => {
-    const proveedor = proveedoresList[index];
-    setFormData(proveedor);
+    const product = productsList[index];
+    setFormData({
+      image: product.image,
+      title: product.name,
+      description: product.description,
+      url: product.url,
+      price: product.price.toString()
+    });
     setIsEditing(true);
     setEditIndex(index);
   };
 
   return (
-    <div className={`flex flex-col md:flex-row w-full ${selectedProveedor ? 'md:space-x-4' : ''} space-y-4 md:space-y-0`}>
-      <form onSubmit={handleSubmit} className={`w-full ${selectedProveedor ? 'md:w-1/2' : 'md:w-full'} bg-white p-6 rounded-lg shadow-md`}>
-        <h2 className="text-2xl font-bold mb-4 text-black">Proveedores</h2>
+    <div className={`flex flex-col md:flex-row w-full ${selectedProduct ? 'md:space-x-4' : ''} space-y-4 md:space-y-0`}>
+      <form onSubmit={handleSubmit} className={`w-full ${selectedProduct ? 'md:w-1/2' : 'md:w-full'} bg-white p-6 rounded-lg shadow-md`}>
+        <h2 className="text-2xl font-bold mb-4 text-black">Products</h2>
         <div className="relative mb-4">
           <div
             className="flex overflow-x-auto space-x-4 no-scrollbar"
@@ -105,7 +125,7 @@ const ProveedorForm = ({ setProveedores }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {proveedoresList.map((proveedor, index) => (
+            {productsList.map((product, index) => (
               <div key={index} className="bg-white p-2 rounded-lg shadow relative w-48 flex-shrink-0 group">
                 <div className="absolute top-0 right-0 flex space-x-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button onClick={() => handleEdit(index)} className="text-blue-500 hover:text-blue-700">
@@ -120,13 +140,13 @@ const ProveedorForm = ({ setProveedores }) => {
                     </svg>
                   </button>
                 </div>
-                <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProveedorClick(proveedor)}>
+                <div className="cursor-pointer flex items-center space-x-4" onClick={() => handleProductClick(product)}>
                   <div className="flex-shrink-0">
-                    <img src={proveedor.image} alt="Imagen del Proveedor" className="h-16 w-16 object-cover" />
+                    <img src={product.image} alt="Imagen del Product" className="h-16 w-16 object-cover" />
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-black">{proveedor.title}</div>
-                    <div className="text-sm text-black">Valor {proveedor.price}</div>
+                    <div className="font-bold text-sm text-black">{product.name}</div>
+                    <div className="text-sm text-black">Valor {product.price}</div>
                   </div>
                 </div>
               </div>
@@ -156,7 +176,7 @@ const ProveedorForm = ({ setProveedores }) => {
             ) : (
               <>
                 <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M16.88 9.94a1 1 0 00-.76-.35H13V3a1 1 0 00-1-1H8a1 1 0 00-1 1v6.59L4.71 8.3a1 1 0 10-1.42 1.42l3 3a1 1 0 001.42 0l3-3a1 1 0 00.29-.7 1 1 0 00-.3-.71zM15 17H5a2 2 0 010-4h1.5a1 1 0 010 2H5a.5.5 0 000 1h10a.5.5 0 000-1h-1.5a1 1 0 010-2H15a2 2 0 010 4z"/>
+                  <path d="M16.88 9.94a1 1 0 00-.76-.35H13V3a1 1 0 00-1-1H8a1 1 0 00-1 1v6.59L4.71 8.3a1 1 0 10-1.42 1.42l3 3a1 1 0 001.42 0l3-3a1 1 0 00.29-.7 1 1 0 00-.3-.71zM15 17H5a2 2 0 010-4h1.5a1 1 0 010 2H5a.5.5 0 000 1h10a.5.5 0 000-1h-1.5a1 1 0 010-2H15a2 2 0 010 4z" />
                 </svg>
                 <span className="mt-2 text-base leading-normal">Seleccionar una imagen</span>
               </>
@@ -225,13 +245,13 @@ const ProveedorForm = ({ setProveedores }) => {
           {isEditing ? 'Guardar cambios' : 'Añadir un artículo'}
         </button>
       </form>
-      {selectedProveedor && (
+      {selectedProduct && (
         <div className="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md overflow-auto">
-          <ProveedorDetails proveedor={selectedProveedor} onClose={closeModal} />
+          <ProductDetails product={selectedProduct} onClose={closeModal} />
         </div>
       )}
     </div>
   );
 };
 
-export default ProveedorForm;
+export default ProductForm;
