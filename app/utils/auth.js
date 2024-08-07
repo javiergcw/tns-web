@@ -17,7 +17,7 @@ export const logout = async () => {
       await apiLogout(); // Llama a la función logout del apiService
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
-    } catch (error) {
+    } catch (error) { 
       console.error("Logout failed:", error);
     }
   }
