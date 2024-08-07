@@ -38,7 +38,22 @@ class StatusDTO {
 }
 
 class ShoppingDTO {
+
   constructor({ id, created_at, updated_at, request_date, pending_date, date_approval, title, description, category, status, user, products }) {
+
+  constructor({
+    id,
+    created_at,
+    updated_at,
+    request_date,
+    pending_date,
+    date_approval,
+    category,
+    status,
+    user,
+    products,
+  }) {
+
     this.id = id;
     this.created_at = created_at;
     this.updated_at = updated_at;
@@ -50,7 +65,7 @@ class ShoppingDTO {
     this.category = new CategoryDTO(category);
     this.status = new StatusDTO(status);
     this.user = new UserDTO(user);
-    this.products = products.map(product => new ProductDTO(product));
+    this.products = products.map((product) => new ProductDTO(product));
   }
 }
 

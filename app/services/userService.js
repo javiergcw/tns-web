@@ -22,19 +22,19 @@ export const getUserProfile = async () => {
   if (!userId) {
     userId = "defaultUserId"; // Valor quemado solo para desarrollo
     localStorage.setItem("userId", userId);
-    console.log("User ID was missing, setting default:", userId); // Para depuración
+    //console.log("User ID was missing, setting default:", userId); // Para depuración
   } else {
-    console.log("User ID from localStorage:", userId); // Para depuración
+    //console.log("User ID from localStorage:", userId); // Para depuración
   }
 
   try {
     // Hacer la solicitud para obtener el perfil del usuario
     const url = ENDPOINTS.getProfileById(userId);
-    console.log('Requesting profile with URL:', url); // Para depuración
+    //console.log('Requesting profile with URL:', url); // Para depuración
 
 
     const response = await axios.get(url, getAuthHeaders());
-    console.log("Profile response:", response.data); // Para depuración
+    //console.log("Profile response:", response.data); // Para depuración
 
     // Crear una instancia de Profile con los datos de la respuesta
     return new Profile(response.data.profile);
@@ -53,18 +53,18 @@ export const getUserProfile = async () => {
   // Si no hay userId en localStorage, lo establecemos con un valor quemado (solo para desarrollo)
   if (!userId) {
     localStorage.setItem("userId", userId);
-    console.log("User ID was missing, setting default:", userId); // Para depuración
+    //console.log("User ID was missing, setting default:", userId); // Para depuración
   } else {
-    console.log("User ID from localStorage:", userId); // Para depuración
+    //console.log("User ID from localStorage:", userId); // Para depuración
   }
 
   try {
     // Hacer la solicitud para obtener el perfil del usuario
     const url = ENDPOINTS.getProfileById(userId);
-    console.log("Requesting profile with URL:", url); // Para depuración
+    //console.log("Requesting profile with URL:", url); // Para depuración
 
     const response = await axios.get(url, getAuthHeaders());
-    console.log("Profile response:", response.data); // Para depuración
+    //console.log("Profile response:", response.data); // Para depuración
 
     // Crear una instancia de Profile con los datos de la respuesta
     return new Profile(response.data.profile);

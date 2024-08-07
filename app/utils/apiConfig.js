@@ -2,6 +2,7 @@ import createProduct from "@/pages/create-product";
 
 // config/apiConfig.js
 const API_BASE_URL = "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
+
 const BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM1LCJqdGkiOiI5MGQ1NGY3Yy1hMTgwLTQ1NzktYWViNy0xYWM3Yzc4YWQ4YjUiLCJleHAiOjE3MjMxMjk4MDh9.Xhl_KUQGQE0IYSpjb3Ru0UNhIy3FMNa6IJOmBuP4zRE"
 const ENDPOINTS = {
   login: `${API_BASE_URL}/login`,
@@ -25,12 +26,13 @@ const ENDPOINTS = {
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   create_shopping: `${API_BASE_URL}/create_shopping`,
+
 //ENDPOINTS PRODUCTOS
 products: `${API_BASE_URL}/products`,
 createProduct:`${API_BASE_URL}/products`,
+
   // POSTS
   getPosts: `${API_BASE_URL}/posts`,
-
   // ROLES
   roles: `${API_BASE_URL}/roles`,
   deleteRole: `${API_BASE_URL}/roles/delete`,
@@ -38,4 +40,4 @@ createProduct:`${API_BASE_URL}/products`,
   // Agrega más endpoints según sea necesario
 };
 
-export { API_BASE_URL, BEARER_TOKEN, ENDPOINTS };
+export { API_BASE_URL, ENDPOINTS };

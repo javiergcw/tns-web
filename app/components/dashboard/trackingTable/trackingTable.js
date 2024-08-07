@@ -40,8 +40,8 @@ const TrackingTable = ({ data }) => {
     )
     : [];
 
-  console.log("TrackingTable input data:", data);
-  console.log("TrackingTable rows:", rows);
+  //console.log("TrackingTable input data:", data);
+  //console.log("TrackingTable rows:", rows);
 
   return (
     <>

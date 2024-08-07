@@ -21,8 +21,7 @@ const getAllProfiles = async () => {
 const getProfileById = async (id) => {
   try {
     const response = await get(ENDPOINTS.getProfileById(id));
-    console.log('Respuesta del servidor en getProfileById:', response);  // Añade esta línea para depuración
-
+    //console.log('Respuesta del servidor en getProfileById:', response);  // Añade esta línea para depuración
     return new Profile(response);  // Ajusta esta línea según la estructura real de tu respuesta
   } catch (error) {
     console.error('Error:', error);

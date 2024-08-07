@@ -14,7 +14,7 @@ export const register = async (email, password, passwordConfirmation, name) => {
 
   try {
     const response = await post(ENDPOINTS.register, user, false); // False si el registro no requiere autenticación previa
-    console.log("Register response:", response); // Para depuración
+    //console.log("Register response:", response); // Para depuración
 
     // Verificar si la respuesta contiene la información esperada
     if (response && response.data) {
@@ -29,7 +29,7 @@ export const register = async (email, password, passwordConfirmation, name) => {
         )
       );
 
-      console.log("Parsed AuthResponse:", authResponse); // Para depuración
+      //console.log("Parsed AuthResponse:", authResponse); // Para depuración
       return authResponse;
     } else {
       console.error("Unexpected response format:", response);

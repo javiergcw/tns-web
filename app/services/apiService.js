@@ -7,7 +7,7 @@ export const login = async (email, password) => {
 
   try {
     const response = await post(ENDPOINTS.login, user, false); // False si el login no requiere autenticación previa
-    console.log("Login response:", response); // Para depuración
+    //console.log("Login response:", response); // Para depuración
 
     const authResponse = new AuthResponse(
       response.status,
@@ -20,15 +20,15 @@ export const login = async (email, password) => {
       )
     );
 
-    console.log("Parsed AuthResponse:", authResponse); // Para depuración
+    //console.log("Parsed AuthResponse:", authResponse); // Para depuración
 
     if (authResponse.data.token) {
-      console.log("Token is present, storing in localStorage"); // Para depuración
+      //console.log("Token is present, storing in localStorage"); // Para depuración
       localStorage.setItem("token", authResponse.data.token);
-      console.log("Token stored:", localStorage.getItem("token")); // Verificar almacenamiento
+      //console.log("Token stored:", localStorage.getItem("token")); // Verificar almacenamiento
 
       localStorage.setItem("userId", authResponse.data.id);
-      console.log("User ID stored:", localStorage.getItem("userId")); // Verificar almacenamiento
+      //console.log("User ID stored:", localStorage.getItem("userId")); // Verificar almacenamiento
     }
     return authResponse;
   } catch (error) {

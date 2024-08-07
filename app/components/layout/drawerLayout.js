@@ -12,10 +12,10 @@ const DrawerLayout = ({ children }) => {
     const fetchProfile = async () => {
       try {
         const storedUserId = localStorage.getItem("userId");
-        console.log("Retrieved userId from localStorage:", storedUserId); // Depuración
+        //console.log("Retrieved userId from localStorage:", storedUserId); // Depuración
         if (storedUserId) {
           const profileData = await getProfileById(storedUserId);
-          console.log("Fetched profile:", profileData); // Depuración
+          //console.log("Fetched profile:", profileData); // Depuración
           setProfile(profileData);
         } else {
           throw new Error("User ID not found in localStorage");
