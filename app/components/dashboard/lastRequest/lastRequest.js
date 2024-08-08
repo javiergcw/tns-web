@@ -15,12 +15,8 @@ import Text from "@/app/components/others/text/text";
  */
 const LastRequest = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("item que llega");
-  console.log(item);
-
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
-    console.log("Modal" + !isModalOpen);
   };
 
   // Extraer datos del objeto item
@@ -60,7 +56,7 @@ const LastRequest = ({ item }) => {
         className="text-left mt-1"
       />
       <NormalButton text="Ver Detalles" onClick={handleModalToggle} />
-      <LastRequestDetailsModal isOpen={isModalOpen} onClose={handleModalToggle} item={item}>
+      <LastRequestDetailsModal isOpen={isModalOpen} onClose={handleModalToggle} item={item} total={totalValue}>
         {/* Aquí puedes pasar más detalles del item al modal si es necesario */}
       </LastRequestDetailsModal>
     </div>
