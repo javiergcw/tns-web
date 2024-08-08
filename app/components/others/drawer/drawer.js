@@ -16,35 +16,27 @@ import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import { useRouter } from "next/router";
-import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones constantes
-import ConfirmationModal from "../../modals/modalConfirmation"; // Importar el modal de confirmación
-import react from "@heroicons/react";
+import { RedButton, BlueButton } from "@/app/utils/Buttons";
+import ConfirmationModal from "../../modals/modalConfirmation";
+import { createBug } from "@/app/services/bugService";
 
 const greenDrawer = "#96C11F";
 
-// Definición de roles y sus accesos
 const roleAccess = {
   admin: ["/dashboardManager", "/view-product", "/profile", "/shoppings", "/create-product", "/settings"],
   "Jefe de area": ["/dashboardManager", "/shoppings", "/profile", "/create-product"],
   "Purchasing Area": ["/profile"],
-  "Sin rol":["/profile"]
+  "Sin rol": ["/profile"],
 };
 
-/**
- * Drawer Component
- *
- * Este componente genera un menú lateral desplegable con 5 ítems.
- *
- * @param {boolean} isOpen - Estado de si el drawer está abierto.
- * @param {function} onToggle - Función para alternar el estado del drawer.
- * @param {object} profile - Datos del perfil del usuario logueado.
- *
- * @component
- */
 const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [description, setDescription] = useState('');
+
   const router = useRouter();
 
   const handleNavigation = (link) => {
@@ -55,7 +47,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       setTimeout(() => {
         router.push(link);
         setLoading(false);
-      }, 300); // Asegurar tiempo suficiente para desmontar componentes
+      }, 300);
     }
   };
 
@@ -65,7 +57,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
   const confirmLogout = () => {
     setLoading(true);
-    setIsLogoutModalOpen(false); // Cerrar el modal antes de redirigir
+    setIsLogoutModalOpen(false);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     router.push("/login");
@@ -75,10 +67,31 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsModalOpen(true);
   };
 
-  const handleModalSubmit = (event) => {
+  const handleModalSubmit = async (event) => {
     event.preventDefault();
-    // Lógica para manejar la solicitud del modal
-    setIsModalOpen(false);
+
+    const user_id = localStorage.getItem('userId');
+    if (!user_id) {
+      alert('User not logged in');
+      return;
+    }
+
+    const bugData = {
+      title,
+      category_id: categoryId,
+      description,
+      user_id,
+    };
+
+    try {
+      const newBug = await createBug(bugData);
+      console.log('Bug creado:', newBug);
+      alert('Bug creado con éxito');
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error al crear el bug:', error);
+      alert('Error al crear el bug');
+    }
   };
 
   const closeModal = () => {
@@ -89,7 +102,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsLogoutModalOpen(false);
   };
 
-  // Listado de ítems con enlaces, nombres e íconos
   const allMenuItems = [
     {
       link: "/dashboardManager",
@@ -120,15 +132,13 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       link: "/settings",
       name: "Settings",
       icon: <MdSettings style={{ color: greenDrawer }} />,
-    }, // Nueva sección Settings
+    },
   ];
 
-  // Filtrar las rutas según el rol del usuario
   const accessibleMenuItems = allMenuItems.filter(item =>
     roleAccess[profile?.rol?.name]?.includes(item.link)
   );
 
-  // Agregar la opción de Logout que estará disponible para todos
   accessibleMenuItems.push({
     link: "#",
     name: "Logout",
@@ -254,31 +264,36 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         <form onSubmit={handleModalSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-black mb-2">
-              Input 1
+              Título
             </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-black mb-2">
-              Input 2
+              Categoría ID
             </label>
             <input
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
               required
             />
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-black mb-2">
-              Input 3
+              Descripción
             </label>
-            <input
-              type="text"
+            <textarea
               className="w-full p-2 border border-gray-300 rounded"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>

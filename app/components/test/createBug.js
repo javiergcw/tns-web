@@ -1,87 +1,69 @@
+// components/CreateBugForm.js
 import React, { useState } from 'react';
 import { createBug } from '@/app/services/bugService';
 
 const CreateBugForm = () => {
-    const [title, setTitle] = useState('');
-    const [categoryId, setCategoryId] = useState('');
-    const [description, setDescription] = useState('');
-    const [userId, setUserId] = useState('');
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState('');
+  const [title, setTitle] = useState('');
+  const [category_id, setCategoryId] = useState('');
+  const [description, setDescription] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError(null);
-        setSuccessMessage('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        const bugData = {
-            title,
-            categoryId: parseInt(categoryId),
-            description,
-            userId: parseInt(userId)
-        };
+    const user_id = localStorage.getItem('userId');
+    if (!user_id) {
+      alert('User not logged in');
+      return;
+    }
 
-        try {
-            const response = await createBug(bugData);
-            setSuccessMessage('Bug creado con éxito');
-            setTitle('');
-            setCategoryId('');
-            setDescription('');
-            setUserId('');
-        } catch (error) {
-            setError('Error al crear el bug. Inténtalo de nuevo.');
-        }
+    const bugData = {
+      title,
+      category_id,
+      description,
+      user_id,
     };
 
-    return (
-        <div>
-            <h2>Crear Nuevo Bug</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Título:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="categoryId">ID de Categoría:</label>
-                    <input
-                        type="number"
-                        id="categoryId"
-                        value={categoryId}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="description">Descripción:</label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="userId">ID de Usuario:</label>
-                    <input
-                        type="number"
-                        id="userId"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Crear Bug</button>
-            </form>
-        </div>
-    );
+    try {
+      const newBug = await createBug(bugData);
+      console.log('Bug creado:', newBug);
+      alert('Bug creado con éxito');
+    } catch (error) {
+      console.error('Error al crear el bug:', error);
+      alert('Error al crear el bug');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Título:</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Categoría ID:</label>
+        <input
+          type="text"
+          value={category_id}
+          onChange={(e) => setCategoryId(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Descripción:</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit">Crear Bug</button>
+    </form>
+  );
 };
 
 export default CreateBugForm;
