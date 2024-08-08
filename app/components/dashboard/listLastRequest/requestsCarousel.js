@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LastRequests from "@/app/components/dashboard/lastRequest/lastRequest";
 import Text from "@/app/components/others/text/text";
-import { getAllShoppings } from "@/app/services/shoppingService";
-import PurchaseDetail from "@/app/components/dashboard/purchaseDetails/purchaseDetails";
+
 /**
  * RequestsCarousel Component
  *
  * Este componente muestra una lista de componentes LastRequests en un carrusel que se puede desplazar.
  *
  * @component
+ * @param {Array} data - Lista de datos para mostrar en el carrusel
  */
-const RequestsCarousel = () => {
+const RequestsCarousel = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [requestsData, setRequestsData] = useState([]);
@@ -28,21 +28,12 @@ const RequestsCarousel = () => {
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const products = await getAllShoppings();
-        console.log("Fetched products:", products); // Log para depuración
-        setRequestsData(products);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
+    // Usar los datos proporcionados a través del prop para inicializar el estado
+    setRequestsData(data);
     updateItemsPerPage();
     window.addEventListener("resize", updateItemsPerPage);
     return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
+  }, [data]); // Se ejecuta de nuevo si 'data' cambia
 
   const next = () => {
     if (currentIndex + itemsPerPage < requestsData.length) {
@@ -69,7 +60,6 @@ const RequestsCarousel = () => {
           disabled={currentIndex === 0}
           className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
-          &lt;
         </button>
         <div className="flex">
           <AnimatePresence initial={false}>
@@ -84,16 +74,7 @@ const RequestsCarousel = () => {
               {requestsData
                 .slice(currentIndex, currentIndex + itemsPerPage)
                 .map((request, index) => (
-                  <LastRequests
-                    key={index}
-                    cardTitle="Purchase Request"
-                    buttonText="View Details"
-                    area="Electronics"
-                    leader="John Doe"
-                    description="Request for new monitors."
-                  >
-                    <PurchaseDetail />
-                  </LastRequests>
+                  <LastRequests key={index} item={request}></LastRequests>
                 ))}
             </motion.div>
           </AnimatePresence>
@@ -102,9 +83,7 @@ const RequestsCarousel = () => {
           onClick={next}
           disabled={currentIndex + itemsPerPage >= requestsData.length}
           className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
-        >
-          &gt;
-        </button>
+        ></button>
       </div>
     </div>
   );

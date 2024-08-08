@@ -5,7 +5,6 @@ import { getAllShoppings } from "@/app/services/shoppingService";
 
 /** Componentes */
 import "/app/globals.css";
-
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
@@ -33,7 +32,7 @@ const fetchData = async () => {
   try {
     const res = await getAllShoppings();
     if (res) {
-      console.log(res)
+      console.log(res);
       return res;
     }
   } catch (error) {
@@ -106,6 +105,8 @@ const DashboardManager = () => {
       setTotalExpenses(total);
 
       const unapproved = getUnapprovedExpenses(fetchedData);
+      console.log("unapproved");
+      console.log(unapproved);
       setUnapprovedExpenses(unapproved);
     };
 
@@ -121,7 +122,7 @@ const DashboardManager = () => {
         <Container>
           <hr className="my-5" />
           {/* Carrusel de peticiones del mes sin revisar */}
-          <RequestsCarousel requestsData={unapprovedExpenses} />
+          <RequestsCarousel data={unapprovedExpenses} />
           <hr className="my-5" />
           {/* Componente de gastos mensuales */}
           <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />

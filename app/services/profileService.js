@@ -1,4 +1,4 @@
-import { get,patch } from "./apiRequest";
+import { get, patch } from "./apiRequest";
 import { ENDPOINTS } from "@/app/utils/apiConfig";
 import Profile from '../models/profile/profileModel';
 
@@ -13,22 +13,24 @@ const getAllProfiles = async () => {
 
     return response.map(profile => new Profile(profile));
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error al obtener todos los perfiles:', error);
     throw error;
   }
 };
 
 const getProfileById = async (id) => {
   try {
-    const response = await get(ENDPOINTS.getProfileById(id));
-    //console.log('Respuesta del servidor en getProfileById:', response);  // Añade esta línea para depuración
-    return new Profile(response);  // Ajusta esta línea según la estructura real de tu respuesta
+    const response = ENDPOINTS.getProfileById(id);
+    console.log('Respuesta del servidor en getProfileById:', response);
+    console.log("----------------------------------------------------------------------");
+    console.log(response);
+    console.log("----------------------------------------------------------------------");
+    return new Profile(response);
   } catch (error) {
-    console.error('Error:', error);
+    console.error(`Error al obtener el perfil con id ${id}:`, error);
     throw error;
   }
 };
-
 const updateProfile = async (id, profileData) => {
   try {
     const response = await patch(ENDPOINTS.updateProfile(id), { profile: profileData });
@@ -36,7 +38,7 @@ const updateProfile = async (id, profileData) => {
 
     return new Profile(response.profile);
   } catch (error) {
-    console.error('Error:', error);
+    console.error(`Error al actualizar el perfil con id ${id}:`, error);
     throw error;
   }
 };

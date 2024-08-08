@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import PublicRoute   from "./publicRoute"; // Importa el HOC PublicRoute
+import { getProfileById } from "@/app/services/profileService";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +27,11 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const response = await login(email, password);
+      const profile = await getProfileById(response.data.id);
+      console.log("----------------------------------------------------------------------");
+      console.log(profile);
+      console.log("----------------------------------------------------------------------");
+
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.id);
       toast.success("Login exitoso!", {
