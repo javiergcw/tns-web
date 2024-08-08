@@ -30,6 +30,9 @@ const ENDPOINTS = {
 //ENDPOINTS PRODUCTOS
 products: `${API_BASE_URL}/products`,
 createProduct:`${API_BASE_URL}/products`,
+//ENDPOINTS BUGS
+bugs:`${API_BASE_URL}/bugs`,
+create_bug:`${API_BASE_URL}/bugs`,
 
   // POSTS
   getPosts: `${API_BASE_URL}/posts`,

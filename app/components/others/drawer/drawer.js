@@ -27,6 +27,7 @@ const roleAccess = {
   admin: ["/dashboardManager", "/view-product", "/profile", "/shoppings", "/create-product", "/settings"],
   "Jefe de area": ["/dashboardManager", "/shoppings", "/profile", "/create-product"],
   "Purchasing Area": ["/profile"],
+  "Sin rol":["/profile"]
 };
 
 /**
