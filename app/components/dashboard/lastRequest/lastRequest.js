@@ -53,7 +53,7 @@ const lastRequest = ({ children, cardTitle, buttonText, area, leader, descriptio
         type="normal"
         className="text-left mt-1"
       />
-      <NormalButton text={buttonText} onClick={handleModalToggle} />
+      
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleModalToggle}
