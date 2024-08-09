@@ -1,18 +1,19 @@
 import axios from "axios";
-import { ENDPOINTS, BEARER_TOKEN } from "@/app/utils/apiConfig";
+import { ENDPOINTS} from "@/app/utils/apiConfig";
 
 // Función para obtener las cabeceras de autorización
 const getAuthHeaders = () => {
   return {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${BEARER_TOKEN}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
 };
 
 // Obtener todos los estados
 export const getStatuses = async () => {
+  
   try {
     const response = await axios.get(ENDPOINTS.statuses, getAuthHeaders());
     return response.data;

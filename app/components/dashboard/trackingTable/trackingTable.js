@@ -10,21 +10,23 @@ import Text from "@/app/components/others/text/text";
  */
 const TrackingTable = ({ data }) => {
   const columns = [
-    "ID",
-    "ITEM",
+    "ID COMPRA",
+    "JEFE DE ÁREA",
+    "ITEMS",
     "CATEGORÍA",
     "ESTADO",
     "FECHA PETICIÓN",
     "FECHA PENDIENTE",
     "FECHA APROBADO",
+    
   ];
 
   // Verifica que data es un arreglo antes de mapear
   const rows = Array.isArray(data)
-    ? data.flatMap((item) =>
-      item.products.map((product) => [
+    ? data.map((item) => [
         item.id,
-        product.name,
+        item.user && item.user.profile ? item.user.profile.name : "N/A", // Jefe de área
+        item.products.map((product) => product.name).join(", "), // Lista de productos separados por coma
         item.category ? item.category.name : "N/A",
         item.status ? item.status.name : "N/A",
         item.created_at
@@ -36,12 +38,9 @@ const TrackingTable = ({ data }) => {
         item.date_approval
           ? new Date(item.date_approval).toLocaleDateString()
           : "N/A",
+       
       ])
-    )
     : [];
-
-  //console.log("TrackingTable input data:", data);
-  //console.log("TrackingTable rows:", rows);
 
   return (
     <>

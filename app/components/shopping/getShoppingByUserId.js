@@ -16,7 +16,7 @@ const ShoppingTable = ({ userId }) => {
     useEffect(() => {
         const fetchShoppings = async () => {
             try {
-                const fetchedShoppings = await getShoppingsByUserId(userId);
+                const fetchedShoppings = await getShoppingsByUserId(localStorage.getItem('userId'));
                 setShoppings(fetchedShoppings);
                 setFilteredShoppings(fetchedShoppings);
             } catch (error) {

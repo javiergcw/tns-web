@@ -120,7 +120,7 @@ const ProfileForm = () => {
       <div className="mb-4 flex flex-col items-center sm:flex-row sm:items-start">
         <div className="flex w-1/4 flex-col items-center sm:mr-8">
           <img
-            src={photo || ImagesPath.defaultProfilePhoto}
+            src={photo || ImagesPath.profileDefaultPhoto}
             alt="Profile"
             className="w-32 h-32 sm:w-60 sm:h-60 rounded-full border-2 border-green-500 object-cover"
           />
@@ -185,7 +185,7 @@ const ProfileForm = () => {
         <h2 className="text-2xl font-bold mb-4 text-black">Editar Perfil</h2>
         <div className="mb-4 flex flex-col items-center relative">
           <img
-            src={photo || ImagesPath.defaultProfilePhoto}
+            src={photo || ImagesPath.profileDefaultPhoto}
             alt="Profile"
             className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-greenDrawer cursor-pointer mb-2"
             onClick={() => fileInputRef.current.click()}

@@ -108,7 +108,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     },
     {
       link: "/view-product",
-      name: "View Product",
+      name: "View Shoppings",
       icon: <MdVisibility style={{ color: greenDrawer }} />,
     },
     {

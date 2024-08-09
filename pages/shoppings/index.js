@@ -4,12 +4,12 @@ import "/app/App.css"; // Asegúrate de tener un archivo de estilo
 import DrawerLayout from "@/app/components/layout/drawerLayout";
 
 const App = () => {
-    const userId = 34; // Puedes cambiar este ID por el del usuario que desees
+// Puedes cambiar este ID por el del usuario que desees
 
     return (
         <DrawerLayout>
             <div className="app-container">
-                <ShoppingTable userId={userId} />
+                <ShoppingTable/>
             </div>
         </DrawerLayout>
     );
