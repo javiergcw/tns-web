@@ -20,9 +20,9 @@ const ProductTable = ({ data }) => {
       <tbody>
         {data.map((product) => (
           <tr key={product.id} className="border-t">
-            <td className="py-2 px-4">{product.id}</td>
-            <td className="py-2 px-4">{product.name}</td>
-            <td className="py-2 px-4">
+            <td className="py-2 px-4 text-black">{product.id}</td>
+            <td className="py-2 px-4 text-black">{product.name}</td>
+            <td className="py-2 px-4 text-black">
               <a
                 href={product.url}
                 target="_blank"
@@ -32,12 +32,12 @@ const ProductTable = ({ data }) => {
                 Link
               </a>
             </td>
-            <td className="py-2 px-4">{product.description}</td>
-            <td className="py-2 px-4">{product.price}</td>
-            <td className="py-2 px-4">
+            <td className="py-2 px-4 text-black">{product.description}</td>
+            <td className="py-2 px-4 text-black">{product.price}</td>
+            <td className="py-2 px-4 text-black">
               {new Date(product.createdAt).toLocaleString()}
             </td>
-            <td className="py-2 px-4">
+            <td className="py-2 px-4 text-black">
               {new Date(product.updatedAt).toLocaleString()}
             </td>
           </tr>

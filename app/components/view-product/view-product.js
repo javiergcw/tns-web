@@ -55,11 +55,15 @@ const FiltersComponent = () => {
       }
 
       if (minPrice) {
-        filtered = filtered.filter((product) => product.price >= parseFloat(minPrice));
+        filtered = filtered.filter(
+          (product) => product.price >= parseFloat(minPrice)
+        );
       }
 
       if (maxPrice) {
-        filtered = filtered.filter((product) => product.price <= parseFloat(maxPrice));
+        filtered = filtered.filter(
+          (product) => product.price <= parseFloat(maxPrice)
+        );
       }
 
       if (startDate) {
@@ -97,12 +101,12 @@ const FiltersComponent = () => {
   return (
     <div>
       <div className="bg-white p-4 rounded shadow mb-4">
-        <h2 className="mb-4 text-lg font-semibold text-blue-800">Filtros</h2>
+        <h2 className="mb-4 text-lg font-semibold text-blue-800">Filstros</h2>
         <div className="grid grid-cols-6 gap-4 mb-4">
           <TextInput
             labelText="Nombre de item"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="text"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
@@ -112,7 +116,7 @@ const FiltersComponent = () => {
           <TextInput
             labelText="Precio mínimo"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="number"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
@@ -122,7 +126,7 @@ const FiltersComponent = () => {
           <TextInput
             labelText="Precio máximo"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="number"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
@@ -132,7 +136,7 @@ const FiltersComponent = () => {
           <TextInput
             labelText="Fecha de inicio"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
@@ -142,7 +146,7 @@ const FiltersComponent = () => {
           <TextInput
             labelText="Fecha de fin"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
