@@ -8,7 +8,7 @@ const getAuthHeaders = () => {
   return {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${BEARER_TOKEN}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
 };

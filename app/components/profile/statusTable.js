@@ -25,7 +25,7 @@ const StatusTable = () => {
     try {
       setLoading(true); // Inicia la carga
       const data = await getStatuses();
-      setStatuses(data);
+      setStatuses(Array.isArray(data) ? data : []); // Asegurarse de que data sea un array
       setLoading(false); // Finaliza la carga
     } catch (error) {
       setError("Failed to fetch statuses. Please check your authorization.");

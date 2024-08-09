@@ -2,12 +2,12 @@
 import TextInput from "../others/fields/textInput";
 import { useState, useEffect, useRef } from "react";
 import { FaTrash } from "react-icons/fa";
-import ProductTable from "../dashboard/productTable/productTable";
-import { getAllProducts } from "@/app/services/productService";
+import TrackingTable from "../dashboard/trackingTable/trackingTable";
+import { getAllShoppings } from "@/app/services/shoppingService";
 
 const fetchData = async () => {
   try {
-    const res = await getAllProducts();
+    const res = await getAllShoppings();
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -17,20 +17,18 @@ const fetchData = async () => {
 
 const FiltersComponent = () => {
   const [itemName, setItemName] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [areaManager, setAreaManager] = useState(""); // Estado para el filtro de Jefe de Área
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Crear referencias para los inputs
   const itemNameRef = useRef(null);
-  const minPriceRef = useRef(null);
-  const maxPriceRef = useRef(null);
   const startDateRef = useRef(null);
   const endDateRef = useRef(null);
+  const areaManagerRef = useRef(null); // Referencia para el nuevo filtro
 
   useEffect(() => {
     const fetchAndProcessData = async () => {
@@ -49,32 +47,35 @@ const FiltersComponent = () => {
       let filtered = data;
 
       if (itemName) {
-        filtered = filtered.filter((product) =>
-          product.name.toLowerCase().includes(itemName.toLowerCase())
+        filtered = filtered.filter((shopping) =>
+          shopping.products
+            .map((product) => product.name.toLowerCase())
+            .join(", ")
+            .includes(itemName.toLowerCase())
         );
       }
 
-      if (minPrice) {
-        filtered = filtered.filter(
-          (product) => product.price >= parseFloat(minPrice)
-        );
-      }
-
-      if (maxPrice) {
-        filtered = filtered.filter(
-          (product) => product.price <= parseFloat(maxPrice)
-        );
-      }
 
       if (startDate) {
         filtered = filtered.filter(
-          (product) => new Date(product.createdAt) >= new Date(startDate)
+          (shopping) => new Date(shopping.created_at) >= new Date(startDate)
         );
       }
 
       if (endDate) {
         filtered = filtered.filter(
-          (product) => new Date(product.createdAt) <= new Date(endDate)
+          (shopping) => new Date(shopping.created_at) <= new Date(endDate)
+        );
+      }
+
+      if (areaManager) {
+        filtered = filtered.filter(
+          (shopping) =>
+            shopping.user &&
+            shopping.user.profile &&
+            shopping.user.profile.name
+              .toLowerCase()
+              .includes(areaManager.toLowerCase())
         );
       }
 
@@ -82,20 +83,18 @@ const FiltersComponent = () => {
     };
 
     filterData();
-  }, [itemName, minPrice, maxPrice, startDate, endDate, data]);
+  }, [itemName,startDate, endDate, areaManager, data]);
 
   const handleFilterReset = () => {
     setItemName("");
-    setMinPrice("");
-    setMaxPrice("");
     setStartDate("");
     setEndDate("");
+    setAreaManager(""); // Resetear el filtro de Jefe de Área
     setFilteredData(data); // Mostrar todos los datos después de limpiar los filtros
     if (itemNameRef.current) itemNameRef.current.blur();
-    if (minPriceRef.current) minPriceRef.current.blur();
-    if (maxPriceRef.current) maxPriceRef.current.blur();
     if (startDateRef.current) startDateRef.current.blur();
     if (endDateRef.current) endDateRef.current.blur();
+    if (areaManagerRef.current) areaManagerRef.current.blur(); // Desenfocar el input del nuevo filtro
   };
 
   return (
@@ -103,6 +102,16 @@ const FiltersComponent = () => {
       <div className="bg-white p-4 rounded shadow mb-4">
         <h2 className="mb-4 text-lg font-semibold text-blue-800">Filstros</h2>
         <div className="grid grid-cols-6 gap-4 mb-4">
+
+          <TextInput
+            labelText="Jefe de Área"
+            labelColor="black"
+            inputSize="small"
+            inputType="text"
+            value={areaManager}
+            onChange={(e) => setAreaManager(e.target.value)}
+            inputRef={areaManagerRef}
+          />
           <TextInput
             labelText="Nombre de item"
             labelColor="black"
@@ -113,28 +122,12 @@ const FiltersComponent = () => {
             inputRef={itemNameRef}
           />
 
-          <TextInput
-            labelText="Precio mínimo"
-            labelColor="black"
-            inputSize="big"
-            inputType="number"
-            value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
-            inputRef={minPriceRef}
-          />
+
+
+
 
           <TextInput
-            labelText="Precio máximo"
-            labelColor="black"
-            inputSize="big"
-            inputType="number"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
-            inputRef={maxPriceRef}
-          />
-
-          <TextInput
-            labelText="Fecha de inicio"
+            labelText="Fecha de petición"
             labelColor="black"
             inputSize="big"
             inputType="date"
@@ -144,7 +137,7 @@ const FiltersComponent = () => {
           />
 
           <TextInput
-            labelText="Fecha de fin"
+            labelText="Fecha de aprobado"
             labelColor="black"
             inputSize="big"
             inputType="date"
@@ -152,6 +145,8 @@ const FiltersComponent = () => {
             onChange={(e) => setEndDate(e.target.value)}
             inputRef={endDateRef}
           />
+
+
 
           <button
             onClick={handleFilterReset}
@@ -167,7 +162,7 @@ const FiltersComponent = () => {
           <div className="loader"></div>
         </div>
       ) : (
-        <ProductTable data={filteredData} />
+        <TrackingTable data={filteredData} />
       )}
     </div>
   );

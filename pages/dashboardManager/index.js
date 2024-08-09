@@ -1,19 +1,20 @@
-"use client";
-import "/app/globals.css";
+import { useState, useEffect } from "react";
 import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
 import Container from "@/app/components/dashboard/container/container";
-import { useState, useEffect } from "react";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
-import { getLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService"; // Importa el nuevo servicio
+import { getLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
+import { getProfileById } from "@/app/services/profileService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
-import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
+import PrivateRoute from "@/app/components/privateRoute";
+import ShoppingTable from "@/app/components/shopping/getShoppingByUserId";
+import "/app/App.css";
 
 const fetchData = async () => {
   try {
-    const res = await getLatestStatisticalRequestsOfTheMonth(); // Usa el nuevo servicio
+    const res = await getLatestStatisticalRequestsOfTheMonth();
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -22,7 +23,7 @@ const fetchData = async () => {
 };
 
 const getApprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const currentMonth = new Date().getMonth() + 1;
   const ApprovedExpenses = data.filter(
     (item) =>
       item.status &&
@@ -40,14 +41,14 @@ const getApprovedExpenses = (data) => {
   const flattenedExpenses = ApprovedExpenses.flatMap((item) =>
     item.products.map((product) => ({
       price: product.price,
-      name: product.name, // Asegúrate de que sea el campo correcto
+      name: product.name,
     }))
   );
   return { ApprovedExpenses: flattenedExpenses, total };
 };
 
 const getUnapprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
+  const currentMonth = new Date().getMonth() + 1;
   const pendingExpenses = data.filter(
     (item) =>
       item.status &&
@@ -62,8 +63,9 @@ const DashboardManager = () => {
   const [data, setData] = useState([]);
   const [expensesData, setExpensesData] = useState([]);
   const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
+  const [userRole, setUserRole] = useState(""); // Estado para el rol del usuario
 
-  // Obtener los datos de gastos cuando el componente se monta
+  // Obtener los datos de gastos y rol del usuario cuando el componente se monta
   useEffect(() => {
     const fetchAndProcessData = async () => {
       const fetchedData = await fetchData();
@@ -74,6 +76,13 @@ const DashboardManager = () => {
 
       const unapproved = getUnapprovedExpenses(fetchedData);
       setUnapprovedExpenses(unapproved);
+
+      try {
+        const profile = await getProfileById(localStorage.getItem('userId')); // Llama al endpoint para obtener el perfil del usuario
+        setUserRole(profile.rol?.name); // Accede al nombre del rol desde el objeto `rol`
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
     };
 
     fetchAndProcessData();
@@ -96,7 +105,12 @@ const DashboardManager = () => {
             />
           </div>
           <hr className="my-5" />
-          <TrackingTable data={data} />
+          {userRole === "Jefe de area" && (
+            <ShoppingTable userId={localStorage.getItem('userId')} />
+          )}
+          {userRole === "admin" && (
+            <TrackingTable data={data} />
+          )}
         </Container>
       </MainLayout>
     </div>
