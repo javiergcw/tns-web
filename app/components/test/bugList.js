@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { getAllBugs } from '@/app/services/bugService'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+// components/BugList.js
+import React, { useEffect, useState } from 'react';
+import { getAllBugs } from '@/app/services/bugService';
 
-const BugsList = () => {
+const BugList = () => {
   const [bugs, setBugs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,10 +10,10 @@ const BugsList = () => {
   useEffect(() => {
     const fetchBugs = async () => {
       try {
-        const bugsData = await getAllBugs();
-        setBugs(bugsData);
+        const bugs = await getAllBugs();
+        setBugs(bugs);
       } catch (error) {
-        setError(error.message);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -21,24 +22,18 @@ const BugsList = () => {
     fetchBugs();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-      <h1>Bugs List</h1>
+      <h1>Bug List</h1>
       <ul>
-        {bugs.map(bug => (
-          <li key={bug.title}>
+        {bugs.map((bug) => (
+          <li key={bug.id}>
             <h2>{bug.title}</h2>
             <p>{bug.description}</p>
-            <p>Category ID: {bug.category_id}</p>
-            <p>User ID: {bug.user_id}</p>
+            <p>Reported by: {bug.user ? bug.user.email : 'Unknown'}</p>
           </li>
         ))}
       </ul>
@@ -46,4 +41,4 @@ const BugsList = () => {
   );
 };
 
-export default BugsList;
+export default BugList;
