@@ -6,6 +6,7 @@ import MainLayout from "@/app/components/layout/drawerLayout";
 import CreatePurchaseForm from "@/app/components/others/container/createPurchaseForm";
 import ProductForm from "@/app/components/others/fields/productForm";
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
+import { getCategories } from "@/app/services/categoryService";
 
 const CreateProduct = (termsAccepted = false) => {
   const [categories, setCategories] = useState([]);
@@ -25,6 +26,14 @@ const CreateProduct = (termsAccepted = false) => {
     products: [{ name: "", url: "", description: "", price: 0 }],
   });
 
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedProducts((prevSelected) =>
+      checked
+        ? [...prevSelected, value]
+        : prevSelected.filter((product) => product !== value)
+    );
+  };
   const handleShoppingChange = (e) => {
     setShoppingData({
       ...shoppingData,
@@ -160,7 +169,7 @@ const CreateProduct = (termsAccepted = false) => {
             <label className="block text-black text-sm font-bold mb-2">
               Selecciona productos:
             </label>
-            {products.map((product, index) => (
+            {shoppingData.products.map((product, index) => (
               <div key={index} className="flex items-center mb-2">
                 <input
                   type="checkbox"
