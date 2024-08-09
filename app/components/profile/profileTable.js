@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
-import Table from '@/app/components/others/table/table'; // Importar el componente Table
-import { getAllProfiles, updateProfile } from '@/app/services/profileService';
-import { getRoles } from '@/app/services/roleService';
-import { register } from '@/app/services/loginService';
-import { documentTypeOptions } from '@/app/utils/dataGeneral';
-import Lottie from 'react-lottie';
-import animationData from '@/public/videos/errorData.json';
-import { BlueButton, RedButton } from '@/app/utils/Buttons'; // Importar los botones constantes
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
+import Table from "@/app/components/others/table/table"; // Importar el componente Table
+import { getAllProfiles, updateProfile } from "@/app/services/profileService";
+import { getRoles } from "@/app/services/roleService";
+import { register } from "@/app/services/loginService";
+import { documentTypeOptions } from "@/app/utils/dataGeneral";
+import Lottie from "react-lottie";
+import animationData from "@/public/videos/errorData.json";
+import { BlueButton, RedButton } from "@/app/utils/Buttons"; // Importar los botones constantes
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 
 const ProfileTable = () => {
   const [profiles, setProfiles] = useState([]);
@@ -19,11 +19,18 @@ const ProfileTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
-  const [name, setName] = useState('');
-  const [identificationType, setIdentificationType] = useState('');
-  const [identificationNumber, setIdentificationNumber] = useState('');
-  const [selectedRoleId, setSelectedRoleId] = useState('');
-  const [newUser, setNewUser] = useState({ name: '', email: '', password: '', password_confirmation: '' });
+  const [name, setName] = useState("");
+  const [identificationType, setIdentificationType] = useState("");
+  const [identificationNumber, setIdentificationNumber] = useState("");
+  const [selectedRoleId, setSelectedRoleId] = useState("");
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    identification_type: "",
+    identification_number: "",
+  });
 
   useEffect(() => {
     fetchProfiles();
@@ -37,7 +44,7 @@ const ProfileTable = () => {
       setProfiles(data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching profiles:', error);
+      console.error("Error fetching profiles:", error);
       setError(error.message);
       setLoading(false);
     }
@@ -48,16 +55,16 @@ const ProfileTable = () => {
       const data = await getRoles();
       setRoles(data);
     } catch (error) {
-      console.error('Error fetching roles:', error);
+      console.error("Error fetching roles:", error);
     }
   };
 
   const handleEdit = (profile) => {
     setSelectedProfile(profile);
     setName(profile.name);
-    setIdentificationType(profile.identificationType || '');
+    setIdentificationType(profile.identificationType || "");
     setIdentificationNumber(profile.identificationNumber);
-    setSelectedRoleId(profile.rol ? profile.rol.id : '');
+    setSelectedRoleId(profile.rol ? profile.rol.id : "");
     setIsModalOpen(true);
   };
 
@@ -69,7 +76,7 @@ const ProfileTable = () => {
 
   const handleUpdateProfile = async () => {
     if (!/^\d+$/.test(identificationNumber)) {
-      alert('El número de identificación solo debe contener números.');
+      alert("El número de identificación solo debe contener números.");
       return;
     }
 
@@ -84,8 +91,8 @@ const ProfileTable = () => {
       setIsModalOpen(false);
       fetchProfiles();
     } catch (error) {
-      console.error('Error updating profile:', error);
-      setError('Failed to update profile. Please check your authorization.');
+      console.error("Error updating profile:", error);
+      setError("Failed to update profile. Please check your authorization.");
     } finally {
       setLoading(false);
     }
@@ -97,19 +104,26 @@ const ProfileTable = () => {
 
   const handleAddUser = async () => {
     if (newUser.password !== newUser.password_confirmation) {
-      alert('Las contraseñas no coinciden.');
+      alert("Las contraseñas no coinciden.");
       return;
     }
 
     setLoading(true);
     try {
       //console.log("Adding user:", newUser); // Log para depuración
-      await register(newUser.email, newUser.password, newUser.password_confirmation, newUser.name);
+      await register(
+        newUser.email,
+        newUser.password,
+        newUser.password_confirmation,
+        newUser.name,
+        newUser.identification_type,
+        newUser.identification_number
+      );
       setIsAddModalOpen(false);
       fetchProfiles();
     } catch (error) {
-      console.error('Error adding user:', error);
-      setError('Failed to add user. Please check your input.');
+      console.error("Error adding user:", error);
+      setError("Failed to add user. Please check your input.");
     } finally {
       setLoading(false);
     }
@@ -123,22 +137,22 @@ const ProfileTable = () => {
     "Rol",
     "Creado en",
     "Actualizado en",
-    "Acciones"
+    "Acciones",
   ];
 
-  const rows = profiles.map(profile => [
+  const rows = profiles.map((profile) => [
     profile.id,
     profile.name,
     profile.identificationType,
     profile.identificationNumber,
-    profile.rol ? profile.rol.name : 'N/A',
+    profile.rol ? profile.rol.name : "N/A",
     new Date(profile.createdAt).toLocaleString(),
     new Date(profile.updatedAt).toLocaleString(),
     <BlueButton
       text="Editar"
       onClick={() => handleEdit(profile)}
       className="px-2 py-1"
-    />
+    />,
   ]);
 
   // Configuración de la animación Lottie
@@ -147,8 +161,8 @@ const ProfileTable = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
 
   return (
@@ -199,7 +213,9 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Tipo de Identificación</label>
+          <label className="block text-sm font-medium mb-2">
+            Tipo de Identificación
+          </label>
           <select
             value={identificationType}
             onChange={(e) => setIdentificationType(e.target.value)}
@@ -214,7 +230,9 @@ const ProfileTable = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Número de Identificación</label>
+          <label className="block text-sm font-medium mb-2">
+            Número de Identificación
+          </label>
           <input
             type="text"
             value={identificationNumber}
@@ -239,10 +257,7 @@ const ProfileTable = () => {
             ))}
           </select>
         </div>
-        <BlueButton
-          text="Guardar"
-          onClick={handleUpdateProfile}
-        />
+        <BlueButton text="Guardar" onClick={handleUpdateProfile} />
         <RedButton
           text="Cancelar"
           onClick={() => setIsModalOpen(false)}
@@ -265,7 +280,9 @@ const ProfileTable = () => {
         </button>
         <h2 className="text-2xl font-bold mb-4 text-black">Agregar Usuario</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Nombre</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Nombre
+          </label>
           <input
             type="text"
             name="name"
@@ -275,7 +292,9 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Email</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Email
+          </label>
           <input
             type="email"
             name="email"
@@ -285,7 +304,9 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Contraseña</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Contraseña
+          </label>
           <input
             type="password"
             name="password"
@@ -295,7 +316,9 @@ const ProfileTable = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Confirmar Contraseña</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Confirmar Contraseña
+          </label>
           <input
             type="password"
             name="password_confirmation"
@@ -304,10 +327,36 @@ const ProfileTable = () => {
             className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        <BlueButton
-          text="Guardar"
-          onClick={handleAddUser}
-        />
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2 text-black">
+            Tipo de identificación
+          </label>
+          <select
+            name="identification_type"
+            value={newUser.identification_type}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">Seleccione un tipo de identificación</option>
+            <option value="Pasaporte">Pasaporte</option>
+            <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2 text-black">
+            Numero de identificacion
+          </label>
+          <input
+            type="identification"
+            name="identification_number"
+            value={newUser.identification_number}
+            onChange={handleAddUserChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+
+        <BlueButton text="Guardar" onClick={handleAddUser} />
         <RedButton
           text="Cancelar"
           onClick={() => setIsAddModalOpen(false)}

@@ -9,11 +9,11 @@ import { login } from "@/app/services/apiService";
 import RememberMeAndForgotPassword from "@/app/components/login/rememberAndForgotpassword";
 import RegisterStandart from "@/app/components/login/registerStandart";
 import { ImagesPath } from "@/app/utils/assetsPath";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Image from 'next/image';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
-import PublicRoute   from "./publicRoute"; // Importa el HOC PublicRoute
+import PublicRoute from "./publicRoute";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -47,23 +47,26 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col lg:flex-row">
       <ToastContainer autoClose={2000} />
       {/* Sección izquierda - Imagen corporativa */}
-      <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
+      <div className="w-full lg:w-2/4 h-48 lg:h-screen flex justify-center items-center bg-slate-100">
         <Image
           src={ImagesPath.logoVertical}
           alt="Descripción de la imagen"
           layout="intrinsic"
-          width={500}
-          height={500}
-          className="max-w-full max-h-full object-contain"
+          width={300}
+          height={300}
+          className="max-w-full max-h-full object-contain lg:object-scale-down"
         />
       </div>
       {/* Sección derecha - Formulario de inicio de sesión */}
-      <div className="w-2/4 h-screen flex justify-center items-center">
-        <div className="w-full max-w-md">
-          <form className="bg-white p-8 rounded-lg w-full" onSubmit={handleLogin}>
+      <div className="w-full lg:w-2/4 h-screen flex justify-center items-center">
+        <div className="w-full max-w-md p-4 lg:p-0">
+          <form
+            className="bg-white p-6 lg:p-8 rounded-lg w-full"
+            onSubmit={handleLogin}
+          >
             <Text texto="Iniciar Sesión" color="blueMain" type="bigTitle" />
             <Text
               texto="Ingresa tu correo y contraseña para iniciar sesión"
@@ -88,7 +91,12 @@ const LoginForm = () => {
               onChange={handlePasswordChange}
             />
             <RememberMeAndForgotPassword />
-            <NormalButton text="Iniciar sesión" color="blueButton" size="large" additionalClasses="text-white" />
+            <NormalButton
+              text="Iniciar sesión"
+              color="blueButton"
+              size="large"
+              additionalClasses="text-white"
+            />
             <RegisterStandart />
           </form>
         </div>
