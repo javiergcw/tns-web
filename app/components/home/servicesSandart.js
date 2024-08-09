@@ -23,11 +23,12 @@ const ServicesStandart = () => {
         href="https://drive.google.com/file/d/1n3JxMB0Io2ITXErKz-NLxun0UeYfXIYH/view?usp=sharing"
       />
       <ContainerService
-        title="Resolución de costos educativos"
+        title="Resolucion de costos educativos"
         text="Vigente para los años 2024-2025"
         imageUrl={ImagesPath.money}
-        href="https://drive.google.com/file/d/1KqxNJnT08QHRT5s_T42VnV6RsckcOCD-/view?usp=sharing"
+        href="https://drive.google.com/file/d/1oha_AkRS85DfrONBL8VWhHQ8NYL2bCrC/view"
       />
+
       <ContainerService
         title="Utiles escolares"
         text="Vigente para los años 2024-2025"
@@ -39,6 +40,12 @@ const ServicesStandart = () => {
         text="Lee nuestro manual de convivencia"
         imageUrl={ImagesPath.people}
         href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
+      />
+      <ContainerService
+        title="Costos"
+        text="Vigente para los años 2024-2025"
+        imageUrl={ImagesPath.money}
+        href="https://drive.google.com/file/d/1KqxNJnT08QHRT5s_T42VnV6RsckcOCD-/view?usp=sharing"
       />
       <SocialMedia />
     </div>

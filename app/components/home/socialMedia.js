@@ -12,6 +12,10 @@ const SocialMedia = () => {
           defer
         ></script>
         <div
+          class="elfsight-app-2fe37c07-0a8d-495c-adca-851232a783fd"
+          data-elfsight-app-lazy
+        ></div>
+        <div
           className="elfsight-app-e6bcf745-1ba9-4f93-911e-4e688f47ddbd"
           data-elfsight-app-lazy
         ></div>
