@@ -1,20 +1,33 @@
 import { post } from "./apiRequest";
 import { RegisterData, RegisterResponse } from "../models/login/registerModel";
 import { ENDPOINTS } from "../utils/apiConfig";
+import { IdentificationIcon } from "@heroicons/react/24/solid";
 
-export const register = async (email, password, passwordConfirmation, name) => {
+export const register = async (
+  email,
+  password,
+  passwordConfirmation,
+  name,
+  identificationType,
+  identificationNumber
+) => {
   const user = {
     user: {
-      email,
-      password,
+      email: email,
+      password: password,
       password_confirmation: passwordConfirmation,
-      name,
+      profile_attributes: {
+        name: name,
+        identification_type: identificationType,
+        identification_number: identificationNumber,
+        photo: "photo_url", // Debes asignar aquí la URL real de la foto si está disponible
+        rol_id: 0, // Ajusta este valor según el rol que deba asignarse
+      },
     },
   };
 
   try {
     const response = await post(ENDPOINTS.register, user, false); // False si el registro no requiere autenticación previa
-    //console.log("Register response:", response); // Para depuración
 
     // Verificar si la respuesta contiene la información esperada
     if (response && response.data) {

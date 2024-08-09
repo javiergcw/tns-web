@@ -4,19 +4,21 @@ import { useRouter } from "next/router";
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
-import { register } from "@/app/services/apiService";
+import { register } from "@/app/services/loginService";
 import { ImagesPath } from "@/app/utils/assetsPath";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Image from 'next/image';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import PublicRoute from "./publicRoute"; // Importa el HOC PublicRoute
 
 const RegisterForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("asdasd");
+  const [email, setEmail] = useState("asdasd@gmail.com");
+  const [password, setPassword] = useState("1234asd");
+  const [confirmPassword, setConfirmPassword] = useState("1234asd");
+  const [identificationType, setIdentificationType] = useState("asdadas");
+  const [identificationNumber, setIdentificationNumber] = useState("12121211");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -28,37 +30,45 @@ const RegisterForm = () => {
     }
     setLoading(true);
     try {
-      const response = await register({ name, email, password });
+      const response = await register(
+        email,
+        password,
+        confirmPassword,
+        name,
+        identificationType,
+        identificationNumber
+      );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.id);
       toast.success("Registro exitoso!", {
         onClose: () => router.push("/dashboardManager"),
       });
     } catch (error) {
-      toast.error("Error en el registro");
+      toast.error("Error en el registros");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col lg:flex-row">
       <ToastContainer autoClose={2000} />
-      {/* Sección izquierda - Imagen corporativa */}
-      <div className="w-2/4 h-screen flex justify-center items-center bg-slate-100">
+      <div className="w-full lg:w-2/4 h-48 lg:h-screen flex justify-center items-center bg-slate-100">
         <Image
           src={ImagesPath.logoVertical}
           alt="Descripción de la imagen"
           layout="intrinsic"
-          width={500}
-          height={500}
-          className="max-w-full max-h-full object-contain"
+          width={300}
+          height={300}
+          className="max-w-full max-h-full object-contain lg:object-scale-down"
         />
       </div>
-      {/* Sección derecha - Formulario de registro */}
-      <div className="w-2/4 h-screen flex justify-center items-center">
-        <div className="w-full max-w-md">
-          <form className="bg-white p-8 rounded-lg w-full" onSubmit={handleRegister}>
+      <div className="w-full lg:w-2/4 h-screen flex justify-center items-center">
+        <div className="w-full max-w-md p-4 lg:p-0">
+          <form
+            className="bg-white p-6 lg:p-8 rounded-lg w-full"
+            onSubmit={handleRegister}
+          >
             <Text texto="Regístrate" color="blueMain" type="bigTitle" />
             <Text
               texto="Ingresa tu nombre, correo y contraseña para registrarte"
@@ -98,7 +108,40 @@ const RegisterForm = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <NormalButton text="Registrarse" color="blueButton" size="large" additionalClasses="text-white" />
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2 text-black">
+                Tipo de identificación
+              </label>
+              <select
+                name="identification_type"
+                value={identificationType}
+                onChange={(e) => setIdentificationType(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded text-black"
+              >
+                <option value="">Seleccione un tipo de identificación</option>
+                <option value="Pasaporte">Pasaporte</option>
+                <option value="Cédula de ciudadanía">
+                  Cédula de ciudadanía
+                </option>
+                <option value="Tarjeta de identidad">
+                  Tarjeta de identidad
+                </option>
+              </select>
+            </div>
+            <TextInput
+              labelText="Número de Identificación"
+              labelColor="gray6th"
+              inputSize="large"
+              inputType="text"
+              value={identificationNumber}
+              onChange={(e) => setIdentificationNumber(e.target.value)}
+            />
+            <NormalButton
+              text="Registrarse"
+              color="blueButton"
+              size="large"
+              additionalClasses="text-white"
+            />
           </form>
         </div>
       </div>
