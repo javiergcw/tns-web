@@ -1,9 +1,15 @@
+"use client";
+import React from "react";
+import ReadBlueButton from "../others/button/readBlueButton";
 
-'use client'
-import React from 'react';
-import ReadBlueButton from '../others/button/readBlueButton';
-
-const CardComponent = ({ title, description, buttonTextLabel, imgSrc, imgAlt, url }) => {
+const CardComponent = ({
+  title,
+  description,
+  buttonTextLabel,
+  imgSrc,
+  imgAlt,
+  url,
+}) => {
   return (
     <div className="flex flex-row items-center rounded-lg overflow-hidden ">
       <img src={imgSrc} alt={imgAlt} className="block w-1/3" />
@@ -13,16 +19,21 @@ const CardComponent = ({ title, description, buttonTextLabel, imgSrc, imgAlt, ur
           <p className="text-gray4th text-sm">{description}</p>
         </div>
 
-        <div className='pt-2'>
+        <div className="pt-2">
           <ReadBlueButton buttonText={buttonTextLabel} redirectUrl={url} />
-
         </div>
-
       </div>
     </div>
   );
 };
-const CardComponentTwo = ({ title, description, buttonTextLabel, imgSrc, imgAlt, url }) => {
+const CardComponentTwo = ({
+  title,
+  description,
+  buttonTextLabel,
+  imgSrc,
+  imgAlt,
+  url,
+}) => {
   return (
     // `flex-row-reverse` para invertir el orden, haciendo que la imagen esté a la derecha.
     <div className="flex flex-row-reverse items-center rounded-lg overflow-hidden">
@@ -32,16 +43,13 @@ const CardComponentTwo = ({ title, description, buttonTextLabel, imgSrc, imgAlt,
           <h2 className="text-grayTerciary text-xl font-bold">{title}</h2>
           <p className="text-gray4th text-sm">{description}</p>
         </div>
-        <div className='pt-2 flex justify-end'>
+        <div className="pt-2 flex justify-end">
           <ReadBlueButton buttonText={buttonTextLabel} redirectUrl={url} />
         </div>
       </div>
     </div>
   );
 };
-
-
-
 
 const CalendarScheduleHome = () => {
   return (
@@ -53,10 +61,10 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See schedule"
           imgSrc="/images/others/schedule.png"
           imgAlt="Schedule"
-          url="https://drive.google.com/file/d/1eobMZQVtlE7bKdDe2D8NRNq4rnUNkxtl/view"
+          url="https://drive.google.com/file/d/18S9SR1HwOTGpbGw7lvqiIwH-wxKX0kOU/view?usp=sharing"
         />
       </div>
-      <div className="w-px bg-gray-300 mx-6 my-4 md:my-0 self-stretch"></div> 
+      <div className="w-px bg-gray-300 mx-6 my-4 md:my-0 self-stretch"></div>
       <div className="flex-grow">
         <CardComponentTwo
           title="Calendar"
@@ -64,12 +72,11 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See calendar"
           imgSrc="/images/others/calendar.png"
           imgAlt="Calendar"
-          url="https://drive.google.com/file/d/1I_elynX5MX3KGKW2XO5s3y0_e7niIPwb/view?usp=sharing"
+          url="https://drive.google.com/file/d/18S9SR1HwOTGpbGw7lvqiIwH-wxKX0kOU/view?usp=sharing"
         />
       </div>
     </div>
   );
 };
-
 
 export default CalendarScheduleHome;
