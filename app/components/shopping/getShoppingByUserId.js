@@ -13,20 +13,20 @@ const ShoppingTable = ({ userId }) => {
   const [leaderFilter, setLeaderFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
-
-    useEffect(() => {
-        const fetchShoppings = async () => {
-            try {
-                const fetchedShoppings = await getShoppingsByUserId(localStorage.getItem('userId'));
-                setShoppings(fetchedShoppings);
-                setFilteredShoppings(fetchedShoppings);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
+  useEffect(() => {
+    const fetchShoppings = async () => {
+      try {
+        const fetchedShoppings = await getShoppingsByUserId(
+          localStorage.getItem("userId")
+        );
+        setShoppings(fetchedShoppings);
+        setFilteredShoppings(fetchedShoppings);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchShoppings();
   }, [userId]);

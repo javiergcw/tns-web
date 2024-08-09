@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { getCategories } from '@/app/services/categoryService';
-import { createShopping } from '@/app/services/shoppingService';
+import React, { useState, useEffect } from "react";
+import { getCategories } from "@/app/services/categoryService";
+import { createShopping } from "@/app/services/shoppingService";
 
 const CreatePurchaseForm = ({ products }) => {
   const [categories, setCategories] = useState([]);
-  const [category_id, setCategoryId] = useState('');
+  const [category_id, setCategoryId] = useState("");
   const [selectedproducts, setSelectedproducts] = useState([]);
-  const [request_date, setRequestDate] = useState('');
-  const [pending_date, setPendingDate] = useState('');
-  const [date_approval, setDateApproval] = useState('');
+  const [request_date, setRequestDate] = useState("");
+  const [pending_date, setPendingDate] = useState("");
+  const [date_approval, setDateApproval] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const status_id = 1;
 
@@ -32,7 +32,7 @@ const CreatePurchaseForm = ({ products }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!termsAccepted) {
-      alert('Debes aceptar los términos y condiciones');
+      alert("Debes aceptar los términos y condiciones");
       return;
     }
 
@@ -42,7 +42,7 @@ const CreatePurchaseForm = ({ products }) => {
         name: product.title,
         url: product.url,
         description: product.description,
-        price: parseFloat(product.price.replace(/\./g, '').replace(/,/g, '')),
+        price: parseFloat(product.price.replace(/\./g, "").replace(/,/g, "")),
       }));
 
     const shoppingData = {
@@ -56,19 +56,19 @@ const CreatePurchaseForm = ({ products }) => {
       products: productsData,
     };
 
-    console.log('Datos de la compra que se están enviando:', shoppingData); // Línea de depuración
+    console.log("Datos de la compra que se están enviando:", shoppingData); // Línea de depuración
 
     try {
       await createShopping(shoppingData);
-      alert('Compra creada exitosamente');
+      alert("Compra creada exitosamente");
     } catch (error) {
-      console.error('Error al crear la compra:', error);
-      alert('Error al crear la compra');
+      console.error("Error al crear la compra:", error);
+      alert("Error al crear la compra");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-6 rounded-lg shadow-md bg-white">
+    <form className="w-full p-6 rounded-lg shadow-md bg-white">
       <h2 className="text-2xl font-bold mb-4 text-black">Creación de compra</h2>
       <div className="mb-4">
         <select
@@ -105,7 +105,9 @@ const CreatePurchaseForm = ({ products }) => {
         ))}
       </div>
       <div className="mb-4">
-        <label className="block text-black text-sm font-bold mb-2">Fecha de Solicitud</label>
+        <label className="block text-black text-sm font-bold mb-2">
+          Fecha de Solicitud
+        </label>
         <input
           type="date"
           name="request_date"
@@ -117,7 +119,9 @@ const CreatePurchaseForm = ({ products }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-black text-sm font-bold mb-2">Fecha Pendiente</label>
+        <label className="block text-black text-sm font-bold mb-2">
+          Fecha Pendiente
+        </label>
         <input
           type="date"
           name="pending_date"
@@ -129,7 +133,9 @@ const CreatePurchaseForm = ({ products }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-black text-sm font-bold mb-2">Fecha de Aprobación</label>
+        <label className="block text-black text-sm font-bold mb-2">
+          Fecha de Aprobación
+        </label>
         <input
           type="date"
           name="date_approval"
@@ -150,9 +156,6 @@ const CreatePurchaseForm = ({ products }) => {
         />
         <label className="text-black">Acepto los términos y condiciones</label>
       </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-        Registrar
-      </button>
     </form>
   );
 };

@@ -55,7 +55,6 @@ const FiltersComponent = () => {
         );
       }
 
-
       if (startDate) {
         filtered = filtered.filter(
           (shopping) => new Date(shopping.created_at) >= new Date(startDate)
@@ -83,7 +82,7 @@ const FiltersComponent = () => {
     };
 
     filterData();
-  }, [itemName,startDate, endDate, areaManager, data]);
+  }, [itemName, startDate, endDate, areaManager, data]);
 
   const handleFilterReset = () => {
     setItemName("");
@@ -102,11 +101,10 @@ const FiltersComponent = () => {
       <div className="bg-white p-4 rounded shadow mb-4">
         <h2 className="mb-4 text-lg font-semibold text-blue-800">Filstros</h2>
         <div className="grid grid-cols-6 gap-4 mb-4">
-
           <TextInput
             labelText="Jefe de Área"
             labelColor="black"
-            inputSize="small"
+            inputSize="big"
             inputType="text"
             value={areaManager}
             onChange={(e) => setAreaManager(e.target.value)}
@@ -121,10 +119,6 @@ const FiltersComponent = () => {
             onChange={(e) => setItemName(e.target.value)}
             inputRef={itemNameRef}
           />
-
-
-
-
 
           <TextInput
             labelText="Fecha de petición"
@@ -145,8 +139,6 @@ const FiltersComponent = () => {
             onChange={(e) => setEndDate(e.target.value)}
             inputRef={endDateRef}
           />
-
-
 
           <button
             onClick={handleFilterReset}
