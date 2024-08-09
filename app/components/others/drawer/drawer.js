@@ -85,11 +85,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
     try {
       const newBug = await createBug(bugData);
-      console.log('Bug creado:', newBug);
-      alert('Bug creado con éxito');
+      alert('Bug creado:');
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error al crear el bug:', error);
       alert('Error al crear el bug');
     }
   };
