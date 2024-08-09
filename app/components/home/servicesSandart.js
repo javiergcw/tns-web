@@ -33,7 +33,7 @@ const ServicesStandart = () => {
         title="Utiles escolares"
         text="Vigente para los años 2024-2025"
         imageUrl={ImagesPath.backpack}
-        href="https://drive.google.com/file/d/1xfQEmaH8CAO3UvDA5IEh86gXHlXA34dv/view?usp=sharing"
+        href="https://drive.google.com/file/d/1xd9BXj2NDgOLlqeAetadnkpHjMGLgJAw/view?usp=sharing"
       />
       <ContainerService
         title="Manual de convivencia"
@@ -45,7 +45,7 @@ const ServicesStandart = () => {
         title="Costos"
         text="Vigente para los años 2024-2025"
         imageUrl={ImagesPath.money}
-        href="https://drive.google.com/file/d/1KqxNJnT08QHRT5s_T42VnV6RsckcOCD-/view?usp=sharing"
+        href="https://drive.google.com/file/d/1qnQYq5PiKRpvgOoqkjtJm8VDZA7VIK7d/view?usp=sharing"
       />
       <SocialMedia />
     </div>
