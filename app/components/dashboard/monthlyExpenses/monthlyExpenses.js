@@ -1,27 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Text from "@/app/components/others/text/text";
+import { getLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
 
 /**
  * MonthlyExpenses Component
  *
  * Este componente muestra la suma total de los gastos del mes y una lista de los detalles de los gastos.
  *
- * @param {number} total - La suma total de los valores de la lista.
- * @param {Array} data - Una lista de objetos que contiene el valor y el título de cada gasto.
- *
  * @component
  */
-const MonthlyExpenses = ({ total = 0, data = [] }) => {
+const MonthlyExpenses = () => {
+  const [total, setTotal] = useState(0);
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    console.log("Datos recibidos en MonthlyExpenses:", data);
-  }, [data]);
+    const fetchMonthlyExpenses = async () => {
+      try {
+        const response = await getLatestStatisticalRequestsOfTheMonth();
+
+        if (Array.isArray(response)) {
+          setData(response.map(shopping => ({
+            title: shopping.title,
+            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
+          })));
+        } else {
+          setData(response.recent_shoppings.map(shopping => ({
+            title: shopping.title,
+            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
+          })) || []);
+          setTotal(response.monthly_expenses || 0);
+        }
+      } catch (error) {
+        console.error("Error al cargar los gastos mensuales:", error);
+      }
+    };
+
+    fetchMonthlyExpenses();
+  }, []);
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md h-auto w-full sm:w-1/2">
       <Text texto="GASTOS DEL MES" color="blue-secondary" type="title" />
       <Text
         texto={
-          "Total: " +
           total.toLocaleString("es-CO", {
             style: "currency",
             currency: "COP",
@@ -29,22 +50,22 @@ const MonthlyExpenses = ({ total = 0, data = [] }) => {
         }
         color="green"
         type="title"
+        className="text-2xl font-bold mb-4"
       />
       <ul className="mt-4 overflow-y-auto max-h-48">
         {data.map((item, index) => (
           <li
             key={index}
-            className="flex justify-between text-gray-600 text-sm py-1 border-b"
+            className="flex items-center justify-start text-gray-600 text-2xl py-1 border-b"
           >
-            <span>
-              {item.price
-                ? item.price.toLocaleString("es-CO", {
-                  style: "currency",
-                  currency: "COP",
-                })
-                : "N/A"}
+            <span className="font-bold">
+              {item.totalPrice.toLocaleString("es-CO", {
+                style: "currency",
+                currency: "COP",
+              })}
             </span>
-            <span className="ml-4">{item.name}</span>
+            <span className="mx-2">|</span> {/* Divisor vertical */}
+            <span>{item.title || "Sin título"}</span>
           </li>
         ))}
       </ul>
