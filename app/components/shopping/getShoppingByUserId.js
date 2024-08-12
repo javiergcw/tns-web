@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getShoppingsByUserId } from "@/app/services/shoppingService"; // Asegúrate de que la ruta sea correcta
+import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +13,9 @@ const ShoppingTable = ({ userId }) => {
   const [leaderFilter, setLeaderFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
+  const [leaderOptions, setLeaderOptions] = useState([]);
+  const [statusOptions, setStatusOptions] = useState([]);
+
   useEffect(() => {
     const fetchShoppings = async () => {
       try {
@@ -21,6 +24,16 @@ const ShoppingTable = ({ userId }) => {
         );
         setShoppings(fetchedShoppings);
         setFilteredShoppings(fetchedShoppings);
+
+        // Obtener opciones únicas para los dropdowns
+        const leaders = [
+          ...new Set(fetchedShoppings.map((shopping) => shopping.user.profile.name)),
+        ];
+        const statuses = [
+          ...new Set(fetchedShoppings.map((shopping) => shopping.status.name)),
+        ];
+        setLeaderOptions(leaders);
+        setStatusOptions(statuses);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -48,15 +61,13 @@ const ShoppingTable = ({ userId }) => {
 
     if (leaderFilter) {
       filtered = filtered.filter((shopping) =>
-        shopping.user.profile.name
-          .toLowerCase()
-          .includes(leaderFilter.toLowerCase())
+        shopping.user.profile.name.toLowerCase() === leaderFilter.toLowerCase()
       );
     }
 
     if (statusFilter) {
       filtered = filtered.filter((shopping) =>
-        shopping.status.name.toLowerCase().includes(statusFilter.toLowerCase())
+        shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
       );
     }
 
@@ -90,19 +101,32 @@ const ShoppingTable = ({ userId }) => {
             value={itemFilter}
             onChange={(e) => setItemFilter(e.target.value)}
           />
-          <input
-            type="text"
-            placeholder="Líder de área"
+          <select
             value={leaderFilter}
             onChange={(e) => setLeaderFilter(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Estado"
+          >
+            <option value="">Todos los Líderes</option>
+            {leaderOptions.map((leader) => (
+              <option key={leader} value={leader}>
+                {leader}
+              </option>
+            ))}
+          </select>
+          <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-          />
-          <button onClick={clearFilters} className="clear-filters-button">
+          >
+            <option value="">Todos los Estados</option>
+            {statusOptions.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={clearFilters}
+            className="bg-red-500 text-white p-2 rounded"
+          >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>

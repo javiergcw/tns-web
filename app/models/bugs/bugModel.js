@@ -1,8 +1,8 @@
 class Bug {
-  constructor({ id, title, category_id, description, user_id, created_at, updated_at, user = {} }) {
+  constructor({ id, title, category_bug, description, user_id, created_at, updated_at, user = {} }) {
     this.id = id;
     this.title = title;
-    this.category_id = category_id;
+    this.category_bug = category_bug;
     this.description = description;
     this.user_id = user_id;
     this.created_at = created_at;
