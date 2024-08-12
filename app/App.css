@@ -3,7 +3,7 @@ body {
   background-color:#F0F1F5;
   margin: 0;
   font-family: Arial, sans-serif;
-  color: #fff;
+  color: #F0F1F5;
 }
 
 .app-container {
@@ -40,6 +40,7 @@ h1 {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  color:#000000
 }
 
 .filters-container input {
@@ -59,7 +60,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 20px;
 }
 
 .clear-filters-button:hover {

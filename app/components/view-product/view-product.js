@@ -1,9 +1,9 @@
 "use client";
+import React, { useState, useEffect, useRef } from "react";
 import TextInput from "../others/fields/textInput";
-import { useState, useEffect, useRef } from "react";
-import { FaTrash } from "react-icons/fa";
-import TrackingTable from "../dashboard/trackingTable/trackingTable";
 import { getAllShoppings } from "@/app/services/shoppingService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const fetchData = async () => {
   try {
@@ -19,39 +19,58 @@ const FiltersComponent = () => {
   const [itemName, setItemName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [areaManager, setAreaManager] = useState(""); // Estado para el filtro de Jefe de Área
+  const [areaManager, setAreaManager] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Crear referencias para los inputs
+  const [leaderOptions, setLeaderOptions] = useState([]);
+  const [statusOptions, setStatusOptions] = useState([]);
+
   const itemNameRef = useRef(null);
   const startDateRef = useRef(null);
   const endDateRef = useRef(null);
-  const areaManagerRef = useRef(null); // Referencia para el nuevo filtro
+  const areaManagerRef = useRef(null);
+  const statusFilterRef = useRef(null);
 
   useEffect(() => {
     const fetchAndProcessData = async () => {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setFilteredData(fetchedData); // Inicialmente mostrar todos los datos
-      setIsLoading(false); // Terminar la carga
+      try {
+        const fetchedData = await fetchData();
+        setData(fetchedData);
+        setFilteredData(fetchedData);
+        setIsLoading(false);
+
+        const leaders = [
+          ...new Set(fetchedData.map((shopping) => shopping.user.profile.name)),
+        ];
+        const statuses = [
+          ...new Set(fetchedData.map((shopping) => shopping.status.name)),
+        ];
+        setLeaderOptions(leaders);
+        setStatusOptions(statuses);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchAndProcessData();
   }, []);
 
   useEffect(() => {
-    // Filtrar los datos cuando los filtros cambian
     const filterData = () => {
       let filtered = data;
 
       if (itemName) {
         filtered = filtered.filter((shopping) =>
-          shopping.products
-            .map((product) => product.name.toLowerCase())
-            .join(", ")
-            .includes(itemName.toLowerCase())
+          shopping.products.some((product) =>
+            product.name.toLowerCase().includes(itemName.toLowerCase())
+          )
         );
       }
 
@@ -72,9 +91,15 @@ const FiltersComponent = () => {
           (shopping) =>
             shopping.user &&
             shopping.user.profile &&
-            shopping.user.profile.name
-              .toLowerCase()
-              .includes(areaManager.toLowerCase())
+            shopping.user.profile.name.toLowerCase() === areaManager.toLowerCase()
+        );
+      }
+
+      if (statusFilter) {
+        filtered = filtered.filter(
+          (shopping) =>
+            shopping.status.name &&
+            shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
         );
       }
 
@@ -82,44 +107,42 @@ const FiltersComponent = () => {
     };
 
     filterData();
-  }, [itemName, startDate, endDate, areaManager, data]);
+  }, [itemName, startDate, endDate, areaManager, statusFilter, data]);
 
   const handleFilterReset = () => {
     setItemName("");
     setStartDate("");
     setEndDate("");
-    setAreaManager(""); // Resetear el filtro de Jefe de Área
-    setFilteredData(data); // Mostrar todos los datos después de limpiar los filtros
+    setAreaManager("");
+    setStatusFilter("");
+    setFilteredData(data);
     if (itemNameRef.current) itemNameRef.current.blur();
     if (startDateRef.current) startDateRef.current.blur();
     if (endDateRef.current) endDateRef.current.blur();
-    if (areaManagerRef.current) areaManagerRef.current.blur(); // Desenfocar el input del nuevo filtro
+    if (areaManagerRef.current) areaManagerRef.current.blur();
+    if (statusFilterRef.current) statusFilterRef.current.blur();
   };
 
+  if (isLoading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
-    <div>
-      <div className="bg-white p-4 rounded shadow mb-4">
-        <h2 className="mb-4 text-lg font-semibold text-blue-800">Filstros</h2>
-        <div className="grid grid-cols-6 gap-4 mb-4">
-          <TextInput
-            labelText="Jefe de Área"
-            labelColor="black"
-            inputSize="big"
-            inputType="text"
-            value={areaManager}
-            onChange={(e) => setAreaManager(e.target.value)}
-            inputRef={areaManagerRef}
-          />
-          <TextInput
-            labelText="Nombre de item"
-            labelColor="black"
-            inputSize="big"
-            inputType="text"
+    <div className="app-container">
+      <h1>Compras</h1>
+      <div className="filters-container">
+        <h2>Filtros</h2>
+        <div className="filter-inputs">
+          <input
+            type="text"
+            placeholder="Nombre de item"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
-            inputRef={itemNameRef}
           />
-
           <TextInput
             labelText="Fecha de petición"
             labelColor="black"
@@ -140,22 +163,88 @@ const FiltersComponent = () => {
             inputRef={endDateRef}
           />
 
+          <select
+            value={areaManager}
+            onChange={(e) => setAreaManager(e.target.value)}
+            ref={areaManagerRef}
+          // Reducir padding y tamaño del texto
+          >
+            <option value="">Todos los Líderes</option>
+            {leaderOptions.map((leader) => (
+              <option key={leader} value={leader}>
+                {leader}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            ref={statusFilterRef}
+          // Reducir padding y tamaño del texto
+          >
+            <option value="">Todos los Estados</option>
+            {statusOptions.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+
           <button
             onClick={handleFilterReset}
-            className="flex items-center justify-center w-full h-full px-2 py-1 bg-red-500 text-white rounded-md"
+            className="bg-red-500 text-white p-2 rounded" // Reducir padding y tamaño del texto
           >
-            <FaTrash className="mr-1" />
-            Limpiar
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
       </div>
-      {isLoading ? (
-        <div className="flex justify-center items-center">
-          <div className="loader"></div>
+      <div className="table-container">
+        <div className="table-wrapper">
+          <table className="shopping-table">
+            <thead>
+              <tr>
+                <th>ITEM</th>
+                <th>LÍDER DE ÁREA</th>
+                <th>ESTADO</th>
+                <th>FECHA PETICIÓN</th>
+                <th>FECHA APROBADO</th>
+                <th>FECHA FINALIZACIÓN</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan="6">No hay compras</td>
+                </tr>
+              ) : (
+                filteredData.map((shopping) => (
+                  <tr key={shopping.id}>
+                    <td>
+                      <ul>
+                        {shopping.products.map((product) => (
+                          <li key={product.id}>{product.name}</li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td>{shopping.user.profile.name}</td>
+                    <td>{shopping.status.name}</td>
+                    <td>
+                      {new Date(shopping.request_date).toLocaleDateString()}
+                    </td>
+                    <td>
+                      {new Date(shopping.date_approval).toLocaleDateString()}
+                    </td>
+                    <td>
+                      {new Date(shopping.pending_date).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-      ) : (
-        <TrackingTable data={filteredData} />
-      )}
+      </div>
     </div>
   );
 };

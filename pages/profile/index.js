@@ -8,6 +8,7 @@ import RoleTable from "@/app/components/profile/roleTable"; // Importa StatusTab
 import { getProfileById } from "@/app/services/profileService";
 import PrivateRoute from "@/app/components/privateRoute";
 import "/app/globals.css";
+import BugTable from "@/app/components/profile/bugTable";
 
 const Profile = ({ role }) => {
   return (
@@ -17,6 +18,9 @@ const Profile = ({ role }) => {
       </div>
       {role === "admin" && (
         <>
+          <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+            <BugTable />
+          </div>
           <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
             <CategoryTable />
           </div>

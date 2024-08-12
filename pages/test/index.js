@@ -7,7 +7,7 @@ import ShoppingSummary from '@/app/components/stadistics/stadistics';
 const BugsPage = () => {
   return (
     <div>
-      <ShoppingSummary/>
+      <BugList/>
     </div>
   );
 };
