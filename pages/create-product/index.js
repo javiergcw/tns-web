@@ -2,12 +2,11 @@
 import "/app/globals.css";
 import React, { useState, useEffect } from "react";
 
-import MainLayout from "@/app/components/layout/drawerLayout";
-import CreatePurchaseForm from "@/app/components/others/container/createPurchaseForm";
-import ProductForm from "@/app/components/others/fields/productForm";
+
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 import { getCategories } from "@/app/services/categoryService";
-import CreateShoppingForm from "@/app/components/shopping/shoppingcreatetest";
+import CreateShoppingForm from "@/app/components/shopping/create_ShoppingForm";
+import DrawerLayout from "@/app/components/layout/drawerLayout";
 
 const CreateProduct = (termsAccepted = false) => {
   const [categories, setCategories] = useState([]);
@@ -83,10 +82,9 @@ const CreateProduct = (termsAccepted = false) => {
       }
     );
     const data = await response.json();
-    console.log(data);
   };
   return (
-    <MainLayout>
+    <DrawerLayout>
       <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
         <div className="pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12 max-w-full">
           <CreateShoppingForm />
@@ -106,9 +104,9 @@ const CreateProduct = (termsAccepted = false) => {
           </div>
         </div>
       </div> */}
-    </MainLayout>
+    </DrawerLayout>
   );
 };
 
 // Envuelve CreateProduct con PrivateRoute para proteger la ruta
-export default PrivateRoute(CreateProduct);
+export default (CreateProduct);

@@ -75,7 +75,7 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
               ></div>
               <span className="text-black font-bold">{label}:</span>
             </div>
-            <span className="font-bold">{dataset.data[index]}</span>
+            <span className="text-black font-bold">{dataset.data[index]}</span>
           </div>
         ))}
       </div>

@@ -10,7 +10,6 @@ const ShoppingTable = ({ userId }) => {
   const [error, setError] = useState(null);
 
   const [itemFilter, setItemFilter] = useState("");
-  const [leaderFilter, setLeaderFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
   const [leaderOptions, setLeaderOptions] = useState([]);
@@ -34,7 +33,6 @@ const ShoppingTable = ({ userId }) => {
         const statuses = [
           ...new Set(fetchedShoppings.map((shopping) => shopping.status.name)),
         ];
-        setLeaderOptions(leaders);
         setStatusOptions(statuses);
       } catch (error) {
         setError(error.message);
@@ -48,7 +46,7 @@ const ShoppingTable = ({ userId }) => {
 
   useEffect(() => {
     filterShoppings();
-  }, [itemFilter, leaderFilter, statusFilter]);
+  }, [itemFilter,statusFilter]);
 
   const filterShoppings = () => {
     let filtered = shoppings;
@@ -58,14 +56,6 @@ const ShoppingTable = ({ userId }) => {
         shopping.products.some((product) =>
           product.name.toLowerCase().includes(itemFilter.toLowerCase())
         )
-      );
-    }
-
-    if (leaderFilter) {
-      filtered = filtered.filter(
-        (shopping) =>
-          shopping.user.profile.name.toLowerCase() ===
-          leaderFilter.toLowerCase()
       );
     }
 
@@ -81,7 +71,6 @@ const ShoppingTable = ({ userId }) => {
 
   const clearFilters = () => {
     setItemFilter("");
-    setLeaderFilter("");
     setStatusFilter("");
     setFilteredShoppings(shoppings);
   };
@@ -106,17 +95,6 @@ const ShoppingTable = ({ userId }) => {
             value={itemFilter}
             onChange={(e) => setItemFilter(e.target.value)}
           />
-          <select
-            value={leaderFilter}
-            onChange={(e) => setLeaderFilter(e.target.value)}
-          >
-            <option value="">Todos los Líderes</option>
-            {leaderOptions.map((leader) => (
-              <option key={leader} value={leader}>
-                {leader}
-              </option>
-            ))}
-          </select>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}

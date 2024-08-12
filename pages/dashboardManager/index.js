@@ -11,6 +11,8 @@ import MainLayout from "@/app/components/layout/drawerLayout";
 import PrivateRoute from "@/app/components/privateRoute";
 import ShoppingTable from "@/app/components/shopping/getShoppingByUserId";
 import "/app/App.css";
+import ContactInfo from "../contact-info";
+import AdmissionsView from "@/app/components/admisiones/admissionesView";
 
 const fetchData = async () => {
   try {
@@ -79,7 +81,7 @@ const DashboardManager = () => {
 
       try {
         const profile = await getProfileById(localStorage.getItem('userId')); // Llama al endpoint para obtener el perfil del usuario
-        setUserRole(profile.rol?.name); // Accede al nombre del rol desde el objeto `rol`
+        setUserRole(profile.rol?.name || "Sin Rol"); // Accede al nombre del rol desde el objeto `rol` o asigna "Sin Rol" si no hay rol
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
@@ -88,33 +90,60 @@ const DashboardManager = () => {
     fetchAndProcessData();
   }, []);
 
-  return (
-    <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
-      <MainLayout>
-        <Container>
-          <hr className="my-5" />
-          <RequestsCarousel requestsData={unapprovedExpenses} />
-          <hr className="my-5" />
-          <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
-          <div className="flex flex-row space-x-4 pt-8 w-full">
-            <CircularDiagram className="w-1/2" type={"month"} data={data} />
-            <MonthlyExpenses
-              className="w-1/2"
-              total={totalExpenses}
-              data={expensesData}
-            />
-          </div>
-          <hr className="my-5" />
-          {userRole === "Jefe de area" && (
-            <ShoppingTable userId={localStorage.getItem('userId')} />
-          )}
-          {userRole === "admin" && (
-            <TrackingTable data={data} />
-          )}
-        </Container>
-      </MainLayout>
-    </div>
-  );
+  // Renderiza un componente alternativo si el usuario no tiene rol
+  if (userRole === "Sin rol") {
+    return (
+      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+        <MainLayout>
+          <Container>
+            <ContactInfo></ContactInfo>
+          </Container>
+        </MainLayout>
+      </div>
+    );
+  }
+  else if (userRole === "Secretariado") {
+    return (
+      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+        <MainLayout>
+          <Container>
+            <AdmissionsView></AdmissionsView>
+          </Container>
+        </MainLayout>
+      </div>
+    );
+  }
+
+  else {
+
+    return (
+      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+        <MainLayout>
+          <Container>
+            <hr className="my-5" />
+            <RequestsCarousel requestsData={unapprovedExpenses} />
+            <hr className="my-5" />
+            <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
+            <div className="flex flex-row space-x-4 pt-8 w-full">
+              <CircularDiagram className="w-1/2" type={"month"} data={data} />
+              <MonthlyExpenses
+                className="w-1/2"
+                total={totalExpenses}
+                data={expensesData}
+              />
+            </div>
+            <hr className="my-5" />
+            {userRole === "Jefe de area" && (
+              <ShoppingTable userId={localStorage.getItem('userId')} />
+            )}
+            {userRole === "admin" && (
+              <TrackingTable data={data} />
+            )}
+          </Container>
+        </MainLayout>
+      </div>
+    );
+  };
 };
 
 export default PrivateRoute(DashboardManager);

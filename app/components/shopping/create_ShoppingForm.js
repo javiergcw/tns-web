@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { createShopping } from "@/app/services/shoppingService";
-import CreateProductForm from "./productcreatetest";
-import { ToastContainer, toast } from "react-toastify";
+import CreateProductForm from "./create_ProductForm";
 import { getCategories } from "@/app/services/categoryService";
 import { getStatuses } from "@/app/services/statusService";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -14,7 +15,7 @@ const CreateShoppingForm = () => {
   const [categories, setCategories] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -31,9 +32,10 @@ const CreateShoppingForm = () => {
         const data = await getCategories();
         setCategories(data);
       } catch (error) {
-        setError(
-          "Failed to fetch categories. Please check your authorization."
-        );
+        setError((prev) => ({
+          ...prev,
+          general: "Failed to fetch categories. Please check your authorization.",
+        }));
       } finally {
         setLoading(false);
       }
@@ -45,7 +47,10 @@ const CreateShoppingForm = () => {
         const data = await getStatuses();
         setStatuses(data);
       } catch (error) {
-        setError("Failed to fetch statuses. Please check your authorization.");
+        setError((prev) => ({
+          ...prev,
+          general: "Failed to fetch statuses. Please check your authorization.",
+        }));
       } finally {
         setLoading(false);
       }
@@ -63,8 +68,24 @@ const CreateShoppingForm = () => {
     setProducts(products.filter((product) => product.id !== productId));
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!title.trim()) newErrors.title = "El título es obligatorio";
+    if (!description.trim()) newErrors.description = "La descripción es obligatoria";
+    if (!category_id) newErrors.category_id = "Debe seleccionar una categoría";
+    if (!status_id) newErrors.status_id = "Debe seleccionar un estado";
+    if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
+      return;
+    }
 
     const shopping = {
       shopping: {
@@ -82,17 +103,18 @@ const CreateShoppingForm = () => {
     try {
       const isCreated = await createShopping(shopping);
       if (isCreated) {
-        toast.success("Registro exitoso!");
         setTitle("");
         setDescription("");
         setCategory("");
         setStatus("");
         setProducts([]);
+        setError({}); // Limpiar los errores después del éxito
+        toast.success("Compra creada exitosamente!");
       } else {
-        toast.error("No se logró crear la compra");
+        setError({ general: "No se logró crear la compra" });
       }
     } catch (error) {
-      toast.error("Error al crear la compra");
+      setError({ general: "Error al crear la compra" });
     }
   };
 
@@ -104,6 +126,10 @@ const CreateShoppingForm = () => {
       >
         <h2 className="text-xl font-bold mb-4">Crear Nueva Compra</h2>
 
+        {error.general && (
+          <div className="text-red-500 mb-4">{error.general}</div>
+        )}
+
         <div className="mb-4">
           <label className="block text-black font-medium">Título:</label>
           <input
@@ -112,6 +138,7 @@ const CreateShoppingForm = () => {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
+          {error.title && <p className="text-red-500">{error.title}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-black font-medium">Descripción:</label>
@@ -121,6 +148,7 @@ const CreateShoppingForm = () => {
             onChange={(e) => setDescription(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
+          {error.description && <p className="text-red-500">{error.description}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-black font-medium">Categoría:</label>
@@ -136,6 +164,7 @@ const CreateShoppingForm = () => {
               </option>
             ))}
           </select>
+          {error.category_id && <p className="text-red-500">{error.category_id}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-black font-medium">Estado:</label>
@@ -151,6 +180,7 @@ const CreateShoppingForm = () => {
               </option>
             ))}
           </select>
+          {error.status_id && <p className="text-red-500">{error.status_id}</p>}
         </div>
 
         <h3 className="text-lg font-semibold mb-2">Productos en la Compra</h3>
@@ -186,6 +216,9 @@ const CreateShoppingForm = () => {
       <div className="w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
         <CreateProductForm onProductCreate={handleProductCreate} />
       </div>
+
+      {/* Componente ToastContainer para mostrar las notificaciones */}
+      <ToastContainer />
     </div>
   );
 };

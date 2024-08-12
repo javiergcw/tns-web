@@ -22,24 +22,6 @@ import { createBug } from "@/app/services/bugService";
 
 const greenDrawer = "#96C11F";
 
-const roleAccess = {
-  admin: [
-    "/dashboardManager",
-    "/view-product",
-    "/profile",
-    "/shoppings",
-    "/create-product",
-    "/settings",
-  ],
-  "Jefe de area": [
-    "/dashboardManager",
-    "/shoppings",
-    "/profile",
-    "/create-product",
-  ],
-  "Purchasing Area": ["/profile"],
-  "Sin rol": ["/profile"],
-};
 
 const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
@@ -145,12 +127,27 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     },
   ];
 
-  const accessibleMenuItems = allMenuItems;
+  // Lógica de roles
+  let accessibleMenuItems = [];
 
-  /*   const accessibleMenuItems = allMenuItems.filter(item =>
-    roleAccess[profile?.rol?.name]?.includes(item.link)
-  ); */
+  switch (profile?.rol?.name) {
+    case "admin":
+      accessibleMenuItems = allMenuItems;
+      break;
+    case "Jefe de area":
+      accessibleMenuItems = allMenuItems.filter(item =>
+        ["/dashboardManager", "/profile", "/shoppings", "/create-product"].includes(item.link)
+      );
+      break;
+    case "Secretariado":
+      accessibleMenuItems = allMenuItems.filter(item=>["/profile"].includes(item.link));
+      break;
+    default:
+      accessibleMenuItems = allMenuItems.filter(item=>["/profile"].includes(item.link));
+      break;
+  }
 
+  // Agregar logout para todos los roles
   accessibleMenuItems.push({
     link: "#",
     name: "Logout",
@@ -161,18 +158,16 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${
-          isOpen ? "w-64" : "w-24"
-        } transition-all duration-300 ease-in-out flex flex-col items-center`}
+        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
+          } transition-all duration-300 ease-in-out flex flex-col items-center`}
       >
         <button
           onClick={onToggle}
           className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
         >
           <IoMenu
-            className={`text-greenDrawer ${
-              isOpen ? "text-2xl" : "text-4xl"
-            } transition-all duration-300`}
+            className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"
+              } transition-all duration-300`}
           />
         </button>
         <div className="flex flex-col items-center w-full mt-4 flex-1">
@@ -206,9 +201,8 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             {accessibleMenuItems.map((item, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
-                  isOpen ? "items-center" : "justify-center"
-                } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
+                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
                 onClick={
                   item.onClick
                     ? item.onClick
@@ -216,14 +210,12 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                 }
               >
                 <div
-                  className={`flex items-center w-full ${
-                    isOpen ? "" : "justify-center"
-                  }`}
+                  className={`flex items-center w-full ${isOpen ? "" : "justify-center"
+                    }`}
                 >
                   <span
-                    className={`text-green-500 ${
-                      isOpen ? "text-2xl" : "text-4xl"
-                    } flex items-center justify-center transition-all duration-300`}
+                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
+                      } flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>

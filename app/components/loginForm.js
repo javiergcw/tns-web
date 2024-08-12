@@ -1,6 +1,6 @@
 "use client";
 import "/app/globals.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import TextInput from "@/app/components/others/fields/textInput";
 import NormalButton from "@/app/components/others/button/normalButton";
@@ -18,8 +18,21 @@ import PublicRoute from "./publicRoute";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false); // Nuevo estado para "Recordarme"
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  // Cargar los datos desde localStorage si existen
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("rememberMeEmail");
+    const storedPassword = localStorage.getItem("rememberMePassword");
+
+    if (storedEmail && storedPassword) {
+      setEmail(storedEmail);
+      setPassword(storedPassword);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -30,6 +43,16 @@ const LoginForm = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.id);
       localStorage.setItem("profileId", response.data.profile_id);
+
+      // Guardar o limpiar los datos en localStorage dependiendo de "Recordarme"
+      if (rememberMe) {
+        localStorage.setItem("rememberMeEmail", email);
+        localStorage.setItem("rememberMePassword", password);
+      } else {
+        localStorage.removeItem("rememberMeEmail");
+        localStorage.removeItem("rememberMePassword");
+      }
+
       toast.success("Login exitoso!", {
         onClose: () => router.push("/dashboardManager"),
       });
@@ -46,6 +69,10 @@ const LoginForm = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleRememberMeChange = (e) => {
+    setRememberMe(e.target.checked);
   };
 
   return (
@@ -92,7 +119,18 @@ const LoginForm = () => {
               value={password}
               onChange={handlePasswordChange}
             />
-            <RememberMeAndForgotPassword />
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleRememberMeChange}
+                className="mr-2"
+              />
+              <label htmlFor="rememberMe" className="text-gray-600">
+                Recordarme
+              </label>
+            </div>
+            {/* //<RememberMeAndForgotPassword/> */}
             <NormalButton
               text="Iniciar sesión"
               color="blueButton"
