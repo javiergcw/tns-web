@@ -3,9 +3,9 @@ import Modal from "react-modal";
 import Table from "@/app/components/others/table/table"; // Importar el componente Table
 import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
 import { VideoPath } from "@/app/utils/assetsPath";
-import Lottie from 'react-lottie';
+import Lottie from "react-lottie";
 import animationData from "@/public/videos/errorData.json";
-import { RedButton, BlueButton } from "@/app/utils/Buttons";// Importar los botones
+import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
 
@@ -17,7 +17,7 @@ const RoleTable = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [newRoleName, setNewRoleName] = useState('');
+  const [newRoleName, setNewRoleName] = useState("");
   const [selectedRole, setSelectedRole] = useState(null);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const RoleTable = () => {
       setRoles(data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching roles:', error);
+      console.error("Error fetching roles:", error);
       setError(error.message);
       setLoading(false);
     }
@@ -41,12 +41,12 @@ const RoleTable = () => {
     try {
       setLoading(true);
       await addRole(newRoleName);
-      setNewRoleName(''); // Limpiar el campo de entrada
+      setNewRoleName(""); // Limpiar el campo de entrada
       fetchRoles();
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error adding role:', error);
-      setError('Failed to add role.');
+      console.error("Error adding role:", error);
+      setError("Failed to add role.");
     } finally {
       setLoading(false);
     }
@@ -64,22 +64,16 @@ const RoleTable = () => {
       fetchRoles();
       setIsDeleteModalOpen(false);
     } catch (error) {
-      console.error('Error deleting role:', error);
-      setError('Failed to delete role.');
+      console.error("Error deleting role:", error);
+      setError("Failed to delete role.");
     } finally {
       setLoading(false);
     }
   };
 
-  const columns = [
-    "ID",
-    "Nombre",
-    "Creado en",
-    "Actualizado en",
-    "Acciones"
-  ];
+  const columns = ["ID", "Nombre", "Creado en", "Actualizado en", "Acciones"];
 
-  const rows = roles.map(role => [
+  const rows = roles.map((role) => [
     role.id,
     role.name,
     new Date(role.created_at).toLocaleString(),
@@ -88,7 +82,7 @@ const RoleTable = () => {
       text="Eliminar"
       onClick={() => openDeleteModal(role)}
       className="px-2 py-1"
-    />
+    />,
   ]);
 
   // Configuración de la animación Lottie
@@ -97,23 +91,21 @@ const RoleTable = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
 
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Roles</h2>
-      <div className='mb-4'>
+      <div className="mb-4">
         <BlueButton
           text="Añadir Rol"
           onClick={() => setIsModalOpen(true)}
           className="mt-4 p-2"
         />
       </div>
-      {loading && (
-        <LoaderOverlay />
-      )}
+      {loading && <LoaderOverlay />}
       {!loading && roles.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
           <Lottie options={defaultOptions} height={400} width={400} />
@@ -146,18 +138,17 @@ const RoleTable = () => {
         </button>
         <h2 className="text-2xl font-bold mb-4 text-black">Añadir Rol</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Nombre del Rol</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Nombre del Rol
+          </label>
           <input
             type="text"
             value={newRoleName}
             onChange={(e) => setNewRoleName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
-        <BlueButton
-          text="Guardar"
-          onClick={handleAddRole}
-        />
+        <BlueButton text="Guardar" onClick={handleAddRole} />
         <RedButton
           text="Cancelar"
           onClick={() => setIsModalOpen(false)}

@@ -26,7 +26,7 @@ const ProfileForm = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const storedUserId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("profileId");
         //console.log("Retrieved userId from localStorage:", storedUserId);
         if (storedUserId) {
           setUserId(storedUserId);
@@ -191,7 +191,10 @@ const ProfileForm = () => {
             onClick={() => fileInputRef.current.click()}
           />
           <div className="absolute top-0 left-0 w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-            <FiEdit className="text-white text-2xl sm:text-4xl bg-black bg-opacity-50 rounded-full p-2 sm:p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer" onClick={() => fileInputRef.current.click()} />
+            <FiEdit
+              className="text-white text-2xl sm:text-4xl bg-black bg-opacity-50 rounded-full p-2 sm:p-4 absolute opacity-0 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+              onClick={() => fileInputRef.current.click()}
+            />
           </div>
           <input
             type="file"
@@ -271,9 +274,6 @@ const ProfileForm = () => {
           </div>
         )}
       </Modal>
-
-
-
     </div>
   );
 };

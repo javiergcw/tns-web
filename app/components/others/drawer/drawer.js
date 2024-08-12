@@ -23,8 +23,20 @@ import { createBug } from "@/app/services/bugService";
 const greenDrawer = "#96C11F";
 
 const roleAccess = {
-  admin: ["/dashboardManager", "/view-product", "/profile", "/shoppings", "/create-product", "/settings"],
-  "Jefe de area": ["/dashboardManager", "/shoppings", "/profile", "/create-product"],
+  admin: [
+    "/dashboardManager",
+    "/view-product",
+    "/profile",
+    "/shoppings",
+    "/create-product",
+    "/settings",
+  ],
+  "Jefe de area": [
+    "/dashboardManager",
+    "/shoppings",
+    "/profile",
+    "/create-product",
+  ],
   "Purchasing Area": ["/profile"],
   "Sin rol": ["/profile"],
 };
@@ -33,9 +45,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [description, setDescription] = useState("");
 
   const router = useRouter();
 
@@ -70,9 +82,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   const handleModalSubmit = async (event) => {
     event.preventDefault();
 
-    const user_id = localStorage.getItem('userId');
+    const user_id = localStorage.getItem("userId");
     if (!user_id) {
-      alert('User not logged in');
+      alert("User not logged in");
       return;
     }
 
@@ -85,10 +97,10 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
     try {
       const newBug = await createBug(bugData);
-      alert('Bug creado:');
+      alert("Bug creado:");
       setIsModalOpen(false);
     } catch (error) {
-      alert('Error al crear el bug');
+      alert("Error al crear el bug");
     }
   };
 
@@ -133,9 +145,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     },
   ];
 
-  const accessibleMenuItems = allMenuItems.filter(item =>
+  const accessibleMenuItems = allMenuItems;
+
+  /*   const accessibleMenuItems = allMenuItems.filter(item =>
     roleAccess[profile?.rol?.name]?.includes(item.link)
-  );
+  ); */
 
   accessibleMenuItems.push({
     link: "#",
@@ -147,16 +161,18 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
-          } transition-all duration-300 ease-in-out flex flex-col items-center`}
+        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${
+          isOpen ? "w-64" : "w-24"
+        } transition-all duration-300 ease-in-out flex flex-col items-center`}
       >
         <button
           onClick={onToggle}
           className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
         >
           <IoMenu
-            className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"
-              } transition-all duration-300`}
+            className={`text-greenDrawer ${
+              isOpen ? "text-2xl" : "text-4xl"
+            } transition-all duration-300`}
           />
         </button>
         <div className="flex flex-col items-center w-full mt-4 flex-1">
@@ -190,8 +206,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             {accessibleMenuItems.map((item, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
-                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+                  isOpen ? "items-center" : "justify-center"
+                } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
                 onClick={
                   item.onClick
                     ? item.onClick
@@ -199,12 +216,14 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                 }
               >
                 <div
-                  className={`flex items-center w-full ${isOpen ? "" : "justify-center"
-                    }`}
+                  className={`flex items-center w-full ${
+                    isOpen ? "" : "justify-center"
+                  }`}
                 >
                   <span
-                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
-                      } flex items-center justify-center transition-all duration-300`}
+                    className={`text-green-500 ${
+                      isOpen ? "text-2xl" : "text-4xl"
+                    } flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>

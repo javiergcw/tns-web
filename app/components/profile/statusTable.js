@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import Table from "@/app/components/others/table/table"; // Importar el componente Table
-import { getStatuses, addStatus, deleteStatus } from "@/app/services/statusService";
-import Lottie from 'react-lottie';
+import {
+  getStatuses,
+  addStatus,
+  deleteStatus,
+} from "@/app/services/statusService";
+import Lottie from "react-lottie";
 import animationData from "@/public/videos/errorData.json";
-import Modal from 'react-modal';
-import { RedButton, BlueButton } from "@/app/utils/Buttons";// Importar los botones constantes
-import LoaderOverlay from "@/app/utils/loaderOverlay";// Importar el LoaderOverlay
+import Modal from "react-modal";
+import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones constantes
+import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
 
 const StatusTable = () => {
   const [statuses, setStatuses] = useState([]);
-  const [newStatusName, setNewStatusName] = useState('');
+  const [newStatusName, setNewStatusName] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // Estado de carga
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,13 +38,13 @@ const StatusTable = () => {
   };
 
   const handleAddStatus = async () => {
-    if (newStatusName.trim() === '') {
+    if (newStatusName.trim() === "") {
       return;
     }
     try {
       setLoading(true); // Inicia la carga
       await addStatus(newStatusName);
-      setNewStatusName('');
+      setNewStatusName("");
       fetchStatuses();
       setIsModalOpen(false);
     } catch (error) {
@@ -68,20 +72,16 @@ const StatusTable = () => {
     }
   };
 
-  const columns = [
-    "ID",
-    "Nombre",
-    "Acciones"
-  ];
+  const columns = ["ID", "Nombre", "Acciones"];
 
-  const rows = statuses.map(status => [
+  const rows = statuses.map((status) => [
     status.id,
     status.name,
     <RedButton
       text="Eliminar"
       onClick={() => openDeleteModal(status)}
       className="px-2 py-1"
-    />
+    />,
   ]);
 
   // Configuración de la animación Lottie
@@ -90,7 +90,7 @@ const StatusTable = () => {
     autoplay: true,
     animationData: animationData, // Utilizar directamente el objeto JSON de la animación
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 
@@ -104,9 +104,7 @@ const StatusTable = () => {
           onClick={() => setIsModalOpen(true)}
         />
       </div>
-      {loading && (
-        <LoaderOverlay />
-      )}
+      {loading && <LoaderOverlay />}
       {!loading && statuses.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
           <Lottie options={defaultOptions} height={400} width={400} />
@@ -139,18 +137,17 @@ const StatusTable = () => {
         </button>
         <h2 className="text-2xl font-bold mb-4 text-black">Agregar Estado</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-black">Nombre del Estado</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Nombre del Estado
+          </label>
           <input
             type="text"
             value={newStatusName}
             onChange={(e) => setNewStatusName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
-        <BlueButton
-          text="Guardar"
-          onClick={handleAddStatus}
-        />
+        <BlueButton text="Guardar" onClick={handleAddStatus} />
         <RedButton
           text="Cancelar"
           onClick={() => setIsModalOpen(false)}

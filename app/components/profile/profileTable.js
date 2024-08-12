@@ -171,7 +171,7 @@ const ProfileTable = () => {
       <BlueButton
         text="Agregar Usuario"
         onClick={() => setIsAddModalOpen(true)}
-        className="mb-4"
+        className="mb-4 font-bold"
       />
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -202,24 +202,26 @@ const ProfileTable = () => {
         className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Editar Perfil</h2>
+        <h2 className="text-2xl font-bold mb-4 text-black">Editar Perfil</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Nombre</label>
+          <label className="block text-sm font-medium mb-2  text-black">
+            Nombre
+          </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium mb-2 text-black">
             Tipo de Identificación
           </label>
           <select
             value={identificationType}
             onChange={(e) => setIdentificationType(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           >
             <option value="">Selecciona un tipo</option>
             {documentTypeOptions.map((option) => (
@@ -230,24 +232,26 @@ const ProfileTable = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium mb-2 text-black">
             Número de Identificación
           </label>
           <input
             type="text"
             value={identificationNumber}
             onChange={handleIdentificationNumberChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
             pattern="\d*"
             title="Por favor ingrese solo números"
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2">Rol</label>
+          <label className="block text-sm font-medium mb-2 text-black">
+            Rol
+          </label>
           <select
             value={selectedRoleId}
             onChange={(e) => setSelectedRoleId(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           >
             <option value="">Selecciona un rol</option>
             {roles.map((role) => (
@@ -288,7 +292,7 @@ const ProfileTable = () => {
             name="name"
             value={newUser.name}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
         <div className="mb-4">
@@ -300,7 +304,7 @@ const ProfileTable = () => {
             name="email"
             value={newUser.email}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
         <div className="mb-4">
@@ -312,7 +316,7 @@ const ProfileTable = () => {
             name="password"
             value={newUser.password}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
         <div className="mb-4">
@@ -324,7 +328,7 @@ const ProfileTable = () => {
             name="password_confirmation"
             value={newUser.password_confirmation}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
         <div className="mb-4">
@@ -335,7 +339,7 @@ const ProfileTable = () => {
             name="identification_type"
             value={newUser.identification_type}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           >
             <option value="">Seleccione un tipo de identificación</option>
             <option value="Pasaporte">Pasaporte</option>
@@ -352,7 +356,7 @@ const ProfileTable = () => {
             name="identification_number"
             value={newUser.identification_number}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded text-black"
           />
         </div>
 
