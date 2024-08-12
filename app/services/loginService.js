@@ -1,6 +1,8 @@
 import { post } from "./apiRequest";
 import { RegisterData, RegisterResponse } from "../models/login/registerModel";
 import { ENDPOINTS } from "../utils/apiConfig";
+import { ImagesPath } from "../utils/assetsPath";
+
 import { IdentificationIcon } from "@heroicons/react/24/solid";
 
 export const register = async (
@@ -20,7 +22,7 @@ export const register = async (
         name: name,
         identification_type: identificationType,
         identification_number: identificationNumber,
-        photo: "photo_url", // Debes asignar aquí la URL real de la foto si está disponible
+        photo: ImagesPath.profileDefaultPhoto, // Debes asignar aquí la URL real de la foto si está disponible
         rol_id: 2, // Ajusta este valor según el rol que deba asignarse
       },
     },
@@ -38,7 +40,8 @@ export const register = async (
           response.data.id,
           response.data.email,
           response.data.created_at,
-          response.data.token
+          response.data.token,
+          response.data.profile
         )
       );
 

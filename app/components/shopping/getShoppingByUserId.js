@@ -27,7 +27,9 @@ const ShoppingTable = ({ userId }) => {
 
         // Obtener opciones únicas para los dropdowns
         const leaders = [
-          ...new Set(fetchedShoppings.map((shopping) => shopping.user.profile.name)),
+          ...new Set(
+            fetchedShoppings.map((shopping) => shopping.user.profile.name)
+          ),
         ];
         const statuses = [
           ...new Set(fetchedShoppings.map((shopping) => shopping.status.name)),
@@ -60,14 +62,17 @@ const ShoppingTable = ({ userId }) => {
     }
 
     if (leaderFilter) {
-      filtered = filtered.filter((shopping) =>
-        shopping.user.profile.name.toLowerCase() === leaderFilter.toLowerCase()
+      filtered = filtered.filter(
+        (shopping) =>
+          shopping.user.profile.name.toLowerCase() ===
+          leaderFilter.toLowerCase()
       );
     }
 
     if (statusFilter) {
-      filtered = filtered.filter((shopping) =>
-        shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
+      filtered = filtered.filter(
+        (shopping) =>
+          shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
       );
     }
 
@@ -93,11 +98,11 @@ const ShoppingTable = ({ userId }) => {
     <div className="app-container">
       <h1>Compras</h1>
       <div className="filters-container">
-        <h2>Filtros</h2>
+        <h2>Nombre del item</h2>
         <div className="filter-inputs">
           <input
             type="text"
-            placeholder="Nombre de item"
+            placeholder="Item"
             value={itemFilter}
             onChange={(e) => setItemFilter(e.target.value)}
           />

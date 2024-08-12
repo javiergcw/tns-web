@@ -9,6 +9,7 @@ import { getProfileById } from "@/app/services/profileService";
 import PrivateRoute from "@/app/components/privateRoute";
 import "/app/globals.css";
 import BugTable from "@/app/components/profile/bugTable";
+import DrawerLayout from "@/app/components/layout/drawerLayout";
 
 const Profile = ({ role }) => {
   return (
@@ -45,7 +46,9 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const storedUserId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("profileId");
+        console.log(storedUserId);
+
         if (storedUserId) {
           const profile = await getProfileById(storedUserId);
           setRole(profile.rol ? profile.rol.name : "");
@@ -61,9 +64,9 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <MainLayout>
+    <DrawerLayout>
       <Profile role={role} />
-    </MainLayout>
+    </DrawerLayout>
   );
 };
 

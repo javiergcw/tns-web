@@ -14,6 +14,7 @@ export const login = async (email, password) => {
       response.message,
       new AuthData(
         response.data.id,
+        response.data.profile_id,
         response.data.email,
         response.data.created_at,
         response.data.token

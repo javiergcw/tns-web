@@ -7,6 +7,7 @@ import CreatePurchaseForm from "@/app/components/others/container/createPurchase
 import ProductForm from "@/app/components/others/fields/productForm";
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 import { getCategories } from "@/app/services/categoryService";
+import CreateShoppingForm from "@/app/components/shopping/shoppingcreatetest";
 
 const CreateProduct = (termsAccepted = false) => {
   const [categories, setCategories] = useState([]);
@@ -86,112 +87,12 @@ const CreateProduct = (termsAccepted = false) => {
   };
   return (
     <MainLayout>
-      <form onSubmit={handleSubmit} className="w-full p-6 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4 text-black">
-          Creación de compra
-        </h2>
-        <div className="flex justify-between space-x-4">
-          {/* Primera columna: Contenedor para la información de la compra */}
-          <div className="w-1/2 p-4 bg-white rounded-lg shadow-md">
-            <div className="mb-4">
-              <select
-                value={shoppingData.category_id}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-                required
-              >
-                <option value="">Selecciona una categoría</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-2">
-                Fecha de Solicitud
-              </label>
-              <input
-                type="date"
-                name="request_date"
-                placeholder="Fecha de Solicitud"
-                value={shoppingData.request_date}
-                onChange={(e) => setRequestDate(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-2">
-                Fecha Pendiente
-              </label>
-              <input
-                type="date"
-                name="pending_date"
-                placeholder="Fecha Pendiente"
-                value={shoppingData.pending_date}
-                onChange={(e) => setPendingDate(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-2">
-                Fecha de Aprobación
-              </label>
-              <input
-                type="date"
-                name="date_approval"
-                placeholder="Fecha de Aprobación"
-                value={shoppingData.date_approval}
-                onChange={(e) => setDateApproval(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="checkbox"
-                checked={termsAccepted}
-                onChange={(e) => setTermsAccepted(e.target.checked)}
-                className="mr-2 text-black checked:text-greenDrawer"
-                required
-              />
-              <label className="text-black">
-                Acepto los términos y condiciones
-              </label>
-            </div>
-          </div>
-
-          {/* Segunda columna: Contenedor para la selección de productos */}
-          <div className="w-1/2 p-4 bg-white rounded-lg shadow-md">
-            <label className="block text-black text-sm font-bold mb-2">
-              Selecciona productos:
-            </label>
-            {shoppingData.products.map((product, index) => (
-              <div key={index} className="flex items-center mb-2">
-                <input
-                  type="checkbox"
-                  id={`product-${index}`}
-                  value={product.title}
-                  onChange={handleCheckboxChange}
-                  className="mr-2 leading-tight text-black checked:text-greenDrawer"
-                />
-                <label htmlFor={`product-${index}`} className="text-black">
-                  {product.title} - {product.price}
-                </label>
-              </div>
-            ))}
-            <button
-              type="submit"
-              className="mt-4 w-full bg-blue-500 text-white p-2 rounded"
-            >
-              Registrar
-            </button>
-          </div>
+      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+        <div className="pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12 max-w-full">
+          <CreateShoppingForm />
         </div>
-      </form>
+      </div>
+
       {/*  <div className="w-full bg-bgPrimary min-h-screen px-4 md:px-20 py-10 overflow-auto">
         <h1 className="text-3xl font-bold mb-6 text-blue-800">
           Crear Producto

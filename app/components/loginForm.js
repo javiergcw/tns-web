@@ -26,6 +26,7 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const response = await login(email, password);
+
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.id);
       localStorage.setItem("profileId", response.data.profile_id);

@@ -73,6 +73,47 @@ const RequestsCarousel = () => {
         >
           &lt;
         </button>
+        <div className="flex flex-1 overflow-x-hidden">
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-1 justify-between"
+            >
+              {requestsData
+                .slice(currentIndex, currentIndex + itemsPerPage)
+                .map((request, index) => (
+                  <LastRequests
+                    key={index}
+                    area={request.category.name || "N/A"}
+                    leader={request.user.profile.name || "N/A"}
+                    description={request.description || "N/A"}
+                    className="flex-grow min-w-0"
+                  />
+                ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <button
+          onClick={next}
+          disabled={currentIndex + itemsPerPage >= requestsData.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          &gt;
+        </button>
+      </div>
+
+      {/* <div className="flex justify-between items-center mt-2">
+        <button
+          onClick={prev}
+          disabled={currentIndex === 0}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          &lt;
+        </button>
         <div className="flex overflow-x-hidden">
           <AnimatePresence initial={false}>
             <motion.div
@@ -103,7 +144,7 @@ const RequestsCarousel = () => {
         >
           &gt;
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

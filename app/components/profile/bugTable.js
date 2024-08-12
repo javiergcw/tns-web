@@ -56,7 +56,7 @@ const BugTable = () => {
   const rows = bugs.map((bug) => [
     bug.id,
     bug.title,
-    bug.category_bug,                                                                            
+    bug.category_bug,
     bug.description,
     bug.user ? bug.user.email : "Desconocido",
     new Date(bug.created_at).toLocaleString(),
@@ -83,7 +83,8 @@ const BugTable = () => {
       )}
       {!loading && bugs.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
-          <Lottie options={defaultOptions} height={400} width={400} />
+          {/*           <Lottie options={defaultOptions} height={400} width={400} />
+           */}{" "}
           <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
         </div>
       )}
@@ -94,7 +95,8 @@ const BugTable = () => {
       )}
       {error && (
         <div className="flex flex-col items-center justify-center h-full">
-          <Lottie options={defaultOptions} height={400} width={400} />
+          {/*           <Lottie options={defaultOptions} height={400} width={400} />
+           */}{" "}
           <p className="text-red-500 text-lg mt-4">Error: {error}</p>
         </div>
       )}

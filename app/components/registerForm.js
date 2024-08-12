@@ -13,12 +13,12 @@ import LoaderOverlay from "@/app/utils/loaderOverlay";
 import PublicRoute from "./publicRoute"; // Importa el HOC PublicRoute
 
 const RegisterForm = () => {
-  const [name, setName] = useState("asdasd");
-  const [email, setEmail] = useState("asdasd@gmail.com");
-  const [password, setPassword] = useState("1234asd");
-  const [confirmPassword, setConfirmPassword] = useState("1234asd");
-  const [identificationType, setIdentificationType] = useState("asdadas");
-  const [identificationNumber, setIdentificationNumber] = useState("12121211");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [identificationType, setIdentificationType] = useState("");
+  const [identificationNumber, setIdentificationNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -28,6 +28,7 @@ const RegisterForm = () => {
       toast.error("Las contraseñas no coinciden");
       return;
     }
+
     setLoading(true);
     try {
       const response = await register(
@@ -38,13 +39,13 @@ const RegisterForm = () => {
         identificationType,
         identificationNumber
       );
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.id);
+      // localStorage.setItem("token", response.data.token);
+      //     localStorage.setItem("userId", response.data.id);
       toast.success("Registro exitoso!", {
-        onClose: () => router.push("/dashboardManager"),
+        onClose: () => router.push("/login"),
       });
     } catch (error) {
-      toast.error("Error en el registros");
+      toast.error("Error en el registro ", error);
     } finally {
       setLoading(false);
     }

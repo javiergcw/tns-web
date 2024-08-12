@@ -1,13 +1,10 @@
-import React from 'react';
-import BugComponent from '@/app/components/bugs/bugList'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
-import BugList from '@/app/components/bugs/bugList';
-import CreateBugComponent from '@/app/components/bugs/createBug';
-import ShoppingSummary from '@/app/components/stadistics/stadistics';
+import React from "react";
+import CreateShoppingForm from "@/app/components/shopping/shoppingcreatetest";
 
 const BugsPage = () => {
   return (
     <div>
-      <BugList/>
+      <CreateShoppingForm />
     </div>
   );
 };

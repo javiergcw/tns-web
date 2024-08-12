@@ -107,7 +107,8 @@ const CategoryTable = () => {
       {loading && <LoaderOverlay />}
       {!loading && categories.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
-          <Lottie options={defaultOptions} height={400} width={400} />
+          {/*           <Lottie options={defaultOptions} height={400} width={400} />
+           */}{" "}
           <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
         </div>
       )}
@@ -118,7 +119,8 @@ const CategoryTable = () => {
       )}
       {error && (
         <div className="flex flex-col items-center justify-center h-full">
-          <Lottie options={defaultOptions} height={400} width={400} />
+          {/*           <Lottie options={defaultOptions} height={400} width={400} />
+           */}{" "}
           <p className="text-red-500 text-lg mt-4">Error: {error}</p>
         </div>
       )}

@@ -91,7 +91,4 @@ h1 {
 .shopping-table th {
   background-color: #004F9F;
   color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
