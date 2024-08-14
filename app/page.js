@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <Provider store={store}>
       <MainLayout>
-        {showModal && <Modal setShowModal={setShowModal} />}
+        {/*  {showModal && <Modal setShowModal={setShowModal} />} */}
         <BannerCarousel imagePaths={imagePaths} />
         <ServicesHome images={servicesList} />
         <BlogsSection blogs={blogList} />
