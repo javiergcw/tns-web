@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import CreateShoppingForm from "@/app/components/shopping/shoppingcreatetest";
 
 const CreateShoppingPage = () => {
@@ -11,3 +11,4 @@ const CreateShoppingPage = () => {
 };
 
 export default CreateShoppingPage;
+ */
