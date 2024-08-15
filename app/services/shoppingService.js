@@ -1,16 +1,8 @@
 import { get, post } from "./apiRequest";
 import { ENDPOINTS } from "@/app/utils/apiConfig";
 import { ShoppingDTO } from "../models/shoppings/shoppingsModel"; // Asegúrate de que la ruta sea correcta
-import axios from "axios";
 
-const getAuthHeaders = () => {
-  return {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  };
-};
+
 const getAllShoppings = async () => {
   try {
     const response = await get(ENDPOINTS.shoppings);
@@ -70,15 +62,13 @@ const getLatestStatisticalRequestsOfTheMonth = async () => {
 // Método para crear una nueva compra
 const createShopping = async (shoppingData) => {
   try {
-    const response = await axios.post(
+    const response = await post(
       ENDPOINTS.create_shopping,
 
       shoppingData,
-
-      getAuthHeaders()
     );
     /*  const response = await post(ENDPOINTS.create_shopping, shoppingData); */
-    if (response.status == 200 || response.status == 201) {
+    if (response.status >= 200 && response.status < 300) {
       return true;
     } //return new ShoppingDTO(response);
   } catch (error) {
