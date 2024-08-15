@@ -102,7 +102,7 @@ const CreateShoppingForm = () => {
 
     try {
       const isCreated = await createShopping(shopping);
-      if (isCreated) {
+      if (isCreated!="") {
         setTitle("");
         setDescription("");
         setCategory("");
