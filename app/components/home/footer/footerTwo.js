@@ -19,7 +19,7 @@ export default function FooterTwo() {
             </p>
 
             <p className="py-2">
-              <strong>Teléfono:</strong> (604) 520 7270
+              <strong>Teléfono:</strong> +57 (300) 5950 161
             </p>
             <p>
               <strong>E-mails:</strong> Correo@thenewschool.edu.co
