@@ -6,7 +6,7 @@ import DrawerLayout from "@/app/components/layout/drawerLayout";
 
 const App = () => {
   // Ejemplo de ID de compra para probar
-  const shoppingId = 34;
+  const shoppingId = 33;
 
   return (
     <DrawerLayout>

@@ -5,6 +5,7 @@ import { getCategories } from "@/app/services/categoryService";
 import { getStatuses } from "@/app/services/statusService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { getAllProfiles } from "@/app/services/profileService";
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -14,16 +15,10 @@ const CreateShoppingForm = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [statuses, setStatuses] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [userId, setUserId] = useState("");
-
-  useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-  }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -56,8 +51,24 @@ const CreateShoppingForm = () => {
       }
     };
 
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const data = await getAllProfiles();
+        setUsers(data);
+      } catch (error) {
+        setError((prev) => ({
+          ...prev,
+          general: "Failed to fetch users. Please check your authorization.",
+        }));
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCategories();
     fetchStatuses();
+    fetchUsers();
   }, []);
 
   const handleProductCreate = (newProduct) => {
@@ -74,6 +85,7 @@ const CreateShoppingForm = () => {
     if (!description.trim()) newErrors.description = "La descripción es obligatoria";
     if (!category_id) newErrors.category_id = "Debe seleccionar una categoría";
     if (!status_id) newErrors.status_id = "Debe seleccionar un estado";
+    if (!selectedUserId) newErrors.user_id = "Debe seleccionar un usuario";
     if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
     return newErrors;
   };
@@ -96,18 +108,20 @@ const CreateShoppingForm = () => {
         request_date: new Date().toISOString(),
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
+        id: parseInt(selectedUserId, 10), // Usamos el ID del usuario seleccionado
       },
       products: products,
     };
 
     try {
       const isCreated = await createShopping(shopping);
-      if (isCreated!="") {
+      if (isCreated != "") {
         setTitle("");
         setDescription("");
         setCategory("");
         setStatus("");
         setProducts([]);
+        setSelectedUserId("");
         setError({}); // Limpiar los errores después del éxito
         toast.success("Compra creada exitosamente!");
       } else {
@@ -181,6 +195,22 @@ const CreateShoppingForm = () => {
             ))}
           </select>
           {error.status_id && <p className="text-red-500">{error.status_id}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-black font-medium">Usuario:</label>
+          <select
+            value={selectedUserId}
+            onChange={(e) => setSelectedUserId(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un usuario</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+          {error.user_id && <p className="text-red-500">{error.user_id}</p>}
         </div>
 
         <h3 className="text-lg font-semibold mb-2">Productos en la Compra</h3>

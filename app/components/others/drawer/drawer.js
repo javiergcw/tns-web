@@ -22,7 +22,6 @@ import { createBug } from "@/app/services/bugService";
 
 const greenDrawer = "#96C11F";
 
-
 const Drawer = ({ isOpen, onToggle, profile }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -136,14 +135,19 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Jefe de area":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/dashboardManager", "/profile", "/shoppings", "/create-product"].includes(item.link)
+        ["/dashboardManager", "/shoppings"].includes(item.link)
       );
       break;
     case "Secretariado":
-      accessibleMenuItems = allMenuItems.filter(item=>["/profile"].includes(item.link));
+      accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
+      break;
+    case "Compras":
+      accessibleMenuItems = allMenuItems.filter(item =>
+        ["/profile", "/view-product", "/create-product", "/shoppings"].includes(item.link)
+      );
       break;
     default:
-      accessibleMenuItems = allMenuItems.filter(item=>["/profile"].includes(item.link));
+      accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
       break;
   }
 
@@ -260,9 +264,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-black">
-            Solicitud de Alertas
-          </h2>
+          <h2 className="text-2xl font-bold text-black">Solicitud de Alertas</h2>
           <button
             onClick={() => setIsModalOpen(false)}
             className="text-black text-4xl font-bold"
@@ -272,12 +274,10 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         </div>
         <form onSubmit={handleModalSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">
-              Título
-            </label>
+            <label className="block text-sm font-medium text-black mb-2">Título</label>
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -287,20 +287,25 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
             <label className="block text-sm font-medium text-black mb-2">
               Categoría ID
             </label>
-            <input
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
+            <select
+              className="w-full p-2 border border-gray-300 rounded text-black"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
               required
-            />
+            >
+              <option value="" disabled>
+                Selecciona una categoría
+              </option>
+              <option value="1">Categoría 1</option>
+              <option value="2">Categoría 2</option>
+              <option value="3">Categoría 3</option>
+              {/* Añade más opciones según sea necesario */}
+            </select>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">
-              Descripción
-            </label>
+            <label className="block text-sm font-medium text-black mb-2">Descripción</label>
             <textarea
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -312,6 +317,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
           </div>
         </form>
       </Modal>
+
       <ConfirmationModal
         isOpen={isLogoutModalOpen}
         onRequestClose={closeLogoutModal}

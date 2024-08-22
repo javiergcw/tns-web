@@ -5,41 +5,34 @@ import NormalButton from "@/app/components/others/button/normalButton";
 import TextInput from "@/app/components/others/fields/textInput";
 import "/app/globals.css";
 import { ImagesPath } from "@/app/utils/assetsPath";
+import CustomComponent from "@/app/components/product-detail/purchase_detail";
 import { getShoppingById } from "@/app/services/shoppingService";
 
-/**
- * PurchaseStatus Page
- * 
- * Esta página permite al usuario consultar el estado de una compra ingresando el número de compra.
- * Utiliza componentes reutilizables como `TextInput` y `NormalButton` para la estructura y el diseño.
- * 
- * @component
- */
 export default function PurchaseStatus() {
   const [purchaseId, setPurchaseId] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [shoppingData, setShoppingData] = useState(null);
 
   const handleInputChange = (e) => {
-    console.log("Input Changed:", e.target.value); // Agregado para depuración
     setPurchaseId(e.target.value);
   };
 
   const handleSearchClick = async () => {
-    console.log("Search Clicked"); // Agregado para depuración
     try {
       const response = await getShoppingById(purchaseId);
-      console.log("API Response:", response); // Agregado para depuración
+      setShoppingData(response);
       setError("");
-      // Navegar a la vista de detalles con los datos de la compra
-      router.push({
-        pathname: '/shopping/detail',
-        query: { data: JSON.stringify(response) },
-      });
+      setShowModal(true);
     } catch (error) {
-      console.error("Error al obtener el estado de la compra:", error); // Agregado para depuración
+      console.error("Error al obtener el estado de la compra:", error);
       setError("Error al obtener el estado de la compra. Por favor, intenta nuevamente.");
     }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setShoppingData(null);
   };
 
   return (
@@ -80,6 +73,22 @@ export default function PurchaseStatus() {
           )}
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75">
+          <div className="bg-white rounded-lg p-4 shadow-lg w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative pt-12">
+            <h2 className="text-2xl font-bold mb-4 text-center">Detalle de la compra</h2> {/* Título agregado */}
+            <CustomComponent shoppingId={purchaseId} />
+            <button
+              className="absolute top-4 right-4 text-gray-700 hover:text-gray-900 text-2xl"
+              onClick={closeModal}
+            >
+              ✖️
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
