@@ -1,13 +1,10 @@
 import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
-
-
-
   {
     date: "August  23,2024",
-    imageUrl: ImagesPath.blog23,
-    title: "En The New School aprendemos para la vida",
+    imageUrl: ImagesPath.blog24,
+    title: "In The New School we learn for life",
     body: `
         <p> En The New School, sabemos que educar es mucho más que enseñar contenidos. Se trata de formar seres humanos íntegros, capaces de enfrentar los desafíos de la vida con confianza y empatía. Por eso, en nuestro modelo pedagógico de formación en consciencia y formación para la vida y por la vida, integramos no solo el aprendizaje académico, sino también el desarrollo personal y social. </p>
         </br>
