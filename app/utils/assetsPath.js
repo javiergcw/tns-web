@@ -91,6 +91,8 @@ export const ImagesPath = {
     JfxxUvB: 'https://i.imgur.com/JfxxUvB.png',
     GbIxdbI: 'https://i.imgur.com/GbIxdbI.png',
     blog6: '/images/blogs/blog6.jpeg',
+    blog23: '/images/blogs/blog23.png',
+
     YSVQujq: 'https://i.imgur.com/YSVQujq.png',
     iWdkbXY: 'https://i.imgur.com/iWdkbXY.png',
     WHxCIKW: 'https://i.imgur.com/WHxCIKW.png',

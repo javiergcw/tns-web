@@ -92,7 +92,7 @@ export default function FooterTwo() {
           </div>
           <hr className="my-2 border-gray-600" />
           <a
-            href="https://drive.google.com/file/d/1TEh7VuTRxOraGW_rzIeSs9Bb_g5Z8kDX/view?usp=share_link"
+            href="https://drive.google.com/file/d/13a81Cp6N19qJh1M39Q1WHqrCu5ArVXop/view?usp=sharing"
             target="_blank"
           >
             <p>Política de Protección de Datos Personales</p>

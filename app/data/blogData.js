@@ -1,6 +1,47 @@
 import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
+
+
+
+  {
+    date: "August  23,2024",
+    imageUrl: ImagesPath.blog23,
+    title: "En The New School aprendemos para la vida",
+    body: `
+        <p> En The New School, sabemos que educar es mucho más que enseñar contenidos. Se trata de formar seres humanos íntegros, capaces de enfrentar los desafíos de la vida con confianza y empatía. Por eso, en nuestro modelo pedagógico de formación en consciencia y formación para la vida y por la vida, integramos no solo el aprendizaje académico, sino también el desarrollo personal y social. </p>
+        </br>
+        <center>
+        <a href="/images/blogs/pikachuArt.jpg"><img className="alignleft wp-image-2121" src="/images/blogs/blog23.png" alt="tnsmun" width="400" "/></a>
+        </center>
+        </br>
+        <b>Diálogo como medio para resolver conflictos </b>
+        </br>
+        <p>Los conflictos son parte natural de la vida, y en The New School, enseñamos a nuestros estudiantes a verlos como oportunidades de aprendizaje. El diálogo es nuestra herramienta principal para resolver diferencias, y lo fomentamos desde temprana edad. Aquí, los estudiantes aprenden a expresar sus emociones, escuchar a los demás y colaborar en la búsqueda de soluciones que beneficien a todos.</p>
+        </br>
+        <p>A través de prácticas restaurativas y espacios de introspección, nuestros estudiantes desarrollan habilidades esenciales para la vida, como la empatía, la escucha, la comunicación efectiva y la resolución constructiva de conflictos. Esto no solo los ayuda a resolver las situaciones que se les presenta, sino que también les proporciona herramientas valiosas para su futuro.</p>
+        </br>
+        <b>Acompañamiento Psicológico al lado de los estudiantes</b>
+        </br>
+        <p>El bienestar emocional es clave para un aprendizaje efectivo. En The New School, contamos con un acompañamiento psicológico que se alinea con nuestra visión de formación en consciencia. Nuestro equipo de psicólogos y orientadores está disponible para apoyar a los estudiantes en todos los aspectos de su vida, brindándoles un espacio seguro para hablar de sus preocupaciones y recibir orientación cuando lo necesiten.</p>
+        <p>Este apoyo no solo se enfoca en intervenir cuando surge un problema, sino en prevenir dificultades mediante la promoción de la salud mental y el bienestar emocional. De esta manera, cada estudiante se siente respaldado en su camino hacia el crecimiento personal.</p>
+        </br>
+        <b>Formación Integral: Saber Ser - competencias personales, sociales y cognitivas </b>
+        </br>
+        <p>En The New School, entendemos la educación como un proceso integral que abarca el saber ser, pensar y hacer. Nuestro enfoque busca desarrollar en los estudiantes las competencias personales, sociales y cognitivas que necesitan para convertirse en personas conscientes y responsables. Esto incluye desde el autoconocimiento y la autorregulación emocional hasta la toma de decisiones éticas y el liderazgo.</p>
+        </br>
+        </p>Estas competencias son fundamentales para enfrentar los retos del siglo XXI, como la globalización, la diversidad cultural y la sostenibilidad. Al formar estudiantes para la vida y por la vida, nos aseguramos de que estén preparados no solo para superar desafíos, sino también para contribuir positivamente a la sociedad.</p>
+        </br>
+        <b>Formación para la Vida</b>
+        </br>
+        <p>En nuestro colegio, el aprendizaje va más allá de las aulas. La formación en consciencia implica un profundo entendimiento de uno mismo y del entorno, mientras que la formación para la vida y por la vida prepara a los estudiantes para tomar decisiones responsables y actuar con integridad en todo lo que hagan.</p>
+        </br>
+        <p>Creemos que un ambiente de diálogo abierto y un acompañamiento psicológico adecuado son esenciales para que nuestros estudiantes se conviertan en personas íntegras, listas para hacer su aporte al mundo, a su entorno y a sí mismos. </p>
+        </br>
+        `,
+    banner: true,
+  },
+
   {
     date: "June  20,2024",
     imageUrl: ImagesPath.jun20_2024,
