@@ -12,7 +12,7 @@ const blogList = [
         <p> En The New School, sabemos que educar es mucho más que enseñar contenidos. Se trata de formar seres humanos íntegros, capaces de enfrentar los desafíos de la vida con confianza y empatía. Por eso, en nuestro modelo pedagógico de formación en consciencia y formación para la vida y por la vida, integramos no solo el aprendizaje académico, sino también el desarrollo personal y social. </p>
         </br>
         <center>
-        <a href="/images/blogs/blog23.png"><img className="alignleft wp-image-2121" src="/images/blogs/blog23.png" alt="tnsmun" width="400" "/></a>
+        <a href="/images/blogs/blog23.jpg"><img className="alignleft wp-image-2121" src="/images/blogs/blog23.jpg" alt="tnsmun" width="400" "/></a>
         </center>
         </br>
         <b>Diálogo como medio para resolver conflictos </b>
