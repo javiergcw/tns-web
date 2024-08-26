@@ -39,7 +39,7 @@ const MonthlyExpenses = () => {
   }, []);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md h-auto w-full sm:w-1/2">
+    <div className="bg-white p-4 rounded-lg  h-full w-full sm:w-full">
       <Text texto="GASTOS DEL MES" color="blue-secondary" type="title" />
       <Text
         texto={

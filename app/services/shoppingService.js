@@ -58,6 +58,32 @@ const getLatestStatisticalRequestsOfTheMonth = async () => {
     throw error;
   }
 };
+const getUserByLatestStatisticalRequestsOfTheMonth = async (id) => {
+  try {
+    const response = await get(
+      ENDPOINTS.getUserByLatestStatisticalRequestsOfTheMonth(id)
+    );
+    const user = {
+      id: response.user.id,
+      profile: response.user.profile,
+    };
+    const recentShoppings = response.recent_shoppings.map(
+      (shoppingData) => new ShoppingDTO({ ...shoppingData, user })
+    );
+    return {
+      user,
+      recentShoppings,
+      monthlyStatistics: response.monthly_statistics,
+      monthlyExpenses: response.monthly_expenses,
+    };
+  } catch (error) {
+    console.error(
+      "Error al obtener las solicitudes estadísticas más recientes del mes para el usuario:",
+      error
+    );
+    throw error;
+  }
+};
 
 // Método para crear una nueva compra
 const createShopping = async (shoppingData) => {
@@ -83,4 +109,5 @@ export {
   getShoppingById,
   getLatestStatisticalRequestsOfTheMonth,
   createShopping,
+  getUserByLatestStatisticalRequestsOfTheMonth,
 };

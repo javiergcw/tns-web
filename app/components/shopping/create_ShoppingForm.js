@@ -3,9 +3,12 @@ import { createShopping } from "@/app/services/shoppingService";
 import CreateProductForm from "./create_ProductForm";
 import { getCategories } from "@/app/services/categoryService";
 import { getStatuses } from "@/app/services/statusService";
+import { getAllProfiles } from "@/app/services/profileService";
+import { getAllAreas } from "@/app/services/areaService";
+import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { getAllProfiles } from "@/app/services/profileService";
+import { FaTrash } from "react-icons/fa"; // Importa el ícono de basura
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -16,7 +19,11 @@ const CreateShoppingForm = () => {
   const [categories, setCategories] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [users, setUsers] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [accountTypes, setAccountTypes] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedAreaId, setSelectedAreaId] = useState("");
+  const [selectedAccountTypeId, setSelectedAccountTypeId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
 
@@ -55,7 +62,8 @@ const CreateShoppingForm = () => {
       setLoading(true);
       try {
         const data = await getAllProfiles();
-        setUsers(data);
+        const filteredUsers = data.filter(user => user.rol?.name === "Jefe de area");
+        setUsers(filteredUsers);
       } catch (error) {
         setError((prev) => ({
           ...prev,
@@ -66,17 +74,50 @@ const CreateShoppingForm = () => {
       }
     };
 
+    const fetchAreas = async () => {
+      setLoading(true);
+      try {
+        const data = await getAllAreas();
+        setAreas(data);
+      } catch (error) {
+        setError((prev) => ({
+          ...prev,
+          general: "Failed to fetch areas. Please check your authorization.",
+        }));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchAccountTypes = async () => {
+      setLoading(true);
+      try {
+        const data = await getAllAccountTypes();
+        setAccountTypes(data);
+      } catch (error) {
+        setError((prev) => ({
+          ...prev,
+          general: "Failed to fetch account types. Please check your authorization.",
+        }));
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCategories();
     fetchStatuses();
     fetchUsers();
+    fetchAreas();
+    fetchAccountTypes();
   }, []);
 
   const handleProductCreate = (newProduct) => {
-    setProducts([...products, newProduct]);
+    const productWithId = { ...newProduct, uniqueId: Date.now() }; // Asignar un ID único al producto
+    setProducts([...products, productWithId]);
   };
 
-  const handleRemoveProduct = (productId) => {
-    setProducts(products.filter((product) => product.id !== productId));
+  const handleRemoveProduct = (uniqueId) => {
+    setProducts(products.filter((product) => product.uniqueId !== uniqueId));
   };
 
   const validateForm = () => {
@@ -86,6 +127,8 @@ const CreateShoppingForm = () => {
     if (!category_id) newErrors.category_id = "Debe seleccionar una categoría";
     if (!status_id) newErrors.status_id = "Debe seleccionar un estado";
     if (!selectedUserId) newErrors.user_id = "Debe seleccionar un usuario";
+    if (!selectedAreaId) newErrors.area_id = "Debe seleccionar un área";
+    if (!selectedAccountTypeId) newErrors.account_type_id = "Debe seleccionar un tipo de cuenta";
     if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
     return newErrors;
   };
@@ -105,10 +148,12 @@ const CreateShoppingForm = () => {
         description,
         category_id: parseInt(category_id, 10),
         status_id: parseInt(status_id, 10),
+        area_id: parseInt(selectedAreaId, 10),
+        account_type_id: parseInt(selectedAccountTypeId, 10),
+        user_id: parseInt(selectedUserId, 10), // Aquí se asigna el user_id correctamente
         request_date: new Date().toISOString(),
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
-        id: parseInt(selectedUserId, 10), // Usamos el ID del usuario seleccionado
       },
       products: products,
     };
@@ -120,9 +165,11 @@ const CreateShoppingForm = () => {
         setDescription("");
         setCategory("");
         setStatus("");
+        setSelectedAreaId("");
+        setSelectedAccountTypeId("");
         setProducts([]);
         setSelectedUserId("");
-        setError({}); // Limpiar los errores después del éxito
+        setError({});
         toast.success("Compra creada exitosamente!");
       } else {
         setError({ general: "No se logró crear la compra" });
@@ -131,6 +178,7 @@ const CreateShoppingForm = () => {
       setError({ general: "Error al crear la compra" });
     }
   };
+
 
   return (
     <div className="text-black flex space-x-4">
@@ -197,13 +245,45 @@ const CreateShoppingForm = () => {
           {error.status_id && <p className="text-red-500">{error.status_id}</p>}
         </div>
         <div className="mb-4">
-          <label className="block text-black font-medium">Usuario:</label>
+          <label className="block text-black font-medium">Área:</label>
+          <select
+            value={selectedAreaId}
+            onChange={(e) => setSelectedAreaId(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un área</option>
+            {areas.map((area) => (
+              <option key={area.id} value={area.id}>
+                {area.name}
+              </option>
+            ))}
+          </select>
+          {error.area_id && <p className="text-red-500">{error.area_id}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-black font-medium">Tipo de Cuenta:</label>
+          <select
+            value={selectedAccountTypeId}
+            onChange={(e) => setSelectedAccountTypeId(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un tipo de cuenta</option>
+            {accountTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+          {error.account_type_id && <p className="text-red-500">{error.account_type_id}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-black font-medium">Jefe de área:</label>
           <select
             value={selectedUserId}
             onChange={(e) => setSelectedUserId(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           >
-            <option value="">Seleccione un usuario</option>
+            <option value="">Seleccione un jefe de área</option>
             {users.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.name}
@@ -213,28 +293,43 @@ const CreateShoppingForm = () => {
           {error.user_id && <p className="text-red-500">{error.user_id}</p>}
         </div>
 
-        <h3 className="text-lg font-semibold mb-2">Productos en la Compra</h3>
+        <h3 className="text-lg font-semibold mb-4">Productos en la Compra</h3>
         {products.length === 0 ? (
           <p className="text-red-500">
             No hay productos. Añade productos primero.
           </p>
         ) : (
-          products.map((product) => (
-            <div
-              key={product.id}
-              className="mb-2 flex justify-between items-center"
-            >
-              <span className="text-black">{product.name}</span>
-              <button
-                type="button"
-                className="text-red-500 hover:text-red-700"
-                onClick={() => handleRemoveProduct(product.id)}
-              >
-                Eliminar
-              </button>
+          <div className="overflow-x-auto">
+            <div className="flex space-x-4">
+              {products.slice(0, 4).map((product) => (
+                <div key={product.uniqueId} className="bg-white rounded-lg shadow-md p-4 flex-shrink-0" style={{ minWidth: '250px' }}>
+                  <div className="flex items-center">
+                    {product.image && (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-16 h-16 object-cover rounded-lg mr-4"
+                      />
+                    )}
+                    <div>
+                      <h4 className="text-black font-semibold">{product.name}</h4>
+                      <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="text-red-500 hover:text-red-700 mt-2"
+                    onClick={() => handleRemoveProduct(product.uniqueId)}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              ))}
             </div>
-          ))
+          </div>
         )}
+
+
 
         <button
           type="submit"

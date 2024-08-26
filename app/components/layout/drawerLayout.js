@@ -11,7 +11,7 @@ const DrawerLayout = ({ children }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const storedUserId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("profileId");
         //console.log("Retrieved userId from localStorage:", storedUserId); // Depuración
         if (storedUserId) {
           const profileData = await getProfileById(storedUserId);
