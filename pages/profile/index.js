@@ -10,6 +10,7 @@ import PrivateRoute from "@/app/components/privateRoute";
 import "/app/globals.css";
 import BugTable from "@/app/components/profile/bugTable";
 import DrawerLayout from "@/app/components/layout/drawerLayout";
+import AreaTable from "@/app/components/profile/areaTable";
 
 const Profile = ({ role }) => {
   return (
@@ -21,6 +22,12 @@ const Profile = ({ role }) => {
         <>
           <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
             <BugTable />
+          </div>
+          <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+            <AreaTable/>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+            <AccountTypeTable/>
           </div>
           <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
             <CategoryTable />

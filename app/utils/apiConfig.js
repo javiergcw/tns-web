@@ -16,11 +16,23 @@ const ENDPOINTS = {
   updateProfile: (id) => `${API_BASE_URL}/profiles/${id}`,
   deleteCategory: `${API_BASE_URL}/categories/delete`,
 
+  //Areas
+getAllAreas:`${API_BASE_URL}/areas`,
+createArea:`${API_BASE_URL}/areas`,
+updateArea: (id)=>`${API_BASE_URL}/areas/${id}`,
+deleteArea:`${API_BASE_URL}/areas/delete`,
+//Account Type
+getAllAccountTypes:`${API_BASE_URL}/account_types`,
+createAccountType:`${API_BASE_URL}/account_types`,
+updateAccountType: (id)=>`${API_BASE_URL}/account_types/${id}`,
+deleteAccountType:`${API_BASE_URL}/account_types/delete`,
+
   // ENDPOINTS DE COMPRAS
   shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
   getLatestStatisticalRequestsOfTheMonth: `${API_BASE_URL}/shoppings/summary`,
+  getUserByLatestStatisticalRequestsOfTheMonth:(id)=> `${API_BASE_URL}/shoppings/user/${id}/summary`,
 
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,

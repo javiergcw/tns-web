@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import PublicRoute from "./publicRoute";
+import PurchaseStatusB from "./login/purchaseStatus";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -138,6 +139,7 @@ const LoginForm = () => {
               additionalClasses="text-white"
             />
             <RegisterStandart />
+            <PurchaseStatusB></PurchaseStatusB>
           </form>
         </div>
       </div>

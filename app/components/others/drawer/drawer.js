@@ -119,14 +119,15 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       name: "Create Product",
       icon: <MdAddBox style={{ color: greenDrawer }} />,
     },
-    {
-      link: "/settings",
-      name: "Settings",
-      icon: <MdSettings style={{ color: greenDrawer }} />,
-    },
+    // {
+    //   link: "/settings",
+    //   name: "Settings",
+    //   icon: <MdSettings style={{ color: greenDrawer }} />,
+    // },
   ];
 
   // Lógica de roles
+  // Modificación en la lógica de roles
   let accessibleMenuItems = [];
 
   switch (profile?.rol?.name) {
@@ -135,7 +136,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Jefe de area":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/dashboardManager", "/shoppings"].includes(item.link)
+        ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
       );
       break;
     case "Secretariado":
@@ -143,13 +144,19 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Compras":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/profile", "/view-product", "/create-product", "/shoppings"].includes(item.link)
+        ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
-    default:
+    case "Sin rol":
+      accessibleMenuItems = allMenuItems.filter(item =>
+        [ "/dashboardManager", "/profile"].includes(item.link)
+      );
+      break;
+    default: // Sin rol
       accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
       break;
   }
+
 
   // Agregar logout para todos los roles
   accessibleMenuItems.push({
@@ -192,7 +199,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
                 />
                 <div className="border-t border-green-500 w-full my-1"></div>
                 <Text
-                  texto={profile?.rol?.name || "Sin rol"}
+                  texto={profile?.rol?.name}
                   color="white"
                   type="normal"
                   className="text-[10px] text-white mt-1"
@@ -240,12 +247,14 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
           </ul>
         </div>
         <div className="mb-4 flex flex-col items-center">
-          <button
-            onClick={handleAlertClick}
-            className="bg-red-500 p-2 rounded-full mb-2"
-          >
-            <FiAlertTriangle className="text-white text-2xl" />
-          </button>
+          {profile?.rol?.name !== "Sin rol" && (
+            <button
+              onClick={handleAlertClick}
+              className="bg-red-500 p-2 rounded-full mb-2"
+            >
+              <FiAlertTriangle className="text-white text-2xl" />
+            </button>
+          )}
           <Text
             texto="TNS V.1"
             color="white"
@@ -327,6 +336,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       />
     </>
   );
+
 };
 
 export default Drawer;

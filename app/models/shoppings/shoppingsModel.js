@@ -51,6 +51,7 @@ class ShoppingDTO {
     status,
     user,
     products,
+    account_type_id // Añadido el campo account_type_id
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -58,13 +59,15 @@ class ShoppingDTO {
     this.request_date = request_date;
     this.pending_date = pending_date;
     this.date_approval = date_approval;
-    this.title = title; // Añadido campo title
-    this.description = description; // Añadido campo description
+    this.title = title;
+    this.description = description;
     this.category = new CategoryDTO(category);
     this.status = new StatusDTO(status);
     this.user = new UserDTO(user);
     this.products = products.map((product) => new ProductDTO(product));
+    this.account_type_id = account_type_id; // Asignación del campo account_type_id
   }
 }
+
 
 export { ShoppingDTO };
