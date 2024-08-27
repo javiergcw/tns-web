@@ -18,6 +18,7 @@ const AreaTable = () => {
     const [newAreaName, setNewAreaName] = useState("");
     const [newAreaDescription, setNewAreaDescription] = useState(""); // Nuevo estado para la descripción
     const [selectedArea, setSelectedArea] = useState(null);
+    const [validationError, setValidationError] = useState("");
 
     useEffect(() => {
         fetchAreas();
@@ -37,6 +38,11 @@ const AreaTable = () => {
     };
 
     const handleAddArea = async () => {
+        if (!newAreaName.trim() || !newAreaDescription.trim()) {
+            setValidationError("Por favor, complete todos los campos.");
+            return;
+        }
+
         try {
             setLoading(true);
             await createArea({ name: newAreaName, description: newAreaDescription }); // Incluir descripción
@@ -53,6 +59,11 @@ const AreaTable = () => {
     };
 
     const handleEditArea = async () => {
+        if (!newAreaName.trim() || !newAreaDescription.trim()) {
+            setValidationError("Por favor, complete todos los campos.");
+            return;
+        }
+
         try {
             setLoading(true);
             await updateArea(selectedArea.id, { name: newAreaName, description: newAreaDescription }); // Incluir descripción
@@ -69,6 +80,7 @@ const AreaTable = () => {
     const openAddModal = () => {
         setNewAreaName(""); // Limpiar el nombre del área
         setNewAreaDescription(""); // Limpiar la descripción del área
+        setValidationError(""); // Limpiar el error de validación
         setIsModalOpen(true);
     };
 
@@ -76,6 +88,7 @@ const AreaTable = () => {
         setSelectedArea(area);
         setNewAreaName(area.name); // Pre-cargar el nombre actual en el modal
         setNewAreaDescription(area.description); // Pre-cargar la descripción actual en el modal
+        setValidationError(""); // Limpiar el error de validación
         setIsEditModalOpen(true);
     };
 
@@ -149,7 +162,7 @@ const AreaTable = () => {
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 contentLabel="Añadir Área"
-                className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             >
                 <button
@@ -159,6 +172,11 @@ const AreaTable = () => {
                     ×
                 </button>
                 <h2 className="text-2xl font-bold mb-4 text-black">Añadir Área</h2>
+                {validationError && (
+                    <div className="text-red-500 mb-4">
+                        {validationError}
+                    </div>
+                )}
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
                         Nombre del Área
@@ -180,19 +198,25 @@ const AreaTable = () => {
                         className="w-full p-2 border border-gray-300 rounded text-black"
                     />
                 </div>
-                <BlueButton text="Guardar" onClick={handleAddArea} />
-                <RedButton
-                    text="Cancelar"
-                    onClick={() => setIsModalOpen(false)}
-                    className="ml-2"
-                />
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton text="Guardar" onClick={handleAddArea} />
+                    <RedButton
+                        text="Cancelar"
+                        onClick={() => setIsModalOpen(false)}
+                    />
+                </div>
             </Modal>
+
+
+
+
+
 
             <Modal
                 isOpen={isEditModalOpen}
                 onRequestClose={() => setIsEditModalOpen(false)}
                 contentLabel="Editar Área"
-                className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             >
                 <button
@@ -202,6 +226,11 @@ const AreaTable = () => {
                     ×
                 </button>
                 <h2 className="text-2xl font-bold mb-4 text-black">Editar Área</h2>
+                {validationError && (
+                    <div className="text-red-500 mb-4">
+                        {validationError}
+                    </div>
+                )}
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
                         Nombre del Área
@@ -223,13 +252,15 @@ const AreaTable = () => {
                         className="w-full p-2 border border-gray-300 rounded text-black"
                     />
                 </div>
-                <BlueButton text="Actualizar" onClick={handleEditArea} />
-                <RedButton
-                    text="Cancelar"
-                    onClick={() => setIsEditModalOpen(false)}
-                    className="ml-2"
-                />
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton text="Actualizar" onClick={handleEditArea} />
+                    <RedButton
+                        text="Cancelar"
+                        onClick={() => setIsEditModalOpen(false)}
+                    />
+                </div>
             </Modal>
+
 
             <ConfirmationModal
                 isOpen={isDeleteModalOpen}

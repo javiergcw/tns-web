@@ -97,8 +97,8 @@ const DashboardManager = () => {
           approvedShoppingData = allShoppingData;
         }
 
-        setAllShoppingData(allShoppingData); // Actualiza el estado con todos los datos sin filtrar
-        setData(approvedShoppingData); // Actualiza el estado con solo los datos aprobados
+        setAllShoppingData(allShoppingData);
+        setData(approvedShoppingData);
 
         const { flattenedExpenses, total } = getApprovedExpenses(approvedShoppingData);
         setExpensesData(flattenedExpenses);
@@ -116,7 +116,7 @@ const DashboardManager = () => {
 
   if (userRole === "Sin rol") {
     return (
-      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+      <div className="min-h-screen flex justify-center bg-gray-100">
         <MainLayout>
           <Container>
             <ContactInfo />
@@ -126,7 +126,7 @@ const DashboardManager = () => {
     );
   } else if (userRole === "Secretariado") {
     return (
-      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+      <div className="min-h-screen flex justify-center bg-gray-100">
         <MainLayout>
           <Container>
             <AdmissionsView />
@@ -136,67 +136,82 @@ const DashboardManager = () => {
     );
   } else if (userRole === "Jefe de area") {
     return (
-      <div className="min-h-screen bg-gray-100 overflow-y-auto p-5">
+      <div className="min-h-screen bg-gray-100 ">
         <MainLayout>
           <Container>
+            <hr className="my-5" />
             {/* Encabezado */}
-            <div className="flex justify-between items-center mb-5">
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-5">
               <h2 className="text-2xl md:text-3xl font-bold text-blueSecundary">
                 Últimas Compras Aprobadas
               </h2>
             </div>
 
-            {/* Grid de Compras Aprobadas */}
-            {data.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-x-auto">
-                {data.map((expense, index) => (
-                  <div
-                    key={index}
-                    className="bg-white p-4 md:p-6 rounded-lg shadow-md flex flex-col justify-between"
-                  >
-                    <p className="text-gray-500 text-sm md:text-lg">{expense.products.map(product => product.name).join(', ')}</p>
-                    <p className="text-green-500 text-xl md:text-2xl font-bold">
-                      ${expense.products.reduce((sum, product) => sum + product.price, 0).toLocaleString()}
-                    </p>
+            {/* Sección Principal con Desplazamiento Horizontal y Vertical */}
+            <div className="overflow-x-auto">
+
+              {/* Grid de Compras Aprobadas */}
+              {data.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {data.map((expense, index) => (
+                    <div
+                      key={index}
+                      className="bg-white p-4 md:p-6 rounded-lg shadow-md flex flex-col justify-between"
+                    >
+                      <p className="text-gray-500 text-sm md:text-lg">
+                        {expense.products.map((product) => product.name).join(', ')}
+                      </p>
+                      <p className="text-green-500 text-xl md:text-2xl font-bold">
+                        ${expense.products.reduce((sum, product) => sum + product.price, 0).toLocaleString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center">
+                  No hay compras aprobadas para mostrar.
+                </p>
+              )}
+
+              {/* Tabla de Compras y Peticiones */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+                {/* Tabla de Compras */}
+                <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-md">
+                  <div className="my-5">
+                    <ShoppingTable userId={localStorage.getItem("userId")} />
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500 text-center">
-                No hay compras aprobadas para mostrar.
-              </p>
-            )}
-
-            {/* Sección Principal */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8">
-              {/* Tabla de Compras */}
-              <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-md">
-                <ShoppingTable userId={localStorage.getItem("userId")} />
-              </div>
-
-              {/* Sección de Peticiones y Gráfico Circular */}
-              <div className="space-y-6">
-                {/* Peticiones */}
-                <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
-                  <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-4">
-                    Peticiones
-                  </h3>
-                  <a
-                    href="mailto:example@example.com?subject=Crear%20Petición"
-                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md w-full text-center hover:bg-blue-700 transition duration-300 block"
-                  >
-                    Crear petición
-                  </a>
                 </div>
 
-                {/* Gráfico Circular Anual */}
-                <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
-                  <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-5">
-                    Estadísticas Anuales
-                  </h3>
-                  <CircularDiagram type={"year"} data={allShoppingData} />
+                {/* Sección de Peticiones y Gráfico Circular */}
+                <div className="space-y-6">
+                  {/* Peticiones */}
+                  <div className="bg-white p-4 md:p-6 rounded-lg shadow-md">
+                    <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-4">
+                      Peticiones
+                    </h3>
+                    <a
+                      href="mailto:example@example.com?subject=Crear%20Petición"
+                      className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md w-full text-center hover:bg-blue-700 transition duration-300 block"
+                    >
+                      Crear petición
+                    </a>
+                  </div>
+
+                  {/* Gráfico Circular Anual */}
+                  <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                    <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-5">
+                      Estadísticas Anuales
+                    </h3>
+                    {allShoppingData.length > 0 ? (
+                      <CircularDiagram type={"year"} data={allShoppingData} />
+                    ) : (
+                      <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                    )}
+                  </div>
+
                 </div>
               </div>
+
             </div>
           </Container>
         </MainLayout>
@@ -206,7 +221,7 @@ const DashboardManager = () => {
 
   else if (userRole === "admin") {
     return (
-      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+      <div className="min-h-screen  bg-gray-100">
         <MainLayout>
           <Container>
             <hr className="my-5" />
@@ -214,10 +229,18 @@ const DashboardManager = () => {
             <hr className="my-5" />
             <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
             <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-4 lg:space-y-0 pt-8 w-full">
-              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-1/2">
-                <CircularDiagram type={"month"} data={data} />
+              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-5">
+                  Estadísticas Anuales
+                </h3>
+                {allShoppingData.length > 0 ? (
+                  <CircularDiagram type={"year"} data={allShoppingData} />
+                ) : (
+                  <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                )}
               </div>
-              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-1/2">
+
+              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-full">
                 <MonthlyExpenses
                   total={totalExpenses}
                   data={expensesData}
@@ -233,7 +256,7 @@ const DashboardManager = () => {
   }
   else if (userRole === "Compras") {
     return (
-      <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
+      <div className="min-h-screen  bg-gray-100">
         <MainLayout>
           <Container>
             <hr className="my-5" />
@@ -241,10 +264,18 @@ const DashboardManager = () => {
             <hr className="my-5" />
             <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
             <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-4 lg:space-y-0 pt-8 w-full">
-              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-1/2">
-                <CircularDiagram type={"month"} data={data} />
+              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                <h3 className="text-lg md:text-xl font-bold text-blueSecundary mb-5">
+                  Estadísticas Anuales
+                </h3>
+                {allShoppingData.length > 0 ? (
+                  <CircularDiagram type={"year"} data={allShoppingData} />
+                ) : (
+                  <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                )}
               </div>
-              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-1/2">
+
+              <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full  lg:w-1/2">
                 <MonthlyExpenses
                   total={totalExpenses}
                   data={expensesData}
@@ -270,3 +301,4 @@ const DashboardManager = () => {
 };
 
 export default PrivateRoute(DashboardManager);
+

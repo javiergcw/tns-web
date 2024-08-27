@@ -19,16 +19,19 @@ const MonthlyExpenses = () => {
         const response = await getLatestStatisticalRequestsOfTheMonth();
 
         if (Array.isArray(response)) {
-          setData(response.map(shopping => ({
+          const mappedData = response.map(shopping => ({
             title: shopping.title,
             totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
-          })));
+          }));
+          setData(mappedData);
+          setTotal(mappedData.reduce((acc, item) => acc + item.totalPrice, 0));
         } else {
-          setData(response.recent_shoppings.map(shopping => ({
+          const mappedData = response.recent_shoppings.map(shopping => ({
             title: shopping.title,
             totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
-          })) || []);
-          setTotal(response.monthly_expenses || 0);
+          })) || [];
+          setData(mappedData);
+          setTotal(response.monthly_expenses || mappedData.reduce((acc, item) => acc + item.totalPrice, 0));
         }
       } catch (error) {
         console.error("Error al cargar los gastos mensuales:", error);

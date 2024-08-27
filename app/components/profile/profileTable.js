@@ -8,6 +8,8 @@ import { documentTypeOptions } from "@/app/utils/dataGeneral";
 import Lottie from "react-lottie";
 import animationData from "@/public/videos/errorData.json";
 import { BlueButton, RedButton } from "@/app/utils/Buttons"; // Importar los botones constantes
+import { toast, ToastContainer } from "react-toastify"; // Importar Toastify
+import "react-toastify/dist/ReactToastify.css"; // Importar estilos de Toastify
 
 Modal.setAppElement("#__next");
 
@@ -16,6 +18,7 @@ const ProfileTable = () => {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({}); // Estado para los errores de los inputs
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -65,6 +68,7 @@ const ProfileTable = () => {
     setIdentificationType(profile.identificationType || "");
     setIdentificationNumber(profile.identificationNumber);
     setSelectedRoleId(profile.rol ? profile.rol.id : "");
+    setErrors({}); // Limpiar errores al abrir el modal
     setIsModalOpen(true);
   };
 
@@ -75,10 +79,25 @@ const ProfileTable = () => {
   };
 
   const handleUpdateProfile = async () => {
-    if (!/^\d+$/.test(identificationNumber)) {
-      alert("El número de identificación solo debe contener números.");
-      return;
+    let formIsValid = true;
+    let tempErrors = {};
+
+    if (name.trim() === "") {
+      tempErrors.name = "El nombre es obligatorio";
+      formIsValid = false;
     }
+    if (identificationType.trim() === "") {
+      tempErrors.identificationType = "El tipo de identificación es obligatorio";
+      formIsValid = false;
+    }
+    if (identificationNumber.trim() === "" || !/^\d+$/.test(identificationNumber)) {
+      tempErrors.identificationNumber = "El número de identificación solo debe contener números";
+      formIsValid = false;
+    }
+
+    setErrors(tempErrors);
+
+    if (!formIsValid) return;
 
     setLoading(true);
     try {
@@ -103,14 +122,43 @@ const ProfileTable = () => {
   };
 
   const handleAddUser = async () => {
-    if (newUser.password !== newUser.password_confirmation) {
-      alert("Las contraseñas no coinciden.");
-      return;
+    let formIsValid = true;
+    let tempErrors = {};
+
+    if (newUser.name.trim() === "") {
+      tempErrors.name = "El nombre es obligatorio";
+      formIsValid = false;
     }
+    if (newUser.email.trim() === "") {
+      tempErrors.email = "El email es obligatorio";
+      formIsValid = false;
+    }
+    if (newUser.password.trim() === "") {
+      tempErrors.password = "La contraseña es obligatoria";
+      formIsValid = false;
+    }
+    if (newUser.password !== newUser.password_confirmation) {
+      tempErrors.password_confirmation = "Las contraseñas no coinciden";
+      formIsValid = false;
+    }
+    if (newUser.identification_type.trim() === "") {
+      tempErrors.identification_type = "El tipo de identificación es obligatorio";
+      formIsValid = false;
+    }
+    if (
+      newUser.identification_number.trim() === "" ||
+      !/^\d+$/.test(newUser.identification_number)
+    ) {
+      tempErrors.identification_number = "El número de identificación solo debe contener números";
+      formIsValid = false;
+    }
+
+    setErrors(tempErrors);
+
+    if (!formIsValid) return;
 
     setLoading(true);
     try {
-      //console.log("Adding user:", newUser); // Log para depuración
       await register(
         newUser.email,
         newUser.password,
@@ -121,6 +169,16 @@ const ProfileTable = () => {
       );
       setIsAddModalOpen(false);
       fetchProfiles();
+      setNewUser({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        identification_type: "",
+        identification_number: "",
+      });
+      setErrors({}); // Limpiar errores después de la operación exitosa
+      toast.success("Usuario añadido exitosamente");  // Mensaje de éxito
     } catch (error) {
       console.error("Error adding user:", error);
       setError("Failed to add user. Please check your input.");
@@ -167,6 +225,7 @@ const ProfileTable = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer /> {/* Contenedor de Toastify */}
       <h2 className="text-2xl font-bold mb-4 text-blue-800">Usuarios</h2>
       <BlueButton
         text="Agregar Usuario"
@@ -180,8 +239,7 @@ const ProfileTable = () => {
       )}
       {!loading && profiles.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
         </div>
       )}
@@ -192,8 +250,7 @@ const ProfileTable = () => {
       )}
       {error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-red-500 text-lg mt-4">Error: {error}</p>
         </div>
       )}
@@ -201,20 +258,27 @@ const ProfileTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Editar Perfil"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+        className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="absolute top-0 right-2 text-black text-4xl font-bold"
+        >
+          ×
+        </button>
         <h2 className="text-2xl font-bold mb-4 text-black">Editar Perfil</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2  text-black">
+          <label className="block text-sm font-medium mb-2 text-black">
             Nombre
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           />
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -223,7 +287,7 @@ const ProfileTable = () => {
           <select
             value={identificationType}
             onChange={(e) => setIdentificationType(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.identificationType ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           >
             <option value="">Selecciona un tipo</option>
             {documentTypeOptions.map((option) => (
@@ -232,6 +296,7 @@ const ProfileTable = () => {
               </option>
             ))}
           </select>
+          {errors.identificationType && <p className="text-red-500 text-sm mt-1">{errors.identificationType}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -241,10 +306,11 @@ const ProfileTable = () => {
             type="text"
             value={identificationNumber}
             onChange={handleIdentificationNumberChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.identificationNumber ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
             pattern="\d*"
             title="Por favor ingrese solo números"
           />
+          {errors.identificationNumber && <p className="text-red-500 text-sm mt-1">{errors.identificationNumber}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -253,7 +319,7 @@ const ProfileTable = () => {
           <select
             value={selectedRoleId}
             onChange={(e) => setSelectedRoleId(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.selectedRoleId ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           >
             <option value="">Selecciona un rol</option>
             {roles.map((role) => (
@@ -262,25 +328,27 @@ const ProfileTable = () => {
               </option>
             ))}
           </select>
+          {errors.selectedRoleId && <p className="text-red-500 text-sm mt-1">{errors.selectedRoleId}</p>}
         </div>
-        <BlueButton text="Guardar" onClick={handleUpdateProfile} />
-        <RedButton
-          text="Cancelar"
-          onClick={() => setIsModalOpen(false)}
-          className="ml-2"
-        />
+        <div className="flex justify-end space-x-2 mt-4">
+          <BlueButton text="Guardar" onClick={handleUpdateProfile} />
+          <RedButton
+            text="Cancelar"
+            onClick={() => setIsModalOpen(false)}
+          />
+        </div>
       </Modal>
 
       <Modal
         isOpen={isAddModalOpen}
         onRequestClose={() => setIsAddModalOpen(false)}
         contentLabel="Agregar Usuario"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+        className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <button
           onClick={() => setIsAddModalOpen(false)}
-          className="absolute top-1 right-2 text-black text-4xl font-bold"
+          className="absolute top-0 right-2 text-black text-4xl font-bold"
         >
           ×
         </button>
@@ -294,8 +362,9 @@ const ProfileTable = () => {
             name="name"
             value={newUser.name}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           />
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -306,8 +375,9 @@ const ProfileTable = () => {
             name="email"
             value={newUser.email}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           />
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -318,8 +388,9 @@ const ProfileTable = () => {
             name="password"
             value={newUser.password}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           />
+          {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -330,8 +401,9 @@ const ProfileTable = () => {
             name="password_confirmation"
             value={newUser.password_confirmation}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.password_confirmation ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           />
+          {errors.password_confirmation && <p className="text-red-500 text-sm mt-1">{errors.password_confirmation}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -341,53 +413,36 @@ const ProfileTable = () => {
             name="identification_type"
             value={newUser.identification_type}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.identification_type ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
           >
             <option value="">Seleccione un tipo de identificación</option>
             <option value="Pasaporte">Pasaporte</option>
             <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
             <option value="Tarjeta de identidad">Tarjeta de identidad</option>
           </select>
+          {errors.identification_type && <p className="text-red-500 text-sm mt-1">{errors.identification_type}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-black">
-            Numero de identificacion
+            Número de identificación
           </label>
           <input
-            type="identification"
+            type="text"
             name="identification_number"
             value={newUser.identification_number}
             onChange={handleAddUserChange}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.identification_number ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
+          />
+          {errors.identification_number && <p className="text-red-500 text-sm mt-1">{errors.identification_number}</p>}
+        </div>
+        <div className="flex justify-end space-x-2 mt-4">
+          <BlueButton text="Guardar" onClick={handleAddUser} />
+          <RedButton
+            text="Cancelar"
+            onClick={() => setIsAddModalOpen(false)}
           />
         </div>
-
-        <BlueButton text="Guardar" onClick={handleAddUser} />
-        <RedButton
-          text="Cancelar"
-          onClick={() => setIsAddModalOpen(false)}
-          className="ml-2"
-        />
       </Modal>
-      {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="loader"></div>
-        </div>
-      )}
-      {!loading && profiles.length === 0 && !error && (
-        <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
-          <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
-        </div>
-      )}
-      {error && (
-        <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
-          <p className="text-red-500 text-lg mt-4">Error: {error}</p>
-        </div>
-      )}
     </div>
   );
 };

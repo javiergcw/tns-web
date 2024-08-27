@@ -118,6 +118,7 @@ const CreateShoppingForm = () => {
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
+    toast.success("Producto eliminado exitosamente!");
   };
 
   const validateForm = () => {
@@ -150,7 +151,7 @@ const CreateShoppingForm = () => {
         status_id: parseInt(status_id, 10),
         area_id: parseInt(selectedAreaId, 10),
         account_type_id: parseInt(selectedAccountTypeId, 10),
-        user_id: parseInt(selectedUserId, 10), // Aquí se asigna el user_id correctamente
+        user_id: parseInt(selectedUserId, 10),
         request_date: new Date().toISOString(),
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
@@ -179,11 +180,10 @@ const CreateShoppingForm = () => {
     }
   };
 
-
   return (
-    <div className="text-black flex space-x-4">
+    <div className="text-black flex flex-col-reverse  md:flex-row space-y-0 md:space-y-0 md:space-x-4">
       <form
-        className="w-1/2 bg-white shadow-md rounded-lg px-8 py-6"
+        className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6"
         onSubmit={handleSubmit}
       >
         <h2 className="text-xl font-bold mb-4">Crear Nueva Compra</h2>
@@ -285,7 +285,7 @@ const CreateShoppingForm = () => {
           >
             <option value="">Seleccione un jefe de área</option>
             {users.map((user) => (
-              <option key={user.id} value={user.id}>
+              <option key={user.id} value={user.user.id}>
                 {user.name}
               </option>
             ))}
@@ -329,8 +329,6 @@ const CreateShoppingForm = () => {
           </div>
         )}
 
-
-
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
@@ -338,7 +336,7 @@ const CreateShoppingForm = () => {
           Crear Compra
         </button>
       </form>
-      <div className="w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
+      <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
         <CreateProductForm onProductCreate={handleProductCreate} />
       </div>
 

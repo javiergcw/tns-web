@@ -16,6 +16,7 @@ const CategoryTable = () => {
   const [categories, setCategories] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({}); // Estado para los errores de los inputs
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,15 +39,25 @@ const CategoryTable = () => {
   };
 
   const handleAddCategory = async () => {
+    let formIsValid = true;
+    let tempErrors = {};
+
     if (newCategoryName.trim() === "") {
-      return;
+      tempErrors.newCategoryName = "El nombre de la categoría es obligatorio";
+      formIsValid = false;
     }
+
+    setErrors(tempErrors);
+
+    if (!formIsValid) return;
+
     setLoading(true);
     try {
       await addCategory(newCategoryName);
       setNewCategoryName("");
       setIsModalOpen(false); // Cerrar el modal después de agregar la categoría
       fetchCategories();
+      setErrors({}); // Limpiar errores después de la operación exitosa
     } catch (error) {
       setError("Failed to add category. Please check your authorization.");
     } finally {
@@ -128,7 +139,7 @@ const CategoryTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Agregar Categoría"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+        className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <button
@@ -145,14 +156,16 @@ const CategoryTable = () => {
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
           placeholder="Nombre de la Categoría"
-          className="border px-2 py-1 mb-4 w-full text-black"
+          className={`border ${errors.newCategoryName ? 'border-red-500' : 'border-gray-300'} px-2 py-1 mb-4 w-full text-black`}
         />
-        <BlueButton text="Agregar" onClick={handleAddCategory} />
-        <RedButton
-          text="Cancelar"
-          onClick={() => setIsModalOpen(false)}
-          className="ml-2"
-        />
+        {errors.newCategoryName && <p className="text-red-500 text-sm mt-1">{errors.newCategoryName}</p>}
+        <div className="flex justify-end space-x-2 mt-4">
+          <BlueButton text="Agregar" onClick={handleAddCategory} />
+          <RedButton
+            text="Cancelar"
+            onClick={() => setIsModalOpen(false)}
+          />
+        </div>
       </Modal>
 
       <ConfirmationModal

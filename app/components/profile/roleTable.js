@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Table from "@/app/components/others/table/table"; // Importar el componente Table
 import { getRoles, addRole, deleteRole } from "@/app/services/roleService";
-import { VideoPath } from "@/app/utils/assetsPath";
 import Lottie from "react-lottie";
 import animationData from "@/public/videos/errorData.json";
 import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones
@@ -18,6 +17,7 @@ const RoleTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [newRoleName, setNewRoleName] = useState("");
+  const [errors, setErrors] = useState({});
   const [selectedRole, setSelectedRole] = useState(null);
 
   useEffect(() => {
@@ -38,12 +38,25 @@ const RoleTable = () => {
   };
 
   const handleAddRole = async () => {
+    let formIsValid = true;
+    let tempErrors = {};
+
+    if (newRoleName.trim() === "") {
+      tempErrors.newRoleName = "El nombre del rol es obligatorio";
+      formIsValid = false;
+    }
+
+    setErrors(tempErrors);
+
+    if (!formIsValid) return;
+
     try {
       setLoading(true);
       await addRole(newRoleName);
       setNewRoleName(""); // Limpiar el campo de entrada
       fetchRoles();
       setIsModalOpen(false);
+      setErrors({}); // Limpiar errores después de la operación exitosa
     } catch (error) {
       console.error("Error adding role:", error);
       setError("Failed to add role.");
@@ -108,8 +121,7 @@ const RoleTable = () => {
       {loading && <LoaderOverlay />}
       {!loading && roles.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
         </div>
       )}
@@ -120,8 +132,7 @@ const RoleTable = () => {
       )}
       {error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-red-500 text-lg mt-4">Error: {error}</p>
         </div>
       )}
@@ -129,7 +140,7 @@ const RoleTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Añadir Rol"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+        className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <button
@@ -147,15 +158,17 @@ const RoleTable = () => {
             type="text"
             value={newRoleName}
             onChange={(e) => setNewRoleName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.newRoleName ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
+          />
+          {errors.newRoleName && <p className="text-red-500 text-sm mt-1">{errors.newRoleName}</p>}
+        </div>
+        <div className="flex justify-end space-x-2 mt-4">
+          <BlueButton text="Guardar" onClick={handleAddRole} />
+          <RedButton
+            text="Cancelar"
+            onClick={() => setIsModalOpen(false)}
           />
         </div>
-        <BlueButton text="Guardar" onClick={handleAddRole} />
-        <RedButton
-          text="Cancelar"
-          onClick={() => setIsModalOpen(false)}
-          className="ml-2"
-        />
       </Modal>
 
       <ConfirmationModal
