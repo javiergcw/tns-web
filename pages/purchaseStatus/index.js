@@ -51,7 +51,7 @@ export default function PurchaseStatus() {
       </div>
       <br/>
       {/* Sección derecha - Formulario de consulta */}
-      <div className="w-full lg:w-2/4 flex justify-center items-center bg-slate-100 px-4 lg:px-0">
+      <div className="w-full lg:w-2/4 flex justify-center items-center bg-white px-4 lg:px-0">
         <div className="w-full lg:w-2/3 p-4 lg:p-8 bg-white shadow-md rounded-md">
           {/* Título del formulario */}
           <h1 className="text-[#1e73be] text-xl lg:text-2xl font-bold mb-4 lg:mb-6 text-center lg:text-left">

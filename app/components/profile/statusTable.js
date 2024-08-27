@@ -16,6 +16,7 @@ const StatusTable = () => {
   const [statuses, setStatuses] = useState([]);
   const [newStatusName, setNewStatusName] = useState("");
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({}); // Estado para los errores de los inputs
   const [loading, setLoading] = useState(false); // Estado de carga
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -38,15 +39,25 @@ const StatusTable = () => {
   };
 
   const handleAddStatus = async () => {
+    let formIsValid = true;
+    let tempErrors = {};
+
     if (newStatusName.trim() === "") {
-      return;
+      tempErrors.newStatusName = "El nombre del estado es obligatorio";
+      formIsValid = false;
     }
+
+    setErrors(tempErrors);
+
+    if (!formIsValid) return;
+
     try {
       setLoading(true); // Inicia la carga
       await addStatus(newStatusName);
       setNewStatusName("");
       fetchStatuses();
       setIsModalOpen(false);
+      setErrors({}); // Limpiar errores después de la operación exitosa
     } catch (error) {
       setError("Failed to add status. Please check your authorization.");
     } finally {
@@ -107,8 +118,7 @@ const StatusTable = () => {
       {loading && <LoaderOverlay />}
       {!loading && statuses.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
         </div>
       )}
@@ -119,8 +129,7 @@ const StatusTable = () => {
       )}
       {error && (
         <div className="flex flex-col items-center justify-center h-full">
-          {/*           <Lottie options={defaultOptions} height={400} width={400} />
-           */}{" "}
+          {/* <Lottie options={defaultOptions} height={400} width={400} /> */}
           <p className="text-red-500 text-lg mt-4">Error: {error}</p>
         </div>
       )}
@@ -128,7 +137,7 @@ const StatusTable = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Agregar Estado"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+        className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <button
@@ -146,15 +155,17 @@ const StatusTable = () => {
             type="text"
             value={newStatusName}
             onChange={(e) => setNewStatusName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded text-black"
+            className={`w-full p-2 border ${errors.newStatusName ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
+          />
+          {errors.newStatusName && <p className="text-red-500 text-sm mt-1">{errors.newStatusName}</p>}
+        </div>
+        <div className="flex justify-end space-x-2 mt-4">
+          <BlueButton text="Guardar" onClick={handleAddStatus} />
+          <RedButton
+            text="Cancelar"
+            onClick={() => setIsModalOpen(false)}
           />
         </div>
-        <BlueButton text="Guardar" onClick={handleAddStatus} />
-        <RedButton
-          text="Cancelar"
-          onClick={() => setIsModalOpen(false)}
-          className="ml-2"
-        />
       </Modal>
 
       <ConfirmationModal

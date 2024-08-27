@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateProductForm = ({ onProductCreate }) => {
   const [name, setName] = useState("");
@@ -93,6 +95,9 @@ const CreateProductForm = ({ onProductCreate }) => {
           Añadir Producto
         </button>
       </form>
+
+      {/* Contenedor para mostrar los toasts */}
+      <ToastContainer />
     </div>
   );
 };

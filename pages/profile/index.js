@@ -11,6 +11,7 @@ import "/app/globals.css";
 import BugTable from "@/app/components/profile/bugTable";
 import DrawerLayout from "@/app/components/layout/drawerLayout";
 import AreaTable from "@/app/components/profile/areaTable";
+import AccountTypeTable from "@/app/components/profile/accounTypeTable";
 
 const Profile = ({ role }) => {
   return (

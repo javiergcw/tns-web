@@ -1,5 +1,6 @@
 import { get, post } from "./apiRequest";
 import { ENDPOINTS } from "@/app/utils/apiConfig";
+import axios from "axios";
 import { ShoppingDTO } from "../models/shoppings/shoppingsModel"; // Asegúrate de que la ruta sea correcta
 
 
@@ -33,13 +34,25 @@ const getShoppingsByUserId = async (id) => {
 // Nuevo método para obtener una compra específica por ID
 const getShoppingById = async (id) => {
   try {
-    const response = await get(ENDPOINTS.getShoppingById(id));
-    return new ShoppingDTO(response);
+    // Realiza la solicitud GET sin incluir la autorización
+    const response = await axios.get(ENDPOINTS.getShoppingById(id), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Verifica si la respuesta es exitosa
+    if (response.status >= 200 && response.status < 300) {
+      return new ShoppingDTO(response.data);
+    } else {
+      throw new Error(`Error: ${response.status}`);
+    }
   } catch (error) {
     console.error("Error al obtener la compra por ID:", error);
     throw error;
   }
 };
+
 
 // Nuevo método para obtener las solicitudes estadísticas más recientes del mes
 const getLatestStatisticalRequestsOfTheMonth = async () => {

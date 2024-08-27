@@ -12,6 +12,7 @@ const AccountTypeTable = () => {
     const [accountTypes, setAccountTypes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [errors, setErrors] = useState({}); // Estado para errores específicos de los campos
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -37,13 +38,31 @@ const AccountTypeTable = () => {
     };
 
     const handleAddAccountType = async () => {
+        let formIsValid = true;
+        let tempErrors = {};
+
+        if (!newAccountTypeName.trim()) {
+            tempErrors.newAccountTypeName = "El nombre del tipo de cuenta es obligatorio";
+            formIsValid = false;
+        }
+
+        if (!newCupo.trim()) {
+            tempErrors.newCupo = "El cupo es obligatorio";
+            formIsValid = false;
+        }
+
+        setErrors(tempErrors);
+
+        if (!formIsValid) return;
+
         try {
             setLoading(true);
-            await createAccountType({ name: newAccountTypeName, cupo: newCupo }); // Incluir cupo
+            await createAccountType({ name: newAccountTypeName, cupo: newCupo });
             setNewAccountTypeName(""); // Limpiar el campo de entrada
             setNewCupo(""); // Limpiar el campo de cupo
             fetchAccountTypes();
             setIsModalOpen(false);
+            setErrors({}); // Limpiar errores después de la operación exitosa
         } catch (error) {
             console.error("Error adding account type:", error);
             setError("Failed to add account type.");
@@ -53,11 +72,29 @@ const AccountTypeTable = () => {
     };
 
     const handleEditAccountType = async () => {
+        let formIsValid = true;
+        let tempErrors = {};
+
+        if (!newAccountTypeName.trim()) {
+            tempErrors.newAccountTypeName = "El nombre del tipo de cuenta es obligatorio";
+            formIsValid = false;
+        }
+
+        if (!newCupo.trim()) {
+            tempErrors.newCupo = "El cupo es obligatorio";
+            formIsValid = false;
+        }
+
+        setErrors(tempErrors);
+
+        if (!formIsValid) return;
+
         try {
             setLoading(true);
-            await updateAccountType(selectedAccountType.id, { name: newAccountTypeName, cupo: newCupo }); // Incluir cupo
+            await updateAccountType(selectedAccountType.id, { name: newAccountTypeName, cupo: newCupo });
             fetchAccountTypes();
             setIsEditModalOpen(false);
+            setErrors({}); // Limpiar errores después de la operación exitosa
         } catch (error) {
             console.error("Error updating account type:", error);
             setError("Failed to update account type.");
@@ -69,6 +106,7 @@ const AccountTypeTable = () => {
     const openAddModal = () => {
         setNewAccountTypeName(""); // Limpiar el nombre del tipo de cuenta
         setNewCupo(""); // Limpiar el cupo
+        setErrors({}); // Limpiar los errores cuando se abre el modal
         setIsModalOpen(true);
     };
 
@@ -76,6 +114,7 @@ const AccountTypeTable = () => {
         setSelectedAccountType(accountType);
         setNewAccountTypeName(accountType.name); // Pre-cargar el nombre actual en el modal
         setNewCupo(accountType.cupo); // Pre-cargar el cupo actual en el modal
+        setErrors({}); // Limpiar los errores cuando se abre el modal
         setIsEditModalOpen(true);
     };
 
@@ -150,7 +189,7 @@ const AccountTypeTable = () => {
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 contentLabel="Añadir Tipo de Cuenta"
-                className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             >
                 <button
@@ -168,8 +207,9 @@ const AccountTypeTable = () => {
                         type="text"
                         value={newAccountTypeName}
                         onChange={(e) => setNewAccountTypeName(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded text-black"
+                        className={`w-full p-2 border ${errors.newAccountTypeName ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
                     />
+                    {errors.newAccountTypeName && <p className="text-red-500 text-sm mt-1">{errors.newAccountTypeName}</p>}
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
@@ -179,22 +219,24 @@ const AccountTypeTable = () => {
                         type="text"
                         value={newCupo}
                         onChange={(e) => setNewCupo(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded text-black"
+                        className={`w-full p-2 border ${errors.newCupo ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
+                    />
+                    {errors.newCupo && <p className="text-red-500 text-sm mt-1">{errors.newCupo}</p>}
+                </div>
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton text="Guardar" onClick={handleAddAccountType} />
+                    <RedButton
+                        text="Cancelar"
+                        onClick={() => setIsModalOpen(false)}
                     />
                 </div>
-                <BlueButton text="Guardar" onClick={handleAddAccountType} />
-                <RedButton
-                    text="Cancelar"
-                    onClick={() => setIsModalOpen(false)}
-                    className="ml-2"
-                />
             </Modal>
 
             <Modal
                 isOpen={isEditModalOpen}
                 onRequestClose={() => setIsEditModalOpen(false)}
                 contentLabel="Editar Tipo de Cuenta"
-                className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10 relative"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             >
                 <button
@@ -212,8 +254,9 @@ const AccountTypeTable = () => {
                         type="text"
                         value={newAccountTypeName}
                         onChange={(e) => setNewAccountTypeName(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded text-black"
+                        className={`w-full p-2 border ${errors.newAccountTypeName ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
                     />
+                    {errors.newAccountTypeName && <p className="text-red-500 text-sm mt-1">{errors.newAccountTypeName}</p>}
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
@@ -223,15 +266,17 @@ const AccountTypeTable = () => {
                         type="text"
                         value={newCupo}
                         onChange={(e) => setNewCupo(e.target.value)}
-                        className="w-full p-2 border border-gray-300 rounded text-black"
+                        className={`w-full p-2 border ${errors.newCupo ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
+                    />
+                    {errors.newCupo && <p className="text-red-500 text-sm mt-1">{errors.newCupo}</p>}
+                </div>
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton text="Actualizar" onClick={handleEditAccountType} />
+                    <RedButton
+                        text="Cancelar"
+                        onClick={() => setIsEditModalOpen(false)}
                     />
                 </div>
-                <BlueButton text="Actualizar" onClick={handleEditAccountType} />
-                <RedButton
-                    text="Cancelar"
-                    onClick={() => setIsEditModalOpen(false)}
-                    className="ml-2"
-                />
             </Modal>
 
             <ConfirmationModal

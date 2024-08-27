@@ -4,12 +4,15 @@ import "/app/App.css"; // Asegúrate de tener un archivo de estilo
 import DrawerLayout from "@/app/components/layout/drawerLayout";
 
 const Shoppings = () => {
-// Puedes cambiar este ID por el del usuario que desees
-
     return (
         <DrawerLayout>
-            <div className="app-container bg-bgPrimary">
-                <ShoppingTable/>
+            <div className="min-h-screen bg-gray-100 p-4">
+                {/* Contenedor para manejar el diseño responsive */}
+                <div className="container mx-auto">
+                    <div className="bg-white p-4 md:p-6 rounded-lg shadow-md overflow-x-auto">
+                        <ShoppingTable />
+                    </div>
+                </div>
             </div>
         </DrawerLayout>
     );

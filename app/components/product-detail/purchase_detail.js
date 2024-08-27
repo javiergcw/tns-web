@@ -82,8 +82,8 @@ const CustomComponent = ({ shoppingId }) => {
     <div className="flex flex-col lg:flex-row p-4 bg-gray-100 min-h-screen">
       <div className="flex flex-col items-start p-4 bg-gray-100 w-full lg:w-4/6 h-full">
         <div className="bg-white rounded-lg p-4 lg:p-6 shadow-lg w-full mb-4">
-          <p className="text-lg lg:text-2xl font-bold mb-2">{purchaseStatus.title || "Título no disponible"}</p>
-          <p className="text-gray-700">{purchaseStatus.description || "Descripción no disponible"}</p>
+          <p className="text-lg text-black lg:text-2xl font-bold mb-2">{purchaseStatus.title || "Título no disponible"}</p>
+          <p className="text-black">{purchaseStatus.description || "Descripción no disponible"}</p>
         </div>
 
         {purchaseStatus && (
@@ -114,9 +114,9 @@ const CustomComponent = ({ shoppingId }) => {
       <div className="flex flex-col items-start px-4 py-4 bg-gray-100 w-full lg:w-2/6 overflow-y-auto h-full" style={{ maxHeight: '700px' }}>
         {items.map((item, index) => (
           <div key={index} className="bg-white rounded-lg p-4 shadow-lg mb-4 w-full h-auto flex-shrink-0">
-            <h3 className="text-lg lg:text-xl font-bold mb-2">{item.name}</h3>
-            <p className="text-gray-700">{item.description}</p>
-            <p className="text-gray-700">Precio: ${item.price.toFixed(2)}</p>
+            <h3 className="text-black lg:text-xl font-bold mb-2">{item.name}</h3>
+            <p className="text-black">{item.description}</p>
+            <p className="text-black">Precio: ${item.price.toFixed(2)}</p>
           </div>
         ))}
       </div>
