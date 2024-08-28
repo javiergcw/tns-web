@@ -5,10 +5,13 @@ import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faEye, faFileExcel, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
-
+//importaciones para exportación de excel y pdf
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 const fetchData = async () => {
   try {
     const res = await getAllShoppings();
@@ -236,6 +239,70 @@ const FiltersComponent = () => {
     setIsModalOpen(true);
   };
 
+
+  const handleExportDocument = (type, data) => {
+    if (type === 'excel') {
+      exportToExcel(data);
+    } else if (type === 'pdf') {
+      exportToPDF(data);
+    }
+  };
+  /*
+  *METODO: exportToExcel(data)
+  *DESCRIPCIÓN: este metodo exporta la informacion de data con el formato del the new school.
+  *@param data: json que recibe con la informacion de la compra
+  */
+  const exportToExcel = (data) => {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.sheet_to_json(data, workbook);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    XLSX.writeFile(workbook, "exported_data.xlsx");
+  };
+  /*
+  *METODO: exportToExcel(data)
+  *DESCRIPCIÓN: este metodo exporta la informacion de data con el formato del the new school.
+  *@param data: json que recibe con la informacion de la compra
+  */
+  const exportToPDF = (data) => {
+    const doc = new jsPDF();
+    console.log(data)
+    // Información general de la orden
+    doc.setFontSize(16);
+    doc.text('ORDEN DE COMPRA', doc.internal.pageSize.getWidth() / 2, 12, 'center');
+    doc.setFontSize(10);
+    doc.text(`Orden #: ${data.id}`, 10, 25);
+    doc.text(`Fecha de generación: ${new Date().toLocaleDateString()}`, 10, 30);
+    doc.text(`quien solicita: ${data.user.profile.name}`, 10, 35);
+
+    doc.text(`TIpo de orden: ${data.category.name}`, (doc.internal.pageSize.getWidth() / 2) + 14, 25);
+    doc.text(`titulo: ${data.title}`, (doc.internal.pageSize.getWidth() / 2) + 14, 30);
+    doc.text(`Descripción: ${data.description}`, (doc.internal.pageSize.getWidth() / 2) + 14, 35);
+    doc.setFontSize(14);
+    doc.text(`Productos:`, (doc.internal.pageSize.getWidth() / 2)-13, 55);
+
+    // Tabla de productos
+    doc.autoTable({
+      startY: 60,
+      startX: doc.internal.pageSize.getWidth() / 2,
+      head: [['Item', 'Descripción', 'Cantidad', 'Precio Unitario', 'Total']],
+      body: data.products.map(product => [
+        product.id,
+        product.name,
+        1,
+        product.price,
+        product.price * 1
+      ]),
+      styles: { halign: 'center', }
+    });
+    // Total (calcular el total de todos los productos)
+    const total = data.products.reduce((acc, product) => acc + product.price * 1, 0);
+
+    doc.setFontSize(12);
+    doc.text(`Total: $${total}`, 10, doc.autoTable.previous.finalY + 10);
+
+    doc.save('orden_de_compra.pdf');
+  };
+
   const handleOpenMessageModal = () => {
     setIsMessageModalOpen(true);
   };
@@ -291,7 +358,7 @@ const FiltersComponent = () => {
 
   return (
     <div className="app-container">
-      <h1>{role === "admin" ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{role === "admin" ? "Compras ADMIN" : "Compras "}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -336,82 +403,90 @@ const FiltersComponent = () => {
           </button>
         </div>
       </div>
-      <div className="table-container">
-        <div className="table-wrapper">
-          <table className="shopping-table">
-            <thead>
+      <div className="table-container h-80">
+        <table className="shopping-table h-24">
+          <thead>
+            <tr>
+              <th>ITEM</th>
+              <th>LÍDER DE ÁREA</th>
+              <th>ESTADO</th>
+              <th>FECHA PETICIÓN</th>
+              <th>FECHA APROBADO</th>
+              <th>FECHA FINALIZACIÓN</th>
+              <th>ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.length === 0 ? (
               <tr>
-                <th>ITEM</th>
-                <th>LÍDER DE ÁREA</th>
-                <th>ESTADO</th>
-                <th>FECHA PETICIÓN</th>
-                <th>FECHA APROBADO</th>
-                <th>FECHA FINALIZACIÓN</th>
-                <th>Acciones</th>
+                <td colSpan="7">No hay compras</td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredData.length === 0 ? (
-                <tr>
-                  <td colSpan="7">No hay compras</td>
-                </tr>
-              ) : (
-                filteredData.map((shopping) => (
-                  <tr key={shopping.id}>
-                    <td>
-                      <ul>
-                        {shopping.products.map((product) => (
-                          <li key={product.id}>{product.name}</li>
+            ) : (
+              filteredData.map((shopping) => (
+                <tr key={shopping.id}>
+                  <td>
+                    <ul>
+                      {shopping.products.map((product) => (
+                        <li key={product.id}>{product.name}</li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>{shopping.user.profile.name}</td>
+                  <td>
+                    {isEditing && editingId === shopping.id && role === "admin" ? (
+                      <select
+                        value={newStatusId}
+                        onChange={handleStatusChange}
+                      >
+                        <option value="">Selecciona un estado</option>
+                        {statusOptions.map((status) => (
+                          <option key={status.id} value={status.id}>
+                            {status.name}
+                          </option>
                         ))}
-                      </ul>
-                    </td>
-                    <td>{shopping.user.profile.name}</td>
-                    <td>
-                      {isEditing && editingId === shopping.id && role === "admin" ? (
-                        <select
-                          value={newStatusId}
-                          onChange={handleStatusChange}
-                        >
-                          <option value="">Selecciona un estado</option>
-                          {statusOptions.map((status) => (
-                            <option key={status.id} value={status.id}>
-                              {status.name}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        shopping.status.name
-                      )}
-                    </td>
-                    <td>
-                      {new Date(shopping.request_date).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {new Date(shopping.date_approval).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {new Date(shopping.pending_date).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {role === "admin" && (
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                          onClick={() => handleEditClick(shopping.id)}
-                        />
-                      )}
+                      </select>
+                    ) : (
+                      shopping.status.name
+                    )}
+                  </td>
+                  <td>
+                    {new Date(shopping.request_date).toLocaleDateString()}
+                  </td>
+                  <td>
+                    {new Date(shopping.date_approval).toLocaleDateString()}
+                  </td>
+                  <td>
+                    {new Date(shopping.pending_date).toLocaleDateString()}
+                  </td>
+                  <td className="">
+                    {role === "admin" && (
                       <FontAwesomeIcon
-                        icon={faEye}
-                        className={`text-gray-500 hover:text-gray-700 cursor-pointer ${role === "admin" ? "ml-4" : ""}`}
-                        onClick={() => handleViewDetailsClick(shopping.id)}
+                        icon={faEdit}
+                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                        onClick={() => handleEditClick(shopping.id)}
                       />
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                    )}
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      className={`text-gray-500 hover:text-gray-700 cursor-pointer ml-4 ${role === "admin" ? "ml-2" : ""}`}
+                      onClick={() => handleViewDetailsClick(shopping.id)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faFileExcel}
+                      className={`text-green-500 hover:text-green-700 cursor-pointer ml-4 ${role === "admin" ? "ml-2" : ""}`}
+                      onClick={() => handleExportDocument("excel", shopping)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faFilePdf}
+                      className={`text-red-500 hover:text-red-700 cursor-pointer ml-4 ${role === "admin" ? "ml-2" : ""}`}
+                      onClick={() => handleExportDocument("pdf", shopping)}
+                    />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
