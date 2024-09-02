@@ -7,7 +7,7 @@ const data = [
     { name: 'Circular N3 Información importante para la comunidad educativa', link: 'https://drive.google.com/file/d/1Rh2ba0OPPfxW0QAeSmpJWCC0CQgKCqeU/view?usp=sharing' },
     { name: 'Circular N4 Novedades e información importante para los padres de familia ', link: 'https://drive.google.com/file/d/1ENtqBZlTYYB5p8cw-a8a3zFAuN3oWoig/view?usp=sharing' },
     { name: 'Circular N5 Escuela de padres ', link: 'https://drive.google.com/file/d/1qCPFX3SX4KKJ-3coqKqhp5DlfirN0Iop/view?usp=sharing' },
-
+    { name: 'Circular N7 Expediciones Pedagógicas ', link: 'https://drive.google.com/file/d/1i1ktEgrb6nANIIuuiy2hNPTTy8aKzXT_/view?usp=sharing' },
 
     // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
     // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
