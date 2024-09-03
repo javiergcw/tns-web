@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import Table from "@/app/components/others/table/table";
 import Text from "@/app/components/others/text/text";
 import CustomComponent from "../product-detail/purchase_detail";
@@ -159,26 +159,32 @@ const ShoppingTable = ({ userId }) => {
     "FECHA PETICIÓN",
     "FECHA APROBADO",
     "FECHA FINALIZACIÓN",
+    "PRECIO",  // Añadir columna de precio
     "Acciones",
   ];
 
-  const rows = filteredShoppings.map((shopping) => [
-    shopping.products.map((product) => product.name).join(", "),
-    shopping.description,
-    shopping.user.profile.name,
-    shopping.status.name,
-    new Date(shopping.request_date).toLocaleDateString(),
-    new Date(shopping.date_approval).toLocaleDateString(),
-    new Date(shopping.pending_date).toLocaleDateString(),
-    <div key={shopping.id} className="flex space-x-2">
-      <FontAwesomeIcon
-        icon={faEye}
-        className="text-gray-500 hover:text-gray-700 cursor-pointer"
-        onClick={() => handleViewDetailsClick(shopping.id)}
-      />
+  const rows = filteredShoppings.map((shopping) => {
+    // Calcular el precio total sumando los precios de los productos
+    const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
 
-    </div>,
-  ]);
+    return [
+      shopping.products.map((product) => product.name).join(", "),
+      shopping.description,
+      shopping.user.profile.name,
+      shopping.status.name,
+      new Date(shopping.request_date).toLocaleDateString(),
+      new Date(shopping.date_approval).toLocaleDateString(),
+      new Date(shopping.pending_date).toLocaleDateString(),
+      totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }), // Mostrar el total calculado en COP
+      <div key={shopping.id} className="flex space-x-2">
+        <FontAwesomeIcon
+          icon={faEye}
+          className="text-gray-500 hover:text-gray-700 cursor-pointer"
+          onClick={() => handleViewDetailsClick(shopping.id)}
+        />
+      </div>,
+    ];
+  });
 
   if (loading) {
     return <p>Cargando...</p>;
@@ -250,11 +256,6 @@ const ShoppingTable = ({ userId }) => {
               {messages.map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {/* <FontAwesomeIcon
-                    icon={faTrash}
-                    className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
-                    onClick={() => handleDeleteMessage(message.id)}
-                  /> */}
                 </div>
               ))}
             </div>

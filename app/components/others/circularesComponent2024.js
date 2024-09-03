@@ -23,6 +23,10 @@ const data = [
     link: "https://drive.google.com/file/d/1qCPFX3SX4KKJ-3coqKqhp5DlfirN0Iop/view?usp=sharing",
   },
   {
+    name: "Circular N6 Salida Pedagógica fiesta del libro ",
+    link: "https://drive.google.com/file/d/1RLSwgR4LAVh4LEVED4-gS4fxMXDlG7py/view?usp=sharing",
+  },
+  {
     name: "Circular N7 Expediciones Pedagógicas ",
     link: "https://drive.google.com/file/d/1i1ktEgrb6nANIIuuiy2hNPTTy8aKzXT_/view?usp=sharing",
   },

@@ -5,7 +5,7 @@ import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faEye, faFilePdf, faCommentDots ,faFileUpload} from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 
@@ -54,11 +54,14 @@ const FiltersComponent = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const storedUserId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("profileId");
 
         if (storedUserId) {
           const profile = await getProfileById(storedUserId);
-          setRole(profile.rol ? profile.rol.name : "");
+          const userRole = profile.rol.name ? profile.rol.name : "";
+          setRole(userRole);
+
+          console.log("El rol del usuario logueado es:", userRole);
         } else {
           throw new Error("User ID not found in localStorage");
         }
@@ -77,8 +80,13 @@ const FiltersComponent = () => {
         const statuses = await getStatuses();
         setStatusOptions(statuses);
 
-        setData(fetchedData);
-        setFilteredData(fetchedData);
+        const updatedData = fetchedData.map((shopping) => {
+          const invoice = localStorage.getItem(`invoice_${shopping.id}`);
+          return { ...shopping, invoice_url: invoice || shopping.invoice_url };
+        });
+
+        setData(updatedData);
+        setFilteredData(updatedData);
         setIsLoading(false);
 
         const leaders = [
@@ -236,15 +244,18 @@ const FiltersComponent = () => {
     setIsModalOpen(true);
   };
 
-  const handleOpenMessageModal = () => {
-    setIsMessageModalOpen(true);
+  const handleOpenMessageModal = (shoppingId) => {
+    if (role === "admin" || role === "Lider de area") {
+      setSelectedShoppingId(shoppingId);
+      setIsMessageModalOpen(true);
+    }
   };
 
   const handleAddMessage = async () => {
     const messageData = {
       body: newMessageBody,
       shopping_id: selectedShoppingId,
-      user_id: localStorage.getItem("profileId"),
+      user_id: localStorage.getItem("userId"),
     };
 
     try {
@@ -281,6 +292,26 @@ const FiltersComponent = () => {
     setNewMessageBody("");
   };
 
+  const handleUploadInvoice = async (shoppingId, file) => {
+    if (role === "admin" || role === "Compras") {
+      localStorage.setItem(`invoice_${shoppingId}`, file.name);
+
+      const updatedData = data.map((shopping) =>
+        shopping.id === shoppingId
+          ? { ...shopping, invoice_url: file.name }
+          : shopping
+      );
+      setData(updatedData);
+      setFilteredData(updatedData);
+
+      alert("Factura 'subida' correctamente.");
+    }
+  };
+
+  const handleViewInvoice = (invoiceUrl) => {
+    window.open(invoiceUrl, "_blank");
+  };
+
   if (isLoading) {
     return <p>Cargando...</p>;
   }
@@ -289,9 +320,11 @@ const FiltersComponent = () => {
     return <p>Error: {error}</p>;
   }
 
+  const selectedShopping = filteredData.find(shopping => shopping.id === selectedShoppingId);
+
   return (
     <div className="app-container">
-      <h1>{role === "admin" ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{role === "admin"  ? "Compras ADMIN" : "Compras"}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -347,13 +380,15 @@ const FiltersComponent = () => {
                 <th>FECHA PETICIÓN</th>
                 <th>FECHA APROBADO</th>
                 <th>FECHA FINALIZACIÓN</th>
+                <th>PRECIO</th>
+                <th>Factura</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan="7">No hay compras</td>
+                  <td colSpan="9">No hay compras</td>
                 </tr>
               ) : (
                 filteredData.map((shopping) => (
@@ -367,44 +402,100 @@ const FiltersComponent = () => {
                     </td>
                     <td>{shopping.user.profile.name}</td>
                     <td>
-                      {isEditing && editingId === shopping.id && role === "admin" ? (
-                        <select
-                          value={newStatusId}
-                          onChange={handleStatusChange}
-                        >
-                          <option value="">Selecciona un estado</option>
-                          {statusOptions.map((status) => (
-                            <option key={status.id} value={status.id}>
-                              {status.name}
-                            </option>
-                          ))}
-                        </select>
+                      {role === "admin" ? (
+                        isEditing && editingId === shopping.id ? (
+                          <div className="flex items-center space-x-2">
+                            <select
+                              value={newStatusId}
+                              onChange={handleStatusChange}
+                            >
+                              <option value="">Selecciona un estado</option>
+                              {statusOptions.map((status) => (
+                                <option key={status.id} value={status.id}>
+                                  {status.name}
+                                </option>
+                              ))}
+                            </select>
+                            <button
+                              className="bg-blue-500 text-white p-2 rounded"
+                              onClick={handleSaveClick}
+                            >
+                              Confirmar
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-2">
+                            <span>{shopping.status.name}</span>
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleEditClick(shopping.id)}
+                            />
+                          </div>
+                        )
                       ) : (
-                        shopping.status.name
+                        <span>{shopping.status.name}</span>
                       )}
                     </td>
+
+                    <td>{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td>{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                    <td>{new Date(shopping.pending_date).toLocaleDateString()}</td>
                     <td>
-                      {new Date(shopping.request_date).toLocaleDateString()}
+                      {shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" })}
                     </td>
+
                     <td>
-                      {new Date(shopping.date_approval).toLocaleDateString()}
+                      {shopping.invoice_url ? (
+                        <div className="flex items-center space-x-2">
+                          <a
+                            href={shopping.invoice_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                          >
+                            <FontAwesomeIcon icon={faFilePdf} />
+                          </a>
+                          {(role === "admin" || role === "Compras") && (
+                            <label className="cursor-pointer">
+                              <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
+                              <input
+                                type="file"
+                                onChange={(e) => handleUploadInvoice(shopping.id, e.target.files[0])}
+                                style={{ display: 'none' }}
+                              />
+                            </label>
+                          )}
+                        </div>
+                      ) : (
+                        (role === "admin" || role === "Compras") && (
+                          <label className="cursor-pointer">
+                            <FontAwesomeIcon icon={faFileUpload} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
+                            <input
+                              type="file"
+                              onChange={(e) => handleUploadInvoice(shopping.id, e.target.files[0])}
+                              style={{ display: 'none' }}
+                            />
+                          </label>
+                        )
+                      )}
                     </td>
+
                     <td>
-                      {new Date(shopping.pending_date).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {role === "admin" && (
+                      <div className="flex items-center space-x-2">
                         <FontAwesomeIcon
-                          icon={faEdit}
-                          className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                          onClick={() => handleEditClick(shopping.id)}
+                          icon={faEye}
+                          className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                          onClick={() => handleViewDetailsClick(shopping.id)}
                         />
-                      )}
-                      <FontAwesomeIcon
-                        icon={faEye}
-                        className={`text-gray-500 hover:text-gray-700 cursor-pointer ${role === "admin" ? "ml-4" : ""}`}
-                        onClick={() => handleViewDetailsClick(shopping.id)}
-                      />
+                        {(role === "admin" || role === "Lider de area") && (
+                          <FontAwesomeIcon
+                            icon={faCommentDots}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenMessageModal(shopping.id)}
+                          />
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -413,7 +504,7 @@ const FiltersComponent = () => {
           </table>
         </div>
       </div>
-      {isModalOpen && (
+      {isModalOpen && selectedShopping && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative">
             <button
@@ -425,10 +516,10 @@ const FiltersComponent = () => {
             <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
             <CustomComponent shoppingId={selectedShoppingId} />
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {role === "admin" && (
+            {(role === "admin" || role === "Lider de area") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
-                onClick={handleOpenMessageModal}
+                onClick={() => handleOpenMessageModal(selectedShoppingId)}
               >
                 Añadir Mensaje
               </button>
@@ -437,7 +528,7 @@ const FiltersComponent = () => {
               {messages.map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {role === "admin" && (
+                  {(role === "admin") && (
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
@@ -446,6 +537,31 @@ const FiltersComponent = () => {
                   )}
                 </div>
               ))}
+            </div>
+            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Factura</h3>
+            <div className="flex items-center space-x-2">
+              {selectedShopping.invoice_url ? (
+                <a
+                  href={selectedShopping.invoice_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-red-500 hover:text-red-700 cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faFilePdf} />
+                </a>
+              ) : (
+                <p className="text-gray-500">No hay factura</p>
+              )}
+              {(role === "admin" || role === "Compras") && selectedShopping.invoice_url && (
+                <label className="cursor-pointer">
+                  <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
+                  <input
+                    type="file"
+                    onChange={(e) => handleUploadInvoice(selectedShopping.id, e.target.files[0])}
+                    style={{ display: 'none' }}
+                  />
+                </label>
+              )}
             </div>
           </div>
         </div>

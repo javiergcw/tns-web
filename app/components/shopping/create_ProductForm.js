@@ -7,6 +7,7 @@ const CreateProductForm = ({ onProductCreate }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [url, setUrl] = useState("");
+  const [innovation, setInnovation] = useState(false); // Nuevo estado para el checkbox
   const [error, setError] = useState({});
 
   const validateForm = () => {
@@ -32,6 +33,7 @@ const CreateProductForm = ({ onProductCreate }) => {
       description,
       price: parseInt(price, 10),
       url,
+      innovation, // Añadir el valor del checkbox al producto
     };
 
     onProductCreate(newProduct); // Llamar a la función pasada como prop para agregar el producto
@@ -39,6 +41,7 @@ const CreateProductForm = ({ onProductCreate }) => {
     setDescription("");
     setPrice("");
     setUrl("");
+    setInnovation(false); // Reiniciar el checkbox después de la creación
     setError({}); // Limpiar los errores después de la creación
   };
 
@@ -87,6 +90,18 @@ const CreateProductForm = ({ onProductCreate }) => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
           {error.url && <p className="text-red-500">{error.url}</p>}
+        </div>
+        <div className="mb-4">
+          <label className="block text-black font-medium">
+            Innovación:
+          </label>
+          <input
+            type="checkbox"
+            checked={innovation}
+            onChange={(e) => setInnovation(e.target.checked)}
+            className="mr-2"
+          />
+          <span className="text-black">Este producto es innovador</span>
         </div>
         <button
           type="submit"

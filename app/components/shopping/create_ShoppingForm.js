@@ -26,6 +26,7 @@ const CreateShoppingForm = () => {
   const [selectedAccountTypeId, setSelectedAccountTypeId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
+  const [quantity, setQuantity] = useState(1); // Estado para la cantidad del producto
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -62,7 +63,7 @@ const CreateShoppingForm = () => {
       setLoading(true);
       try {
         const data = await getAllProfiles();
-        const filteredUsers = data.filter(user => user.rol?.name === "Jefe de area");
+        const filteredUsers = data.filter(user => user.rol?.name === "Lider de area");
         setUsers(filteredUsers);
       } catch (error) {
         setError((prev) => ({
@@ -112,12 +113,18 @@ const CreateShoppingForm = () => {
   }, []);
 
   const handleProductCreate = (newProduct) => {
-    const productWithId = { ...newProduct, uniqueId: Date.now() }; // Asignar un ID único al producto
-    setProducts([...products, productWithId]);
+    if (products.length > 0) {
+      toast.error("Solo puedes agregar un producto.");
+      return;
+    }
+
+    const productWithId = { ...newProduct, uniqueId: Date.now(), quantity }; // Asignar un ID único al producto y añadir la cantidad
+    setProducts([productWithId]); // Limitar a un solo producto
   };
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
+    setQuantity(1); // Reiniciar la cantidad cuando se elimina el producto
     toast.success("Producto eliminado exitosamente!");
   };
 
@@ -178,6 +185,24 @@ const CreateShoppingForm = () => {
     } catch (error) {
       setError({ general: "Error al crear la compra" });
     }
+  };
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    setQuantity(newQuantity > 0 ? newQuantity : 1); // Evitar que la cantidad sea menor que 1
+  };
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  // Función para formatear precios en COP
+  const formatPriceCOP = (price) => {
+    return `${price.toLocaleString("es-CO", { style: "currency", currency: "COP" })} COP`;
   };
 
   return (
@@ -293,15 +318,15 @@ const CreateShoppingForm = () => {
           {error.user_id && <p className="text-red-500">{error.user_id}</p>}
         </div>
 
-        <h3 className="text-lg font-semibold mb-4">Productos en la Compra</h3>
+        <h3 className="text-lg font-semibold mb-4">Producto en la Compra</h3>
         {products.length === 0 ? (
           <p className="text-red-500">
-            No hay productos. Añade productos primero.
+            No hay producto. Añade un producto primero.
           </p>
         ) : (
           <div className="overflow-x-auto">
             <div className="flex space-x-4">
-              {products.slice(0, 4).map((product) => (
+              {products.map((product) => (
                 <div key={product.uniqueId} className="bg-white rounded-lg shadow-md p-4 flex-shrink-0" style={{ minWidth: '250px' }}>
                   <div className="flex items-center">
                     {product.image && (
@@ -313,7 +338,8 @@ const CreateShoppingForm = () => {
                     )}
                     <div>
                       <h4 className="text-black font-semibold">{product.name}</h4>
-                      <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                      <p className="text-gray-600">{formatPriceCOP(product.price)}</p> {/* Mostrar precio en COP */}
+                      <p className="text-gray-600">Cantidad: {product.quantity}</p> {/* Mostrar cantidad */}
                     </div>
                   </div>
                   <button
@@ -329,6 +355,42 @@ const CreateShoppingForm = () => {
           </div>
         )}
 
+        {products.length > 0 && (
+          <>
+            <div className="mb-4 flex items-center space-x-2">
+              <label className="block text-black font-medium">Cantidad:</label>
+              <button
+                type="button"
+                className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+                onClick={handleDecrement}
+              >
+                -
+              </button>
+              <input
+                type="number"
+                value={quantity}
+                onChange={handleQuantityChange}
+                className="w-16 px-3 py-2 border border-gray-300 rounded-md text-center text-black"
+                min="1"
+              />
+              <button
+                type="button"
+                className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+                onClick={handleIncrement}
+              >
+                +
+              </button>
+            </div>
+
+            <div className="mt-4 text-black">
+              <p>IVA: {formatPriceCOP(200000)}</p>
+              <p>RETE FUENTE: {formatPriceCOP(50000)}</p>
+              <p>SUBTOTAL: {formatPriceCOP(1000000)}</p>
+              <p className="font-bold">TOTAL: {formatPriceCOP(1250000)}</p>
+            </div>
+          </>
+        )}
+
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
@@ -340,8 +402,6 @@ const CreateShoppingForm = () => {
         <CreateProductForm onProductCreate={handleProductCreate} />
       </div>
 
-      {/* Componente ToastContainer para mostrar las notificaciones */}
-      <ToastContainer />
     </div>
   );
 };
