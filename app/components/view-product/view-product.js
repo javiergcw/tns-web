@@ -3,12 +3,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
-import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
+import {
+  getMessagesByShoppingId,
+  createMessage,
+  deleteMessage,
+} from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faEdit,
+  faEye,
+  faFileExcel,
+  faFilePdf,
+} from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
-
+import { ImagesPath } from "@/app/utils/assetsPath";
+//importaciones para exportación de excel y pdf
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 const fetchData = async () => {
   try {
     const res = await getAllShoppings();
@@ -125,7 +140,7 @@ const FiltersComponent = () => {
             shopping.user &&
             shopping.user.profile &&
             shopping.user.profile.name.toLowerCase() ===
-            areaManager.toLowerCase()
+              areaManager.toLowerCase()
         );
       }
 
@@ -236,6 +251,219 @@ const FiltersComponent = () => {
     setIsModalOpen(true);
   };
 
+  const handleExportDocument = (type, data) => {
+    console.log("data");
+    console.log(data);
+
+    if (type === "excel") {
+      exportToExcel(data);
+    } else if (type === "pdf") {
+      exportToPDF(data);
+    }
+  };
+  /*
+   *METODO: exportToExcel(data)
+   *DESCRIPCIÓN: este metodo exporta la informacion de "data" con el formato del the new school.
+   *@param data: json que recibe con la informacion de la compra
+   */
+  const exportToExcel = async (data) => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Orden de Compra");
+
+    let grandTotal = 0.0;
+
+    // Añadir imagen
+    const imagePath = ImagesPath.logoVertical; // La ruta de tu imagen
+    const image = await fetch(imagePath).then((res) => res.arrayBuffer()); // Descargar la imagen como arrayBuffer
+
+    const imageId = workbook.addImage({
+      buffer: image,
+      extension: "png", // o jpg según tu imagen
+    });
+
+    worksheet.addImage(imageId, {
+      tl: { col: 5, row: 0 }, // Inserta la imagen en la celda G1
+      ext: { width: 75, height: 40 }, // Tamaño de la imagen
+    });
+
+    // Datos iniciales
+    const worksheetData = [
+      ["", "", "", "", ""],
+      [
+        "Orden de compra #: ",
+        data.id,
+        "Fecha Generación:",
+        new Date().toLocaleDateString(),
+        "Titulo: ",
+        data.title,
+      ],
+      [
+        "Categoria: ",
+        data.category.name,
+        "Encargado:",
+        data.user.profile.name,
+        "Descripción:",
+        data.description,
+      ],
+      ["ITEMS", "CANTIDAD", "UNIDAD", "VALOR UNITARIO", "IVA", "TOTAL CON IVA"],
+    ];
+
+    // Añadir productos al array
+    data.products.forEach((product) => {
+      const total = product.cant * product.price * (1 + product.iva / 100);
+      grandTotal += total;
+      worksheetData.push([
+        product.name,
+        product.cant,
+        product.unit,
+        product.price,
+        product.iva,
+        total.toFixed(2),
+      ]);
+    });
+
+    // Añadir las filas de SUBTOTAL, IVA, etc.
+    worksheetData.push(["", "", "", "", "", ""]);
+    worksheetData.push(["SUBTOTAL", grandTotal.toFixed(2), "", "", "", ""]);
+
+    // Agregar los datos a la hoja de cálculo
+    worksheet.addRows(worksheetData);
+    worksheet.getCell("C4").font = { bold: true };
+    worksheet.getCell("C3").font = { bold: true };
+    worksheet.getCell("A4").font = { bold: true };
+    worksheet.getCell("A3").font = { bold: true };
+    worksheet.getCell("E4").font = { bold: true };
+    worksheet.getCell("E3").font = { bold: true };
+    worksheet.getRow(5).font = { bold: true };
+    worksheet.getRow(1).font = { bold: true };
+    // Unir celdas A1:G1
+    worksheet.getCell("A1").value = "ORDEN DE COMPRA";
+    worksheet.mergeCells("A1:E2");
+    worksheet.mergeCells("F1:F2");
+    // Autoajustar el ancho de las columnas
+    worksheet.columns.forEach((column) => {
+      let maxLength = 0;
+      column.eachCell({ includeEmpty: true }, (cell) => {
+        const cellValue = cell.value ? cell.value.toString() : "";
+        maxLength = Math.max(maxLength, cellValue.length);
+      });
+      column.width = maxLength < 10 ? 15 : maxLength + 5;
+    });
+    // Aplicar estilo de wrap text y bordes a todas las celdas
+
+    worksheet.eachRow({ includeEmpty: true }, (row) => {
+      row.eachCell({ includeEmpty: true }, (cell) => {
+        // Wrap text
+        cell.alignment = {
+          wrapText: true,
+          vertical: "middle",
+          horizontal: "center",
+        };
+
+        // All borders
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+    });
+
+    // Generar el archivo Excel como un Blob
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    // Usar `file-saver` para descargar el archivo
+    saveAs(blob, `Orden_Compra_${data.id}.xlsx`);
+  };
+  /*
+   *METODO: exportToPDF(data)
+   *DESCRIPCIÓN: este metodo exporta la informacion de data con el formato del the new school.
+   *@param data: json que recibe con la informacion de la compra
+   */
+  const exportToPDF = async (data) => {
+    const doc = new jsPDF();
+
+    // Cargar la imagen como un objeto Image
+    const img = new Image();
+    img.src = ImagesPath.logoVertical; // Ruta a tu imagen
+
+    // Asegurarte de que la imagen esté cargada antes de usarla
+    img.onload = function () {
+      // Añadir la imagen al PDF
+      const imgWidth = 30; // Ancho de la imagen
+      const imgHeight = 15; // Alto de la imagen
+      const marginX = doc.internal.pageSize.getWidth() - imgWidth - 10; // Posición X (10 píxeles desde el borde derecho)
+      const marginY = 10; // Posición Y (10 píxeles desde el borde superior)
+      doc.addImage(img, "PNG", marginX, marginY, imgWidth, imgHeight);
+
+      // Información general de la orden
+      doc.setFontSize(16);
+      doc.text(
+        "ORDEN DE COMPRA",
+        doc.internal.pageSize.getWidth() / 2,
+        40,
+        "center"
+      );
+
+      doc.setFontSize(10);
+      doc.text(`Orden #: ${data.id}`, 10, 55);
+      doc.text(
+        `Fecha de generación: ${new Date().toLocaleDateString()}`,
+        10,
+        60
+      );
+      doc.text(`Quien solicita: ${data.user.profile.name}`, 10, 65);
+
+      doc.text(
+        `Tipo de orden: ${data.category.name}`,
+        doc.internal.pageSize.getWidth() / 2 + 14,
+        55
+      );
+      doc.text(
+        `Título: ${data.title}`,
+        doc.internal.pageSize.getWidth() / 2 + 14,
+        60
+      );
+      doc.text(
+        `Descripción: ${data.description}`,
+        doc.internal.pageSize.getWidth() / 2 + 14,
+        65
+      );
+
+      doc.setFontSize(14);
+      doc.text(`Productos:`, doc.internal.pageSize.getWidth() / 2 - 13, 85);
+
+      // Tabla de productos
+      autoTable(doc, {
+        startY: 90,
+        head: [["Item", "Descripción", "Cantidad", "Precio Unitario", "Total"]],
+        body: data.products.map((product) => [
+          product.id,
+          product.name,
+          1,
+          product.price,
+          product.price * 1,
+        ]),
+        styles: { halign: "center" },
+      });
+
+      // Total (calcular el total de todos los productos)
+      const total = data.products.reduce(
+        (acc, product) => acc + product.price * 1,
+        0
+      );
+
+      doc.setFontSize(12);
+      doc.text(`Total: $${total}`, 10, doc.lastAutoTable.finalY + 10);
+
+      doc.save("orden_de_compra #" + data.id + ".pdf");
+    };
+  };
+
   const handleOpenMessageModal = () => {
     setIsMessageModalOpen(true);
   };
@@ -262,7 +490,9 @@ const FiltersComponent = () => {
   const handleDeleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId);
-      setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId));
+      setMessages((prevMessages) =>
+        prevMessages.filter((msg) => msg.id !== messageId)
+      );
       alert("Mensaje eliminado correctamente.");
     } catch (error) {
       console.error("Error al eliminar el mensaje:", error);
@@ -291,7 +521,7 @@ const FiltersComponent = () => {
 
   return (
     <div className="app-container">
-      <h1>{role === "admin" ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{role === "admin" ? "Compras ADMIN" : "Compras "}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -336,82 +566,95 @@ const FiltersComponent = () => {
           </button>
         </div>
       </div>
-      <div className="table-container">
-        <div className="table-wrapper">
-          <table className="shopping-table">
-            <thead>
+      <div className="table-container h-80">
+        <table className="shopping-table h-24">
+          <thead>
+            <tr>
+              <th>ITEM</th>
+              <th>LÍDER DE ÁREA</th>
+              <th>ESTADO</th>
+              <th>FECHA PETICIÓN</th>
+              <th>FECHA APROBADO</th>
+              <th>FECHA FINALIZACIÓN</th>
+              <th>ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.length === 0 ? (
               <tr>
-                <th>ITEM</th>
-                <th>LÍDER DE ÁREA</th>
-                <th>ESTADO</th>
-                <th>FECHA PETICIÓN</th>
-                <th>FECHA APROBADO</th>
-                <th>FECHA FINALIZACIÓN</th>
-                <th>Acciones</th>
+                <td colSpan="7">No hay compras</td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredData.length === 0 ? (
-                <tr>
-                  <td colSpan="7">No hay compras</td>
-                </tr>
-              ) : (
-                filteredData.map((shopping) => (
-                  <tr key={shopping.id}>
-                    <td>
-                      <ul>
-                        {shopping.products.map((product) => (
-                          <li key={product.id}>{product.name}</li>
+            ) : (
+              filteredData.map((shopping) => (
+                <tr key={shopping.id}>
+                  <td>
+                    <ul>
+                      {shopping.products.map((product) => (
+                        <li key={product.id}>{product.name}</li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>{shopping.user.profile.name}</td>
+                  <td>
+                    {isEditing &&
+                    editingId === shopping.id &&
+                    role === "admin" ? (
+                      <select value={newStatusId} onChange={handleStatusChange}>
+                        <option value="">Selecciona un estado</option>
+                        {statusOptions.map((status) => (
+                          <option key={status.id} value={status.id}>
+                            {status.name}
+                          </option>
                         ))}
-                      </ul>
-                    </td>
-                    <td>{shopping.user.profile.name}</td>
-                    <td>
-                      {isEditing && editingId === shopping.id && role === "admin" ? (
-                        <select
-                          value={newStatusId}
-                          onChange={handleStatusChange}
-                        >
-                          <option value="">Selecciona un estado</option>
-                          {statusOptions.map((status) => (
-                            <option key={status.id} value={status.id}>
-                              {status.name}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        shopping.status.name
-                      )}
-                    </td>
-                    <td>
-                      {new Date(shopping.request_date).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {new Date(shopping.date_approval).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {new Date(shopping.pending_date).toLocaleDateString()}
-                    </td>
-                    <td>
-                      {role === "admin" && (
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                          onClick={() => handleEditClick(shopping.id)}
-                        />
-                      )}
+                      </select>
+                    ) : (
+                      shopping.status.name
+                    )}
+                  </td>
+                  <td>
+                    {new Date(shopping.request_date).toLocaleDateString()}
+                  </td>
+                  <td>
+                    {new Date(shopping.date_approval).toLocaleDateString()}
+                  </td>
+                  <td>
+                    {new Date(shopping.pending_date).toLocaleDateString()}
+                  </td>
+                  <td className="">
+                    {role === "admin" && (
                       <FontAwesomeIcon
-                        icon={faEye}
-                        className={`text-gray-500 hover:text-gray-700 cursor-pointer ${role === "admin" ? "ml-4" : ""}`}
-                        onClick={() => handleViewDetailsClick(shopping.id)}
+                        icon={faEdit}
+                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                        onClick={() => handleEditClick(shopping.id)}
                       />
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                    )}
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      className={`text-gray-500 hover:text-gray-700 cursor-pointer ml-4 ${
+                        role === "admin" ? "ml-2" : ""
+                      }`}
+                      onClick={() => handleViewDetailsClick(shopping.id)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faFileExcel}
+                      className={`text-green-500 hover:text-green-700 cursor-pointer ml-4 ${
+                        role === "admin" ? "ml-2" : ""
+                      }`}
+                      onClick={() => handleExportDocument("excel", shopping)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faFilePdf}
+                      className={`text-red-500 hover:text-red-700 cursor-pointer ml-4 ${
+                        role === "admin" ? "ml-2" : ""
+                      }`}
+                      onClick={() => handleExportDocument("pdf", shopping)}
+                    />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
@@ -422,9 +665,13 @@ const FiltersComponent = () => {
             >
               X
             </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+              Detalle de la compra
+            </h2>
             <CustomComponent shoppingId={selectedShoppingId} />
-            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
+            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">
+              Mensajes
+            </h3>
             {role === "admin" && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
@@ -459,7 +706,9 @@ const FiltersComponent = () => {
             >
               X
             </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+              Añadir Mensaje
+            </h2>
             <input
               type="text"
               placeholder="Escribe tu mensaje aquí"

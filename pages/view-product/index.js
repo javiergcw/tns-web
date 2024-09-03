@@ -5,14 +5,17 @@ import React from "react";
 import FiltersComponent from "@/app/components/view-product/view-product";
 import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
 import DrawerLayout from "@/app/components/layout/drawerLayout";
+import MainLayout from "@/app/components/layout/drawerLayout";
+import Container from "@/app/components/dashboard/container/container";
 
 const ViewProduct = () => {
   return (
-    <DrawerLayout>
-      <div className="app-container bg-bgPrimary">
+    <MainLayout>
+      <div className="w-full bg-bgPrimary">
         <FiltersComponent />
       </div>
-    </DrawerLayout>
+    </MainLayout>
+
   );
 };
 
