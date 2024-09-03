@@ -4,7 +4,10 @@ import Container from "@/app/components/dashboard/container/container";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
-import { getLatestStatisticalRequestsOfTheMonth, getUserByLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
+import {
+  getLatestStatisticalRequestsOfTheMonth,
+  getUserByLatestStatisticalRequestsOfTheMonth,
+} from "@/app/services/shoppingService";
 import { getProfileById } from "@/app/services/profileService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
@@ -18,7 +21,9 @@ const fetchData = async (role) => {
   try {
     let res;
     if (role === "Jefe de area") {
-      res = await getUserByLatestStatisticalRequestsOfTheMonth(localStorage.getItem("userId"));
+      res = await getUserByLatestStatisticalRequestsOfTheMonth(
+        localStorage.getItem("userId")
+      );
     } else {
       res = await getLatestStatisticalRequestsOfTheMonth();
     }
@@ -67,7 +72,6 @@ const getUnapprovedExpenses = (shoppingData) => {
   return pendingExpenses;
 };
 
-
 const DashboardManager = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [data, setData] = useState([]);
@@ -91,7 +95,9 @@ const DashboardManager = () => {
 
         if (profile.rol?.name === "Jefe de area") {
           allShoppingData = fetchedData.recentShoppings || [];
-          approvedShoppingData = allShoppingData.filter(item => item.status.id === 2);
+          approvedShoppingData = allShoppingData.filter(
+            (item) => item.status.id === 2
+          );
         } else {
           allShoppingData = fetchedData || [];
           approvedShoppingData = allShoppingData;
@@ -100,7 +106,8 @@ const DashboardManager = () => {
         setAllShoppingData(allShoppingData);
         setData(approvedShoppingData);
 
-        const { flattenedExpenses, total } = getApprovedExpenses(approvedShoppingData);
+        const { flattenedExpenses, total } =
+          getApprovedExpenses(approvedShoppingData);
         setExpensesData(flattenedExpenses);
         setTotalExpenses(total);
 
@@ -149,7 +156,6 @@ const DashboardManager = () => {
 
             {/* Sección Principal con Desplazamiento Horizontal y Vertical */}
             <div className="overflow-x-auto">
-
               {/* Grid de Compras Aprobadas */}
               {data.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -159,10 +165,15 @@ const DashboardManager = () => {
                       className="bg-white p-4 md:p-6 rounded-lg shadow-md flex flex-col justify-between"
                     >
                       <p className="text-gray-500 text-sm md:text-lg">
-                        {expense.products.map((product) => product.name).join(', ')}
+                        {expense.products
+                          .map((product) => product.name)
+                          .join(", ")}
                       </p>
                       <p className="text-green-500 text-xl md:text-2xl font-bold">
-                        ${expense.products.reduce((sum, product) => sum + product.price, 0).toLocaleString()}
+                        $
+                        {expense.products
+                          .reduce((sum, product) => sum + product.price, 0)
+                          .toLocaleString()}
                       </p>
                     </div>
                   ))}
@@ -205,21 +216,19 @@ const DashboardManager = () => {
                     {allShoppingData.length > 0 ? (
                       <CircularDiagram type={"year"} data={allShoppingData} />
                     ) : (
-                      <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                      <p className="text-gray-500 text-center">
+                        No hay compras disponibles
+                      </p>
                     )}
                   </div>
-
                 </div>
               </div>
-
             </div>
           </Container>
         </MainLayout>
       </div>
     );
-  }
-
-  else if (userRole === "admin") {
+  } else if (userRole === "admin") {
     return (
       <div className="min-h-screen  bg-gray-100">
         <MainLayout>
@@ -236,15 +245,14 @@ const DashboardManager = () => {
                 {allShoppingData.length > 0 ? (
                   <CircularDiagram type={"year"} data={allShoppingData} />
                 ) : (
-                  <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                  <p className="text-gray-500 text-center">
+                    No hay compras disponibles
+                  </p>
                 )}
               </div>
 
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full lg:w-full">
-                <MonthlyExpenses
-                  total={totalExpenses}
-                  data={expensesData}
-                />
+                <MonthlyExpenses total={totalExpenses} data={expensesData} />
               </div>
             </div>
             <hr className="my-5" />
@@ -253,8 +261,7 @@ const DashboardManager = () => {
         </MainLayout>
       </div>
     );
-  }
-  else if (userRole === "Compras") {
+  } else if (userRole === "Compras") {
     return (
       <div className="min-h-screen  bg-gray-100">
         <MainLayout>
@@ -271,15 +278,14 @@ const DashboardManager = () => {
                 {allShoppingData.length > 0 ? (
                   <CircularDiagram type={"year"} data={allShoppingData} />
                 ) : (
-                  <p className="text-gray-500 text-center">No hay compras disponibles</p>
+                  <p className="text-gray-500 text-center">
+                    No hay compras disponibles
+                  </p>
                 )}
               </div>
 
               <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full  lg:w-1/2">
-                <MonthlyExpenses
-                  total={totalExpenses}
-                  data={expensesData}
-                />
+                <MonthlyExpenses total={totalExpenses} data={expensesData} />
               </div>
             </div>
             <hr className="my-5" />
@@ -288,17 +294,17 @@ const DashboardManager = () => {
         </MainLayout>
       </div>
     );
-  }
-  else {
+  } else {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <h2 className="text-2xl font-bold text-red-600">
-          Rol de usuario no reconocido.
-        </h2>
-      </div>
+      <MainLayout>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <h2 className="text-2xl font-bold text-red-600">
+            Rol de usuario no reconocido.
+          </h2>
+        </div>
+      </MainLayout>
     );
   }
 };
 
 export default PrivateRoute(DashboardManager);
-

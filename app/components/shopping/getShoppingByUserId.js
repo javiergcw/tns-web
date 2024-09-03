@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
-import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
+import {
+  getMessagesByShoppingId,
+  createMessage,
+  deleteMessage,
+} from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 import Table from "@/app/components/others/table/table";
@@ -103,7 +107,9 @@ const ShoppingTable = ({ userId }) => {
   const handleDeleteClick = async (shoppingId) => {
     // Lógica para eliminar el shopping
     // Ejemplo: await deleteShopping(shoppingId);
-    setFilteredShoppings((prev) => prev.filter((shopping) => shopping.id !== shoppingId));
+    setFilteredShoppings((prev) =>
+      prev.filter((shopping) => shopping.id !== shoppingId)
+    );
   };
 
   const handleOpenMessageModal = () => {
@@ -132,7 +138,9 @@ const ShoppingTable = ({ userId }) => {
   const handleDeleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId);
-      setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId));
+      setMessages((prevMessages) =>
+        prevMessages.filter((msg) => msg.id !== messageId)
+      );
       alert("Mensaje eliminado correctamente.");
     } catch (error) {
       console.error("Error al eliminar el mensaje:", error);
@@ -176,7 +184,6 @@ const ShoppingTable = ({ userId }) => {
         className="text-gray-500 hover:text-gray-700 cursor-pointer"
         onClick={() => handleViewDetailsClick(shopping.id)}
       />
-
     </div>,
   ]);
 
@@ -192,7 +199,9 @@ const ShoppingTable = ({ userId }) => {
     <div className="container mx-auto p-4">
       <Text texto="Compras" color="blue-secondary" type="header" />
       <div className="mb-4">
-        <h2 className="text-lg text-black font-semibold mb-2">Nombre del item</h2>
+        <h2 className="text-lg text-black font-semibold mb-2">
+          Nombre del item
+        </h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
@@ -237,9 +246,13 @@ const ShoppingTable = ({ userId }) => {
             >
               X
             </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+              Detalle de la compra
+            </h2>
             <CustomComponent shoppingId={selectedShoppingId} />
-            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
+            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">
+              Mensajes
+            </h3>
             <button
               className="bg-blue-500 text-white p-2 rounded mb-4"
               onClick={handleOpenMessageModal}
@@ -270,7 +283,9 @@ const ShoppingTable = ({ userId }) => {
             >
               X
             </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+              Añadir Mensaje
+            </h2>
             <input
               type="text"
               placeholder="Escribe tu mensaje aquí"
