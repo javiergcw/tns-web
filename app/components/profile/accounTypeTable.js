@@ -5,6 +5,7 @@ import { getAllAccountTypes, createAccountType, updateAccountType, deleteAccount
 import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
+import { getProfileById } from "@/app/services/profileService"; // Servicio para obtener el perfil del usuario
 
 Modal.setAppElement("#__next");
 
@@ -16,12 +17,29 @@ const AccountTypeTable = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false); // Modal informativo para usuarios no admin
     const [newAccountTypeName, setNewAccountTypeName] = useState("");
     const [newCupo, setNewCupo] = useState(""); // Nuevo estado para cupo
     const [selectedAccountType, setSelectedAccountType] = useState(null);
+    const [role, setRole] = useState(""); // Estado para el rol del usuario
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const storedUserId = localStorage.getItem("profileId");
+                if (storedUserId) {
+                    const userProfile = await getProfileById(storedUserId); // Llama tu servicio para obtener el perfil del usuario
+                    setRole(userProfile?.rol?.name || ""); // Asignar el rol del usuario
+                } else {
+                    throw new Error("User ID not found in localStorage");
+                }
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
+        };
+
         fetchAccountTypes();
+        fetchProfile();
     }, []);
 
     const fetchAccountTypes = async () => {
@@ -137,6 +155,10 @@ const AccountTypeTable = () => {
         }
     };
 
+    const openInfoModal = () => {
+        setIsInfoModalOpen(true); // Abrir modal informativo para usuarios no admin
+    };
+
     const columns = ["ID", "Nombre", "Cupo", "Creado en", "Actualizado en", "Acciones"];
 
     const rows = accountTypes.map((accountType) => [
@@ -145,18 +167,22 @@ const AccountTypeTable = () => {
         accountType.cupo,
         new Date(accountType.created_at).toLocaleString(),
         new Date(accountType.updated_at).toLocaleString(),
+
         <>
             <BlueButton
                 text="Editar"
                 onClick={() => openEditModal(accountType)}
                 className="px-2 py-1"
             />
-            <RedButton
-                text="Eliminar"
-                onClick={() => openDeleteModal(accountType)}
-                className="px-2 py-1 ml-2"
-            />
-        </>,
+            {role === "admin" && (
+                <RedButton
+                    text="Eliminar"
+                    onClick={() => openDeleteModal(accountType)}
+                    className="px-2 py-1 ml-2"
+                />
+            )}
+        </>
+        // No mostrar acciones si el rol no es admin
     ]);
 
     return (
@@ -168,6 +194,13 @@ const AccountTypeTable = () => {
                     onClick={openAddModal} // Usar la nueva función para abrir el modal
                     className="mt-4 p-2"
                 />
+                {role !== "admin" && (
+                    <RedButton
+                        text="Eliminar"
+                        onClick={openInfoModal} // Abrir modal informativo si no es admin
+                        className="ml-4"
+                    />
+                )}
             </div>
             {loading && <LoaderOverlay />}
             {!loading && accountTypes.length === 0 && !error && (
@@ -185,6 +218,7 @@ const AccountTypeTable = () => {
                     <p className="text-red-500 text-lg mt-4">Error: {error}</p>
                 </div>
             )}
+
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
@@ -286,6 +320,31 @@ const AccountTypeTable = () => {
                 title="Confirmar Eliminación"
                 message={`¿Está seguro que desea eliminar el tipo de cuenta "${selectedAccountType?.name}"?`}
             />
+
+            <Modal
+                isOpen={isInfoModalOpen} // Modal informativo para usuarios no admin
+                onRequestClose={() => setIsInfoModalOpen(false)}
+                contentLabel="Sin Permisos"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+                <button
+                    onClick={() => setIsInfoModalOpen(false)}
+                    className="absolute top-0 right-2 text-black text-4xl font-bold"
+                >
+                    ×
+                </button>
+                <h2 className="text-2xl font-bold mb-4 text-black">Sin Permisos</h2>
+                <p className="text-black mb-4">
+                    Comunícate con un administrador para eliminar este tipo de cuenta.
+                </p>
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton
+                        text="Cerrar"
+                        onClick={() => setIsInfoModalOpen(false)}
+                    />
+                </div>
+            </Modal>
         </div>
     );
 };

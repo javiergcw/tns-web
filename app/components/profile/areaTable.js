@@ -4,7 +4,8 @@ import Table from "@/app/components/others/table/table"; // Importar el componen
 import { getAllAreas, createArea, updateArea, deleteArea } from "@/app/services/areaService"; // Importa los servicios correctos
 import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
-import ConfirmationModal from "../modals/modalConfirmation"; // Importar el modal de confirmación
+import ConfirmationModal from "../modals/modalConfirmation";
+import { getProfileById } from "@/app/services/profileService"; // Importar el modal de confirmación
 
 Modal.setAppElement("#__next");
 
@@ -15,13 +16,31 @@ const AreaTable = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false); // Modal para usuarios no admin
     const [newAreaName, setNewAreaName] = useState("");
     const [newAreaDescription, setNewAreaDescription] = useState(""); // Nuevo estado para la descripción
     const [selectedArea, setSelectedArea] = useState(null);
     const [validationError, setValidationError] = useState("");
+    const [role, setRole] = useState(""); // Estado para el rol del usuario
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const storedUserId = localStorage.getItem("profileId");
+                if (storedUserId) {
+                    const userProfile = await getProfileById(storedUserId); // Llama tu servicio para obtener el perfil del usuario
+                    setRole(userProfile?.rol?.name || ""); // Asignar el rol del usuario
+                    console.log(role)
+                } else {
+                    throw new Error("User ID not found in localStorage");
+                }
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
+        };
+
         fetchAreas();
+        fetchProfile();
     }, []);
 
     const fetchAreas = async () => {
@@ -118,19 +137,26 @@ const AreaTable = () => {
         area.name,
         new Date(area.created_at).toLocaleString(),
         new Date(area.updated_at).toLocaleString(),
+        
         <>
             <BlueButton
                 text="Editar"
                 onClick={() => openEditModal(area)}
                 className="px-2 py-1"
             />
-            <RedButton
-                text="Eliminar"
-                onClick={() => openDeleteModal(area)}
-                className="px-2 py-1 ml-2"
-            />
+            {role === "admin" && ( // Mostrar botón de eliminar solo si el usuario es admin
+                <RedButton
+                    text="Eliminar"
+                    onClick={() => openDeleteModal(area)}
+                    className="px-2 py-1 ml-2"
+                />
+            )}
         </>,
     ]);
+
+    const openInfoModal = () => {
+        setIsInfoModalOpen(true); // Abrir modal para usuarios no admin
+    };
 
     return (
         <div className="container mx-auto p-4">
@@ -141,6 +167,13 @@ const AreaTable = () => {
                     onClick={openAddModal} // Usar la nueva función para abrir el modal
                     className="mt-4 p-2"
                 />
+                {role !== "admin" && ( // Mostrar botón de "Eliminar" solo si no es admin
+                    <RedButton
+                        text="Eliminar"
+                        onClick={openInfoModal} // Abrir modal informativo para usuarios no admin
+                        className="ml-4 mt-4 p-2"
+                    />
+                )}
             </div>
             {loading && <LoaderOverlay />}
             {!loading && areas.length === 0 && !error && (
@@ -158,6 +191,7 @@ const AreaTable = () => {
                     <p className="text-red-500 text-lg mt-4">Error: {error}</p>
                 </div>
             )}
+
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
@@ -206,11 +240,6 @@ const AreaTable = () => {
                     />
                 </div>
             </Modal>
-
-
-
-
-
 
             <Modal
                 isOpen={isEditModalOpen}
@@ -261,7 +290,6 @@ const AreaTable = () => {
                 </div>
             </Modal>
 
-
             <ConfirmationModal
                 isOpen={isDeleteModalOpen}
                 onRequestClose={() => setIsDeleteModalOpen(false)}
@@ -269,6 +297,31 @@ const AreaTable = () => {
                 title="Confirmar Eliminación"
                 message={`¿Está seguro que desea eliminar el área "${selectedArea?.name}"?`}
             />
+
+            <Modal
+                isOpen={isInfoModalOpen} // Modal informativo para usuarios no admin
+                onRequestClose={() => setIsInfoModalOpen(false)}
+                contentLabel="Sin Permisos"
+                className="bg-white p-4 rounded shadow-md sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-10 relative flex flex-col px-4 py-6"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            >
+                <button
+                    onClick={() => setIsInfoModalOpen(false)}
+                    className="absolute top-0 right-2 text-black text-4xl font-bold"
+                >
+                    ×
+                </button>
+                <h2 className="text-2xl font-bold mb-4 text-black">Sin Permisos</h2>
+                <p className="text-black mb-4">
+                    Comunícate con un administrador para eliminar esta área.
+                </p>
+                <div className="flex justify-end space-x-2 mt-4">
+                    <BlueButton
+                        text="Cerrar"
+                        onClick={() => setIsInfoModalOpen(false)}
+                    />
+                </div>
+            </Modal>
         </div>
     );
 };

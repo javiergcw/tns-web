@@ -7,7 +7,7 @@ const CreateProductForm = ({ onProductCreate }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [url, setUrl] = useState("");
-  const [innovation, setInnovation] = useState(false); // Nuevo estado para el checkbox
+  const [innovated, setInnovated] = useState(false); // Solo mantendremos innovated
   const [error, setError] = useState({});
 
   const validateForm = () => {
@@ -33,16 +33,19 @@ const CreateProductForm = ({ onProductCreate }) => {
       description,
       price: parseInt(price, 10),
       url,
-      innovation, // Añadir el valor del checkbox al producto
+      innovated, // Pasamos el valor de innovación
     };
 
     onProductCreate(newProduct); // Llamar a la función pasada como prop para agregar el producto
+    toast.success("Producto añadido exitosamente!"); // Mostrar el toast de éxito
+
+    // Reiniciar los campos después de la creación
     setName("");
     setDescription("");
     setPrice("");
     setUrl("");
-    setInnovation(false); // Reiniciar el checkbox después de la creación
-    setError({}); // Limpiar los errores después de la creación
+    setInnovated(false);
+    setError({});
   };
 
   return (
@@ -50,9 +53,7 @@ const CreateProductForm = ({ onProductCreate }) => {
       <h2 className="text-xl font-bold mb-4">Crear Nuevo Producto</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-black font-medium">
-            Nombre del Producto:
-          </label>
+          <label className="block text-black font-medium">Nombre del Producto:</label>
           <input
             type="text"
             value={name}
@@ -91,18 +92,19 @@ const CreateProductForm = ({ onProductCreate }) => {
           />
           {error.url && <p className="text-red-500">{error.url}</p>}
         </div>
+
+        {/* Checkbox para innovación */}
         <div className="mb-4">
-          <label className="block text-black font-medium">
-            Innovación:
-          </label>
+          <label className="block text-black font-medium">Innovación:</label>
           <input
             type="checkbox"
-            checked={innovation}
-            onChange={(e) => setInnovation(e.target.checked)}
+            checked={innovated}
+            onChange={(e) => setInnovated(e.target.checked)}
             className="mr-2"
           />
           <span className="text-black">Este producto es innovador</span>
         </div>
+
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -111,7 +113,7 @@ const CreateProductForm = ({ onProductCreate }) => {
         </button>
       </form>
 
-      {/* Contenedor para mostrar los toasts */}
+      {/* Contenedor para los toasts */}
       <ToastContainer />
     </div>
   );

@@ -8,7 +8,7 @@ import { getAllAreas } from "@/app/services/areaService";
 import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { FaTrash } from "react-icons/fa"; // Importa el ícono de basura
+import { FaTrash } from "react-icons/fa";
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -26,7 +26,10 @@ const CreateShoppingForm = () => {
   const [selectedAccountTypeId, setSelectedAccountTypeId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [quantity, setQuantity] = useState(1); // Estado para la cantidad del producto
+  const [unidad, setUnidad] = useState(1); // Unidad como cantidad
+  const [iva, setIva] = useState(""); // IVA
+  const [retefuente, setRetefuente] = useState(""); // Rete Fuente
+  const [innovated, setInnovated] = useState(false); // Innovación a nivel de shopping
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -37,7 +40,7 @@ const CreateShoppingForm = () => {
       } catch (error) {
         setError((prev) => ({
           ...prev,
-          general: "Failed to fetch categories. Please check your authorization.",
+          general: "Error al obtener categorías.",
         }));
       } finally {
         setLoading(false);
@@ -52,7 +55,7 @@ const CreateShoppingForm = () => {
       } catch (error) {
         setError((prev) => ({
           ...prev,
-          general: "Failed to fetch statuses. Please check your authorization.",
+          general: "Error al obtener estados.",
         }));
       } finally {
         setLoading(false);
@@ -68,7 +71,7 @@ const CreateShoppingForm = () => {
       } catch (error) {
         setError((prev) => ({
           ...prev,
-          general: "Failed to fetch users. Please check your authorization.",
+          general: "Error al obtener usuarios.",
         }));
       } finally {
         setLoading(false);
@@ -83,7 +86,7 @@ const CreateShoppingForm = () => {
       } catch (error) {
         setError((prev) => ({
           ...prev,
-          general: "Failed to fetch areas. Please check your authorization.",
+          general: "Error al obtener áreas.",
         }));
       } finally {
         setLoading(false);
@@ -98,7 +101,7 @@ const CreateShoppingForm = () => {
       } catch (error) {
         setError((prev) => ({
           ...prev,
-          general: "Failed to fetch account types. Please check your authorization.",
+          general: "Error al obtener tipos de cuenta.",
         }));
       } finally {
         setLoading(false);
@@ -118,13 +121,15 @@ const CreateShoppingForm = () => {
       return;
     }
 
-    const productWithId = { ...newProduct, uniqueId: Date.now(), quantity }; // Asignar un ID único al producto y añadir la cantidad
-    setProducts([productWithId]); // Limitar a un solo producto
+    const productWithId = { ...newProduct, uniqueId: Date.now() };
+    setProducts([productWithId]);
+    setInnovated(newProduct.innovated); // Almacenar innovated a nivel de shopping
   };
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
-    setQuantity(1); // Reiniciar la cantidad cuando se elimina el producto
+    setUnidad(1);
+    setInnovated(false); // Reiniciar innovated cuando se borra un producto
     toast.success("Producto eliminado exitosamente!");
   };
 
@@ -138,6 +143,8 @@ const CreateShoppingForm = () => {
     if (!selectedAreaId) newErrors.area_id = "Debe seleccionar un área";
     if (!selectedAccountTypeId) newErrors.account_type_id = "Debe seleccionar un tipo de cuenta";
     if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
+    if (!iva) newErrors.iva = "El IVA es obligatorio";
+    if (!retefuente) newErrors.retefuente = "El Rete Fuente es obligatorio";
     return newErrors;
   };
 
@@ -162,8 +169,18 @@ const CreateShoppingForm = () => {
         request_date: new Date().toISOString(),
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
+        iva: parseFloat(iva),
+        retefuente: parseFloat(retefuente),
+        innovated, // Ahora incluimos innovated a nivel de shopping
+        unidad, // También incluimos unidad a nivel de shopping
       },
-      products: products,
+      products: products.map(product => ({
+        id: product.uniqueId,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        url: product.url
+      })),
     };
 
     try {
@@ -177,6 +194,8 @@ const CreateShoppingForm = () => {
         setSelectedAccountTypeId("");
         setProducts([]);
         setSelectedUserId("");
+        setIva("");
+        setRetefuente("");
         setError({});
         toast.success("Compra creada exitosamente!");
       } else {
@@ -187,35 +206,25 @@ const CreateShoppingForm = () => {
     }
   };
 
-  const handleQuantityChange = (e) => {
-    const newQuantity = parseInt(e.target.value, 10);
-    setQuantity(newQuantity > 0 ? newQuantity : 1); // Evitar que la cantidad sea menor que 1
+  const handleUnidadChange = (e) => {
+    const newUnidad = parseInt(e.target.value, 10);
+    setUnidad(newUnidad > 0 ? newUnidad : 1);
   };
 
   const handleIncrement = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    setUnidad((prevUnidad) => prevUnidad + 1);
   };
 
   const handleDecrement = () => {
-    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
-  };
-
-  // Función para formatear precios en COP
-  const formatPriceCOP = (price) => {
-    return `${price.toLocaleString("es-CO", { style: "currency", currency: "COP" })} COP`;
+    setUnidad((prevUnidad) => (prevUnidad > 1 ? prevUnidad - 1 : 1));
   };
 
   return (
-    <div className="text-black flex flex-col-reverse  md:flex-row space-y-0 md:space-y-0 md:space-x-4">
-      <form
-        className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6"
-        onSubmit={handleSubmit}
-      >
+    <div className="text-black flex flex-col-reverse md:flex-row space-y-0 md:space-y-0 md:space-x-4">
+      <form className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6" onSubmit={handleSubmit}>
         <h2 className="text-xl font-bold mb-4">Crear Nueva Compra</h2>
 
-        {error.general && (
-          <div className="text-red-500 mb-4">{error.general}</div>
-        )}
+        {error.general && <div className="text-red-500 mb-4">{error.general}</div>}
 
         <div className="mb-4">
           <label className="block text-black font-medium">Título:</label>
@@ -227,6 +236,7 @@ const CreateShoppingForm = () => {
           />
           {error.title && <p className="text-red-500">{error.title}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Descripción:</label>
           <input
@@ -237,6 +247,7 @@ const CreateShoppingForm = () => {
           />
           {error.description && <p className="text-red-500">{error.description}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Categoría:</label>
           <select
@@ -253,6 +264,7 @@ const CreateShoppingForm = () => {
           </select>
           {error.category_id && <p className="text-red-500">{error.category_id}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Estado:</label>
           <select
@@ -269,6 +281,7 @@ const CreateShoppingForm = () => {
           </select>
           {error.status_id && <p className="text-red-500">{error.status_id}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Área:</label>
           <select
@@ -285,6 +298,7 @@ const CreateShoppingForm = () => {
           </select>
           {error.area_id && <p className="text-red-500">{error.area_id}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Tipo de Cuenta:</label>
           <select
@@ -301,6 +315,7 @@ const CreateShoppingForm = () => {
           </select>
           {error.account_type_id && <p className="text-red-500">{error.account_type_id}</p>}
         </div>
+
         <div className="mb-4">
           <label className="block text-black font-medium">Jefe de área:</label>
           <select
@@ -318,11 +333,32 @@ const CreateShoppingForm = () => {
           {error.user_id && <p className="text-red-500">{error.user_id}</p>}
         </div>
 
+        {/* Campos IVA y Rete Fuente */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">IVA (%):</label>
+          <input
+            type="number"
+            value={iva}
+            onChange={(e) => setIva(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+          {error.iva && <p className="text-red-500">{error.iva}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-black font-medium">Rete Fuente (%):</label>
+          <input
+            type="number"
+            value={retefuente}
+            onChange={(e) => setRetefuente(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+          {error.retefuente && <p className="text-red-500">{error.retefuente}</p>}
+        </div>
+
         <h3 className="text-lg font-semibold mb-4">Producto en la Compra</h3>
         {products.length === 0 ? (
-          <p className="text-red-500">
-            No hay producto. Añade un producto primero.
-          </p>
+          <p className="text-red-500">No hay producto. Añade un producto primero.</p>
         ) : (
           <div className="overflow-x-auto">
             <div className="flex space-x-4">
@@ -338,8 +374,7 @@ const CreateShoppingForm = () => {
                     )}
                     <div>
                       <h4 className="text-black font-semibold">{product.name}</h4>
-                      <p className="text-gray-600">{formatPriceCOP(product.price)}</p> {/* Mostrar precio en COP */}
-                      <p className="text-gray-600">Cantidad: {product.quantity}</p> {/* Mostrar cantidad */}
+                      <p className="text-gray-600">Unidad: {unidad}</p>
                     </div>
                   </div>
                   <button
@@ -355,41 +390,30 @@ const CreateShoppingForm = () => {
           </div>
         )}
 
-        {products.length > 0 && (
-          <>
-            <div className="mb-4 flex items-center space-x-2">
-              <label className="block text-black font-medium">Cantidad:</label>
-              <button
-                type="button"
-                className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
-                onClick={handleDecrement}
-              >
-                -
-              </button>
-              <input
-                type="number"
-                value={quantity}
-                onChange={handleQuantityChange}
-                className="w-16 px-3 py-2 border border-gray-300 rounded-md text-center text-black"
-                min="1"
-              />
-              <button
-                type="button"
-                className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
-                onClick={handleIncrement}
-              >
-                +
-              </button>
-            </div>
-
-            <div className="mt-4 text-black">
-              <p>IVA: {formatPriceCOP(200000)}</p>
-              <p>RETE FUENTE: {formatPriceCOP(50000)}</p>
-              <p>SUBTOTAL: {formatPriceCOP(1000000)}</p>
-              <p className="font-bold">TOTAL: {formatPriceCOP(1250000)}</p>
-            </div>
-          </>
-        )}
+        <div className="mb-4 flex items-center space-x-2">
+          <label className="block text-black font-medium">Unidad:</label>
+          <button
+            type="button"
+            className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+            onClick={handleDecrement}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            value={unidad}
+            onChange={handleUnidadChange}
+            className="w-16 px-3 py-2 border border-gray-300 rounded-md text-center text-black"
+            min="1"
+          />
+          <button
+            type="button"
+            className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+            onClick={handleIncrement}
+          >
+            +
+          </button>
+        </div>
 
         <button
           type="submit"
@@ -398,10 +422,10 @@ const CreateShoppingForm = () => {
           Crear Compra
         </button>
       </form>
+
       <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
         <CreateProductForm onProductCreate={handleProductCreate} />
       </div>
-
     </div>
   );
 };

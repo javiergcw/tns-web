@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
-import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
+import { getMessagesByShoppingId, createMessage, deleteMessage  } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye, faFilePdf, faCommentDots ,faFileUpload} from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
@@ -82,7 +82,7 @@ const FiltersComponent = () => {
 
         const updatedData = fetchedData.map((shopping) => {
           const invoice = localStorage.getItem(`invoice_${shopping.id}`);
-          return { ...shopping, invoice_url: invoice || shopping.invoice_url };
+          return { ...shopping, invoice_url: invoice || shopping.facturacion };
         });
 
         setData(updatedData);
@@ -292,19 +292,44 @@ const FiltersComponent = () => {
     setNewMessageBody("");
   };
 
+  // Función para manejar la subida de la factura (PDF)
   const handleUploadInvoice = async (shoppingId, file) => {
-    if (role === "admin" || role === "Compras") {
-      localStorage.setItem(`invoice_${shoppingId}`, file.name);
+    if (!file) return;
 
-      const updatedData = data.map((shopping) =>
-        shopping.id === shoppingId
-          ? { ...shopping, invoice_url: file.name }
-          : shopping
+    // Crear el formulario de datos
+    const formData = new FormData();
+    formData.append("invoice", file);
+
+    try {
+      // Enviar el archivo al backend
+      const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}/upload-invoice`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
       );
-      setData(updatedData);
-      setFilteredData(updatedData);
 
-      alert("Factura 'subida' correctamente.");
+      if (response.ok) {
+        const updatedShopping = await response.json();
+        // Actualizar el estado con la nueva URL de la factura
+        const updatedData = data.map((shopping) =>
+          shopping.id === shoppingId
+            ? { ...shopping, facturacion: updatedShopping.facturacion }
+            : shopping
+        );
+        setData(updatedData);
+        setFilteredData(updatedData);
+        alert("Factura subida correctamente.");
+      } else {
+        alert("Hubo un error al subir la factura.");
+      }
+    } catch (error) {
+      console.error("Error al subir la factura:", error);
+      alert("Hubo un error al subir la factura.");
     }
   };
 
@@ -324,7 +349,7 @@ const FiltersComponent = () => {
 
   return (
     <div className="app-container">
-      <h1>{role === "admin"  ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{role === "admin" ? "Compras ADMIN" : "Compras"}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -446,10 +471,10 @@ const FiltersComponent = () => {
                     </td>
 
                     <td>
-                      {shopping.invoice_url ? (
+                      {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
                           <a
-                            href={shopping.invoice_url}
+                            href={shopping.facturacion}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-red-500 hover:text-red-700 cursor-pointer"
@@ -540,9 +565,9 @@ const FiltersComponent = () => {
             </div>
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Factura</h3>
             <div className="flex items-center space-x-2">
-              {selectedShopping.invoice_url ? (
+              {selectedShopping.facturacion ? (
                 <a
-                  href={selectedShopping.invoice_url}
+                  href={selectedShopping.facturacion}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-red-500 hover:text-red-700 cursor-pointer"
@@ -552,7 +577,7 @@ const FiltersComponent = () => {
               ) : (
                 <p className="text-gray-500">No hay factura</p>
               )}
-              {(role === "admin" || role === "Compras") && selectedShopping.invoice_url && (
+              {(role === "admin" || role === "Compras") && selectedShopping.facturacion && (
                 <label className="cursor-pointer">
                   <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
                   <input

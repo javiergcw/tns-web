@@ -37,29 +37,29 @@ const ENDPOINTS = {
 
 
 
-// ENDPOINTS DE COMPRAS
-shoppings: `${API_BASE_URL}/shoppings`,
+  // ENDPOINTS DE COMPRAS
+  shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
-    getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
-      getLatestStatisticalRequestsOfTheMonth: `${API_BASE_URL}/shoppings/summary`,
-        getUserByLatestStatisticalRequestsOfTheMonth: (id) => `${API_BASE_URL}/shoppings/user/${id}/summary`,
+  getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
+  getLatestStatisticalRequestsOfTheMonth: `${API_BASE_URL}/shoppings/summary`,
+  getUserByLatestStatisticalRequestsOfTheMonth: (id) => `${API_BASE_URL}/shoppings/user/${id}/summary`,
 
-          updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
-            deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
-              create_shopping: `${API_BASE_URL}/create_shopping`,
+  updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+  deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+  create_shopping: `${API_BASE_URL}/create_shopping`,
 
-                //ENDPOINTS PRODUCTOS
-                products: `${API_BASE_URL}/products`,
-                  createProduct: `${API_BASE_URL}/products`,
-                    //ENDPOINTS BUGS
-                    bugs: `${API_BASE_URL}/bugs`,
-                      create_bug: `${API_BASE_URL}/bugs`,
+  //ENDPOINTS PRODUCTOS
+  products: `${API_BASE_URL}/products`,
+  createProduct: `${API_BASE_URL}/products`,
+  //ENDPOINTS BUGS
+  bugs: `${API_BASE_URL}/bugs`,
+  create_bug: `${API_BASE_URL}/bugs`,
 
-                        // POSTS
-                        getPosts: `${API_BASE_URL}/posts`,
-                          // ROLES
-                          roles: `${API_BASE_URL}/roles`,
-                            deleteRole: `${API_BASE_URL}/roles/delete`,
+  // POSTS
+  getPosts: `${API_BASE_URL}/posts`,
+  // ROLES
+  roles: `${API_BASE_URL}/roles`,
+  deleteRole: `${API_BASE_URL}/roles/delete`,
 
   // Agrega más endpoints según sea necesario
 };
