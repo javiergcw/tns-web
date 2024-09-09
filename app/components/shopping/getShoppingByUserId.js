@@ -128,20 +128,23 @@ const ShoppingTable = ({ userId }) => {
   };
 
   const handleAddMessage = async () => {
+    if (!newMessageBody.trim()) {
+      alert("El cuerpo del mensaje no puede estar vacío.");
+      return;
+    }
+
     const messageData = {
       body: newMessageBody,
-      shopping_id: selectedShoppingId,
-      user_id: localStorage.getItem("userId"),
+      shopping_id: selectedShoppingId, // Asegurarse de que selectedShoppingId está correctamente establecido
+      user_id: localStorage.getItem("userId"), // Obtener el userId de localStorage
     };
-
-    console.log("Datos del mensaje a enviar:", messageData);
 
     try {
       const newMessage = await createMessage(messageData);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]); // Actualizar la lista de mensajes
       alert("Mensaje añadido correctamente.");
-      setIsMessageModalOpen(false);
-      setNewMessageBody("");
+      setIsMessageModalOpen(false); // Cerrar el modal de mensajes
+      setNewMessageBody(""); // Limpiar el campo del mensaje
     } catch (error) {
       console.error("Error al añadir el mensaje:", error.response?.data || error.message);
       alert("Hubo un error al añadir el mensaje.");
@@ -168,6 +171,7 @@ const ShoppingTable = ({ userId }) => {
 
   const handleCloseMessageModal = () => {
     setIsMessageModalOpen(false);
+    setSelectedShoppingId(null);
     setNewMessageBody("");
   };
 
@@ -381,7 +385,7 @@ const ShoppingTable = ({ userId }) => {
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
             <button
               className="bg-blue-500 text-white p-2 rounded mb-4"
-              onClick={handleOpenMessageModal}
+              onClick={() => handleOpenMessageModal(selectedShoppingId)}
             >
               Añadir Mensaje
             </button>
