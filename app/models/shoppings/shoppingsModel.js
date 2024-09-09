@@ -68,13 +68,14 @@ class ShoppingDTO {
     user,
     products,
     account_type_id,
-    innovated,      // Nuevo campo
-    unidad,         // Nuevo campo
-    iva,            // Nuevo campo
-    retefuente,     // Nuevo campo
-    facturacion,    // Nuevo campo
-    area,           // Nuevo campo para manejar el objeto 'area'
-    account_type    // Nuevo campo para manejar el objeto 'account_type'
+    innovated,
+    unidad,
+    iva,
+    retefuente,
+    facturacion,
+    area,
+    account_type,
+    total          // Nuevo campo
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -84,9 +85,9 @@ class ShoppingDTO {
     this.date_approval = date_approval;
     this.title = title;
     this.description = description;
-    this.category = category ? new CategoryDTO(category) : null;  // Validación para evitar undefined
-    this.status = status ? new StatusDTO(status) : null;          // Validación para evitar undefined
-    this.user = user ? new UserDTO(user) : null;                  // Validación para evitar undefined
+    this.category = category ? new CategoryDTO(category) : null;
+    this.status = status ? new StatusDTO(status) : null;
+    this.user = user ? new UserDTO(user) : null;
     this.products = Array.isArray(products) ? products.map((product) => new ProductDTO(product)) : [];
     this.account_type_id = account_type_id;
 
@@ -98,10 +99,14 @@ class ShoppingDTO {
     this.facturacion = facturacion;
 
     // Asignación de los nuevos objetos relacionados, con validaciones
-    this.area = area ? new AreaDTO(area) : null;                  // Validación para evitar undefined
-    this.account_type = account_type ? new AccountTypeDTO(account_type) : null;  // Validación para evitar undefined
+    this.area = area ? new AreaDTO(area) : null;
+    this.account_type = account_type ? new AccountTypeDTO(account_type) : null;
+
+    // Asignación del nuevo campo total
+    this.total = total;
   }
 }
+
 
 export { ShoppingDTO };
 

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
+import * as XLSX from 'xlsx';
 
 const fetchData = async () => {
   try {
@@ -163,6 +164,27 @@ const FiltersComponent = () => {
     if (endDateRef.current) itemNameRef.current.blur();
     if (areaManagerRef.current) itemNameRef.current.blur();
     if (statusFilterRef.current) itemNameRef.current.blur();
+  };
+  const handleDownloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(
+      filteredData.map((shopping) => ({
+        "ITEM": shopping.products.map((product) => product.name).join(", "),
+        "LÍDER DE ÁREA": shopping.user.profile.name,
+        "ESTADO": shopping.status.name,
+        "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
+        "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
+        "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
+        "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        "FACTURA": shopping.facturacion ? shopping.facturacion : "No disponible"
+      }))
+    );
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Compras");
+
+    // Configurar anchos de columnas
+    worksheet['!cols'] = [{ wpx: 200 }, { wpx: 200 }, { wpx: 100 }, { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 100 }, { wpx: 200 }];
+    XLSX.writeFile(workbook, 'tabla_compras.xlsx');
   };
 
   const handleEditClick = (shoppingId) => {
@@ -392,6 +414,14 @@ const FiltersComponent = () => {
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
+
+          {/* Botón para descargar CSV */}
+          <button
+            onClick={handleDownloadExcel}
+            className="bg-blue-500 text-white p-2 rounded ml-2"
+          >
+           Exportar Tabla
+          </button>
         </div>
       </div>
       <div className="table-container">
@@ -611,6 +641,7 @@ const FiltersComponent = () => {
             <button
               className="bg-blue-500 text-white p-2 rounded w-full"
               onClick={handleAddMessage}
+              
             >
               Guardar Mensaje
             </button>

@@ -30,7 +30,7 @@ const ENDPOINTS = {
   getAllMessages: `${API_BASE_URL}/messages`,
   createMessage: `${API_BASE_URL}/messages`,
   updateMessage: (id) => `${API_BASE_URL}/messages/${id}`,
-  deleteMessage: (id) => `${API_BASE_URL}/messages/${id}`,
+  deleteMessage:`${API_BASE_URL}/messages/delete`,
   getMessagesByShoppingId: (shoppingId) => `${API_BASE_URL}/messages/shopping/${shoppingId}`,
 
 

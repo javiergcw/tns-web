@@ -8,6 +8,7 @@ import Text from "@/app/components/others/text/text";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 import { getProfileById } from "@/app/services/profileService";
+import * as XLSX from 'xlsx';
 
 const ShoppingTable = ({ userId }) => {
   const [shoppings, setShoppings] = useState([]);
@@ -224,7 +225,32 @@ const ShoppingTable = ({ userId }) => {
       alert("No hay factura para eliminar.");
     }
   };
+  const handleDownloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(
+      filteredShoppings.map((shopping) => ({
+        "ITEM": shopping.products.map((product) => product.name).join(", "),
+        "DESCRIPCIÓN": shopping.description,
+        "LÍDER DE ÁREA": shopping.user.profile.name,
+        "ESTADO": shopping.status.name,
+        "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
+        "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
+        "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
+        "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+      }))
+    );
 
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Compras");
+
+    // Configurar anchos de columnas
+    worksheet['!cols'] = [
+      { wpx: 200 }, { wpx: 300 }, { wpx: 200 },
+      { wpx: 150 }, { wpx: 150 }, { wpx: 150 },
+      { wpx: 150 }, { wpx: 100 }
+    ];
+
+    XLSX.writeFile(workbook, 'compras_usuario.xlsx');
+  };
   const columns = [
     "ITEM",
     "DESCRIPCIÓN",
@@ -278,21 +304,28 @@ const ShoppingTable = ({ userId }) => {
           </button>
         </>
       ) : (
-        role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden subir facturas
-          <>
-            <FontAwesomeIcon
-              icon={faUpload}
-              className="text-blue-500 hover:text-blue-700 cursor-pointer"
-              onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
-            />
-            <input
-              type="file"
-              id={`fileInput_${shopping.id}`}
-              style={{ display: "none" }}
-              onChange={(event) => handleUploadBilling(event, shopping.id)}
-            />
-          </>
-        )
+        <>
+          {role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden subir facturas
+            <>
+              <FontAwesomeIcon
+                icon={faUpload}
+                className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
+              />
+              <input
+                type="file"
+                id={`fileInput_${shopping.id}`}
+                style={{ display: "none" }}
+                onChange={(event) => handleUploadBilling(event, shopping.id)}
+              />
+            </>
+          )}
+          {role === "Lider de area" && ( // Mostrar mensaje si no hay factura y es "Líder de área"
+            <p className="text-red-500">
+              No hay factura disponible.
+            </p>
+          )}
+        </>
       ),
 
       <div key={shopping.id} className="flex space-x-2">
@@ -306,9 +339,8 @@ const ShoppingTable = ({ userId }) => {
           className="text-blue-500 hover:text-blue-700 cursor-pointer"
           onClick={() => handleOpenMessageModal(shopping.id)}
         />
-        {(role === "admin") && ( // Solo "admin" puede eliminar facturas
+        {role === "admin" && ( // Solo "admin" puede eliminar facturas
           <>
-
             {billingExists && (
               <FontAwesomeIcon
                 icon={faTrash}
@@ -320,6 +352,7 @@ const ShoppingTable = ({ userId }) => {
         )}
       </div>,
     ];
+
   });
 
 
@@ -362,6 +395,13 @@ const ShoppingTable = ({ userId }) => {
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
+          {/* Botón para descargar CSV */}
+          <button
+            onClick={handleDownloadExcel}
+            className="bg-blue-500 text-white p-2 rounded ml-2"
+          >
+            Exportar Tabla
+          </button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
@@ -393,6 +433,13 @@ const ShoppingTable = ({ userId }) => {
               {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
+                  {(role === "admin") && (
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
+                      onClick={() => handleDeleteMessage(message.id)}
+                    />
+                  )}
                 </div>
               ))}
             </div>

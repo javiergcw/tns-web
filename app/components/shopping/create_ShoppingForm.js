@@ -30,6 +30,7 @@ const CreateShoppingForm = () => {
   const [iva, setIva] = useState(""); // IVA
   const [retefuente, setRetefuente] = useState(""); // Rete Fuente
   const [innovated, setInnovated] = useState(false); // Innovación a nivel de shopping
+  const [total, setTotal] = useState(""); // Estado para manejar el total
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -125,7 +126,6 @@ const CreateShoppingForm = () => {
     setProducts([productWithId]);
     setInnovated(newProduct.innovated);
     setUnidad(newProduct.unidad); // Almacenar innovated a nivel de shopping
-     // Almacenar innovated a nivel de shopping
   };
 
   const handleRemoveProduct = (uniqueId) => {
@@ -147,6 +147,7 @@ const CreateShoppingForm = () => {
     if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
     if (!iva) newErrors.iva = "El IVA es obligatorio";
     if (!retefuente) newErrors.retefuente = "El Rete Fuente es obligatorio";
+    if (!total) newErrors.total = "El total es obligatorio";
     return newErrors;
   };
 
@@ -173,8 +174,9 @@ const CreateShoppingForm = () => {
         date_approval: new Date().toISOString(),
         iva: parseFloat(iva),
         retefuente: parseFloat(retefuente),
-        innovated, // Ahora incluimos innovated a nivel de shopping
-        unidad, // También incluimos unidad a nivel de shopping
+        innovated,
+        unidad,
+        total: parseFloat(total), // Añadir total al objeto shopping
       },
       products: products.map(product => ({
         id: product.uniqueId,
@@ -198,6 +200,7 @@ const CreateShoppingForm = () => {
         setSelectedUserId("");
         setIva("");
         setRetefuente("");
+        setTotal(""); // Reiniciar el total
         setError({});
         toast.success("Compra creada exitosamente!");
       } else {
@@ -356,6 +359,18 @@ const CreateShoppingForm = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
           {error.retefuente && <p className="text-red-500">{error.retefuente}</p>}
+        </div>
+
+        {/* Campo Total */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Total:</label>
+          <input
+            type="number"
+            value={total}
+            onChange={(e) => setTotal(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+          {error.total && <p className="text-red-500">{error.total}</p>}
         </div>
 
         <h3 className="text-lg font-semibold mb-4">Producto en la Compra</h3>

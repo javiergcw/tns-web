@@ -81,11 +81,18 @@ const updateMessage = async (id, messageData) => {
 };
 
 // Servicio para eliminar un mensaje
+// Servicio para eliminar un mensaje
 const deleteMessage = async (id) => {
     try {
-        const response = await post(ENDPOINTS.deleteMessage(id), { id });
+        const response = await post(ENDPOINTS.deleteMessage, { id });
         console.log('Respuesta del servidor en deleteMessage:', response);  // Depuración
-        return response;  // Ajusta según la estructura real de tu respuesta
+
+        // Validar la respuesta
+        if (response.message !== 'El mensaje ha sido eliminado exitosamente.') {
+            throw new Error('Error al eliminar el mensaje. Por favor, intenta nuevamente.');
+        }
+
+        return response.message;  // Devuelve el mensaje de confirmación
     } catch (error) {
         console.error('Error:', error);
         throw error;
