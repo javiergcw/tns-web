@@ -248,7 +248,8 @@ const DashboardManager = () => {
               </div>
             </div>
             <hr className="my-5" />
-            <TrackingTable data={data} />
+            <TrackingTable data={data} role={userRole} />
+
           </Container>
         </MainLayout>
       </div>
@@ -283,7 +284,8 @@ const DashboardManager = () => {
               </div>
             </div>
             <hr className="my-5" />
-            <TrackingTable data={data} />
+            <TrackingTable data={data} role={userRole} />
+
           </Container>
         </MainLayout>
       </div>

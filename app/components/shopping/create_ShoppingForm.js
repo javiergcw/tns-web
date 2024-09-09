@@ -123,7 +123,9 @@ const CreateShoppingForm = () => {
 
     const productWithId = { ...newProduct, uniqueId: Date.now() };
     setProducts([productWithId]);
-    setInnovated(newProduct.innovated); // Almacenar innovated a nivel de shopping
+    setInnovated(newProduct.innovated);
+    setUnidad(newProduct.unidad); // Almacenar innovated a nivel de shopping
+     // Almacenar innovated a nivel de shopping
   };
 
   const handleRemoveProduct = (uniqueId) => {
@@ -374,7 +376,7 @@ const CreateShoppingForm = () => {
                     )}
                     <div>
                       <h4 className="text-black font-semibold">{product.name}</h4>
-                      <p className="text-gray-600">Unidad: {unidad}</p>
+                      <p className="text-gray-600">Unidad: {product.unidad}</p>
                     </div>
                   </div>
                   <button
@@ -389,31 +391,6 @@ const CreateShoppingForm = () => {
             </div>
           </div>
         )}
-
-        <div className="mb-4 flex items-center space-x-2">
-          <label className="block text-black font-medium">Unidad:</label>
-          <button
-            type="button"
-            className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
-            onClick={handleDecrement}
-          >
-            -
-          </button>
-          <input
-            type="number"
-            value={unidad}
-            onChange={handleUnidadChange}
-            className="w-16 px-3 py-2 border border-gray-300 rounded-md text-center text-black"
-            min="1"
-          />
-          <button
-            type="button"
-            className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
-            onClick={handleIncrement}
-          >
-            +
-          </button>
-        </div>
 
         <button
           type="submit"

@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
-import { getMessagesByShoppingId, createMessage, deleteMessage  } from "@/app/services/messagesService";
+import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye, faFilePdf, faCommentDots ,faFileUpload} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 
@@ -245,7 +245,7 @@ const FiltersComponent = () => {
   };
 
   const handleOpenMessageModal = (shoppingId) => {
-    if (role === "admin" || role === "Lider de area") {
+    if (role === "admin") {
       setSelectedShoppingId(shoppingId);
       setIsMessageModalOpen(true);
     }
@@ -513,7 +513,7 @@ const FiltersComponent = () => {
                           className="text-gray-500 hover:text-gray-700 cursor-pointer"
                           onClick={() => handleViewDetailsClick(shopping.id)}
                         />
-                        {(role === "admin" || role === "Lider de area") && (
+                        {(role === "admin") && (
                           <FontAwesomeIcon
                             icon={faCommentDots}
                             className="text-blue-500 hover:text-blue-700 cursor-pointer"
@@ -541,7 +541,7 @@ const FiltersComponent = () => {
             <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
             <CustomComponent shoppingId={selectedShoppingId} />
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin" || role === "Lider de area") && (
+            {(role === "admin") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
                 onClick={() => handleOpenMessageModal(selectedShoppingId)}
@@ -550,7 +550,7 @@ const FiltersComponent = () => {
               </button>
             )}
             <div className="mt-6 flex text-black space-x-4 overflow-x-auto py-2 px-2">
-              {messages.map((message) => (
+              {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
                   {(role === "admin") && (

@@ -136,7 +136,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Lider de area":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/dashboardManager","/view-product", "/profile", "/shoppings"].includes(item.link)
+        ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
       );
       break;
     case "Secretariado":

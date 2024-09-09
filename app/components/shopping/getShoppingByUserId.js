@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye, faCommentDots, faEdit, faUpload } from "@fortawesome/free-solid-svg-icons";
 import Table from "@/app/components/others/table/table";
 import Text from "@/app/components/others/text/text";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
+import { getProfileById } from "@/app/services/profileService";
 
 const ShoppingTable = ({ userId }) => {
   const [shoppings, setShoppings] = useState([]);
@@ -16,16 +17,15 @@ const ShoppingTable = ({ userId }) => {
   const [itemFilter, setItemFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [statusOptions, setStatusOptions] = useState([]);
+  const [role, setRole] = useState("");
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
-  const [newStatusId, setNewStatusId] = useState("");
-
+  const [selectedBilling, setSelectedBilling] = useState(null); // Estado para la factura
   const [messages, setMessages] = useState([]);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [newMessageBody, setNewMessageBody] = useState("");
+  const [refreshTable, setRefreshTable] = useState(false);
 
   useEffect(() => {
     const fetchShoppings = async () => {
@@ -48,7 +48,29 @@ const ShoppingTable = ({ userId }) => {
     };
 
     fetchShoppings();
-  }, [userId]);
+  }, [userId, refreshTable]);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const storedUserId = localStorage.getItem("profileId");
+
+        if (storedUserId) {
+          const profile = await getProfileById(storedUserId);
+          const userRole = profile.rol.name ? profile.rol.name : "";
+          setRole(userRole);
+
+          console.log("El rol del usuario logueado es:", userRole);
+        } else {
+          throw new Error("User ID not found in localStorage");
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
     filterShoppings();
@@ -81,11 +103,6 @@ const ShoppingTable = ({ userId }) => {
     setFilteredShoppings(shoppings);
   };
 
-  const handleEditClick = (shoppingId) => {
-    setEditingId(shoppingId);
-    setIsEditing(true);
-  };
-
   const handleViewDetailsClick = async (shoppingId) => {
     setSelectedShoppingId(shoppingId);
 
@@ -97,16 +114,16 @@ const ShoppingTable = ({ userId }) => {
       setMessages([]);
     }
 
+    const billingData = localStorage.getItem(`billing_${shoppingId}`);
     setIsModalOpen(true);
+
+    if (billingData) {
+      setSelectedBilling(billingData); // Guardar la factura seleccionada en el estado si existe
+    }
   };
 
-  const handleDeleteClick = async (shoppingId) => {
-    // Lógica para eliminar el shopping
-    // Ejemplo: await deleteShopping(shoppingId);
-    setFilteredShoppings((prev) => prev.filter((shopping) => shopping.id !== shoppingId));
-  };
-
-  const handleOpenMessageModal = () => {
+  const handleOpenMessageModal = (shoppingId) => {
+    setSelectedShoppingId(shoppingId);
     setIsMessageModalOpen(true);
   };
 
@@ -117,6 +134,8 @@ const ShoppingTable = ({ userId }) => {
       user_id: localStorage.getItem("userId"),
     };
 
+    console.log("Datos del mensaje a enviar:", messageData);
+
     try {
       const newMessage = await createMessage(messageData);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -124,7 +143,7 @@ const ShoppingTable = ({ userId }) => {
       setIsMessageModalOpen(false);
       setNewMessageBody("");
     } catch (error) {
-      console.error("Error al añadir el mensaje:", error);
+      console.error("Error al añadir el mensaje:", error.response?.data || error.message);
       alert("Hubo un error al añadir el mensaje.");
     }
   };
@@ -144,11 +163,62 @@ const ShoppingTable = ({ userId }) => {
     setIsModalOpen(false);
     setSelectedShoppingId(null);
     setMessages([]);
+    setSelectedBilling(null); // Limpiar factura seleccionada al cerrar el modal
   };
 
   const handleCloseMessageModal = () => {
     setIsMessageModalOpen(false);
     setNewMessageBody("");
+  };
+
+  // Funciones para manejar facturación desde el dispositivo
+  const checkIfBillingExists = (shoppingId) => {
+    return localStorage.getItem(`billing_${shoppingId}`);
+  };
+
+  const handleUploadBilling = (event, shoppingId) => {
+    const file = event.target.files[0];
+    if (file) {
+      const maxSize = 1024 * 1024; // 1 MB
+      if (file.size > maxSize) {
+        alert("El archivo es demasiado grande. El tamaño máximo permitido es 1 MB.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          localStorage.setItem(`billing_${shoppingId}`, e.target.result); // Guardar archivo como base64
+          alert("Factura subida correctamente.");
+          setRefreshTable(!refreshTable); // Refrescar la tabla
+        } catch (error) {
+          console.error("Error al guardar en localStorage:", error);
+          alert("Error: No se pudo guardar el archivo debido a limitaciones de almacenamiento.");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Función para ver la factura
+  const handleViewBilling = (shoppingId) => {
+    const billingData = localStorage.getItem(`billing_${shoppingId}`);
+    if (billingData) {
+      const newWindow = window.open();
+      newWindow.document.write(`<iframe src="${billingData}" width="100%" height="100%" />`);
+    } else {
+      alert("No hay factura disponible para visualizar.");
+    }
+  };
+
+  const handleDeleteBilling = (shoppingId) => {
+    if (checkIfBillingExists(shoppingId)) {
+      localStorage.removeItem(`billing_${shoppingId}`);
+      alert("Factura eliminada correctamente.");
+      setRefreshTable(!refreshTable); // Refrescar la tabla
+    } else {
+      alert("No hay factura para eliminar.");
+    }
   };
 
   const columns = [
@@ -159,13 +229,14 @@ const ShoppingTable = ({ userId }) => {
     "FECHA PETICIÓN",
     "FECHA APROBADO",
     "FECHA FINALIZACIÓN",
-    "PRECIO",  // Añadir columna de precio
+    "PRECIO",
+    "FACTURACIÓN",
     "Acciones",
   ];
 
   const rows = filteredShoppings.map((shopping) => {
-    // Calcular el precio total sumando los precios de los productos
     const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
+    const billingExists = checkIfBillingExists(shopping.id);
 
     return [
       shopping.products.map((product) => product.name).join(", "),
@@ -175,16 +246,77 @@ const ShoppingTable = ({ userId }) => {
       new Date(shopping.request_date).toLocaleDateString(),
       new Date(shopping.date_approval).toLocaleDateString(),
       new Date(shopping.pending_date).toLocaleDateString(),
-      totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }), // Mostrar el total calculado en COP
+      totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+
+      // Lógica de visualización y edición de la factura basada en el rol
+      billingExists ? (
+        <>
+          {role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden editar y subir
+            <>
+              <FontAwesomeIcon
+                icon={faEdit}
+                className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
+              />
+              <input
+                type="file"
+                id={`fileInput_${shopping.id}`}
+                style={{ display: "none" }}
+                onChange={(event) => handleUploadBilling(event, shopping.id)}
+              />
+            </>
+          )}
+          <button
+            className="text-blue-500 hover:text-blue-700 ml-2"
+            onClick={() => handleViewBilling(shopping.id)}
+          >
+            Ver factura
+          </button>
+        </>
+      ) : (
+        role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden subir facturas
+          <>
+            <FontAwesomeIcon
+              icon={faUpload}
+              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+              onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
+            />
+            <input
+              type="file"
+              id={`fileInput_${shopping.id}`}
+              style={{ display: "none" }}
+              onChange={(event) => handleUploadBilling(event, shopping.id)}
+            />
+          </>
+        )
+      ),
+
       <div key={shopping.id} className="flex space-x-2">
         <FontAwesomeIcon
           icon={faEye}
           className="text-gray-500 hover:text-gray-700 cursor-pointer"
           onClick={() => handleViewDetailsClick(shopping.id)}
         />
+        {(role === "admin") && ( // Solo "admin" puede eliminar facturas
+          <>
+            <FontAwesomeIcon
+              icon={faCommentDots}
+              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+              onClick={() => handleOpenMessageModal(shopping.id)}
+            />
+            {billingExists && (
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="text-red-500 hover:text-red-700 cursor-pointer"
+                onClick={() => handleDeleteBilling(shopping.id)}
+              />
+            )}
+          </>
+        )}
       </div>,
     ];
   });
+
 
   if (loading) {
     return <p>Cargando...</p>;
@@ -198,7 +330,7 @@ const ShoppingTable = ({ userId }) => {
     <div className="container mx-auto p-4">
       <Text texto="Compras" color="blue-secondary" type="header" />
       <div className="mb-4">
-        <h2 className="text-lg text-black font-semibold mb-2">Nombre del item</h2>
+        <h2 className="text-lg text-black font-semibold mb-4">Nombre del item</h2>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
@@ -253,12 +385,22 @@ const ShoppingTable = ({ userId }) => {
               Añadir Mensaje
             </button>
             <div className="mt-6 text-black flex space-x-4 overflow-x-auto py-2 px-2">
-              {messages.map((message) => (
+              {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
                 </div>
               ))}
             </div>
+            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Factura</h3>
+            {selectedBilling && (
+
+              <button
+                className="bg-blue-500 text-white p-2 rounded mt-4"
+                onClick={() => handleViewBilling(selectedShoppingId)}
+              >
+                Ver factura
+              </button>
+            )}
           </div>
         </div>
       )}
