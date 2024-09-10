@@ -205,13 +205,25 @@ const FiltersComponent = () => {
     const shopping = filteredData.find((s) => s.id === editingId);
     const updatedShopping = {
       shopping: {
-        category_id: shopping.category.id,
-        status_id: parseInt(newStatusId, 10),
         title: shopping.title,
         description: shopping.description,
+        category_id: shopping.category_id,
+        status_id: parseInt(newStatusId, 10),
+        area_id: 1,
+        account_type_id:3,
+        user_id: shopping.user_id,
         request_date: shopping.request_date,
         pending_date: shopping.pending_date,
         date_approval: shopping.date_approval,
+        innovated: shopping.innovated,
+        unidad:shopping.unidad,
+        iva:shopping.iva,
+        retefuente:shopping.retefuente,
+        facturacion:shopping.facturacion,
+        total:shopping.total,
+        category_id: shopping.category.id,
+
+
       },
       products: shopping.products.map((product) => ({
         id: product.id,
@@ -420,7 +432,7 @@ const FiltersComponent = () => {
             onClick={handleDownloadExcel}
             className="bg-blue-500 text-white p-2 rounded ml-2"
           >
-           Exportar Tabla
+            Exportar Tabla
           </button>
         </div>
       </div>
@@ -641,7 +653,7 @@ const FiltersComponent = () => {
             <button
               className="bg-blue-500 text-white p-2 rounded w-full"
               onClick={handleAddMessage}
-              
+
             >
               Guardar Mensaje
             </button>
