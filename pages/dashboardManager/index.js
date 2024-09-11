@@ -14,6 +14,9 @@ import "/app/App.css";
 import ContactInfo from "../contact-info";
 import AdmissionsView from "@/app/components/admisiones/admissionesView";
 
+
+
+
 const fetchData = async (role) => {
   try {
     let res;
@@ -284,6 +287,7 @@ const DashboardManager = () => {
               </div>
             </div>
             <hr className="my-5" />
+            
             <TrackingTable data={data} role={userRole} />
 
           </Container>

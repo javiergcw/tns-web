@@ -4,9 +4,9 @@ import Text from "@/app/components/others/text/text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit, faUpload, faTrash, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../../product-detail/purchase_detail";
-import MessageCard from "@/app/components/messages/messagesCard"; // Ajusta la ruta según tu proyecto
-import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService"; // Asegúrate de importar correctamente estos servicios
-
+import MessageCard from "@/app/components/messages/messagesCard";
+import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
+import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService"; // Asegúrate de que este servicio incluye el campo 'facturacion'
 /**
  * TrackingTable Component
  * Este componente muestra una tabla de seguimiento de peticiones.
@@ -16,28 +16,27 @@ import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/ser
  */
 const TrackingTable = ({ data, role }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false); // Estado para el modal de mensajes
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
-  const [selectedShopping, setSelectedShopping] = useState(null); // Almacena el shopping seleccionado
-  const [messages, setMessages] = useState([]); // Estado para mensajes
-  const [newMessageBody, setNewMessageBody] = useState(""); // Estado para el nuevo mensaje
-  const [refreshTable, setRefreshTable] = useState(false); // Estado para refrescar la tabla
+  const [selectedShopping, setSelectedShopping] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessageBody, setNewMessageBody] = useState("");
 
-  const columns = [
-    "ID COMPRA",
-    "JEFE DE ÁREA",
-    "ITEMS",
-    "CATEGORÍA",
-    "PRECIO",
-    "FACTURACIÓN", // Añadimos la columna de Facturación
-    "ESTADO",
-    "FECHA PETICIÓN",
-    "FECHA PENDIENTE",
-    "FECHA APROBADO",
-    "ACCIONES",
-  ];
 
-  // Función para manejar el evento de ver detalles
+
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
+  const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
+  const [invoiceUrl, setInvoiceUrl] = useState("");
+
+  const fetchShoppings = async () => {
+    try {
+      const response = await getAllShoppings();
+      return response; // Regresar la data obtenida
+    } catch (error) {
+      console.error("Error al obtener las compras:", error);
+      return [];
+    }
+  };
   const handleViewDetailsClick = async (shopping) => {
     setSelectedShopping(shopping);
     setSelectedShoppingId(shopping.id);
@@ -52,14 +51,16 @@ const TrackingTable = ({ data, role }) => {
 
     setIsModalOpen(true);
   };
-
-  // Función para subir factura
-  const handleUploadInvoice = (shoppingId, file) => {
-    console.log("Factura subida para el ID de compra:", shoppingId, file);
-    setRefreshTable(!refreshTable); // Refrescar la tabla
+  // Abre el modal para añadir/editar la factura
+  const handleOpenInvoiceModal = (shoppingId) => {
+    setSelectedShoppingForInvoice(shoppingId);
+    setInvoiceUrl(""); // Limpiar el valor anterior
+    setIsInvoiceModalOpen(true); // Abrir el modal
   };
-
-  // Función para añadir un mensaje
+  const handleCloseMessageModal = () => {
+    setIsMessageModalOpen(false); // Cerrar modal de añadir mensaje
+    setNewMessageBody(""); // Limpiar campo de mensaje
+  };
   const handleAddMessage = async () => {
     const messageData = {
       body: newMessageBody,
@@ -78,16 +79,69 @@ const TrackingTable = ({ data, role }) => {
       alert("Hubo un error al añadir el mensaje.");
     }
   };
+  // Guarda la factura
+  const handleSaveInvoiceUrl = async () => {
+    if (!invoiceUrl) {
+      alert("Por favor, ingresa una URL de factura válida.");
+      return;
+    }
 
-  // Función para eliminar un mensaje
-  const handleDeleteMessage = async (messageId) => {
     try {
-      await deleteMessage(messageId); // Eliminar mensaje de la API
-      setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId)); // Eliminar del estado
-      alert("Mensaje eliminado correctamente.");
+      const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("Error al obtener los datos de la compra.");
+        return;
+      }
+
+      const shopping = await response.json();
+
+      const updatedShopping = {
+        shopping: {
+          ...shopping,
+          facturacion: invoiceUrl, // Aquí actualizamos la URL de la factura
+        },
+        products: shopping.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        })),
+        replace_products: "false",
+      };
+
+      const updateResponse = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(updatedShopping),
+        }
+      );
+
+      if (updateResponse.ok) {
+        alert("Factura actualizada correctamente.");
+        setIsInvoiceModalOpen(false); // Cerrar el modal
+        setSelectedShoppingForInvoice(null); // Limpiar la selección
+        const updatedShoppings = await fetchShoppings(); // Recargar la tabla correctamente
+        // Actualizar la tabla con los nuevos datos
+      } else {
+        alert("Hubo un error al actualizar la factura.");
+      }
     } catch (error) {
-      console.error("Error al eliminar el mensaje:", error);
-      alert("Hubo un error al eliminar el mensaje.");
+      console.error("Error updating invoice:", error);
+      alert("Hubo un error al actualizar la factura.");
     }
   };
 
@@ -101,86 +155,86 @@ const TrackingTable = ({ data, role }) => {
     setMessages([]); // Limpiar los mensajes al cerrar el modal
   };
 
-  const handleCloseMessageModal = () => {
-    setIsMessageModalOpen(false); // Cerrar modal de añadir mensaje
-    setNewMessageBody(""); // Limpiar campo de mensaje
-  };
+  const columns = [
+    "ID COMPRA",
+    "JEFE DE ÁREA",
+    "ITEMS",
+    "CATEGORÍA",
+    "PRECIO",
+    "FACTURACIÓN",
+    "ESTADO",
+    "FECHA PETICIÓN",
+    "FECHA PENDIENTE",
+    "FECHA APROBADO",
+    "ACCIONES",
+  ];
 
-  // Verifica que data es un arreglo antes de mapear
   const rows = Array.isArray(data)
     ? data.map((item) => {
-      const totalPrice = item.products.reduce((total, product) => total + product.price, 0); // Calcular el precio total
-      const billingExists = localStorage.getItem(`billing_${item.id}`);
+      const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
+      const billingExists = item.facturacion;
 
       return [
         item.id,
-        item.user && item.user.profile ? item.user.profile.name : "N/A", // Jefe de área
-        item.products.map((product) => product.name).join(", "), // Lista de productos separados por coma
+        item.user && item.user.profile ? item.user.profile.name : "N/A",
+        item.products.map((product) => product.name).join(", "),
         item.category ? item.category.name : "N/A",
-        totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }), // Precio total en formato COP
+        totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
 
-        // Facturación
-        billingExists ? (
-          <>
-            {role === "admin" || role === "Compras" && (
-              <>
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                  onClick={() => document.getElementById(`fileInput_${item.id}`).click()}
-                />
-                <input
-                  type="file"
-                  id={`fileInput_${item.id}`}
-                  style={{ display: "none" }}
-                  onChange={(event) => handleUploadInvoice(item.id, event.target.files[0])}
-                />
-              </>
-            )}
-            <button
-              className="text-blue-500 hover:text-blue-700 ml-2"
-              onClick={() => handleViewDetailsClick(item)}
-            >
-              Ver factura
-            </button>
-          </>
-        ) : (
-          role === "admin" || role === "Compras" && (
+        <div className="flex items-center space-x-2">
+          {billingExists ? (
             <>
-              <FontAwesomeIcon
-                icon={faUpload}
+              {/* Icono PDF para ver la factura */}
+              <a
+                href={billingExists}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                onClick={() => document.getElementById(`fileInput_${item.id}`).click()}
-              />
-              <input
-                type="file"
-                id={`fileInput_${item.id}`}
-                style={{ display: "none" }}
-                onChange={(event) => handleUploadInvoice(item.id, event.target.files[0])}
-              />
+              >
+                <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
+              </a>
+
+              {/* Icono de lápiz para editar la factura */}
+              {(role === "admin" || role === "Compras") && (
+                <button
+                  className="text-blue-500 hover:text-blue-700"
+                  onClick={() => handleOpenInvoiceModal(item.id)}
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+              )}
             </>
-          )
-        ),
+          ) : (
+            // Si no existe la factura, mostrar el icono para subirla
+            (role === "admin" || role === "Compras") && (
+              <button
+                className="text-blue-500 hover:text-blue-700"
+                onClick={() => handleOpenInvoiceModal(item.id)}
+              >
+                <FontAwesomeIcon icon={faUpload} />
+              </button>
+            )
+          )}
+        </div>,
 
         item.status ? item.status.name : "N/A",
         item.created_at ? new Date(item.created_at).toLocaleDateString() : "N/A",
         item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
         item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
 
-        // Acciones
         <div key={item.id} className="flex space-x-2">
           <FontAwesomeIcon
             icon={faEye}
             className="text-gray-500 hover:text-gray-700 cursor-pointer"
             onClick={() => handleViewDetailsClick(item)}
           />
-          {role === "admin" && billingExists && (
+          {/* {role === "admin" && billingExists && (
             <FontAwesomeIcon
               icon={faTrash}
               className="text-red-500 hover:text-red-700 cursor-pointer"
               onClick={() => handleDeleteBilling(item.id)}
             />
-          )}
+          )} */}
         </div>,
       ];
     })
@@ -211,10 +265,10 @@ const TrackingTable = ({ data, role }) => {
             <CustomComponent shoppingId={selectedShoppingId} />
 
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin") && (
+            {(role === "admin" || "Lider de area") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
-                onClick={handleOpenMessageModal}
+                onClick={() => handleOpenMessageModal(selectedShoppingId)}
               >
                 Añadir Mensaje
               </button>
@@ -249,42 +303,60 @@ const TrackingTable = ({ data, role }) => {
                 <p className="text-gray-500">No hay factura</p>
               )}
               {(role === "admin" || role === "Compras") && selectedShopping.facturacion && (
-                <label className="cursor-pointer">
-                  <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
-                  <input
-                    type="file"
-                    onChange={(e) => handleUploadInvoice(selectedShopping.id, e.target.files[0])}
-                    style={{ display: 'none' }}
-                  />
-                </label>
+                <button
+                  className="text-blue-500 hover:text-blue-700"
+                  onClick={() => handleOpenInvoiceModal(selectedShopping.id)}
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
               )}
             </div>
           </div>
         </div>
       )}
-
-      {/* Modal para añadir mensaje */}
       {isMessageModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+          <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+            <button className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl" onClick={handleCloseMessageModal}>
+              X
+            </button>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+            <input
+              type="text"
+              placeholder="Escribe tu mensaje aquí"
+              value={newMessageBody}
+              onChange={(e) => setNewMessageBody(e.target.value)}
+              className="w-full p-2 border text-black border-gray-300 rounded mb-4"
+            />
+            <button className="bg-blue-500 text-white p-2 rounded w-full" onClick={handleAddMessage}>
+              Guardar Mensaje
+            </button>
+          </div>
+        </div>
+      )}
+      {/* Modal para subir/editar factura */}
+      {isInvoiceModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
             <button
               className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={handleCloseMessageModal}
+              onClick={() => setIsInvoiceModalOpen(false)}
             >
               X
             </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
-            <textarea
-              value={newMessageBody}
-              onChange={(e) => setNewMessageBody(e.target.value)}
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir/Editar Factura</h2>
+            <input
+              type="text"
+              placeholder="URL de la factura"
+              value={invoiceUrl}
+              onChange={(e) => setInvoiceUrl(e.target.value)}
               className="w-full p-2 border text-black border-gray-300 rounded mb-4"
-              placeholder="Escribe tu mensaje aquí"
             />
             <button
               className="bg-blue-500 text-white p-2 rounded w-full"
-              onClick={handleAddMessage}
+              onClick={handleSaveInvoiceUrl}
             >
-              Guardar Mensaje
+              Guardar Factura
             </button>
           </div>
         </div>

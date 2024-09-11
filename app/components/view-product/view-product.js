@@ -42,6 +42,10 @@ const FiltersComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
 
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
+  const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
+  const [invoiceUrl, setInvoiceUrl] = useState("");
+
   const [messages, setMessages] = useState([]);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [newMessageBody, setNewMessageBody] = useState("");
@@ -165,6 +169,19 @@ const FiltersComponent = () => {
     if (areaManagerRef.current) itemNameRef.current.blur();
     if (statusFilterRef.current) itemNameRef.current.blur();
   };
+  const handleViewDetailsClick = async (shoppingId) => {
+    setSelectedShoppingId(shoppingId);
+
+    try {
+      const messagesResponse = await getMessagesByShoppingId(shoppingId);
+      setMessages(messagesResponse);
+    } catch (error) {
+      console.error("Error al obtener los mensajes:", error);
+      setMessages([]);
+    }
+
+    setIsModalOpen(true);
+  };
   const handleDownloadExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       filteredData.map((shopping) => ({
@@ -202,40 +219,53 @@ const FiltersComponent = () => {
       return;
     }
 
-    const shopping = filteredData.find((s) => s.id === editingId);
-    const updatedShopping = {
-      shopping: {
-        title: shopping.title,
-        description: shopping.description,
-        category_id: shopping.category_id,
-        status_id: parseInt(newStatusId, 10),
-        area_id: 1,
-        account_type_id:3,
-        user_id: shopping.user_id,
-        request_date: shopping.request_date,
-        pending_date: shopping.pending_date,
-        date_approval: shopping.date_approval,
-        innovated: shopping.innovated,
-        unidad:shopping.unidad,
-        iva:shopping.iva,
-        retefuente:shopping.retefuente,
-        facturacion:shopping.facturacion,
-        total:shopping.total,
-        category_id: shopping.category.id,
-
-
-      },
-      products: shopping.products.map((product) => ({
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-      })),
-      replace_products: "false",
-    };
-
     try {
       const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${editingId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("Error al obtener los datos de la compra.");
+        return;
+      }
+
+      const shopping = await response.json();
+
+      const updatedShopping = {
+        shopping: {
+          title: shopping.title,
+          description: shopping.description,
+          category_id: shopping.category_id,
+          status_id: parseInt(newStatusId, 10), // Cambiamos solo el estado
+          area_id: shopping.area_id,
+          account_type_id: shopping.account_type_id,
+          user_id: shopping.user_id,
+          request_date: shopping.request_date,
+          pending_date: shopping.pending_date,
+          date_approval: shopping.date_approval,
+          innovated: shopping.innovated,
+          unidad: shopping.unidad, // Mantener los valores originales
+          iva: shopping.iva,
+          retefuente: shopping.retefuente,
+          facturacion: shopping.facturacion,
+          total: shopping.total,
+        },
+        products: shopping.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        })),
+        replace_products: "false",
+      };
+
+      const updateResponse = await fetch(
         `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${editingId}`,
         {
           method: "PATCH",
@@ -247,7 +277,7 @@ const FiltersComponent = () => {
         }
       );
 
-      if (response.ok) {
+      if (updateResponse.ok) {
         alert("Estado actualizado correctamente.");
         setIsEditing(false);
         setEditingId(null);
@@ -264,18 +294,90 @@ const FiltersComponent = () => {
     }
   };
 
-  const handleViewDetailsClick = async (shoppingId) => {
-    setSelectedShoppingId(shoppingId);
+  const handleOpenInvoiceModal = (shoppingId) => {
+    setSelectedShoppingForInvoice(shoppingId);
+    setInvoiceUrl(""); // Limpiar el valor anterior
+    setIsInvoiceModalOpen(true); // Abrir el modal
+  };
 
-    try {
-      const messagesResponse = await getMessagesByShoppingId(shoppingId);
-      setMessages(messagesResponse);
-    } catch (error) {
-      console.error("Error al obtener los mensajes:", error);
-      setMessages([]);
+  const handleSaveInvoiceUrl = async () => {
+    if (!invoiceUrl) {
+      alert("Por favor, ingresa una URL de factura válida.");
+      return;
     }
 
-    setIsModalOpen(true);
+    try {
+      const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("Error al obtener los datos de la compra.");
+        return;
+      }
+
+      const shopping = await response.json();
+
+      const updatedShopping = {
+        shopping: {
+          title: shopping.title,
+          description: shopping.description,
+          category_id: shopping.category_id,
+          status_id: shopping.status_id,
+          area_id: shopping.area_id,
+          account_type_id: shopping.account_type_id,
+          user_id: shopping.user_id,
+          request_date: shopping.request_date,
+          pending_date: shopping.pending_date,
+          date_approval: shopping.date_approval,
+          innovated: shopping.innovated,
+          unidad: shopping.unidad,
+          iva: shopping.iva,
+          retefuente: shopping.retefuente,
+          facturacion: invoiceUrl, // Aquí actualizamos la URL de la factura
+          total: shopping.total,
+        },
+        products: shopping.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        })),
+        replace_products: "false",
+      };
+
+      const updateResponse = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(updatedShopping),
+        }
+      );
+
+      if (updateResponse.ok) {
+        alert("Factura actualizada correctamente.");
+        setIsInvoiceModalOpen(false); // Cerrar el modal
+        setSelectedShoppingForInvoice(null); // Limpiar la selección
+        const updatedData = await fetchData();
+        setData(updatedData);
+        setFilteredData(updatedData);
+      } else {
+        alert("Hubo un error al actualizar la factura.");
+      }
+    } catch (error) {
+      console.error("Error updating invoice:", error);
+      alert("Hubo un error al actualizar la factura.");
+    }
   };
 
   const handleOpenMessageModal = (shoppingId) => {
@@ -324,47 +426,6 @@ const FiltersComponent = () => {
   const handleCloseMessageModal = () => {
     setIsMessageModalOpen(false);
     setNewMessageBody("");
-  };
-
-  // Función para manejar la subida de la factura (PDF)
-  const handleUploadInvoice = async (shoppingId, file) => {
-    if (!file) return;
-
-    // Crear el formulario de datos
-    const formData = new FormData();
-    formData.append("invoice", file);
-
-    try {
-      // Enviar el archivo al backend
-      const response = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}/upload-invoice`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        const updatedShopping = await response.json();
-        // Actualizar el estado con la nueva URL de la factura
-        const updatedData = data.map((shopping) =>
-          shopping.id === shoppingId
-            ? { ...shopping, facturacion: updatedShopping.facturacion }
-            : shopping
-        );
-        setData(updatedData);
-        setFilteredData(updatedData);
-        alert("Factura subida correctamente.");
-      } else {
-        alert("Hubo un error al subir la factura.");
-      }
-    } catch (error) {
-      console.error("Error al subir la factura:", error);
-      alert("Hubo un error al subir la factura.");
-    }
   };
 
   const handleViewInvoice = (invoiceUrl) => {
@@ -524,26 +585,20 @@ const FiltersComponent = () => {
                             <FontAwesomeIcon icon={faFilePdf} />
                           </a>
                           {(role === "admin" || role === "Compras") && (
-                            <label className="cursor-pointer">
-                              <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
-                              <input
-                                type="file"
-                                onChange={(e) => handleUploadInvoice(shopping.id, e.target.files[0])}
-                                style={{ display: 'none' }}
-                              />
-                            </label>
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleOpenInvoiceModal(shopping.id)}
+                            />
                           )}
                         </div>
                       ) : (
                         (role === "admin" || role === "Compras") && (
-                          <label className="cursor-pointer">
-                            <FontAwesomeIcon icon={faFileUpload} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
-                            <input
-                              type="file"
-                              onChange={(e) => handleUploadInvoice(shopping.id, e.target.files[0])}
-                              style={{ display: 'none' }}
-                            />
-                          </label>
+                          <FontAwesomeIcon
+                            icon={faFileUpload}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenInvoiceModal(shopping.id)}
+                          />
                         )
                       )}
                     </td>
@@ -620,19 +675,45 @@ const FiltersComponent = () => {
                 <p className="text-gray-500">No hay factura</p>
               )}
               {(role === "admin" || role === "Compras") && selectedShopping.facturacion && (
-                <label className="cursor-pointer">
-                  <FontAwesomeIcon icon={faEdit} className="text-blue-500 hover:text-blue-700 cursor-pointer" />
-                  <input
-                    type="file"
-                    onChange={(e) => handleUploadInvoice(selectedShopping.id, e.target.files[0])}
-                    style={{ display: 'none' }}
-                  />
-                </label>
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                  onClick={() => handleOpenInvoiceModal(selectedShopping.id)}
+                />
               )}
             </div>
           </div>
         </div>
       )}
+
+      {/* Modal para ingresar la URL de la factura */}
+      {isInvoiceModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+          <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+            <button
+              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+              onClick={() => setIsInvoiceModalOpen(false)}
+            >
+              X
+            </button>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Subir URL de Factura</h2>
+            <input
+              type="text"
+              placeholder="Ingresa la URL de la factura"
+              value={invoiceUrl}
+              onChange={(e) => setInvoiceUrl(e.target.value)}
+              className="w-full text-black p-2 border border-gray-300 rounded mb-4"
+            />
+            <button
+              className="bg-blue-500 text-white p-2 rounded w-full"
+              onClick={handleSaveInvoiceUrl}
+            >
+              Guardar Factura
+            </button>
+          </div>
+        </div>
+      )}
+
       {isMessageModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
@@ -653,7 +734,6 @@ const FiltersComponent = () => {
             <button
               className="bg-blue-500 text-white p-2 rounded w-full"
               onClick={handleAddMessage}
-
             >
               Guardar Mensaje
             </button>

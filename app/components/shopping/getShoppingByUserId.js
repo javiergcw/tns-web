@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEye, faCommentDots, faEdit, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye, faCommentDots, faFileUpload, faFilePdf, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Table from "@/app/components/others/table/table";
 import Text from "@/app/components/others/text/text";
 import CustomComponent from "../product-detail/purchase_detail";
@@ -28,28 +28,32 @@ const ShoppingTable = ({ userId }) => {
   const [newMessageBody, setNewMessageBody] = useState("");
   const [refreshTable, setRefreshTable] = useState(false);
 
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
+  const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
+  const [invoiceUrl, setInvoiceUrl] = useState("");
+
+  const fetchShoppings = async () => {
+    try {
+      const fetchedShoppings = await getShoppingsByUserId(localStorage.getItem("userId"));
+      setShoppings(fetchedShoppings);
+      setFilteredShoppings(fetchedShoppings);
+
+      const statuses = [...new Set(fetchedShoppings.map((shopping) => shopping.status.name))];
+      setStatusOptions(statuses);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchShoppings = async () => {
-      try {
-        const fetchedShoppings = await getShoppingsByUserId(
-          localStorage.getItem("userId")
-        );
-        setShoppings(fetchedShoppings);
-        setFilteredShoppings(fetchedShoppings);
-
-        const statuses = [
-          ...new Set(fetchedShoppings.map((shopping) => shopping.status.name)),
-        ];
-        setStatusOptions(statuses);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchShoppings();
   }, [userId, refreshTable]);
+
+  useEffect(() => {
+    setFilteredShoppings(shoppings);
+  }, [shoppings]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -60,8 +64,6 @@ const ShoppingTable = ({ userId }) => {
           const profile = await getProfileById(storedUserId);
           const userRole = profile.rol.name ? profile.rol.name : "";
           setRole(userRole);
-
-          console.log("El rol del usuario logueado es:", userRole);
         } else {
           throw new Error("User ID not found in localStorage");
         }
@@ -90,8 +92,7 @@ const ShoppingTable = ({ userId }) => {
 
     if (statusFilter) {
       filtered = filtered.filter(
-        (shopping) =>
-          shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
+        (shopping) => shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
       );
     }
 
@@ -136,8 +137,8 @@ const ShoppingTable = ({ userId }) => {
 
     const messageData = {
       body: newMessageBody,
-      shopping_id: selectedShoppingId, // Asegurarse de que selectedShoppingId está correctamente establecido
-      user_id: localStorage.getItem("userId"), // Obtener el userId de localStorage
+      shopping_id: selectedShoppingId,
+      user_id: localStorage.getItem("userId"),
     };
 
     try {
@@ -176,55 +177,6 @@ const ShoppingTable = ({ userId }) => {
     setNewMessageBody("");
   };
 
-  // Funciones para manejar facturación desde el dispositivo
-  const checkIfBillingExists = (shoppingId) => {
-    return localStorage.getItem(`billing_${shoppingId}`);
-  };
-
-  const handleUploadBilling = (event, shoppingId) => {
-    const file = event.target.files[0];
-    if (file) {
-      const maxSize = 1024 * 1024; // 1 MB
-      if (file.size > maxSize) {
-        alert("El archivo es demasiado grande. El tamaño máximo permitido es 1 MB.");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          localStorage.setItem(`billing_${shoppingId}`, e.target.result); // Guardar archivo como base64
-          alert("Factura subida correctamente.");
-          setRefreshTable(!refreshTable); // Refrescar la tabla
-        } catch (error) {
-          console.error("Error al guardar en localStorage:", error);
-          alert("Error: No se pudo guardar el archivo debido a limitaciones de almacenamiento.");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Función para ver la factura
-  const handleViewBilling = (shoppingId) => {
-    const billingData = localStorage.getItem(`billing_${shoppingId}`);
-    if (billingData) {
-      const newWindow = window.open();
-      newWindow.document.write(`<iframe src="${billingData}" width="100%" height="100%" />`);
-    } else {
-      alert("No hay factura disponible para visualizar.");
-    }
-  };
-
-  const handleDeleteBilling = (shoppingId) => {
-    if (checkIfBillingExists(shoppingId)) {
-      localStorage.removeItem(`billing_${shoppingId}`);
-      alert("Factura eliminada correctamente.");
-      setRefreshTable(!refreshTable); // Refrescar la tabla
-    } else {
-      alert("No hay factura para eliminar.");
-    }
-  };
   const handleDownloadExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       filteredShoppings.map((shopping) => ({
@@ -251,6 +203,77 @@ const ShoppingTable = ({ userId }) => {
 
     XLSX.writeFile(workbook, 'compras_usuario.xlsx');
   };
+
+  const handleOpenInvoiceModal = (shoppingId) => {
+    setSelectedShoppingForInvoice(shoppingId);
+    setInvoiceUrl(""); // Limpiar el valor anterior
+    setIsInvoiceModalOpen(true); // Abrir el modal
+  };
+
+  const handleSaveInvoiceUrl = async () => {
+    if (!invoiceUrl) {
+      alert("Por favor, ingresa una URL de factura válida.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("Error al obtener los datos de la compra.");
+        return;
+      }
+
+      const shopping = await response.json();
+
+      const updatedShopping = {
+        shopping: {
+          ...shopping,
+          facturacion: invoiceUrl, // Aquí actualizamos la URL de la factura
+        },
+        products: shopping.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        })),
+        replace_products: "false",
+      };
+
+      const updateResponse = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(updatedShopping),
+        }
+      );
+
+      if (updateResponse.ok) {
+        alert("Factura actualizada correctamente.");
+        setIsInvoiceModalOpen(false); // Cerrar el modal
+        setSelectedShoppingForInvoice(null); // Limpiar la selección
+        await fetchShoppings(); // Recargar la tabla correctamente
+      } else {
+        alert("Hubo un error al actualizar la factura.");
+      }
+    } catch (error) {
+      console.error("Error updating invoice:", error);
+      alert("Hubo un error al actualizar la factura.");
+    }
+  };
+
   const columns = [
     "ITEM",
     "DESCRIPCIÓN",
@@ -264,97 +287,79 @@ const ShoppingTable = ({ userId }) => {
     "Acciones",
   ];
 
-  const rows = filteredShoppings.map((shopping) => {
-    const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
-    const billingExists = checkIfBillingExists(shopping.id);
+  const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
+    ? filteredShoppings.map((shopping) => {
+      const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
+      return [
+        shopping.products.map((product) => product.name).join(", "),
+        shopping.description,
+        shopping.user.profile.name,
+        shopping.status.name,
+        new Date(shopping.request_date).toLocaleDateString(),
+        new Date(shopping.date_approval).toLocaleDateString(),
+        new Date(shopping.pending_date).toLocaleDateString(),
+        totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
 
-    return [
-      shopping.products.map((product) => product.name).join(", "),
-      shopping.description,
-      shopping.user.profile.name,
-      shopping.status.name,
-      new Date(shopping.request_date).toLocaleDateString(),
-      new Date(shopping.date_approval).toLocaleDateString(),
-      new Date(shopping.pending_date).toLocaleDateString(),
-      totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        role === 'admin' || role === 'Compras' ? (
+          <div className="flex items-center space-x-2">
+            {/* Icono de PDF: solo si hay factura, abrir en una nueva pestaña */}
+            {shopping.facturacion && (
+              <button
+                className="text-blue-500 hover:text-blue-700"
+                onClick={() => window.open(shopping.facturacion, '_blank')}
+              >
+                <FontAwesomeIcon icon={faFilePdf} className="text-red-500" /> {/* Ver PDF */}
+              </button>
+            )}
 
-      // Lógica de visualización y edición de la factura basada en el rol
-      billingExists ? (
-        <>
-          {role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden editar y subir
-            <>
-              <FontAwesomeIcon
-                icon={faEdit}
-                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
-              />
-              <input
-                type="file"
-                id={`fileInput_${shopping.id}`}
-                style={{ display: "none" }}
-                onChange={(event) => handleUploadBilling(event, shopping.id)}
-              />
-            </>
-          )}
+            {/* Icono de lápiz: solo aparece si hay una factura para editar */}
+            {shopping.facturacion && (
+              <button
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => handleOpenInvoiceModal(shopping.id)}
+              >
+                <FontAwesomeIcon icon={faEdit} /> {/* Editar factura */}
+              </button>
+            )}
+
+            {/* Icono de subir factura: solo aparece si no hay una factura */}
+            {!shopping.facturacion && (
+              <button
+                className="text-blue-500 hover:text-blue-700"
+                onClick={() => handleOpenInvoiceModal(shopping.id)}
+              >
+                <FontAwesomeIcon icon={faFileUpload} className="text-blue-500" /> {/* Subir factura */}
+              </button>
+            )}
+          </div>
+        ) : shopping.facturacion && (
           <button
             className="text-blue-500 hover:text-blue-700 ml-2"
-            onClick={() => handleViewBilling(shopping.id)}
+            onClick={() => window.open(shopping.facturacion, '_blank')}
           >
-            Ver factura
+            <FontAwesomeIcon icon={faFilePdf} className="text-red-500" /> {/* Ver PDF */}
           </button>
-        </>
-      ) : (
-        <>
-          {role !== "Lider de area" && ( // Solo roles que no sean "Líder de área" pueden subir facturas
-            <>
-              <FontAwesomeIcon
-                icon={faUpload}
-                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                onClick={() => document.getElementById(`fileInput_${shopping.id}`).click()}
-              />
-              <input
-                type="file"
-                id={`fileInput_${shopping.id}`}
-                style={{ display: "none" }}
-                onChange={(event) => handleUploadBilling(event, shopping.id)}
-              />
-            </>
-          )}
-          {role === "Lider de area" && ( // Mostrar mensaje si no hay factura y es "Líder de área"
-            <p className="text-red-500">
-              No hay factura disponible.
-            </p>
-          )}
-        </>
-      ),
+        ),
 
-      <div key={shopping.id} className="flex space-x-2">
-        <FontAwesomeIcon
-          icon={faEye}
-          className="text-gray-500 hover:text-gray-700 cursor-pointer"
-          onClick={() => handleViewDetailsClick(shopping.id)}
-        />
-        <FontAwesomeIcon
-          icon={faCommentDots}
-          className="text-blue-500 hover:text-blue-700 cursor-pointer"
-          onClick={() => handleOpenMessageModal(shopping.id)}
-        />
-        {role === "admin" && ( // Solo "admin" puede eliminar facturas
-          <>
-            {billingExists && (
-              <FontAwesomeIcon
-                icon={faTrash}
-                className="text-red-500 hover:text-red-700 cursor-pointer"
-                onClick={() => handleDeleteBilling(shopping.id)}
-              />
-            )}
-          </>
-        )}
-      </div>,
-    ];
-
-  });
-
+        <div key={shopping.id} className="flex space-x-2">
+          <FontAwesomeIcon
+            icon={faEye}
+            className="text-gray-500 hover:text-gray-700 cursor-pointer"
+            onClick={() => handleViewDetailsClick(shopping.id)}
+          />
+          <FontAwesomeIcon
+            icon={faCommentDots}
+            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+            onClick={() => handleOpenMessageModal(shopping.id)}
+          />
+        </div>,
+      ];
+    })
+    : []; // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
+  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
+  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
+  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
+  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
 
   if (loading) {
     return <p>Cargando...</p>;
@@ -395,7 +400,6 @@ const ShoppingTable = ({ userId }) => {
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
-          {/* Botón para descargar CSV */}
           <button
             onClick={handleDownloadExcel}
             className="bg-blue-500 text-white p-2 rounded ml-2"
@@ -405,11 +409,7 @@ const ShoppingTable = ({ userId }) => {
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
-        <Table
-          columns={columns}
-          data={rows}
-          className="table-auto min-w-full border-collapse"
-        />
+        <Table columns={columns} data={rows} className="table-auto min-w-full border-collapse" />
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
@@ -443,26 +443,13 @@ const ShoppingTable = ({ userId }) => {
                 </div>
               ))}
             </div>
-            <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Factura</h3>
-            {selectedBilling && (
-
-              <button
-                className="bg-blue-500 text-white p-2 rounded mt-4"
-                onClick={() => handleViewBilling(selectedShoppingId)}
-              >
-                Ver factura
-              </button>
-            )}
           </div>
         </div>
       )}
       {isMessageModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
-            <button
-              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={handleCloseMessageModal}
-            >
+            <button className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl" onClick={handleCloseMessageModal}>
               X
             </button>
             <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
@@ -473,11 +460,31 @@ const ShoppingTable = ({ userId }) => {
               onChange={(e) => setNewMessageBody(e.target.value)}
               className="w-full p-2 border text-black border-gray-300 rounded mb-4"
             />
-            <button
-              className="bg-blue-500 text-white p-2 rounded w-full"
-              onClick={handleAddMessage}
-            >
+            <button className="bg-blue-500 text-white p-2 rounded w-full" onClick={handleAddMessage}>
               Guardar Mensaje
+            </button>
+          </div>
+        </div>
+      )}
+      {isInvoiceModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+          <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+            <button
+              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+              onClick={() => setIsInvoiceModalOpen(false)}
+            >
+              X
+            </button>
+            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir URL de Factura</h2>
+            <input
+              type="text"
+              placeholder="URL de factura"
+              value={invoiceUrl}
+              onChange={(e) => setInvoiceUrl(e.target.value)}
+              className="w-full p-2 border text-black border-gray-300 rounded mb-4"
+            />
+            <button className="bg-blue-500 text-white p-2 rounded w-full" onClick={handleSaveInvoiceUrl}>
+              Guardar URL
             </button>
           </div>
         </div>
