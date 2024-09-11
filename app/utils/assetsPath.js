@@ -8,6 +8,8 @@ export const ImagesPath = {
   services: "/images/services/services.png",
   beam: "/images/services/beam.png",
   podcast: "/images/services/podcast.png",
+  shopping: "/images/services/shopping.png",
+
 
   //Banner carousel
   banner8: "/images/banner/banner8.gif",

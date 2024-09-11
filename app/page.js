@@ -40,6 +40,11 @@ export default function Home() {
       src: ImagesPath.podcast,
       alt: "Podcast",
     },
+    {
+      href: "https://thenewschool.edu.co/login",
+      src: ImagesPath.shopping,
+      alt: "Shopping",
+    },
   ];
 
   const toggleModal = () => {
