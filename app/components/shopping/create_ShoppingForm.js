@@ -30,7 +30,9 @@ const CreateShoppingForm = () => {
   const [iva, setIva] = useState(""); // IVA
   const [retefuente, setRetefuente] = useState(""); // Rete Fuente
   const [innovated, setInnovated] = useState(false); // Innovación a nivel de shopping
-  const [total, setTotal] = useState(""); // Estado para manejar el total
+  const [total, setTotal] = useState("");
+  const [subtotal, setSubTotal] = useState(""); // Estado para manejar el total
+   // Estado para manejar el total
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -148,6 +150,8 @@ const CreateShoppingForm = () => {
     if (!iva) newErrors.iva = "El IVA es obligatorio";
     if (!retefuente) newErrors.retefuente = "El Rete Fuente es obligatorio";
     if (!total) newErrors.total = "El total es obligatorio";
+    if (!subtotal) newErrors.subtotal = "El subtotal es obligatorio";
+
     return newErrors;
   };
 
@@ -200,7 +204,8 @@ const CreateShoppingForm = () => {
         setSelectedUserId("");
         setIva("");
         setRetefuente("");
-        setTotal(""); // Reiniciar el total
+        setTotal("");
+        setSubTotal(""); // Reiniciar el total
         setError({});
         toast.success("Compra creada exitosamente!");
       } else {
@@ -360,7 +365,17 @@ const CreateShoppingForm = () => {
           />
           {error.retefuente && <p className="text-red-500">{error.retefuente}</p>}
         </div>
-
+        {/* Campo SubTotal */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">SubTotal:</label>
+          <input
+            type="number"
+            value={subtotal}
+            onChange={(e) => setSubTotal(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+          {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
+        </div>
         {/* Campo Total */}
         <div className="mb-4">
           <label className="block text-black font-medium">Total:</label>

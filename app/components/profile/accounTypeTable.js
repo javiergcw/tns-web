@@ -64,10 +64,10 @@ const AccountTypeTable = () => {
             formIsValid = false;
         }
 
-        if (!newCupo.trim()) {
-            tempErrors.newCupo = "El cupo es obligatorio";
-            formIsValid = false;
-        }
+        // if (!newCupo.trim()) {
+        //     tempErrors.newCupo = "El cupo es obligatorio";
+        //     formIsValid = false;
+        // }
 
         setErrors(tempErrors);
 
@@ -75,9 +75,9 @@ const AccountTypeTable = () => {
 
         try {
             setLoading(true);
-            await createAccountType({ name: newAccountTypeName, cupo: newCupo });
+            await createAccountType({ name: newAccountTypeName, cupo: 1 });
             setNewAccountTypeName(""); // Limpiar el campo de entrada
-            setNewCupo(""); // Limpiar el campo de cupo
+            //setNewCupo(""); // Limpiar el campo de cupo
             fetchAccountTypes();
             setIsModalOpen(false);
             setErrors({}); // Limpiar errores después de la operación exitosa
@@ -245,7 +245,7 @@ const AccountTypeTable = () => {
                     />
                     {errors.newAccountTypeName && <p className="text-red-500 text-sm mt-1">{errors.newAccountTypeName}</p>}
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
                         Cupo
                     </label>
@@ -256,7 +256,8 @@ const AccountTypeTable = () => {
                         className={`w-full p-2 border ${errors.newCupo ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
                     />
                     {errors.newCupo && <p className="text-red-500 text-sm mt-1">{errors.newCupo}</p>}
-                </div>
+                
+                </div> */}
                 <div className="flex justify-end space-x-2 mt-4">
                     <BlueButton text="Guardar" onClick={handleAddAccountType} />
                     <RedButton
@@ -292,7 +293,7 @@ const AccountTypeTable = () => {
                     />
                     {errors.newAccountTypeName && <p className="text-red-500 text-sm mt-1">{errors.newAccountTypeName}</p>}
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label className="block text-sm font-medium mb-2 text-black">
                         Cupo
                     </label>
@@ -303,7 +304,7 @@ const AccountTypeTable = () => {
                         className={`w-full p-2 border ${errors.newCupo ? 'border-red-500' : 'border-gray-300'} rounded text-black`}
                     />
                     {errors.newCupo && <p className="text-red-500 text-sm mt-1">{errors.newCupo}</p>}
-                </div>
+                </div> */}
                 <div className="flex justify-end space-x-2 mt-4">
                     <BlueButton text="Actualizar" onClick={handleEditAccountType} />
                     <RedButton
