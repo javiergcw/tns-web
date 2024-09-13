@@ -137,20 +137,21 @@ const AreaTable = () => {
         area.name,
         new Date(area.created_at).toLocaleString(),
         new Date(area.updated_at).toLocaleString(),
-        
+
         <>
             <BlueButton
                 text="Editar"
                 onClick={() => openEditModal(area)}
                 className="px-2 py-1"
             />
-            {role === "admin" || role === "Developer" && ( // Mostrar botón de eliminar solo si el usuario es admin
+            {(role === "admin" || role === "Developer") && (
                 <RedButton
                     text="Eliminar"
                     onClick={() => openDeleteModal(area)}
                     className="px-2 py-1 ml-2"
                 />
             )}
+
         </>,
     ]);
 
@@ -167,7 +168,7 @@ const AreaTable = () => {
                     onClick={openAddModal} // Usar la nueva función para abrir el modal
                     className="mt-4 p-2"
                 />
-                {role !== "admin" || role === "Developer" && ( // Mostrar botón de "Eliminar" solo si no es admin
+                {(role === "Compras") && ( // Mostrar botón de "Eliminar" solo si no es admin
                     <RedButton
                         text="Eliminar"
                         onClick={openInfoModal} // Abrir modal informativo para usuarios no admin

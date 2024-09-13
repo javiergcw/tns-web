@@ -104,7 +104,7 @@ const CategoryTable = () => {
   const rows = categories.map((category) => [
     category.id,
     category.name,
-    role === "admin" || role === "Developer" ? (
+    (role === "admin" || role === "Developer") ? (
       <RedButton
         text="Eliminar"
         onClick={() => openDeleteModal(category)}
@@ -126,13 +126,14 @@ const CategoryTable = () => {
           text="Agregar Categoría"
           onClick={() => setIsModalOpen(true)}
         />
-        {role !== "admin" || role !== "Developer"&& (
+        {role === "Compras" && (
           <RedButton
             text="Eliminar"
-            onClick={openInfoModal} // Abrir modal informativo si no es admin
+            onClick={openInfoModal} // Abrir modal informativo
             className="ml-4"
           />
         )}
+
       </div>
       {loading && <LoaderOverlay />}
       {!loading && categories.length === 0 && !error && (

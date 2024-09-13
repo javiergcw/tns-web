@@ -21,7 +21,8 @@ const Profile = ({ role }) => {
       </div>
       {(role === "admin" || role === "Compras" || role === "Developer") && (
         <>
-          {role === "admin" || role === "Developer" && (
+          {/* Si el rol es "admin" o "Developer", muestra todas las tablas adicionales */}
+          {(role === "admin" || role === "Developer") && (
             <>
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <BugTable />
@@ -37,6 +38,8 @@ const Profile = ({ role }) => {
               </div>
             </>
           )}
+
+          {/* Estas tablas son visibles para admin, Developer y Compras */}
           <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
             <AreaTable />
           </div>
@@ -48,6 +51,9 @@ const Profile = ({ role }) => {
           </div>
         </>
       )}
+
+
+
     </div>
   );
 };
