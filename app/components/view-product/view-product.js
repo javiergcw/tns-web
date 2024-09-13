@@ -381,7 +381,7 @@ const FiltersComponent = () => {
   };
 
   const handleOpenMessageModal = (shoppingId) => {
-    if (role === "admin") {
+    if (role === "admin" || role === "Developer" ) {
       setSelectedShoppingId(shoppingId);
       setIsMessageModalOpen(true);
     }
@@ -444,7 +444,7 @@ const FiltersComponent = () => {
 
   return (
     <div className="app-container">
-      <h1>{role === "admin" ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{role === "admin" || role === "Developer" ? "Compras ADMIN" : "Compras"}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -530,7 +530,7 @@ const FiltersComponent = () => {
                     </td>
                     <td>{shopping.user.profile.name}</td>
                     <td>
-                      {role === "admin" ? (
+                      {role === "admin" || role === "Developer" ? (
                         isEditing && editingId === shopping.id ? (
                           <div className="flex items-center space-x-2">
                             <select
@@ -584,7 +584,7 @@ const FiltersComponent = () => {
                           >
                             <FontAwesomeIcon icon={faFilePdf} />
                           </a>
-                          {(role === "admin" || role === "Compras") && (
+                          {(role === "admin" || role === "Compras" || role === "Developer") && (
                             <FontAwesomeIcon
                               icon={faEdit}
                               className="text-blue-500 hover:text-blue-700 cursor-pointer"
@@ -593,7 +593,7 @@ const FiltersComponent = () => {
                           )}
                         </div>
                       ) : (
-                        (role === "admin" || role === "Compras") && (
+                        (role === "admin" || role === "Compras" || role === "Developer") && (
                           <FontAwesomeIcon
                             icon={faFileUpload}
                             className="text-blue-500 hover:text-blue-700 cursor-pointer"
@@ -610,7 +610,7 @@ const FiltersComponent = () => {
                           className="text-gray-500 hover:text-gray-700 cursor-pointer"
                           onClick={() => handleViewDetailsClick(shopping.id)}
                         />
-                        {(role === "admin") && (
+                        {(role === "admin" || role === "Developer") && (
                           <FontAwesomeIcon
                             icon={faCommentDots}
                             className="text-blue-500 hover:text-blue-700 cursor-pointer"
@@ -638,7 +638,7 @@ const FiltersComponent = () => {
             <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
             <CustomComponent shoppingId={selectedShoppingId} />
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin") && (
+            {(role === "admin" || role === "Developer") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
                 onClick={() => handleOpenMessageModal(selectedShoppingId)}
@@ -650,7 +650,7 @@ const FiltersComponent = () => {
               {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {(role === "admin") && (
+                  {(role === "admin" || role === "Developer") && (
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
@@ -674,7 +674,7 @@ const FiltersComponent = () => {
               ) : (
                 <p className="text-gray-500">No hay factura</p>
               )}
-              {(role === "admin" || role === "Compras") && selectedShopping.facturacion && (
+              {(role === "admin" || role === "Compras" || role === "Developer" ) && selectedShopping.facturacion && (
                 <FontAwesomeIcon
                   icon={faEdit}
                   className="text-blue-500 hover:text-blue-700 cursor-pointer"

@@ -300,7 +300,7 @@ const ShoppingTable = ({ userId }) => {
         new Date(shopping.pending_date).toLocaleDateString(),
         totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
 
-        role === 'admin' || role === 'Compras' ? (
+        role === 'admin' || role === 'Compras' || role === "Developer" ? (
           <div className="flex items-center space-x-2">
             {/* Icono de PDF: solo si hay factura, abrir en una nueva pestaña */}
             {shopping.facturacion && (
@@ -433,7 +433,7 @@ const ShoppingTable = ({ userId }) => {
               {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {(role === "admin") && (
+                  {(role === "admin" || role === "Developer") && (
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"

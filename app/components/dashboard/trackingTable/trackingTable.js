@@ -195,7 +195,7 @@ const TrackingTable = ({ data, role }) => {
               </a>
 
               {/* Icono de lápiz para editar la factura */}
-              {(role === "admin" || role === "Compras") && (
+              {(role === "admin" || role === "Compras"  || role ==="Developer") && (
                 <button
                   className="text-blue-500 hover:text-blue-700"
                   onClick={() => handleOpenInvoiceModal(item.id)}
@@ -206,7 +206,7 @@ const TrackingTable = ({ data, role }) => {
             </>
           ) : (
             // Si no existe la factura, mostrar el icono para subirla
-            (role === "admin" || role === "Compras") && (
+            (role === "admin" || role === "Compras" || role==="Developer") && (
               <button
                 className="text-blue-500 hover:text-blue-700"
                 onClick={() => handleOpenInvoiceModal(item.id)}
@@ -265,7 +265,7 @@ const TrackingTable = ({ data, role }) => {
             <CustomComponent shoppingId={selectedShoppingId} />
 
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin" || "Lider de area") && (
+            {(role === "admin" || "Lider de area" || role==="Developer") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
                 onClick={() => handleOpenMessageModal(selectedShoppingId)}
@@ -277,7 +277,7 @@ const TrackingTable = ({ data, role }) => {
               {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {(role === "admin") && (
+                  {(role === "admin"||role === "Developer") && (
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
@@ -302,7 +302,7 @@ const TrackingTable = ({ data, role }) => {
               ) : (
                 <p className="text-gray-500">No hay factura</p>
               )}
-              {(role === "admin" || role === "Compras") && selectedShopping.facturacion && (
+              {(role === "admin" || role === "Compras" || role === "Developer") && selectedShopping.facturacion && (
                 <button
                   className="text-blue-500 hover:text-blue-700"
                   onClick={() => handleOpenInvoiceModal(selectedShopping.id)}

@@ -19,9 +19,9 @@ const Profile = ({ role }) => {
       <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12 max-w-full">
         <ProfileForm />
       </div>
-      {(role === "admin" || role === "Compras") && (
+      {(role === "admin" || role === "Compras" || role === "Developer") && (
         <>
-          {role === "admin" && (
+          {role === "admin" || role === "Developer" && (
             <>
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <BugTable />

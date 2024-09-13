@@ -69,7 +69,7 @@ const CreateShoppingForm = () => {
       setLoading(true);
       try {
         const data = await getAllProfiles();
-        const filteredUsers = data.filter(user => user.rol?.name === "Lider de area");
+        const filteredUsers = data.filter(user => user.rol?.name === "Lider de area"||user.rol?.name === "admin");
         setUsers(filteredUsers);
       } catch (error) {
         setError((prev) => ({
@@ -180,6 +180,7 @@ const CreateShoppingForm = () => {
         retefuente: parseFloat(retefuente),
         innovated,
         unidad,
+        subtotal:parseFloat(subtotal),
         total: parseFloat(total), // Añadir total al objeto shopping
       },
       products: products.map(product => ({
@@ -365,9 +366,9 @@ const CreateShoppingForm = () => {
           />
           {error.retefuente && <p className="text-red-500">{error.retefuente}</p>}
         </div>
-        {/* Campo SubTotal */}
+        {/* Campo Subtotal */}
         <div className="mb-4">
-          <label className="block text-black font-medium">SubTotal:</label>
+          <label className="block text-black font-medium">Subtotal:</label>
           <input
             type="number"
             value={subtotal}

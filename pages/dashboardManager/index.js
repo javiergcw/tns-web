@@ -222,7 +222,7 @@ const DashboardManager = () => {
     );
   }
 
-  else if (userRole === "admin") {
+  else if (userRole === "admin" || userRole === "Developer") {
     return (
       <div className="min-h-screen  bg-gray-100">
         <MainLayout>

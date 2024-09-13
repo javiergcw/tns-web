@@ -144,7 +144,7 @@ const AreaTable = () => {
                 onClick={() => openEditModal(area)}
                 className="px-2 py-1"
             />
-            {role === "admin" && ( // Mostrar botón de eliminar solo si el usuario es admin
+            {role === "admin" || role === "Developer" && ( // Mostrar botón de eliminar solo si el usuario es admin
                 <RedButton
                     text="Eliminar"
                     onClick={() => openDeleteModal(area)}
@@ -167,7 +167,7 @@ const AreaTable = () => {
                     onClick={openAddModal} // Usar la nueva función para abrir el modal
                     className="mt-4 p-2"
                 />
-                {role !== "admin" && ( // Mostrar botón de "Eliminar" solo si no es admin
+                {role !== "admin" || role === "Developer" && ( // Mostrar botón de "Eliminar" solo si no es admin
                     <RedButton
                         text="Eliminar"
                         onClick={openInfoModal} // Abrir modal informativo para usuarios no admin

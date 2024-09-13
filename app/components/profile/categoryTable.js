@@ -104,7 +104,7 @@ const CategoryTable = () => {
   const rows = categories.map((category) => [
     category.id,
     category.name,
-    role === "admin" ? (
+    role === "admin" || role === "Developer" ? (
       <RedButton
         text="Eliminar"
         onClick={() => openDeleteModal(category)}
@@ -126,7 +126,7 @@ const CategoryTable = () => {
           text="Agregar Categoría"
           onClick={() => setIsModalOpen(true)}
         />
-        {role !== "admin" && (
+        {role !== "admin" || role !== "Developer"&& (
           <RedButton
             text="Eliminar"
             onClick={openInfoModal} // Abrir modal informativo si no es admin

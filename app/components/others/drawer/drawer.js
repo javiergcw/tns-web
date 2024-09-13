@@ -147,6 +147,9 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
+      case "Developer":
+        accessibleMenuItems = allMenuItems;
+        break;
     case "Sin rol":
       accessibleMenuItems = allMenuItems.filter(item =>
         [ "/dashboardManager", "/profile"].includes(item.link)

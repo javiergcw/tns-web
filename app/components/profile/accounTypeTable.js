@@ -174,7 +174,7 @@ const AccountTypeTable = () => {
                 onClick={() => openEditModal(accountType)}
                 className="px-2 py-1"
             />
-            {role === "admin" && (
+            {role === "admin" || role === "Developer" && (
                 <RedButton
                     text="Eliminar"
                     onClick={() => openDeleteModal(accountType)}
@@ -194,7 +194,7 @@ const AccountTypeTable = () => {
                     onClick={openAddModal} // Usar la nueva función para abrir el modal
                     className="mt-4 p-2"
                 />
-                {role !== "admin" && (
+                {role !== "admin" || role !== "Developer" && (
                     <RedButton
                         text="Eliminar"
                         onClick={openInfoModal} // Abrir modal informativo si no es admin
