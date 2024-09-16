@@ -45,7 +45,7 @@ const ForgotPassword = () => {
         setErrorMessage(errorData.message || "Error al recuperar la contraseña");
       }
     } catch (error) {
-      setErrorMessage("Error de red: Intenta nuevamente.");
+      setErrorMessage("Error correo invalido");
     }
   };
 
