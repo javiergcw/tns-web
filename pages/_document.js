@@ -6,9 +6,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="icon" href="/faviconsss.ico" />
-        </Head>
+        <Head>{/* Otros elementos del Head */}</Head>
         <body>
           <div id="root">
             <Main />
