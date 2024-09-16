@@ -1,8 +1,6 @@
-// src/pages/forgotPassword.js
 "use client";
-import "/app/globals.css";
 import { useState } from "react";
-import { useRouter } from "next/router"; // Importa useRouter para redirigir si es necesario
+import { useRouter } from "next/router"; 
 import { ImagesPath } from "@/app/utils/assetsPath";
 import NormalButton from "@/app/components/others/button/normalButton";
 import Text from "@/app/components/others/text/text";
@@ -12,16 +10,17 @@ import { API_BASE_URL } from "@/app/utils/apiConfig";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [token, setToken] = useState(""); // Estado para manejar el token
-  const [emailSent, setEmailSent] = useState(false); // Controla si el email fue enviado
-  const [tokenValidated, setTokenValidated] = useState(false); // Controla si el token fue validado
-  const [password, setPassword] = useState(""); // Estado para la nueva contraseña
-  const [passwordConfirmation, setPasswordConfirmation] = useState(""); // Estado para confirmar contraseña
+  const [token, setToken] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Estado para el spinner
   const router = useRouter();
 
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
+    setLoading(true); // Activamos el spinner
 
     const body = {
       user: {
@@ -42,21 +41,12 @@ const ForgotPassword = () => {
         setEmailSent(true);
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || "Error al recuperar la contraseña");
+        setErrorMessage(errorData.message || "Correo no asociado a ningun usuario");
       }
     } catch (error) {
-      setErrorMessage("Error correo invalido");
-    }
-  };
-
-  const handleSubmitToken = async (e) => {
-    e.preventDefault();
-
-    // Si el token se valida, activamos la siguiente vista
-    if (token) {
-      setTokenValidated(true);
-    } else {
-      setErrorMessage("Debes ingresar un token válido");
+      setErrorMessage("Error correo inválido");
+    } finally {
+      setLoading(false); // Desactivamos el spinner después de la respuesta
     }
   };
 
@@ -76,6 +66,8 @@ const ForgotPassword = () => {
       },
     };
 
+    setLoading(true); // Activamos el spinner
+
     try {
       const response = await fetch(`${API_BASE_URL}/password/reset`, {
         method: "POST",
@@ -86,19 +78,25 @@ const ForgotPassword = () => {
       });
 
       if (response.ok) {
-        // Aquí rediriges o muestras un mensaje de éxito
         router.push("/login");
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || "Error al restablecer la contraseña");
+        setErrorMessage(errorData.message || "Token inválido");
       }
     } catch (error) {
       setErrorMessage("Error de red: Intenta nuevamente.");
+    } finally {
+      setLoading(false); // Desactivamos el spinner después de la respuesta
     }
   };
 
   return (
-    <div className="flex h-screen flex-col lg:flex-row">
+    <div className="flex h-screen flex-col lg:flex-row relative">
+      {loading && (
+        <div className="absolute inset-0 flex justify-center items-center bg-opacity-50 bg-gray-900 z-50">
+          <div className="loader ease-linear rounded-full border-8 border-t-8 border-blueButton h-16 w-16"></div>
+        </div>
+      )}
       <div className="w-full lg:w-2/4 h-48 lg:h-screen flex justify-center items-center bg-slate-100">
         <img
           src={ImagesPath.logoVertical}
@@ -109,7 +107,6 @@ const ForgotPassword = () => {
       <div className="w-full lg:w-2/4 h-screen flex justify-center items-center">
         <div className="w-full max-w-md p-4 lg:p-0">
           {!emailSent ? (
-            // Formulario para enviar el correo
             <form onSubmit={handleSubmitEmail} className="bg-white p-6 lg:p-8 rounded-lg w-full">
               <Text texto="¿Olvidaste tu contraseña?" color="blueMain" type="bigTitle" />
               <Text texto="Ingresa tu correo y sigue las instrucciones" color="gray6th" type="description" />
@@ -123,7 +120,7 @@ const ForgotPassword = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
-              <NormalButton text="Enviar" color="blueButton" size="large" />
+              <NormalButton text="Enviar" color="blueButton" size="large" disabled={loading} />
               <br />
               <label className="flex items-center">
                 <span className="mr-2 text-gray6th">¿Ya tienes cuenta? </span>
@@ -132,11 +129,10 @@ const ForgotPassword = () => {
                 </Link>
               </label>
             </form>
-          ) : !tokenValidated ? (
-            // Formulario para validar el token
-            <form onSubmit={handleSubmitToken} className="bg-white p-6 lg:p-8 rounded-lg w-full">
-              <Text texto="Código de verificación" color="blueMain" type="bigTitle" />
-              <Text texto="Ingresa el código enviado a tu correo" color="gray6th" type="description" />
+          ) : (
+            <form onSubmit={handleSubmitNewPassword} className="bg-white p-6 lg:p-8 rounded-lg w-full">
+              <Text texto="Restablecer Contraseña" color="blueMain" type="bigTitle" />
+              <Text texto="Ingresa tu nueva contraseña y el código enviado a tu correo" color="gray6th" type="description" />
               <br />
               <TextInput
                 labelText="Código de verificación"
@@ -146,15 +142,6 @@ const ForgotPassword = () => {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
               />
-              {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
-              <NormalButton text="Validar código" color="blueButton" size="large" />
-            </form>
-          ) : (
-            // Formulario para restablecer la contraseña
-            <form onSubmit={handleSubmitNewPassword} className="bg-white p-6 lg:p-8 rounded-lg w-full">
-              <Text texto="Restablecer Contraseña" color="blueMain" type="bigTitle" />
-              <Text texto="Ingresa tu nueva contraseña" color="gray6th" type="description" />
-              <br />
               <TextInput
                 labelText="Nueva contraseña"
                 labelColor="gray6th"
