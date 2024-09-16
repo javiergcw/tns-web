@@ -120,17 +120,22 @@ const LoginForm = () => {
               value={password}
               onChange={handlePasswordChange}
             />
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={handleRememberMeChange}
-                className="mr-2"
-              />
-              <label htmlFor="rememberMe" className="text-gray-600">
-                Recordarme
-              </label>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={handleRememberMeChange}
+                  className="mr-2"
+                />
+                <label htmlFor="rememberMe" className="text-gray-600">
+                  Recordarme
+                </label>
+              </div>
+              <RememberMeAndForgotPassword />
             </div>
+
+
             {/* //<RememberMeAndForgotPassword/> */}
             <NormalButton
               text="Iniciar sesión"

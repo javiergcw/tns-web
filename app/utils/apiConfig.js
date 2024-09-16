@@ -7,6 +7,10 @@ const API_BASE_URL =
 const ENDPOINTS = {
   login: `${API_BASE_URL}/login`,
   register: `${API_BASE_URL}/users`,
+  forgot: `${API_BASE_URL}/password/forgot`,
+  reset: `${API_BASE_URL}/password/reset`,
+
+
   home: `${API_BASE_URL}/home`,
   perfil: `${API_BASE_URL}/profile`,
   categories: `${API_BASE_URL}/categories`,
