@@ -134,7 +134,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     case "admin":
       accessibleMenuItems = allMenuItems;
       break;
-    case "Lider de area":
+    case "Lider de presupuesto":
       accessibleMenuItems = allMenuItems.filter(item =>
         ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
       );

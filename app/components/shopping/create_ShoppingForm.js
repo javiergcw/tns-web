@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createShopping } from "@/app/services/shoppingService";
 import CreateProductForm from "./create_ProductForm";
-import { getCategories } from "@/app/services/categoryService";
 import { getStatuses } from "@/app/services/statusService";
 import { getAllProfiles } from "@/app/services/profileService";
 import { getAllAreas } from "@/app/services/areaService";
@@ -13,10 +12,8 @@ import { FaTrash } from "react-icons/fa";
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category_id, setCategory] = useState("");
-  const [status_id, setStatus] = useState("");
+  const [status_id, setStatus] = useState(1);
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [users, setUsers] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -26,30 +23,14 @@ const CreateShoppingForm = () => {
   const [selectedAccountTypeId, setSelectedAccountTypeId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [unidad, setUnidad] = useState(1); // Unidad como cantidad
-  const [iva, setIva] = useState(""); // IVA
-  const [retefuente, setRetefuente] = useState(""); // Rete Fuente
-  const [innovated, setInnovated] = useState(false); // Innovación a nivel de shopping
+  const [unidad, setUnidad] = useState(1);
+  const [iva, setIva] = useState("");
+  const [retefuente, setRetefuente] = useState(""); // Ya no es obligatorio
+  const [innovated, setInnovated] = useState(false);
   const [total, setTotal] = useState("");
-  const [subtotal, setSubTotal] = useState(""); // Estado para manejar el total
-   // Estado para manejar el total
+  const [subtotal, setSubTotal] = useState("");
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const data = await getCategories();
-        setCategories(data);
-      } catch (error) {
-        setError((prev) => ({
-          ...prev,
-          general: "Error al obtener categorías.",
-        }));
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const fetchStatuses = async () => {
       setLoading(true);
       try {
@@ -69,7 +50,7 @@ const CreateShoppingForm = () => {
       setLoading(true);
       try {
         const data = await getAllProfiles();
-        const filteredUsers = data.filter(user => user.rol?.name === "Lider de area"||user.rol?.name === "admin");
+        const filteredUsers = data.filter(user => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin");
         setUsers(filteredUsers);
       } catch (error) {
         setError((prev) => ({
@@ -111,7 +92,6 @@ const CreateShoppingForm = () => {
       }
     };
 
-    fetchCategories();
     fetchStatuses();
     fetchUsers();
     fetchAreas();
@@ -127,13 +107,13 @@ const CreateShoppingForm = () => {
     const productWithId = { ...newProduct, uniqueId: Date.now() };
     setProducts([productWithId]);
     setInnovated(newProduct.innovated);
-    setUnidad(newProduct.unidad); // Almacenar innovated a nivel de shopping
+    setUnidad(newProduct.unidad);
   };
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
     setUnidad(1);
-    setInnovated(false); // Reiniciar innovated cuando se borra un producto
+    setInnovated(false);
     toast.success("Producto eliminado exitosamente!");
   };
 
@@ -141,14 +121,11 @@ const CreateShoppingForm = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "El título es obligatorio";
     if (!description.trim()) newErrors.description = "La descripción es obligatoria";
-    if (!category_id) newErrors.category_id = "Debe seleccionar una categoría";
     if (!status_id) newErrors.status_id = "Debe seleccionar un estado";
     if (!selectedUserId) newErrors.user_id = "Debe seleccionar un usuario";
     if (!selectedAreaId) newErrors.area_id = "Debe seleccionar un área";
     if (!selectedAccountTypeId) newErrors.account_type_id = "Debe seleccionar un tipo de cuenta";
-    if (products.length === 0) newErrors.products = "Debe añadir al menos un producto";
     if (!iva) newErrors.iva = "El IVA es obligatorio";
-    if (!retefuente) newErrors.retefuente = "El Rete Fuente es obligatorio";
     if (!total) newErrors.total = "El total es obligatorio";
     if (!subtotal) newErrors.subtotal = "El subtotal es obligatorio";
 
@@ -168,7 +145,7 @@ const CreateShoppingForm = () => {
       shopping: {
         title,
         description,
-        category_id: parseInt(category_id, 10),
+        category_id: 35, // ID de categoría quemado
         status_id: parseInt(status_id, 10),
         area_id: parseInt(selectedAreaId, 10),
         account_type_id: parseInt(selectedAccountTypeId, 10),
@@ -177,28 +154,27 @@ const CreateShoppingForm = () => {
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
         iva: parseFloat(iva),
-        retefuente: parseFloat(retefuente),
+        retefuente: retefuente ? parseFloat(retefuente) : 0, // Rete Fuente ya no es obligatorio
         innovated,
         unidad,
-        subtotal:parseFloat(subtotal),
-        total: parseFloat(total), // Añadir total al objeto shopping
+        subtotal: parseFloat(subtotal),
+        total: parseFloat(total),
       },
-      products: products.map(product => ({
+      products: products.length > 0 ? products.map((product) => ({
         id: product.uniqueId,
         name: product.name,
         description: product.description,
         price: product.price,
-        url: product.url
-      })),
+        url: product.url,
+      })) : [],
     };
 
     try {
       const isCreated = await createShopping(shopping);
-      if (isCreated != "") {
+      if (isCreated !== "") {
         setTitle("");
         setDescription("");
-        setCategory("");
-        setStatus("");
+        setStatus(1);
         setSelectedAreaId("");
         setSelectedAccountTypeId("");
         setProducts([]);
@@ -206,7 +182,7 @@ const CreateShoppingForm = () => {
         setIva("");
         setRetefuente("");
         setTotal("");
-        setSubTotal(""); // Reiniciar el total
+        setSubTotal("");
         setError({});
         toast.success("Compra creada exitosamente!");
       } else {
@@ -238,7 +214,7 @@ const CreateShoppingForm = () => {
         {error.general && <div className="text-red-500 mb-4">{error.general}</div>}
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Título:</label>
+          <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
           <input
             type="text"
             value={title}
@@ -249,7 +225,7 @@ const CreateShoppingForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Descripción:</label>
+          <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
           <input
             type="text"
             value={description}
@@ -260,24 +236,7 @@ const CreateShoppingForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Categoría:</label>
-          <select
-            value={category_id}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-          >
-            <option value="">Seleccione una categoría</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          {error.category_id && <p className="text-red-500">{error.category_id}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-black font-medium">Estado:</label>
+          <label className="block text-black font-medium">Estado: <span className="text-red-500">*</span></label>
           <select
             value={status_id}
             onChange={(e) => setStatus(e.target.value)}
@@ -294,7 +253,7 @@ const CreateShoppingForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Área:</label>
+          <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
           <select
             value={selectedAreaId}
             onChange={(e) => setSelectedAreaId(e.target.value)}
@@ -311,7 +270,7 @@ const CreateShoppingForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Tipo de Cuenta:</label>
+          <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
           <select
             value={selectedAccountTypeId}
             onChange={(e) => setSelectedAccountTypeId(e.target.value)}
@@ -328,13 +287,13 @@ const CreateShoppingForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-black font-medium">Jefe de área:</label>
+          <label className="block text-black font-medium">Lider de presupuesto: <span className="text-red-500">*</span></label>
           <select
             value={selectedUserId}
             onChange={(e) => setSelectedUserId(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           >
-            <option value="">Seleccione un jefe de área</option>
+            <option value="">Seleccione un Lider de presupuesto</option>
             {users.map((user) => (
               <option key={user.id} value={user.user.id}>
                 {user.name}
@@ -344,9 +303,8 @@ const CreateShoppingForm = () => {
           {error.user_id && <p className="text-red-500">{error.user_id}</p>}
         </div>
 
-        {/* Campos IVA y Rete Fuente */}
         <div className="mb-4">
-          <label className="block text-black font-medium">IVA (%):</label>
+          <label className="block text-black font-medium">IVA (%): <span className="text-red-500">*</span></label>
           <input
             type="number"
             value={iva}
@@ -364,11 +322,10 @@ const CreateShoppingForm = () => {
             onChange={(e) => setRetefuente(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-          {error.retefuente && <p className="text-red-500">{error.retefuente}</p>}
         </div>
-        {/* Campo Subtotal */}
+
         <div className="mb-4">
-          <label className="block text-black font-medium">Subtotal:</label>
+          <label className="block text-black font-medium">Subtotal: <span className="text-red-500">*</span></label>
           <input
             type="number"
             value={subtotal}
@@ -377,9 +334,9 @@ const CreateShoppingForm = () => {
           />
           {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
         </div>
-        {/* Campo Total */}
+
         <div className="mb-4">
-          <label className="block text-black font-medium">Total:</label>
+          <label className="block text-black font-medium">Total: <span className="text-red-500">*</span></label>
           <input
             type="number"
             value={total}
@@ -391,7 +348,7 @@ const CreateShoppingForm = () => {
 
         <h3 className="text-lg font-semibold mb-4">Producto en la Compra</h3>
         {products.length === 0 ? (
-          <p className="text-red-500">No hay producto. Añade un producto primero.</p>
+          <p className="text-red-500">No hay producto. Añade un producto primero si lo deseas.</p>
         ) : (
           <div className="overflow-x-auto">
             <div className="flex space-x-4">

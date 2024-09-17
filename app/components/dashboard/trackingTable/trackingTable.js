@@ -157,7 +157,7 @@ const TrackingTable = ({ data, role }) => {
 
   const columns = [
     "ID COMPRA",
-    "JEFE DE ÁREA",
+    "LIDER DE PRESUPUESTO",
     "ITEMS",
     "CATEGORÍA",
     "PRECIO",
@@ -265,7 +265,7 @@ const TrackingTable = ({ data, role }) => {
             <CustomComponent shoppingId={selectedShoppingId} />
 
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin" || "Lider de area" || role==="Developer") && (
+            {(role === "admin" || "Lider de presupuesto" || role==="Developer") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
                 onClick={() => handleOpenMessageModal(selectedShoppingId)}

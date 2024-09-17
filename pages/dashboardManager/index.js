@@ -20,7 +20,7 @@ import AdmissionsView from "@/app/components/admisiones/admissionesView";
 const fetchData = async (role) => {
   try {
     let res;
-    if (role === "Lider de area") {
+    if (role === "Lider de presupuesto") {
       res = await getUserByLatestStatisticalRequestsOfTheMonth(localStorage.getItem("userId"));
     } else {
       res = await getLatestStatisticalRequestsOfTheMonth();
@@ -92,7 +92,7 @@ const DashboardManager = () => {
         const fetchedData = await fetchData(profile.rol?.name);
         console.log("Datos recuperados:", fetchedData);
 
-        if (profile.rol?.name === "Lider de area") {
+        if (profile.rol?.name === "Lider de presupuesto") {
           allShoppingData = fetchedData.recentShoppings || [];
           approvedShoppingData = allShoppingData.filter(item => item.status.id === 2);
         } else {
@@ -137,7 +137,7 @@ const DashboardManager = () => {
         </MainLayout>
       </div>
     );
-  } else if (userRole === "Lider de area") {
+  } else if (userRole === "Lider de presupuesto") {
     return (
       <div className="min-h-screen bg-gray-100 ">
         <MainLayout>

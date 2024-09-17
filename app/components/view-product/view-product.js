@@ -192,6 +192,8 @@ const FiltersComponent = () => {
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
         "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
         "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        "SUBTOTAL": shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        "TOTAL": shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
         "FACTURA": shopping.facturacion ? shopping.facturacion : "No disponible"
       }))
     );
@@ -199,10 +201,14 @@ const FiltersComponent = () => {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Compras");
 
-    // Configurar anchos de columnas
-    worksheet['!cols'] = [{ wpx: 200 }, { wpx: 200 }, { wpx: 100 }, { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 100 }, { wpx: 200 }];
+    worksheet['!cols'] = [
+      { wpx: 200 }, { wpx: 200 }, { wpx: 100 },
+      { wpx: 150 }, { wpx: 150 }, { wpx: 150 },
+      { wpx: 100 }, { wpx: 150 }, { wpx: 150 }, { wpx: 200 }
+    ];
     XLSX.writeFile(workbook, 'tabla_compras.xlsx');
   };
+
 
   const handleEditClick = (shoppingId) => {
     setEditingId(shoppingId);
@@ -381,7 +387,7 @@ const FiltersComponent = () => {
   };
 
   const handleOpenMessageModal = (shoppingId) => {
-    if (role === "admin" || role === "Developer" ) {
+    if (role === "admin" || role === "Developer") {
       setSelectedShoppingId(shoppingId);
       setIsMessageModalOpen(true);
     }
@@ -444,7 +450,7 @@ const FiltersComponent = () => {
 
   return (
     <div className="app-container">
-      <h1>{role === "admin" || role === "Developer" ? "Compras ADMIN" : "Compras"}</h1>
+      <h1>{(role === "admin" || role === "Developer") ? "Compras ADMIN" : "Compras"}</h1>
       <div className="filters-container">
         <h2>Nombre de item</h2>
         <div className="filter-inputs">
@@ -498,25 +504,29 @@ const FiltersComponent = () => {
         </div>
       </div>
       <div className="table-container">
-        <div className="table-wrapper">
-          <table className="shopping-table">
+        <div className="table-wrapper overflow-x-auto w-full"> {/* overflow-x-auto y w-full */}
+          <table className="shopping-table min-w-full"> {/* min-w-full mantiene el tamaño completo */}
             <thead>
               <tr>
-                <th>ITEM</th>
-                <th>LÍDER DE ÁREA</th>
-                <th>ESTADO</th>
-                <th>FECHA PETICIÓN</th>
-                <th>FECHA APROBADO</th>
-                <th>FECHA FINALIZACIÓN</th>
-                <th>PRECIO</th>
-                <th>Factura</th>
-                <th>Acciones</th>
+                <th className="px-4 py-2 min-w-[150px]">ITEM</th>
+                <th className="px-4 py-2 min-w-[150px]">LÍDER DE ÁREA</th>
+                <th className="px-4 py-2 min-w-[100px]">ESTADO</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA PETICIÓN</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA APROBADO</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA FINALIZACIÓN</th>
+                <th className="px-4 py-2 min-w-[100px]">PRECIO</th>
+                <th className="px-4 py-2 min-w-[100px]">SUBTOTAL</th>
+                <th className="px-4 py-2 min-w-[100px]">TOTAL</th>
+                <th className="px-4 py-2 min-w-[150px]">Factura</th>
+                <th className="px-4 py-2 min-w-[150px]">Acciones</th>
               </tr>
             </thead>
+
+
             <tbody>
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan="9">No hay compras</td>
+                  <td colSpan="11">No hay compras</td>
                 </tr>
               ) : (
                 filteredData.map((shopping) => (
@@ -530,13 +540,10 @@ const FiltersComponent = () => {
                     </td>
                     <td>{shopping.user.profile.name}</td>
                     <td>
-                      {role === "admin" || role === "Developer" ? (
+                      {(role === "admin" || role === "Developer") ? (
                         isEditing && editingId === shopping.id ? (
                           <div className="flex items-center space-x-2">
-                            <select
-                              value={newStatusId}
-                              onChange={handleStatusChange}
-                            >
+                            <select value={newStatusId} onChange={handleStatusChange}>
                               <option value="">Selecciona un estado</option>
                               {statusOptions.map((status) => (
                                 <option key={status.id} value={status.id}>
@@ -544,10 +551,7 @@ const FiltersComponent = () => {
                                 </option>
                               ))}
                             </select>
-                            <button
-                              className="bg-blue-500 text-white p-2 rounded"
-                              onClick={handleSaveClick}
-                            >
+                            <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSaveClick}>
                               Confirmar
                             </button>
                           </div>
@@ -565,14 +569,18 @@ const FiltersComponent = () => {
                         <span>{shopping.status.name}</span>
                       )}
                     </td>
-
                     <td>{new Date(shopping.request_date).toLocaleDateString()}</td>
                     <td>{new Date(shopping.date_approval).toLocaleDateString()}</td>
                     <td>{new Date(shopping.pending_date).toLocaleDateString()}</td>
                     <td>
                       {shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" })}
                     </td>
-
+                    <td>
+                      {shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                    </td>
+                    <td>
+                      {shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                    </td>
                     <td>
                       {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
@@ -602,7 +610,6 @@ const FiltersComponent = () => {
                         )
                       )}
                     </td>
-
                     <td>
                       <div className="flex items-center space-x-2">
                         <FontAwesomeIcon
@@ -623,9 +630,12 @@ const FiltersComponent = () => {
                 ))
               )}
             </tbody>
+
           </table>
         </div>
       </div>
+
+
       {isModalOpen && selectedShopping && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative">
@@ -674,7 +684,7 @@ const FiltersComponent = () => {
               ) : (
                 <p className="text-gray-500">No hay factura</p>
               )}
-              {(role === "admin" || role === "Compras" || role === "Developer" ) && selectedShopping.facturacion && (
+              {(role === "admin" || role === "Compras" || role === "Developer") && selectedShopping.facturacion && (
                 <FontAwesomeIcon
                   icon={faEdit}
                   className="text-blue-500 hover:text-blue-700 cursor-pointer"

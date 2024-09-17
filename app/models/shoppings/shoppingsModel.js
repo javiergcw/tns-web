@@ -75,7 +75,8 @@ class ShoppingDTO {
     facturacion,
     area,
     account_type,
-    total          // Nuevo campo
+    total,
+    subtotal,      // Nuevo campo
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -104,6 +105,8 @@ class ShoppingDTO {
 
     // Asignación del nuevo campo total
     this.total = total;
+    this.subtotal = subtotal;
+
   }
 }
 

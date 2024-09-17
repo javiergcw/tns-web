@@ -22,7 +22,7 @@ const ShoppingTable = ({ userId }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
-  const [selectedBilling, setSelectedBilling] = useState(null); // Estado para la factura
+  const [selectedBilling, setSelectedBilling] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [newMessageBody, setNewMessageBody] = useState("");
@@ -120,7 +120,7 @@ const ShoppingTable = ({ userId }) => {
     setIsModalOpen(true);
 
     if (billingData) {
-      setSelectedBilling(billingData); // Guardar la factura seleccionada en el estado si existe
+      setSelectedBilling(billingData);
     }
   };
 
@@ -143,10 +143,10 @@ const ShoppingTable = ({ userId }) => {
 
     try {
       const newMessage = await createMessage(messageData);
-      setMessages((prevMessages) => [...prevMessages, newMessage]); // Actualizar la lista de mensajes
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       alert("Mensaje añadido correctamente.");
-      setIsMessageModalOpen(false); // Cerrar el modal de mensajes
-      setNewMessageBody(""); // Limpiar el campo del mensaje
+      setIsMessageModalOpen(false);
+      setNewMessageBody("");
     } catch (error) {
       console.error("Error al añadir el mensaje:", error.response?.data || error.message);
       alert("Hubo un error al añadir el mensaje.");
@@ -168,7 +168,7 @@ const ShoppingTable = ({ userId }) => {
     setIsModalOpen(false);
     setSelectedShoppingId(null);
     setMessages([]);
-    setSelectedBilling(null); // Limpiar factura seleccionada al cerrar el modal
+    setSelectedBilling(null);
   };
 
   const handleCloseMessageModal = () => {
@@ -187,6 +187,8 @@ const ShoppingTable = ({ userId }) => {
         "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
         "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
+        "SUBTOTAL": shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        "TOTAL": shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
         "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
       }))
     );
@@ -194,7 +196,6 @@ const ShoppingTable = ({ userId }) => {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Compras");
 
-    // Configurar anchos de columnas
     worksheet['!cols'] = [
       { wpx: 200 }, { wpx: 300 }, { wpx: 200 },
       { wpx: 150 }, { wpx: 150 }, { wpx: 150 },
@@ -206,8 +207,8 @@ const ShoppingTable = ({ userId }) => {
 
   const handleOpenInvoiceModal = (shoppingId) => {
     setSelectedShoppingForInvoice(shoppingId);
-    setInvoiceUrl(""); // Limpiar el valor anterior
-    setIsInvoiceModalOpen(true); // Abrir el modal
+    setInvoiceUrl("");
+    setIsInvoiceModalOpen(true);
   };
 
   const handleSaveInvoiceUrl = async () => {
@@ -237,7 +238,7 @@ const ShoppingTable = ({ userId }) => {
       const updatedShopping = {
         shopping: {
           ...shopping,
-          facturacion: invoiceUrl, // Aquí actualizamos la URL de la factura
+          facturacion: invoiceUrl,
         },
         products: shopping.products.map((product) => ({
           id: product.id,
@@ -262,9 +263,9 @@ const ShoppingTable = ({ userId }) => {
 
       if (updateResponse.ok) {
         alert("Factura actualizada correctamente.");
-        setIsInvoiceModalOpen(false); // Cerrar el modal
-        setSelectedShoppingForInvoice(null); // Limpiar la selección
-        await fetchShoppings(); // Recargar la tabla correctamente
+        setIsInvoiceModalOpen(false);
+        setSelectedShoppingForInvoice(null);
+        await fetchShoppings();
       } else {
         alert("Hubo un error al actualizar la factura.");
       }
@@ -282,13 +283,15 @@ const ShoppingTable = ({ userId }) => {
     "FECHA PETICIÓN",
     "FECHA APROBADO",
     "FECHA FINALIZACIÓN",
+    "SUBTOTAL",
+    "TOTAL",
     "PRECIO",
     "FACTURACIÓN",
     "Acciones",
   ];
 
   const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
-    ? filteredShoppings.map((shopping) => {
+  ? filteredShoppings.map((shopping) => {
       const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
       return [
         shopping.products.map((product) => product.name).join(", "),
@@ -298,47 +301,49 @@ const ShoppingTable = ({ userId }) => {
         new Date(shopping.request_date).toLocaleDateString(),
         new Date(shopping.date_approval).toLocaleDateString(),
         new Date(shopping.pending_date).toLocaleDateString(),
+        shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
         totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
 
-        role === 'admin' || role === 'Compras' || role === "Developer" ? (
+        // Verificación para mostrar "No hay factura" si el rol es "Líder de presupuesto" y no hay facturas
+        (role === 'Líder de presupuesto' && !shopping.facturacion) ? (
+          <span className="text-red-500">No hay factura</span>
+        ) : (role === 'admin' || role === 'Compras' || role === "Developer") ? (
           <div className="flex items-center space-x-2">
-            {/* Icono de PDF: solo si hay factura, abrir en una nueva pestaña */}
             {shopping.facturacion && (
               <button
                 className="text-blue-500 hover:text-blue-700"
                 onClick={() => window.open(shopping.facturacion, '_blank')}
               >
-                <FontAwesomeIcon icon={faFilePdf} className="text-red-500" /> {/* Ver PDF */}
+                <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
               </button>
             )}
-
-            {/* Icono de lápiz: solo aparece si hay una factura para editar */}
             {shopping.facturacion && (
               <button
                 className="text-gray-500 hover:text-gray-700"
                 onClick={() => handleOpenInvoiceModal(shopping.id)}
               >
-                <FontAwesomeIcon icon={faEdit} /> {/* Editar factura */}
+                <FontAwesomeIcon icon={faEdit} />
               </button>
             )}
-
-            {/* Icono de subir factura: solo aparece si no hay una factura */}
             {!shopping.facturacion && (
               <button
                 className="text-blue-500 hover:text-blue-700"
                 onClick={() => handleOpenInvoiceModal(shopping.id)}
               >
-                <FontAwesomeIcon icon={faFileUpload} className="text-blue-500" /> {/* Subir factura */}
+                <FontAwesomeIcon icon={faFileUpload} className="text-blue-500" />
               </button>
             )}
           </div>
-        ) : shopping.facturacion && (
+        ) : shopping.facturacion ? (
           <button
             className="text-blue-500 hover:text-blue-700 ml-2"
             onClick={() => window.open(shopping.facturacion, '_blank')}
           >
-            <FontAwesomeIcon icon={faFilePdf} className="text-red-500" /> {/* Ver PDF */}
+            <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
           </button>
+        ) : (
+          <span className="text-red-500">No hay factura</span>
         ),
 
         <div key={shopping.id} className="flex space-x-2">
@@ -355,11 +360,8 @@ const ShoppingTable = ({ userId }) => {
         </div>,
       ];
     })
-    : []; // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
-  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
-  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
-  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
-  // Retorna un arreglo vacío si filteredShoppings no está definido o está vacío.
+    : [];
+
 
   if (loading) {
     return <p>Cargando...</p>;
@@ -394,22 +396,42 @@ const ShoppingTable = ({ userId }) => {
               </option>
             ))}
           </select>
-          <button
-            onClick={clearFilters}
-            className="bg-red-500 text-white p-2 rounded"
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-          <button
-            onClick={handleDownloadExcel}
-            className="bg-blue-500 text-white p-2 rounded ml-2"
-          >
-            Exportar Tabla
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={clearFilters}
+              className="bg-red-500 text-white p-2 rounded"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            <button
+              onClick={handleDownloadExcel}
+              className="bg-blue-500 text-white p-2 rounded"
+            >
+              Exportar Tabla
+            </button>
+          </div>
         </div>
       </div>
       <div className="bg-white p-4 rounded-lg mt-4 overflow-x-auto">
-        <Table columns={columns} data={rows} className="table-auto min-w-full border-collapse" />
+        <Table
+          columns={columns}
+          data={rows}
+          className="table-auto min-w-full border-collapse whitespace-nowrap"
+          columnClassNames={{
+            "ITEM": "w-32 md:w-40 lg:w-48",
+            "DESCRIPCIÓN": "w-40 md:w-56 lg:w-64",
+            "LÍDER DE ÁREA": "w-32 md:w-40",
+            "ESTADO": "w-24 md:w-32",
+            "FECHA PETICIÓN": "w-24 md:w-32",
+            "FECHA APROBADO": "w-24 md:w-32",
+            "FECHA FINALIZACIÓN": "w-24 md:w-32",
+            "SUBTOTAL": "w-28 md:w-32",
+            "TOTAL": "w-28 md:w-32",
+            "PRECIO": "w-28 md:w-32",
+            "FACTURACIÓN": "w-24 md:w-32",
+            "Acciones": "w-28",
+          }}
+        />
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
