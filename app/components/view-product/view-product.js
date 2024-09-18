@@ -504,8 +504,8 @@ const FiltersComponent = () => {
         </div>
       </div>
       <div className="table-container">
-        <div className="table-wrapper overflow-x-auto w-full"> {/* overflow-x-auto y w-full */}
-          <table className="shopping-table min-w-full"> {/* min-w-full mantiene el tamaño completo */}
+        <div className="table-wrapper overflow-x-auto w-full">
+          <table className="shopping-table min-w-full table-fixed">  {/* min-w-full mantiene el tamaño completo */}
             <thead>
               <tr>
                 <th className="px-4 py-2 min-w-[150px]">ITEM</th>
