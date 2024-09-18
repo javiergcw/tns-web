@@ -8,6 +8,9 @@ import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { FaTrash } from "react-icons/fa";
+import Modal from 'react-modal';  // Importamos el modal
+
+Modal.setAppElement('#__next');  // Necesario para accesibilidad en Next.js
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -25,10 +28,13 @@ const CreateShoppingForm = () => {
   const [error, setError] = useState({});
   const [unidad, setUnidad] = useState(1);
   const [iva, setIva] = useState("");
-  const [retefuente, setRetefuente] = useState(""); // Ya no es obligatorio
+  const [retefuente, setRetefuente] = useState(""); 
   const [innovated, setInnovated] = useState(false);
   const [total, setTotal] = useState("");
   const [subtotal, setSubTotal] = useState("");
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);  // Estado para el modal
+  const [confirmSubmit, setConfirmSubmit] = useState(false);  // Estado para confirmar envío sin productos
 
   useEffect(() => {
     const fetchStatuses = async () => {
@@ -141,11 +147,21 @@ const CreateShoppingForm = () => {
       return;
     }
 
+    if (products.length === 0) {
+      // Si no hay productos, mostramos el modal
+      setIsModalOpen(true);
+      return;
+    }
+
+    await createPurchase();
+  };
+
+  const createPurchase = async () => {
     const shopping = {
       shopping: {
         title,
         description,
-        category_id: 35, // ID de categoría quemado
+        category_id: 35, 
         status_id: parseInt(status_id, 10),
         area_id: parseInt(selectedAreaId, 10),
         account_type_id: parseInt(selectedAccountTypeId, 10),
@@ -154,7 +170,7 @@ const CreateShoppingForm = () => {
         pending_date: new Date().toISOString(),
         date_approval: new Date().toISOString(),
         iva: parseFloat(iva),
-        retefuente: retefuente ? parseFloat(retefuente) : 0, // Rete Fuente ya no es obligatorio
+        retefuente: retefuente ? parseFloat(retefuente) : 0, 
         innovated,
         unidad,
         subtotal: parseFloat(subtotal),
@@ -172,18 +188,7 @@ const CreateShoppingForm = () => {
     try {
       const isCreated = await createShopping(shopping);
       if (isCreated !== "") {
-        setTitle("");
-        setDescription("");
-        setStatus(1);
-        setSelectedAreaId("");
-        setSelectedAccountTypeId("");
-        setProducts([]);
-        setSelectedUserId("");
-        setIva("");
-        setRetefuente("");
-        setTotal("");
-        setSubTotal("");
-        setError({});
+        resetForm();
         toast.success("Compra creada exitosamente!");
       } else {
         setError({ general: "No se logró crear la compra" });
@@ -193,17 +198,28 @@ const CreateShoppingForm = () => {
     }
   };
 
-  const handleUnidadChange = (e) => {
-    const newUnidad = parseInt(e.target.value, 10);
-    setUnidad(newUnidad > 0 ? newUnidad : 1);
+  const resetForm = () => {
+    setTitle("");
+    setDescription("");
+    setStatus(1);
+    setSelectedAreaId("");
+    setSelectedAccountTypeId("");
+    setProducts([]);
+    setSelectedUserId("");
+    setIva("");
+    setRetefuente("");
+    setTotal("");
+    setSubTotal("");
+    setError({});
   };
 
-  const handleIncrement = () => {
-    setUnidad((prevUnidad) => prevUnidad + 1);
+  const handleModalConfirm = async () => {
+    setIsModalOpen(false);
+    await createPurchase();  // Si el usuario confirma, se crea la compra
   };
 
-  const handleDecrement = () => {
-    setUnidad((prevUnidad) => (prevUnidad > 1 ? prevUnidad - 1 : 1));
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -391,6 +407,32 @@ const CreateShoppingForm = () => {
       <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
         <CreateProductForm onProductCreate={handleProductCreate} />
       </div>
+
+      {/* Modal de confirmación */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleModalCancel}
+        contentLabel="Confirmación de compra sin productos"
+        className="bg-white p-4 rounded-lg shadow-lg max-w-md mx-auto mt-16"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      >
+        <h2 className="text-xl font-semibold mb-4">¿Crear compra sin productos?</h2>
+        <p className="mb-4">No has añadido ningún producto. ¿Estás seguro de que deseas continuar?</p>
+        <div className="flex justify-end space-x-4">
+          <button
+            className="bg-red-500 text-white px-4 py-2 rounded-md"
+            onClick={handleModalCancel}
+          >
+            Cancelar
+          </button>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            onClick={handleModalConfirm}
+          >
+            Confirmar
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
