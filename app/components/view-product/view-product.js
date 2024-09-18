@@ -503,91 +503,137 @@ const FiltersComponent = () => {
           </button>
         </div>
       </div>
-      <div className="table-wrapper overflow-x-auto w-full bg-white"> {/* overflow-x-auto y w-full */}
-  <table className="shopping-table min-w-full text-black"> {/* min-w-full mantiene el tamaño completo */}
-    <thead>
-      <tr className="bg-gray-200">
-        <th className="px-4 py-2 min-w-[150px]">ITEM</th>
-        <th className="px-4 py-2 min-w-[150px]">LÍDER DE ÁREA</th>
-        <th className="px-4 py-2 min-w-[100px]">ESTADO</th>
-        <th className="px-4 py-2 min-w-[150px]">FECHA PETICIÓN</th>
-        <th className="px-4 py-2 min-w-[150px]">FECHA APROBADO</th>
-        <th className="px-4 py-2 min-w-[150px]">FECHA FINALIZACIÓN</th>
-        <th className="px-4 py-2 min-w-[100px]">PRECIO</th>
-        <th className="px-4 py-2 min-w-[100px]">SUBTOTAL</th>
-        <th className="px-4 py-2 min-w-[100px]">TOTAL</th>
-        <th className="px-4 py-2 min-w-[150px]">Factura</th>
-        <th className="px-4 py-2 min-w-[150px]">Acciones</th>
-      </tr>
-    </thead>
+      <div className="table-container">
+        <div className="table-wrapper overflow-x-auto w-full"> {/* overflow-x-auto y w-full */}
+          <table className="shopping-table min-w-full"> {/* min-w-full mantiene el tamaño completo */}
+            <thead>
+              <tr>
+                <th className="px-4 py-2 min-w-[150px]">ITEM</th>
+                <th className="px-4 py-2 min-w-[150px]">LÍDER DE ÁREA</th>
+                <th className="px-4 py-2 min-w-[100px]">ESTADO</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA PETICIÓN</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA APROBADO</th>
+                <th className="px-4 py-2 min-w-[150px]">FECHA FINALIZACIÓN</th>
+                <th className="px-4 py-2 min-w-[100px]">PRECIO</th>
+                <th className="px-4 py-2 min-w-[100px]">SUBTOTAL</th>
+                <th className="px-4 py-2 min-w-[100px]">TOTAL</th>
+                <th className="px-4 py-2 min-w-[150px]">Factura</th>
+                <th className="px-4 py-2 min-w-[150px]">Acciones</th>
+              </tr>
+            </thead>
 
-    <tbody>
-      {filteredData.length === 0 ? (
-        <tr>
-          <td colSpan="11">No hay compras</td>
-        </tr>
-      ) : (
-        filteredData.map((shopping) => (
-          <tr key={shopping.id} className="bg-white">
-            <td className="px-4 py-2 break-words whitespace-normal">
-              <ul>
-                {shopping.products.map((product) => (
-                  <li key={product.id}>{product.name}</li>
-                ))}
-              </ul>
-            </td>
-            <td className="px-4 py-2 break-words whitespace-normal">
-              {shopping.user.profile.name}
-            </td>
-            <td className="px-4 py-2 break-words whitespace-normal">
-              {shopping.status.name}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {new Date(shopping.request_date).toLocaleDateString()}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {new Date(shopping.date_approval).toLocaleDateString()}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {new Date(shopping.pending_date).toLocaleDateString()}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {shopping.products
-                .reduce((total, product) => total + product.price, 0)
-                .toLocaleString("es-CO", { style: "currency", currency: "COP" })}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {shopping.subtotal
-                ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" })
-                : "N/A"}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">
-              {shopping.total
-                ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" })
-                : "N/A"}
-            </td>
-            <td className="px-4 py-2 break-words whitespace-normal">
-              {shopping.facturacion ? (
-                <a
-                  href={shopping.facturacion}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Factura
-                </a>
+
+            <tbody>
+              {filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan="11">No hay compras</td>
+                </tr>
               ) : (
-                "No disponible"
+                filteredData.map((shopping) => (
+                  <tr key={shopping.id}>
+                    <td>
+                      <ul>
+                        {shopping.products.map((product) => (
+                          <li key={product.id}>{product.name}</li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td>{shopping.user.profile.name}</td>
+                    <td>
+                      {(role === "admin" || role === "Developer") ? (
+                        isEditing && editingId === shopping.id ? (
+                          <div className="flex items-center space-x-2">
+                            <select value={newStatusId} onChange={handleStatusChange}>
+                              <option value="">Selecciona un estado</option>
+                              {statusOptions.map((status) => (
+                                <option key={status.id} value={status.id}>
+                                  {status.name}
+                                </option>
+                              ))}
+                            </select>
+                            <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSaveClick}>
+                              Confirmar
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-2">
+                            <span>{shopping.status.name}</span>
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleEditClick(shopping.id)}
+                            />
+                          </div>
+                        )
+                      ) : (
+                        <span>{shopping.status.name}</span>
+                      )}
+                    </td>
+                    <td>{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td>{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                    <td>{new Date(shopping.pending_date).toLocaleDateString()}</td>
+                    <td>
+                      {shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" })}
+                    </td>
+                    <td>
+                      {shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                    </td>
+                    <td>
+                      {shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                    </td>
+                    <td>
+                      {shopping.facturacion ? (
+                        <div className="flex items-center space-x-2">
+                          <a
+                            href={shopping.facturacion}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                          >
+                            <FontAwesomeIcon icon={faFilePdf} />
+                          </a>
+                          {(role === "admin" || role === "Compras" || role === "Developer") && (
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleOpenInvoiceModal(shopping.id)}
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        (role === "admin" || role === "Compras" || role === "Developer") && (
+                          <FontAwesomeIcon
+                            icon={faFileUpload}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenInvoiceModal(shopping.id)}
+                          />
+                        )
+                      )}
+                    </td>
+                    <td>
+                      <div className="flex items-center space-x-2">
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                          onClick={() => handleViewDetailsClick(shopping.id)}
+                        />
+                        {(role === "admin" || role === "Developer") && (
+                          <FontAwesomeIcon
+                            icon={faCommentDots}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenMessageModal(shopping.id)}
+                          />
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
               )}
-            </td>
-            <td className="px-4 py-2 whitespace-nowrap">Acciones</td>
-          </tr>
-        ))
-      )}
-    </tbody>
-  </table>
-</div>
+            </tbody>
 
+          </table>
+        </div>
+      </div>
 
 
       {isModalOpen && selectedShopping && (
