@@ -6,14 +6,8 @@ import { faEye, faEdit, faUpload, faTrash, faFilePdf } from "@fortawesome/free-s
 import CustomComponent from "../../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
-import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService"; // Asegúrate de que este servicio incluye el campo 'facturacion'
-/**
- * TrackingTable Component
- * Este componente muestra una tabla de seguimiento de peticiones.
- * @param {Array} data - Una lista de objetos que contiene los detalles de las peticiones.
- * @param {string} role - El rol del usuario que define los permisos (admin, jefe de área, etc.)
- * @component
- */
+import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService"; 
+
 const TrackingTable = ({ data, role }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
@@ -22,8 +16,6 @@ const TrackingTable = ({ data, role }) => {
   const [messages, setMessages] = useState([]);
   const [newMessageBody, setNewMessageBody] = useState("");
 
-
-
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
   const [invoiceUrl, setInvoiceUrl] = useState("");
@@ -31,12 +23,13 @@ const TrackingTable = ({ data, role }) => {
   const fetchShoppings = async () => {
     try {
       const response = await getAllShoppings();
-      return response; // Regresar la data obtenida
+      return response; 
     } catch (error) {
       console.error("Error al obtener las compras:", error);
       return [];
     }
   };
+
   const handleViewDetailsClick = async (shopping) => {
     setSelectedShopping(shopping);
     setSelectedShoppingId(shopping.id);
@@ -51,16 +44,18 @@ const TrackingTable = ({ data, role }) => {
 
     setIsModalOpen(true);
   };
-  // Abre el modal para añadir/editar la factura
+
   const handleOpenInvoiceModal = (shoppingId) => {
     setSelectedShoppingForInvoice(shoppingId);
-    setInvoiceUrl(""); // Limpiar el valor anterior
-    setIsInvoiceModalOpen(true); // Abrir el modal
+    setInvoiceUrl("");
+    setIsInvoiceModalOpen(true);
   };
+
   const handleCloseMessageModal = () => {
-    setIsMessageModalOpen(false); // Cerrar modal de añadir mensaje
-    setNewMessageBody(""); // Limpiar campo de mensaje
+    setIsMessageModalOpen(false);
+    setNewMessageBody("");
   };
+
   const handleAddMessage = async () => {
     const messageData = {
       body: newMessageBody,
@@ -69,17 +64,17 @@ const TrackingTable = ({ data, role }) => {
     };
 
     try {
-      const newMessage = await createMessage(messageData); // Añadir mensaje a la API
-      setMessages((prevMessages) => [...prevMessages, newMessage]); // Añadir mensaje al estado
+      const newMessage = await createMessage(messageData); 
+      setMessages((prevMessages) => [...prevMessages, newMessage]); 
       alert("Mensaje añadido correctamente.");
-      setIsMessageModalOpen(false); // Cerrar modal
-      setNewMessageBody(""); // Limpiar campo de mensaje
+      setIsMessageModalOpen(false);
+      setNewMessageBody(""); 
     } catch (error) {
       console.error("Error al añadir el mensaje:", error);
       alert("Hubo un error al añadir el mensaje.");
     }
   };
-  // Guarda la factura
+
   const handleSaveInvoiceUrl = async () => {
     if (!invoiceUrl) {
       alert("Por favor, ingresa una URL de factura válida.");
@@ -107,7 +102,7 @@ const TrackingTable = ({ data, role }) => {
       const updatedShopping = {
         shopping: {
           ...shopping,
-          facturacion: invoiceUrl, // Aquí actualizamos la URL de la factura
+          facturacion: invoiceUrl, 
         },
         products: shopping.products.map((product) => ({
           id: product.id,
@@ -132,10 +127,9 @@ const TrackingTable = ({ data, role }) => {
 
       if (updateResponse.ok) {
         alert("Factura actualizada correctamente.");
-        setIsInvoiceModalOpen(false); // Cerrar el modal
-        setSelectedShoppingForInvoice(null); // Limpiar la selección
-        const updatedShoppings = await fetchShoppings(); // Recargar la tabla correctamente
-        // Actualizar la tabla con los nuevos datos
+        setIsInvoiceModalOpen(false); 
+        setSelectedShoppingForInvoice(null); 
+        const updatedShoppings = await fetchShoppings(); 
       } else {
         alert("Hubo un error al actualizar la factura.");
       }
@@ -146,13 +140,13 @@ const TrackingTable = ({ data, role }) => {
   };
 
   const handleOpenMessageModal = () => {
-    setIsMessageModalOpen(true); // Abrir modal para añadir mensaje
+    setIsMessageModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedShopping(null);
-    setMessages([]); // Limpiar los mensajes al cerrar el modal
+    setMessages([]);
   };
 
   const columns = [
@@ -161,6 +155,8 @@ const TrackingTable = ({ data, role }) => {
     "ITEMS",
     "CATEGORÍA",
     "PRECIO",
+    "SUBTOTAL",
+    "TOTAL",
     "FACTURACIÓN",
     "ESTADO",
     "FECHA PETICIÓN",
@@ -172,6 +168,8 @@ const TrackingTable = ({ data, role }) => {
   const rows = Array.isArray(data)
     ? data.map((item) => {
       const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
+      const subtotal = item.subtotal; // Subtotal del backend
+      const total = item.total; // Total del backend
       const billingExists = item.facturacion;
 
       return [
@@ -180,11 +178,12 @@ const TrackingTable = ({ data, role }) => {
         item.products.map((product) => product.name).join(", "),
         item.category ? item.category.name : "N/A",
         totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        subtotal ? subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        total ? total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
 
         <div className="flex items-center space-x-2">
           {billingExists ? (
             <>
-              {/* Icono PDF para ver la factura */}
               <a
                 href={billingExists}
                 target="_blank"
@@ -194,7 +193,6 @@ const TrackingTable = ({ data, role }) => {
                 <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
               </a>
 
-              {/* Icono de lápiz para editar la factura */}
               {(role === "admin" || role === "Compras"  || role ==="Developer") && (
                 <button
                   className="text-blue-500 hover:text-blue-700"
@@ -205,7 +203,6 @@ const TrackingTable = ({ data, role }) => {
               )}
             </>
           ) : (
-            // Si no existe la factura, mostrar el icono para subirla
             (role === "admin" || role === "Compras" || role==="Developer") && (
               <button
                 className="text-blue-500 hover:text-blue-700"
@@ -228,13 +225,6 @@ const TrackingTable = ({ data, role }) => {
             className="text-gray-500 hover:text-gray-700 cursor-pointer"
             onClick={() => handleViewDetailsClick(item)}
           />
-          {/* {role === "admin" && billingExists && (
-            <FontAwesomeIcon
-              icon={faTrash}
-              className="text-red-500 hover:text-red-700 cursor-pointer"
-              onClick={() => handleDeleteBilling(item.id)}
-            />
-          )} */}
         </div>,
       ];
     })
@@ -314,6 +304,8 @@ const TrackingTable = ({ data, role }) => {
           </div>
         </div>
       )}
+
+      {/* Modal para añadir mensaje */}
       {isMessageModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
           <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
@@ -334,6 +326,7 @@ const TrackingTable = ({ data, role }) => {
           </div>
         </div>
       )}
+
       {/* Modal para subir/editar factura */}
       {isInvoiceModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">

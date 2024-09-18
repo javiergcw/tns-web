@@ -209,7 +209,7 @@ const CreateShoppingForm = () => {
   return (
     <div className="text-black flex flex-col-reverse md:flex-row space-y-0 md:space-y-0 md:space-x-4">
       <form className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6" onSubmit={handleSubmit}>
-        <h2 className="text-xl font-bold mb-4">Crear Nueva Compra</h2>
+        <h2 className="text-xl font-bold mb-4">Crear Nueva Orden</h2>
 
         {error.general && <div className="text-red-500 mb-4">{error.general}</div>}
 
