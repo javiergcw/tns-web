@@ -159,12 +159,12 @@ const AccountTypeTable = () => {
         setIsInfoModalOpen(true); // Abrir modal informativo para usuarios no admin
     };
 
-    const columns = ["ID", "Nombre", "Cupo", "Creado en", "Actualizado en", "Acciones"];
+    const columns = ["ID", "Nombre", "Creado en", "Actualizado en", "Acciones"];
 
     const rows = accountTypes.map((accountType) => [
         accountType.id,
         accountType.name,
-        accountType.cupo,
+        //accountType.cupo,
         new Date(accountType.created_at).toLocaleString(),
         new Date(accountType.updated_at).toLocaleString(),
 

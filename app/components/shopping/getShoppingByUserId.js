@@ -187,9 +187,10 @@ const ShoppingTable = ({ userId }) => {
         "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
         "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
-        "SUBTOTAL": shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        "TOTAL": shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        // Usar la función formatCurrency para formatear valores monetarios
+        "SUBTOTAL": shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A",
+        "TOTAL": shopping.total != null ? formatCurrency(shopping.total) : "N/A",
+        "PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
       }))
     );
 
@@ -290,9 +291,19 @@ const ShoppingTable = ({ userId }) => {
     "Acciones",
   ];
 
-  const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
+// Función para formatear como moneda colombiana
+function formatCurrency(value) {
+  return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+}
+
+const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
   ? filteredShoppings.map((shopping) => {
       const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
+      
+      // Asegurarse de que subtotal y total sean números válidos, incluyendo 0
+      const subtotal = shopping.subtotal != null ? shopping.subtotal : "N/A";
+      const total = shopping.total != null ? shopping.total : "N/A";
+
       return [
         shopping.products.map((product) => product.name).join(", "),
         shopping.description,
@@ -301,11 +312,11 @@ const ShoppingTable = ({ userId }) => {
         new Date(shopping.request_date).toLocaleDateString(),
         new Date(shopping.date_approval).toLocaleDateString(),
         new Date(shopping.pending_date).toLocaleDateString(),
-        shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
+        // Aplicar formateo de moneda solo si los valores son numéricos
+        subtotal !== "N/A" ? formatCurrency(subtotal) : "N/A",
+        total !== "N/A" ? formatCurrency(total) : "N/A",
+        formatCurrency(totalPrice),
 
-        // Verificación para mostrar "No hay factura" si el rol es "Líder de presupuesto" y no hay facturas
         (role === 'Líder de presupuesto' && !shopping.facturacion) ? (
           <span className="text-red-500">No hay factura</span>
         ) : (role === 'admin' || role === 'Compras' || role === "Developer") ? (
@@ -360,7 +371,8 @@ const ShoppingTable = ({ userId }) => {
         </div>,
       ];
     })
-    : [];
+  : [];
+
 
 
   if (loading) {

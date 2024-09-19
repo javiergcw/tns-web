@@ -165,21 +165,26 @@ const TrackingTable = ({ data, role }) => {
     "ACCIONES",
   ];
 
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+  }
+  
   const rows = Array.isArray(data)
     ? data.map((item) => {
-      const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
-      const subtotal = item.subtotal; // Subtotal del backend
-      const total = item.total; // Total del backend
-      const billingExists = item.facturacion;
-
-      return [
-        item.id,
-        item.user && item.user.profile ? item.user.profile.name : "N/A",
-        item.products.map((product) => product.name).join(", "),
-        item.category ? item.category.name : "N/A",
-        totalPrice.toLocaleString("es-CO", { style: "currency", currency: "COP" }),
-        subtotal ? subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        total ? total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
+        const subtotal = item.subtotal; // Subtotal del backend
+        const total = item.total; // Total del backend
+        const billingExists = item.facturacion;
+  
+        return [
+          item.id,
+          item.user && item.user.profile ? item.user.profile.name : "N/A",
+          item.products.map((product) => product.name).join(", "),
+          item.category ? item.category.name : "N/A",
+          // Formatear precios usando formatCurrency
+          formatCurrency(totalPrice),
+          subtotal != null ? formatCurrency(subtotal) : "N/A",
+          total != null ? formatCurrency(total) : "N/A",
 
         <div className="flex items-center space-x-2">
           {billingExists ? (

@@ -182,6 +182,9 @@ const FiltersComponent = () => {
 
     setIsModalOpen(true);
   };
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+  }
   const handleDownloadExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       filteredData.map((shopping) => ({
@@ -191,9 +194,10 @@ const FiltersComponent = () => {
         "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
         "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
-        "PRECIO": shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" }),
-        "SUBTOTAL": shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
-        "TOTAL": shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A",
+        // Formatear usando la función formatCurrency
+        "PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
+        "SUBTOTAL": shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A",
+        "TOTAL": shopping.total != null ? formatCurrency(shopping.total) : "N/A",
         "FACTURA": shopping.facturacion ? shopping.facturacion : "No disponible"
       }))
     );
@@ -576,11 +580,12 @@ const FiltersComponent = () => {
                       {shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" })}
                     </td>
                     <td>
-                      {shopping.subtotal ? shopping.subtotal.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                      {shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}
                     </td>
                     <td>
-                      {shopping.total ? shopping.total.toLocaleString("es-CO", { style: "currency", currency: "COP" }) : "N/A"}
+                      {shopping.total != null ? formatCurrency(shopping.total) : "N/A"}
                     </td>
+
                     <td>
                       {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
