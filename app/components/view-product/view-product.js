@@ -995,7 +995,7 @@ const FiltersComponent = () => {
               {/* Subtotal y Total */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2 text-sm font-bold">Subtotal</label>
+                  <label className="block mb-2 text-sm font-bold text-black">Subtotal</label>
                   <input
                     type="number"
                     value={selectedShoppingData.subtotal}
@@ -1004,7 +1004,7 @@ const FiltersComponent = () => {
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-bold">Total</label>
+                  <label className="block mb-2 text-sm font-bold text-black">Total</label>
                   <input
                     type="number"
                     value={selectedShoppingData.total}
@@ -1012,14 +1012,32 @@ const FiltersComponent = () => {
                     className="border p-2 rounded w-full"
                   />
                 </div>
+                <div>
+                  <label className="block mb-2 text-sm font-bold text-black">IVA</label>
+                  <input
+                    type="number"
+                    value={selectedShoppingData.iva}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })}
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-bold text-black">UNIDAD</label>
+                  <input
+                    type="number"
+                    value={selectedShoppingData.unidad}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })}
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
               </div>
 
               {/* Productos */}
-              <h3 className="text-lg font-semibold mb-4">Productos en la Orden</h3>
+              <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
               {selectedShoppingData.products.map((product, index) => (
-                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4">
+                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
                   <div>
-                    <label className="block mb-2 text-sm font-bold">Nombre del Producto</label>
+                    <label className="block mb-2 text-sm font-bold text-black">Nombre del Producto</label>
                     <input
                       type="text"
                       value={product.name}
@@ -1032,7 +1050,7 @@ const FiltersComponent = () => {
                     />
                   </div>
                   <div>
-                    <label className="block mb-2 text-sm font-bold">Descripción</label>
+                    <label className="block mb-2 text-sm font-bold text-black">Descripción</label>
                     <input
                       type="text"
                       value={product.description}
@@ -1045,7 +1063,7 @@ const FiltersComponent = () => {
                     />
                   </div>
                   <div>
-                    <label className="block mb-2 text-sm font-bold">Precio</label>
+                    <label className="block mb-2 text-sm font-bold text-black">Precio</label>
                     <input
                       type="number"
                       value={product.price}
