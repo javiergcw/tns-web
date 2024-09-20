@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,14 +12,12 @@ const CreateProductForm = ({ onProductCreate }) => {
   const [innovated, setInnovated] = useState(false);
   const [unidad, setUnidad] = useState(1); // Unidad como contador
   const [error, setError] = useState({});
-  const [isProductCreated, setIsProductCreated] = useState(false); // Estado para limitar la creación
 
   const validateForm = () => {
     const newErrors = {};
     if (!name.trim()) newErrors.name = "El nombre es obligatorio";
     if (!description.trim()) newErrors.description = "La descripción es obligatoria";
     if (!price || price <= 0) newErrors.price = "El precio debe ser un número positivo";
-    if (!url.trim()) newErrors.url = "La URL es obligatoria";
     return newErrors;
   };
 
@@ -31,12 +31,6 @@ const CreateProductForm = ({ onProductCreate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Verificar si ya se ha creado un producto
-    if (isProductCreated) {
-      toast.error("Solo puedes crear un producto.");
-      return;
-    }
 
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
@@ -56,9 +50,6 @@ const CreateProductForm = ({ onProductCreate }) => {
     onProductCreate(newProduct);
     toast.success("Producto añadido exitosamente!");
 
-    // Cambiar el estado para bloquear la creación de más productos
-    setIsProductCreated(true);
-
     // Reiniciar los campos
     setName("");
     setDescription("");
@@ -76,7 +67,9 @@ const CreateProductForm = ({ onProductCreate }) => {
       <form onSubmit={handleSubmit}>
         {/* Nombre del Producto */}
         <div className="mb-4">
-          <label className="block text-black font-medium">Nombre del Producto:</label>
+          <label className="block text-black font-medium">
+            Nombre del Producto: <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={name}
@@ -88,7 +81,9 @@ const CreateProductForm = ({ onProductCreate }) => {
 
         {/* Descripción */}
         <div className="mb-4">
-          <label className="block text-black font-medium">Descripción:</label>
+          <label className="block text-black font-medium">
+            Descripción: <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={description}
@@ -100,7 +95,9 @@ const CreateProductForm = ({ onProductCreate }) => {
 
         {/* Precio */}
         <div className="mb-4">
-          <label className="block text-black font-medium">Precio:</label>
+          <label className="block text-black font-medium">
+            Precio: <span className="text-red-500">*</span>
+          </label>
           <input
             type="number"
             value={price}
@@ -176,3 +173,4 @@ const CreateProductForm = ({ onProductCreate }) => {
 };
 
 export default CreateProductForm;
+

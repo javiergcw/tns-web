@@ -5,7 +5,7 @@ import { getAllAreas, createArea, updateArea, deleteArea } from "@/app/services/
 import { RedButton, BlueButton } from "@/app/utils/Buttons"; // Importar los botones
 import LoaderOverlay from "@/app/utils/loaderOverlay"; // Importar el LoaderOverlay
 import ConfirmationModal from "../modals/modalConfirmation";
-import { getProfileById, getAllProfiles } from "@/app/services/profileService"; // Importar los servicios de perfiles
+import { getProfileById } from "@/app/services/profileService"; // Importar el modal de confirmación
 
 Modal.setAppElement("#__next");
 
@@ -22,9 +22,6 @@ const AreaTable = () => {
     const [selectedArea, setSelectedArea] = useState(null);
     const [validationError, setValidationError] = useState("");
     const [role, setRole] = useState(""); // Estado para el rol del usuario
-    const [users, setUsers] = useState([]); // Estado para almacenar los usuarios con el rol 'Líder de presupuesto'
-    const [selectedUserId, setSelectedUserId] = useState("");
-    // Estado para el usuario seleccionado en el dropbutton
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -33,7 +30,7 @@ const AreaTable = () => {
                 if (storedUserId) {
                     const userProfile = await getProfileById(storedUserId); // Llama tu servicio para obtener el perfil del usuario
                     setRole(userProfile?.rol?.name || ""); // Asignar el rol del usuario
-                    console.log(role);
+                    console.log(role)
                 } else {
                     throw new Error("User ID not found in localStorage");
                 }
@@ -44,7 +41,6 @@ const AreaTable = () => {
 
         fetchAreas();
         fetchProfile();
-        fetchUsers(); // Llamar al método para traer los usuarios
     }, []);
 
     const fetchAreas = async () => {
@@ -60,39 +56,17 @@ const AreaTable = () => {
         }
     };
 
-    const fetchUsers = async () => {
-        setLoading(true);
-        try {
-            const data = await getAllProfiles();
-            const filteredUsers = data.filter(user => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin");
-            setUsers(filteredUsers);
-        } catch (error) {
-            setError((prev) => ({
-                ...prev,
-                general: "Error al obtener usuarios.",
-            }));
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleAddArea = async () => {
-        if (!newAreaName.trim() || !newAreaDescription.trim() || !selectedUserId) {
+        if (!newAreaName.trim() || !newAreaDescription.trim()) {
             setValidationError("Por favor, complete todos los campos.");
             return;
         }
 
         try {
             setLoading(true);
-            await createArea({
-                name: newAreaName,
-                description: newAreaDescription,
-                id_area: parseInt(selectedUserId, 10), // Asegurarse de que se envíe el id del usuario seleccionado
-            });
-            // Incluir id_area del usuario seleccionado
+            await createArea({ name: newAreaName, description: newAreaDescription }); // Incluir descripción
             setNewAreaName(""); // Limpiar el campo de entrada
             setNewAreaDescription(""); // Limpiar el campo de descripción
-            setSelectedUserId(null); // Limpiar selección de usuario
             fetchAreas();
             setIsModalOpen(false);
         } catch (error) {
@@ -104,19 +78,14 @@ const AreaTable = () => {
     };
 
     const handleEditArea = async () => {
-        if (!newAreaName.trim() || !newAreaDescription.trim() || !selectedUserId) {
+        if (!newAreaName.trim() || !newAreaDescription.trim()) {
             setValidationError("Por favor, complete todos los campos.");
             return;
         }
 
         try {
             setLoading(true);
-            await updateArea(selectedArea.id, {
-                name: newAreaName,
-                description: newAreaDescription,
-                id_area: parseInt(selectedUserId, 10), // Asegurarse de que se actualice con el id del usuario seleccionado
-            });
-            // Incluir id_area del usuario seleccionado
+            await updateArea(selectedArea.id, { name: newAreaName, description: newAreaDescription }); // Incluir descripción
             fetchAreas();
             setIsEditModalOpen(false);
         } catch (error) {
@@ -130,7 +99,6 @@ const AreaTable = () => {
     const openAddModal = () => {
         setNewAreaName(""); // Limpiar el nombre del área
         setNewAreaDescription(""); // Limpiar la descripción del área
-        setSelectedUserId(null); // Limpiar selección de usuario
         setValidationError(""); // Limpiar el error de validación
         setIsModalOpen(true);
     };
@@ -139,15 +107,9 @@ const AreaTable = () => {
         setSelectedArea(area);
         setNewAreaName(area.name); // Pre-cargar el nombre actual en el modal
         setNewAreaDescription(area.description); // Pre-cargar la descripción actual en el modal
-    
-        // Pre-cargar el ID del líder de presupuesto en el select
-        const leader = users.find(user => parseInt(user.id, 10) === parseInt(area.id_area, 10));
-        setSelectedUserId(leader ? leader.id : ""); // Asignar el ID del líder o dejar vacío si no existe
-    
         setValidationError(""); // Limpiar el error de validación
         setIsEditModalOpen(true);
     };
-    
 
     const openDeleteModal = (area) => {
         setSelectedArea(area);
@@ -168,19 +130,13 @@ const AreaTable = () => {
         }
     };
 
-    const columns = ["ID", "Nombre", "Descripción", "Creado en", "Actualizado en", "Líder de Presupuesto", "Acciones"];
+    const columns = ["ID", "Nombre", "Creado en", "Actualizado en", "Acciones"];
 
-const rows = areas.map((area) => {
-    // Asegúrate de que el tipo de id_area y user.id sea consistente
-    const leader = users.find(user => parseInt(user.id, 10) === parseInt(area.id_area, 10)); // Convertir a número si es necesario
-
-    return [
+    const rows = areas.map((area) => [
         area.id,
         area.name,
-        area.description,
         new Date(area.created_at).toLocaleString(),
         new Date(area.updated_at).toLocaleString(),
-        leader ? leader.name : "No tiene", // Mostrar el nombre del líder o "No tiene"
 
         <>
             <BlueButton
@@ -195,12 +151,9 @@ const rows = areas.map((area) => {
                     className="px-2 py-1 ml-2"
                 />
             )}
+
         </>,
-    ];
-});
-
-
-
+    ]);
 
     const openInfoModal = () => {
         setIsInfoModalOpen(true); // Abrir modal para usuarios no admin
@@ -280,25 +233,6 @@ const rows = areas.map((area) => {
                         className="w-full p-2 border border-gray-300 rounded text-black"
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium mb-2 text-black">
-                        Líder de Presupuesto
-                    </label>
-                    <select
-                        value={selectedUserId}
-                        onChange={(e) => setSelectedUserId(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                    >
-                        <option value="">Seleccione un Lider de presupuesto</option>
-                        {users.map((user) => (
-                            <option key={user.id} value={user.user.id}>
-                                {user.name}
-                            </option>
-                        ))}
-                    </select>
-
-
-                </div>
                 <div className="flex justify-end space-x-2 mt-4">
                     <BlueButton text="Guardar" onClick={handleAddArea} />
                     <RedButton
@@ -347,23 +281,6 @@ const rows = areas.map((area) => {
                         onChange={(e) => setNewAreaDescription(e.target.value)}
                         className="w-full p-2 border border-gray-300 rounded text-black"
                     />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium mb-2 text-black">
-                        Líder de Presupuesto
-                    </label>
-                    <select
-                        value={selectedUserId}
-                        onChange={(e) => setSelectedUserId(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                    >
-                        <option value="">Seleccione un Lider de presupuesto</option>
-                        {users.map((user) => (
-                            <option key={user.id} value={user.user.id}>
-                                {user.name}
-                            </option>
-                        ))}
-                    </select>
                 </div>
                 <div className="flex justify-end space-x-2 mt-4">
                     <BlueButton text="Actualizar" onClick={handleEditArea} />

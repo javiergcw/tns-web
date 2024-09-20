@@ -193,9 +193,9 @@ const FiltersComponent = () => {
         "ESTADO": shopping.status.name,
         "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
-        "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
+        //"FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
         // Formatear usando la función formatCurrency
-        "PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
+        //"PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
         "SUBTOTAL": shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A",
         "TOTAL": shopping.total != null ? formatCurrency(shopping.total) : "N/A",
         "FACTURA": shopping.facturacion ? shopping.facturacion : "No disponible"
@@ -517,8 +517,8 @@ const FiltersComponent = () => {
                 <th className="px-4 py-2 min-w-[100px]">ESTADO</th>
                 <th className="px-4 py-2 min-w-[150px]">FECHA PETICIÓN</th>
                 <th className="px-4 py-2 min-w-[150px]">FECHA APROBADO</th>
-                <th className="px-4 py-2 min-w-[150px]">FECHA FINALIZACIÓN</th>
-                <th className="px-4 py-2 min-w-[100px]">PRECIO</th>
+                {/* <th className="px-4 py-2 min-w-[150px]">FECHA FINALIZACIÓN</th> */}
+                {/* <th className="px-4 py-2 min-w-[100px]">PRECIO</th> */}
                 <th className="px-4 py-2 min-w-[100px]">SUBTOTAL</th>
                 <th className="px-4 py-2 min-w-[100px]">TOTAL</th>
                 <th className="px-4 py-2 min-w-[150px]">Factura</th>
@@ -575,10 +575,10 @@ const FiltersComponent = () => {
                     </td>
                     <td>{new Date(shopping.request_date).toLocaleDateString()}</td>
                     <td>{new Date(shopping.date_approval).toLocaleDateString()}</td>
-                    <td>{new Date(shopping.pending_date).toLocaleDateString()}</td>
-                    <td>
+                    {/* <td>{new Date(shopping.pending_date).toLocaleDateString()}</td> */}
+                    {/* <td>
                       {shopping.products.reduce((total, product) => total + product.price, 0).toLocaleString("es-CO", { style: "currency", currency: "COP" })}
-                    </td>
+                    </td> */}
                     <td>
                       {shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}
                     </td>

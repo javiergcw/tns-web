@@ -105,16 +105,12 @@ const CreateShoppingForm = () => {
   }, []);
 
   const handleProductCreate = (newProduct) => {
-    if (products.length > 0) {
-      toast.error("Solo puedes agregar un producto.");
-      return;
-    }
-
     const productWithId = { ...newProduct, uniqueId: Date.now() };
-    setProducts([productWithId]);
+    setProducts([...products, productWithId]); // Permitir varios productos
     setInnovated(newProduct.innovated);
     setUnidad(newProduct.unidad);
   };
+  
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
@@ -362,7 +358,7 @@ const CreateShoppingForm = () => {
           {error.total && <p className="text-red-500">{error.total}</p>}
         </div>
 
-        <h3 className="text-lg font-semibold mb-4">Producto en la Compra</h3>
+        <h3 className="text-lg font-semibold mb-4">Producto en la Orden</h3>
         {products.length === 0 ? (
           <p className="text-red-500">No hay producto. Añade un producto primero si lo deseas.</p>
         ) : (
@@ -398,9 +394,9 @@ const CreateShoppingForm = () => {
 
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+          className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4"
         >
-          Crear Compra
+          Crear Orden
         </button>
       </form>
 
