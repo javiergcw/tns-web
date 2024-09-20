@@ -8,6 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
+
+import { getAllProfiles } from "@/app/services/profileService";
+import { getAllAreas } from "@/app/services/areaService";
+import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import * as XLSX from 'xlsx';
 
 const fetchData = async () => {
@@ -26,6 +30,15 @@ const FiltersComponent = () => {
   const [endDate, setEndDate] = useState("");
   const [areaManager, setAreaManager] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [areas, setAreas] = useState([]); // Estado para almacenar las áreas
+  const [accountTypes, setAccountTypes] = useState([]); // Estado para los tipos de cuenta
+  const [selectedAreaId, setSelectedAreaId] = useState(""); // Estado para el área seleccionada
+  const [selectedAccountTypeId, setSelectedAccountTypeId] = useState(""); // Estado para el tipo de cuenta seleccionado
+  const [loadingOptions, setLoadingOptions] = useState(true); // Estado para controlar si las áreas y tipos de cuenta están cargando
+  // Estado para el tipo de cuenta seleccionado
+  const [users, setUsers] = useState([]); // Estado para los usuarios (líderes de presupuesto)
+  const [selectedUserId, setSelectedUserId] = useState(""); // Estado para el usuario seleccionado
+
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -35,6 +48,9 @@ const FiltersComponent = () => {
   const [leaderOptions, setLeaderOptions] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
   const [role, setRole] = useState("");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedShoppingData, setSelectedShoppingData] = useState(null);
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -55,6 +71,7 @@ const FiltersComponent = () => {
   const endDateRef = useRef(null);
   const areaManagerRef = useRef(null);
   const statusFilterRef = useRef(null);
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -77,6 +94,59 @@ const FiltersComponent = () => {
 
     fetchProfile();
   }, []);
+
+  useEffect(() => {
+    const fetchAreasAndAccountTypes = async () => {
+      try {
+        setLoadingOptions(true); // Comienza la carga de datos
+  
+        // Obtener las áreas y tipos de cuenta
+        const areasData = await getAllAreas();
+        const accountTypesData = await getAllAccountTypes();
+  
+        // Guardar los datos en el estado
+        setAreas(areasData);
+        setAccountTypes(accountTypesData);
+  
+        // Asegúrate de cargar los valores solo si selectedShoppingData está disponible
+        if (selectedShoppingData) {
+          setSelectedAreaId(selectedShoppingData.area_id || "");
+          setSelectedAccountTypeId(selectedShoppingData.account_type_id || "");
+          setSelectedUserId(selectedShoppingData.user_id || "");
+        }
+      } catch (error) {
+        console.error("Error al obtener áreas o tipos de cuenta:", error);
+      } finally {
+        setLoadingOptions(false); // Finaliza la carga de datos
+      }
+    };
+  
+    const fetchUsers = async () => {
+      try {
+        const data = await getAllProfiles();
+        const filteredUsers = data.filter(user => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin");
+        setUsers(filteredUsers);
+  
+        // Asegúrate de que el líder de presupuesto esté preseleccionado correctamente
+        if (selectedShoppingData) {
+          setSelectedUserId(selectedShoppingData.user_id || "");
+        }
+      } catch (error) {
+        setError((prev) => ({
+          ...prev,
+          general: "Error al obtener usuarios.",
+        }));
+      }
+    };
+  
+    if (isEditModalOpen && selectedShoppingData) {
+      fetchAreasAndAccountTypes();
+      fetchUsers(); // Solo cargar datos si el modal está abierto y hay datos seleccionados
+    }
+  }, [isEditModalOpen, selectedShoppingData]);
+  
+
+
 
   useEffect(() => {
     const fetchAndProcessData = async () => {
@@ -169,6 +239,41 @@ const FiltersComponent = () => {
     if (areaManagerRef.current) itemNameRef.current.blur();
     if (statusFilterRef.current) itemNameRef.current.blur();
   };
+  const handleOpenEditModal = async (shoppingId) => {
+    try {
+      const response = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        alert("Error al obtener los datos de la compra.");
+        return;
+      }
+
+      const shopping = await response.json();
+
+      // Asegúrate de que los datos completos se asignan a selectedShoppingData
+      setSelectedShoppingData({
+        ...shopping,
+        area_id: shopping.area_id || "", // Asigna un valor por defecto si no está presente
+        account_type_id: shopping.account_type_id || "",
+        user_id: shopping.user_id || "",
+      });
+
+      setIsEditModalOpen(true); // Abrir el modal de edición
+    } catch (error) {
+      console.error("Error fetching shopping data:", error);
+      alert("Error al obtener los datos de la compra.");
+    }
+  };
+
+
   const handleViewDetailsClick = async (shoppingId) => {
     setSelectedShoppingId(shoppingId);
 
@@ -249,30 +354,10 @@ const FiltersComponent = () => {
 
       const updatedShopping = {
         shopping: {
-          title: shopping.title,
-          description: shopping.description,
-          category_id: shopping.category_id,
-          status_id: parseInt(newStatusId, 10), // Cambiamos solo el estado
-          area_id: shopping.area_id,
-          account_type_id: shopping.account_type_id,
-          user_id: shopping.user_id,
-          request_date: shopping.request_date,
-          pending_date: shopping.pending_date,
-          date_approval: shopping.date_approval,
-          innovated: shopping.innovated,
-          unidad: shopping.unidad, // Mantener los valores originales
-          iva: shopping.iva,
-          retefuente: shopping.retefuente,
-          facturacion: shopping.facturacion,
-          total: shopping.total,
+          ...shopping, // Conservamos todos los campos originales
+          status_id: parseInt(newStatusId, 10), // Solo cambiamos el estado
         },
-        products: shopping.products.map((product) => ({
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          price: product.price,
-        })),
-        replace_products: "false",
+        products: shopping.products, // Conservamos los productos
       };
 
       const updateResponse = await fetch(
@@ -292,7 +377,7 @@ const FiltersComponent = () => {
         setIsEditing(false);
         setEditingId(null);
         setNewStatusId("");
-        const updatedData = await fetchData();
+        const updatedData = await fetchData(); // Refrescar los datos
         setData(updatedData);
         setFilteredData(updatedData);
       } else {
@@ -303,6 +388,69 @@ const FiltersComponent = () => {
       alert("Hubo un error al actualizar el estado.");
     }
   };
+  const handleEditSave = async (e) => {
+    e.preventDefault();
+
+    try {
+      const updatedShopping = {
+        shopping: {
+          title: selectedShoppingData.title,
+          description: selectedShoppingData.description,
+          category_id: selectedShoppingData.category_id,
+          area_id: selectedShoppingData.area_id, // Área
+          account_type_id: selectedShoppingData.account_type_id, // Tipo de cuenta
+          user_id: selectedShoppingData.user_id, // Líder de presupuesto
+          request_date: selectedShoppingData.request_date,
+          pending_date: selectedShoppingData.pending_date,
+          date_approval: selectedShoppingData.date_approval,
+          innovated: selectedShoppingData.innovated,
+          unidad: selectedShoppingData.unidad,
+          iva: selectedShoppingData.iva,
+          retefuente: selectedShoppingData.retefuente,
+          facturacion: selectedShoppingData.facturacion,
+          subtotal: selectedShoppingData.subtotal, // Subtotal
+          total: selectedShoppingData.total, // Total
+        },
+        products: selectedShoppingData.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        })),
+        replace_products: "true", // Indicamos que los productos han sido modificados
+      };
+
+      const updateResponse = await fetch(
+        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingData.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(updatedShopping),
+        }
+      );
+
+      if (updateResponse.ok) {
+        alert("Compra y productos actualizados correctamente.");
+        setIsEditModalOpen(false); // Cerrar el modal
+        const updatedData = await fetchData(); // Refrescar los datos
+        setData(updatedData);
+        setFilteredData(updatedData);
+      } else {
+        alert("Hubo un error al actualizar la compra.");
+      }
+    } catch (error) {
+      console.error("Error updating shopping:", error);
+      alert("Hubo un error al actualizar la compra.");
+    }
+  };
+
+
+
+
+
 
   const handleOpenInvoiceModal = (shoppingId) => {
     setSelectedShoppingForInvoice(shoppingId);
@@ -623,14 +771,22 @@ const FiltersComponent = () => {
                           onClick={() => handleViewDetailsClick(shopping.id)}
                         />
                         {(role === "admin" || role === "Developer") && (
-                          <FontAwesomeIcon
-                            icon={faCommentDots}
-                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                            onClick={() => handleOpenMessageModal(shopping.id)}
-                          />
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCommentDots}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleOpenMessageModal(shopping.id)}
+                            />
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => handleOpenEditModal(shopping.id)} // Acción para abrir el modal de edición
+                            />
+                          </>
                         )}
                       </div>
                     </td>
+
                   </tr>
                 ))
               )}
@@ -755,6 +911,180 @@ const FiltersComponent = () => {
           </div>
         </div>
       )}
+
+      {isEditModalOpen && selectedShoppingData && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+            <h2 className="text-2xl font-bold mb-4">Editar Compra</h2>
+            <form onSubmit={handleEditSave}>
+              {/* Título y Descripción */}
+              <div className="mb-4">
+                <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  value={selectedShoppingData.title}
+                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  value={selectedShoppingData.description}
+                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                />
+              </div>
+
+              {/* Área Dropdown */}
+              <div className="mb-4">
+                <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
+                <select
+                  value={selectedShoppingData.area_id} // Manejamos directamente el valor de selectedShoppingData
+                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, area_id: e.target.value })} // Actualizamos el estado
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                >
+                  <option value="">Seleccione un área</option>
+                  {areas.map((area) => (
+                    <option key={area.id} value={area.id}>
+                      {area.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+
+              {/* Tipo de Cuenta Dropdown */}
+              <div className="mb-4">
+                <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
+                <select
+                  value={selectedShoppingData.account_type_id} // Manejamos directamente el valor de selectedShoppingData
+                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, account_type_id: e.target.value })} // Actualizamos el estado
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                >
+                  <option value="">Seleccione un tipo de cuenta</option>
+                  {accountTypes.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+
+              <div className="mb-4">
+                <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
+                <select
+                  value={selectedShoppingData.user_id} // Aquí estás directamente actualizando el estado de selectedShoppingData
+                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, user_id: e.target.value })} // Actualizas el campo user_id
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                >
+                  <option value="">Seleccione un líder de presupuesto</option>
+                  {users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+
+
+              {/* Subtotal y Total */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block mb-2 text-sm font-bold">Subtotal</label>
+                  <input
+                    type="number"
+                    value={selectedShoppingData.subtotal}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })}
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-bold">Total</label>
+                  <input
+                    type="number"
+                    value={selectedShoppingData.total}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })}
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
+              </div>
+
+              {/* Productos */}
+              <h3 className="text-lg font-semibold mb-4">Productos en la Orden</h3>
+              {selectedShoppingData.products.map((product, index) => (
+                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4">
+                  <div>
+                    <label className="block mb-2 text-sm font-bold">Nombre del Producto</label>
+                    <input
+                      type="text"
+                      value={product.name}
+                      onChange={(e) => {
+                        const updatedProducts = [...selectedShoppingData.products];
+                        updatedProducts[index].name = e.target.value;
+                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                      }}
+                      className="border p-2 rounded w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm font-bold">Descripción</label>
+                    <input
+                      type="text"
+                      value={product.description}
+                      onChange={(e) => {
+                        const updatedProducts = [...selectedShoppingData.products];
+                        updatedProducts[index].description = e.target.value;
+                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                      }}
+                      className="border p-2 rounded w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-2 text-sm font-bold">Precio</label>
+                    <input
+                      type="number"
+                      value={product.price}
+                      onChange={(e) => {
+                        const updatedProducts = [...selectedShoppingData.products];
+                        updatedProducts[index].price = parseFloat(e.target.value);
+                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                      }}
+                      className="border p-2 rounded w-full"
+                    />
+                  </div>
+                </div>
+              ))}
+
+              {/* Botones de acción */}
+              <div className="flex justify-end space-x-2 mt-4">
+                <button
+                  type="button"
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  onClick={() => setIsEditModalOpen(false)} // Cerrar el modal
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="bg-green-500 text-white px-4 py-2 rounded"
+                >
+                  Guardar Cambios
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+
+
+
     </div>
   );
 };
