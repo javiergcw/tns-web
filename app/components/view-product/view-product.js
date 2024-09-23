@@ -298,10 +298,10 @@ const FiltersComponent = () => {
 
       const shopping = await response.json();
 
-      // Asegúrate de que los datos completos se asignan a selectedShoppingData
+      // Asignar los datos seleccionados al estado selectedShoppingData
       setSelectedShoppingData({
         ...shopping,
-        area_id: shopping.area_id || "", // Asigna un valor por defecto si no está presente
+        area_id: shopping.area_id || "",
         account_type_id: shopping.account_type_id || "",
         user_id: shopping.user_id || "",
       });
@@ -312,6 +312,7 @@ const FiltersComponent = () => {
       alert("Error al obtener los datos de la compra.");
     }
   };
+
 
 
   const handleViewDetailsClick = async (shoppingId) => {
