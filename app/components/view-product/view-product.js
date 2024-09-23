@@ -298,12 +298,15 @@ const FiltersComponent = () => {
 
       const shopping = await response.json();
 
+      // Extraer el área correctamente como un objeto
+      const areaId = shopping.area?.id || "";  // El id del objeto área
+
       // Asignar los datos seleccionados al estado selectedShoppingData
       setSelectedShoppingData({
         ...shopping,
-        area_id: shopping.area_id || "",
-        account_type_id: shopping.account_type_id || "",
-        user_id: shopping.user_id || "",
+        area_id: areaId, // Almacena el id del área
+        account_type_id: shopping.account_type?.id || "", // El id del tipo de cuenta
+        user_id: shopping.user?.id || "", // El id del usuario
       });
 
       setIsEditModalOpen(true); // Abrir el modal de edición
@@ -312,6 +315,7 @@ const FiltersComponent = () => {
       alert("Error al obtener los datos de la compra.");
     }
   };
+
 
 
 
@@ -439,9 +443,9 @@ const FiltersComponent = () => {
           title: selectedShoppingData.title,
           description: selectedShoppingData.description,
           category_id: selectedShoppingData.category_id,
-          area_id: selectedShoppingData.area_id, // Área
-          account_type_id: selectedShoppingData.account_type_id, // Tipo de cuenta
-          user_id: selectedShoppingData.user_id, // Líder de presupuesto
+          area_id: selectedShoppingData.area?.id, // Asegúrate de obtener el `id` del objeto `area`
+          account_type_id: selectedShoppingData.account_type?.id, // Asegúrate de obtener el `id` del objeto `account_type`
+          user_id: selectedShoppingData.user?.id, // Asegúrate de obtener el `id` del objeto `user`
           request_date: selectedShoppingData.request_date,
           pending_date: selectedShoppingData.pending_date,
           date_approval: selectedShoppingData.date_approval,
@@ -461,6 +465,7 @@ const FiltersComponent = () => {
         })),
         replace_products: "true", // Indicamos que los productos han sido modificados
       };
+
 
       const updateResponse = await fetch(
         `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingData.id}`,
@@ -698,137 +703,138 @@ const FiltersComponent = () => {
         </div>
       </div>
       <div className="table-container">
-  <div className="table-wrapper overflow-x-auto w-full">
-    <table className="shopping-table table-auto w-full sm:w-auto">  {/* Cambié a table-auto para ajustar al contenido */}
-      <thead>
-        <tr>
-          <th className="px-4 py-2 min-w-[150px]">ITEM</th>
-          <th className="px-4 py-2 min-w-[150px]">LÍDER DE ÁREA</th>
-          <th className="px-4 py-2 min-w-[150px]">TIPO DE CUENTA</th>
-          <th className="px-4 py-2 min-w-[100px]">ESTADO</th>
-          <th className="px-4 py-2 min-w-[100px]">FECHA PETICIÓN</th>
-          <th className="px-4 py-2 min-w-[150px]">FECHA APROBADO</th>
-          <th className="px-4 py-2 min-w-[100px]">SUBTOTAL</th>
-          <th className="px-4 py-2 min-w-[100px]">TOTAL</th>
-          <th className="px-4 py-2 min-w-[150px]">Factura</th>
-          <th className="px-4 py-2 min-w-[150px]">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredData.length === 0 ? (
-          <tr>
-            <td colSpan="11">No hay compras</td>
-          </tr>
-        ) : (
-          filteredData.map((shopping) => (
-            <tr key={shopping.id}>
-              <td>
-                <ul>
-                  {shopping.products.map((product) => (
-                    <li key={product.id}>{product.name}</li>
-                  ))}
-                </ul>
-              </td>
-              <td>{shopping.user.profile.name}</td>
-              <td>{shopping.account_type.name}</td>
-              <td>
-                {(role === "admin" || role === "Developer") ? (
-                  isEditing && editingId === shopping.id ? (
-                    <div className="flex items-center space-x-2">
-                      <select value={newStatusId} onChange={handleStatusChange}>
-                        <option value="">Selecciona un estado</option>
-                        {statusOptions.map((status) => (
-                          <option key={status.id} value={status.id}>
-                            {status.name}
-                          </option>
+        <div className="table-wrapper overflow-x-auto w-full">
+          <table className="shopping-table table-auto w-full sm:w-auto">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 min-w-[300px] text-center">ITEM</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">LÍDER DE ÁREA</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">TIPO DE CUENTA</th>
+                <th className="px-4 py-2 min-w-[100px] text-center">ESTADO</th>
+                <th className="px-4 py-2 min-w-[100px] text-center">FECHA PETICIÓN</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">FECHA APROBADO</th>
+                <th className="px-4 py-2 min-w-[100px] text-center">SUBTOTAL</th>
+                <th className="px-4 py-2 min-w-[100px] text-center">TOTAL</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">Factura</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan="11" className="text-center">No hay compras</td>
+                </tr>
+              ) : (
+                filteredData.map((shopping) => (
+                  <tr key={shopping.id}>
+                    <td className="text-center">
+                      <ul>
+                        {shopping.products.map((product) => (
+                          <li key={product.id}>{product.name}</li>
                         ))}
-                      </select>
-                      <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSaveClick}>
-                        Confirmar
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center space-x-2">
-                      <span>{shopping.status.name}</span>
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                        onClick={() => handleEditClick(shopping.id)}
-                      />
-                    </div>
-                  )
-                ) : (
-                  <span>{shopping.status.name}</span>
-                )}
-              </td>
-              <td>{new Date(shopping.request_date).toLocaleDateString()}</td>
-              <td>{new Date(shopping.date_approval).toLocaleDateString()}</td>
-              <td>{shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}</td>
-              <td>{shopping.total != null ? formatCurrency(shopping.total) : "N/A"}</td>
-              <td>
-                {shopping.facturacion ? (
-                  <div className="flex items-center space-x-2">
-                    <a
-                      href={shopping.facturacion}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-red-500 hover:text-red-700 cursor-pointer"
-                    >
-                      <FontAwesomeIcon icon={faFilePdf} />
-                    </a>
-                    {(role === "admin" || role === "Compras" || role === "Developer") && (
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                        onClick={() => handleOpenInvoiceModal(shopping.id)}
-                      />
-                    )}
-                  </div>
-                ) : (
-                  (role === "admin" || role === "Compras" || role === "Developer") && (
-                    <FontAwesomeIcon
-                      icon={faFileUpload}
-                      className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                      onClick={() => handleOpenInvoiceModal(shopping.id)}
-                    />
-                  )
-                )}
-              </td>
-              <td>
-                <div className="flex items-center space-x-2">
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    className="text-gray-500 hover:text-gray-700 cursor-pointer"
-                    onClick={() => handleViewDetailsClick(shopping.id)}
-                  />
-                  {(role === "admin" || role === "Developer") && (
-                    <>
-                      <FontAwesomeIcon
-                        icon={faCommentDots}
-                        className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                        onClick={() => handleOpenMessageModal(shopping.id)}
-                      />
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        className="text-green-500 hover:text-green-700 cursor-pointer"
-                        onClick={() => handleOpenEditModal(shopping.id)}
-                      />
-                      <FontAwesomeIcon
-                        icon={faDeleteLeft}
-                        className="text-green-500 hover:text-green-700 cursor-pointer"
-                        onClick={() => openDeleteModal(shopping.id)}
-                      />
-                    </>
-                  )}
-                </div>
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </table>
-  </div>
-</div>
+                      </ul>
+                    </td>
+                    <td className="text-center">{shopping.user.profile.name}</td>
+                    <td className="text-center">{shopping.account_type.name}</td>
+                    <td className="text-center">
+                      {(role === "admin" || role === "Developer") ? (
+                        isEditing && editingId === shopping.id ? (
+                          <div className="flex items-center space-x-2">
+                            <select value={newStatusId} onChange={handleStatusChange}>
+                              <option value="">Selecciona un estado</option>
+                              {statusOptions.map((status) => (
+                                <option key={status.id} value={status.id}>
+                                  {status.name}
+                                </option>
+                              ))}
+                            </select>
+                            <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSaveClick}>
+                              Confirmar
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-2">
+                            <span>{shopping.status.name}</span>
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleEditClick(shopping.id)}
+                            />
+                          </div>
+                        )
+                      ) : (
+                        <span>{shopping.status.name}</span>
+                      )}
+                    </td>
+                    <td className="text-center">{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td className="text-center">{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                    <td className="text-center">{shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}</td>
+                    <td className="text-center">{shopping.total != null ? formatCurrency(shopping.total) : "N/A"}</td>
+                    <td className="text-center">
+                      {shopping.facturacion ? (
+                        <div className="flex items-center space-x-2">
+                          <a
+                            href={shopping.facturacion}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                          >
+                            <FontAwesomeIcon icon={faFilePdf} />
+                          </a>
+                          {(role === "admin" || role === "Compras" || role === "Developer") && (
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleOpenInvoiceModal(shopping.id)}
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        (role === "admin" || role === "Compras" || role === "Developer") && (
+                          <FontAwesomeIcon
+                            icon={faFileUpload}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenInvoiceModal(shopping.id)}
+                          />
+                        )
+                      )}
+                    </td>
+                    <td className="text-center">
+                      <div className="flex items-center space-x-2">
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                          onClick={() => handleViewDetailsClick(shopping.id)}
+                        />
+                        {(role === "admin" || role === "Developer") && (
+                          <>
+                            <FontAwesomeIcon
+                              icon={faCommentDots}
+                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              onClick={() => handleOpenMessageModal(shopping.id)}
+                            />
+                            <FontAwesomeIcon
+                              icon={faEdit}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => handleOpenEditModal(shopping.id)}
+                            />
+                            <FontAwesomeIcon
+                              icon={faDeleteLeft}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => openDeleteModal(shopping.id)}
+                            />
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
 
 
 
@@ -946,206 +952,273 @@ const FiltersComponent = () => {
           </div>
         </div>
       )}
-      {isEditModalOpen && selectedShoppingData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
-            {/* Botón para cerrar (X) */}
-            <button
-              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={() => setIsEditModalOpen(false)}
-            >
-              X
-            </button>
+{isEditModalOpen && selectedShoppingData && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+      {/* Botón para cerrar (X) */}
+      <button
+        className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+        onClick={() => setIsEditModalOpen(false)}
+      >
+        X
+      </button>
 
-            <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
-            <form onSubmit={handleEditSave}>
-              {/* Título y Descripción */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.title || ''} // Verifica que el valor sea válido
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                />
-              </div>
+      <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
+      <form onSubmit={handleEditSave}>
+        {/* Título */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            value={selectedShoppingData.title || ''} 
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+            required
+            onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          />
+        </div>
 
-              <div className="mb-4">
-                <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.description || ''} // Verifica que el valor sea válido
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                />
-              </div>
+        {/* Descripción */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            value={selectedShoppingData.description || ''}
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+            required
+            onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          />
+        </div>
 
-              {/* Área Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.area?.id || ''} // Utiliza el id del área del objeto selectedShoppingData
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, area_id: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un área</option>
-                  {areas.map((area) => (
-                    <option key={area.id} value={area.id}>
-                      {area.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        {/* Área */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">
+            Área: <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={selectedShoppingData.area?.id || ''}
+            onChange={(e) =>
+              setSelectedShoppingData({
+                ...selectedShoppingData,
+                area: areas.find((area) => area.id === parseInt(e.target.value)),
+              })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+            required
+            onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          >
+            <option value="">Seleccione un área</option>
+            {areas.map((area) => (
+              <option key={area.id} value={area.id}>
+                {area.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
+        {/* Tipo de Cuenta Dropdown */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">
+            Tipo de Cuenta: <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={selectedShoppingData.account_type?.id || ''}
+            onChange={(e) =>
+              setSelectedShoppingData({
+                ...selectedShoppingData,
+                account_type: accountTypes.find((type) => type.id === parseInt(e.target.value)),
+              })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+            required
+            onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          >
+            <option value="">Seleccione un tipo de cuenta</option>
+            {accountTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-              {/* Tipo de Cuenta Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.account_type.id || ''} // Asegúrate de que el valor sea correcto
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, account_type: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un tipo de cuenta</option>
-                  {accountTypes.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        {/* Líder de Presupuesto Dropdown */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">
+            Líder de Presupuesto: <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={selectedShoppingData.user?.id || ''}
+            onChange={(e) =>
+              setSelectedShoppingData({
+                ...selectedShoppingData,
+                user: users.find((user) => user.id === parseInt(e.target.value)),
+              })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+            required
+            onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          >
+            <option value="">Seleccione un líder de presupuesto</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-              {/* Líder de Presupuesto Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.user.id || ''} // Asegúrate de que el valor sea correcto
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, user: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un líder de presupuesto</option>
-                  {users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        {/* Subtotal */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">Subtotal: <span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={selectedShoppingData.subtotal || ''}
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full text-black"
+              required
+              onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+              onInput={(e) => e.target.setCustomValidity('')}
+            />
+          </div>
 
-              {/* Subtotal y Total */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">Subtotal</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.subtotal || ''} // Verifica que el valor sea válido
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">Total</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.total || ''} // Verifica que el valor sea válido
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">IVA</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.iva || ''} // Verifica que el valor sea válido
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">Unidad</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.unidad || ''} // Verifica que el valor sea válido
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full text-black"
-                  />
-                </div>
-              </div>
+          {/* Total */}
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">Total: <span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={selectedShoppingData.total || ''}
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full text-black"
+              required
+              onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+              onInput={(e) => e.target.setCustomValidity('')}
+            />
+          </div>
 
-              {/* Productos */}
-              <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
-              {selectedShoppingData.products.map((product, index) => (
-                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Nombre del Producto</label>
-                    <input
-                      type="text"
-                      value={product.name || ''} // Verifica que el valor sea válido
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].name = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full text-black"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Descripción</label>
-                    <input
-                      type="text"
-                      value={product.description || ''} // Verifica que el valor sea válido
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].description = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full text-black"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Precio</label>
-                    <input
-                      type="number"
-                      value={product.price || ''} // Verifica que el valor sea válido
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].price = parseFloat(e.target.value);
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full text-black"
-                    />
-                  </div>
-                </div>
-              ))}
+          {/* IVA */}
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">IVA: <span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={selectedShoppingData.iva || ''}
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full text-black"
+              required
+              onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+              onInput={(e) => e.target.setCustomValidity('')}
+            />
+          </div>
 
-              {/* Botones de acción */}
-              <div className="flex justify-end space-x-2 mt-4">
-                <button
-                  type="button"
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                  onClick={() => setIsEditModalOpen(false)} // Cerrar el modal
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded"
-                >
-                  Guardar Cambios
-                </button>
-              </div>
-            </form>
+          {/* Unidad */}
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">Unidad: <span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={selectedShoppingData.unidad || ''}
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full text-black"
+              required
+              onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+              onInput={(e) => e.target.setCustomValidity('')}
+            />
           </div>
         </div>
-      )}
+
+        {/* Productos */}
+        <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
+        {selectedShoppingData.products.map((product, index) => (
+          <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Nombre del Producto: <span className="text-red-500">*</span></label>
+              <input
+                type="text"
+                value={product.name || ''}
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].name = e.target.value;
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full text-black"
+                required
+                onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                onInput={(e) => e.target.setCustomValidity('')}
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Descripción: <span className="text-red-500">*</span></label>
+              <input
+                type="text"
+                value={product.description || ''}
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].description = e.target.value;
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full text-black"
+                required
+                onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                onInput={(e) => e.target.setCustomValidity('')}
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Precio: <span className="text-red-500">*</span></label>
+              <input
+                type="number"
+                value={product.price || ''}
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].price = parseFloat(e.target.value);
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full text-black"
+                required
+                onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                onInput={(e) => e.target.setCustomValidity('')}
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* Botones de acción */}
+        <div className="flex justify-end space-x-2 mt-4">
+          <button
+            type="button"
+            className="bg-red-500 text-white px-4 py-2 rounded"
+            onClick={() => setIsEditModalOpen(false)}
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
 
 
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-lg font-semibold mb-4">Confirmar eliminación</h2>
+            <h2 className="text-lg font-semibold mb-4 text-black">Confirmar eliminación</h2>
             <p>¿Estás seguro de que quieres eliminar esta compra?</p>
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end mt-4 text-black">
               <button
                 className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 onClick={closeDeleteModal}

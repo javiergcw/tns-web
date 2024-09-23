@@ -165,7 +165,7 @@ const CustomComponent = ({ shoppingId }) => {
           <div key={index} className="bg-white rounded-lg p-4 shadow-lg mb-4 w-full h-auto flex-shrink-0">
             <h3 className="text-black lg:text-xl font-bold mb-2">{item.name}</h3>
             <p className="text-black">{item.description}</p>
-            <p className="text-black">Precio: ${item.price.toFixed(2)}</p>
+            <p className="text-black">Precio: {formatCurrency(item.price)}</p>
           </div>
         ))}
       </div>
