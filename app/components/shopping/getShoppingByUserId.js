@@ -183,14 +183,15 @@ const ShoppingTable = ({ userId }) => {
         "ITEM": shopping.products.map((product) => product.name).join(", "),
         "DESCRIPCIÓN": shopping.description,
         "LÍDER DE ÁREA": shopping.user.profile.name,
+        "TIPO DE CUENTA": shopping.account_type.name,
         "ESTADO": shopping.status.name,
         "FECHA PETICIÓN": new Date(shopping.request_date).toLocaleDateString(),
         "FECHA APROBADO": new Date(shopping.date_approval).toLocaleDateString(),
-        "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
+        // "FECHA FINALIZACIÓN": new Date(shopping.pending_date).toLocaleDateString(),
         // Usar la función formatCurrency para formatear valores monetarios
         "SUBTOTAL": shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A",
         "TOTAL": shopping.total != null ? formatCurrency(shopping.total) : "N/A",
-        "PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
+        // "PRECIO": formatCurrency(shopping.products.reduce((total, product) => total + product.price, 0)),
       }))
     );
 
@@ -280,13 +281,14 @@ const ShoppingTable = ({ userId }) => {
     "ITEM",
     "DESCRIPCIÓN",
     "LÍDER DE ÁREA",
+    "TIPO DE CUENTA",
     "ESTADO",
     "FECHA PETICIÓN",
     "FECHA APROBADO",
-    "FECHA FINALIZACIÓN",
+    // "FECHA FINALIZACIÓN",
     "SUBTOTAL",
     "TOTAL",
-    "PRECIO",
+    // "PRECIO",
     "FACTURACIÓN",
     "Acciones",
   ];
@@ -308,14 +310,15 @@ const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredS
         shopping.products.map((product) => product.name).join(", "),
         shopping.description,
         shopping.user.profile.name,
+        shopping.account_type.name,
         shopping.status.name,
         new Date(shopping.request_date).toLocaleDateString(),
         new Date(shopping.date_approval).toLocaleDateString(),
-        new Date(shopping.pending_date).toLocaleDateString(),
+        // new Date(shopping.pending_date).toLocaleDateString(),
         // Aplicar formateo de moneda solo si los valores son numéricos
         subtotal !== "N/A" ? formatCurrency(subtotal) : "N/A",
         total !== "N/A" ? formatCurrency(total) : "N/A",
-        formatCurrency(totalPrice),
+        // formatCurrency(totalPrice),
 
         (role === 'Líder de presupuesto' && !shopping.facturacion) ? (
           <span className="text-red-500">No hay factura</span>

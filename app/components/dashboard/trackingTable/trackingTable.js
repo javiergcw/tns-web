@@ -152,6 +152,7 @@ const TrackingTable = ({ data, role }) => {
   const columns = [
     "ID COMPRA",
     "LIDER DE PRESUPUESTO",
+    "TIPO DE CUENTA",
     "ITEMS",
     "CATEGORÍA",
     // "PRECIO",
@@ -179,6 +180,8 @@ const TrackingTable = ({ data, role }) => {
         return [
           item.id,
           item.user && item.user.profile ? item.user.profile.name : "N/A",
+          item.account_type.name,
+
           item.products.map((product) => product.name).join(", "),
           item.category ? item.category.name : "N/A",
           // Formatear precios usando formatCurrency
