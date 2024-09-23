@@ -81,19 +81,19 @@ const CustomComponent = ({ shoppingId }) => {
   // Helper function to ensure value is a valid number
   const formatCurrency = (value) => {
     const numericValue = parseFloat(value); // Convertimos el valor a número
-  
+
     // Verificamos si el valor convertido es un número válido
     return !isNaN(numericValue)
       ? new Intl.NumberFormat('es-CO', {
-          style: 'currency',
-          currency: 'COP', // Puedes cambiar a 'USD' u otra moneda si lo prefieres
-          minimumFractionDigits: 2, // Mínimo 2 decimales
-          maximumFractionDigits: 2 // Máximo 2 decimales
-        }).format(numericValue)
+        style: 'currency',
+        currency: 'COP', // Puedes cambiar a 'USD' u otra moneda si lo prefieres
+        minimumFractionDigits: 2, // Mínimo 2 decimales
+        maximumFractionDigits: 2 // Máximo 2 decimales
+      }).format(numericValue)
       : "N/A";
   };
-  
-  
+
+
 
   return (
     <div className="flex flex-col lg:flex-row p-4 bg-gray-100 min-h-screen">
@@ -103,62 +103,73 @@ const CustomComponent = ({ shoppingId }) => {
           <p className="text-lg text-black lg:text-2xl font-bold mb-2">{purchaseStatus.title || "Título no disponible"}</p>
           <p className="text-black">{purchaseStatus.description || "Descripción no disponible"}</p>
         </div>
-  
+
         {/* Información adicional */}
         {purchaseStatus && (
-          <div className="flex flex-wrap justify-between w-full mb-4">
-            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/4 mx-1 mb-4 lg:mb-0 order-1 lg:order-1">
-              <span className="text-2xl lg:text-3xl">📅</span>
+          <div className="flex flex-wrap justify-between w-full mt-4">
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-3">
+            <span className="text-2xl lg:text-3xl">📅</span>
               <p className="text-gray-700 font-bold">Fecha</p>
               <p className="text-gray-700">{new Date(purchaseStatus.request_date).toLocaleDateString()}</p>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/4 mx-1 mb-4 lg:mb-0 order-3 lg:order-2">
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-3">
               <span className="text-2xl lg:text-3xl">📋</span>
               <p className="text-gray-700 font-bold">Estado</p>
               <p className="text-gray-700">{purchaseStatus.status.name}</p>
             </div>
-            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/4 mx-1 mb-4 lg:mb-0 order-2 lg:order-3">
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-3">
               <span className="text-2xl lg:text-3xl">🧑🏻</span>
               <p className="text-gray-700 font-bold">Líder</p>
               <p className="text-gray-700">{purchaseStatus.user.profile.name}</p>
             </div>
+            {/* Contenedor para Innovated */}
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-3">
+              <span className="text-2xl lg:text-3xl">🚀</span>
+              <p className="text-gray-700 font-bold">Innovación</p>
+              <p className="text-gray-700">
+                {purchaseStatus.innovated ? '✔️' : '❌'}
+              </p>
+            </div>
           </div>
+
+
         )}
 
         {/* Gráfico */}
         <div className="bg-white rounded-lg p-4 lg:p-6 shadow-lg w-full">
           <Bar data={data} options={options} />
         </div>
-  
+
         {/* Nuevos contenedores para retefuente, subtotal y total */}
         {purchaseStatus && (
-  <div className="flex flex-wrap justify-between w-full mt-4">
-    <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-      <span className="text-2xl lg:text-3xl">💰</span>
-      <p className="text-gray-700 font-bold">ReteFuente</p>
-      <p className="text-gray-700">{formatCurrency(purchaseStatus.retefuente)}</p>
-    </div>
-    <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-      <span className="text-2xl lg:text-3xl">🧾</span>
-      <p className="text-gray-700 font-bold">Subtotal</p>
-      <p className="text-gray-700">{formatCurrency(purchaseStatus.subtotal)}</p>
-    </div>
-    <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-      <span className="text-2xl lg:text-3xl">💳</span>
-      <p className="text-gray-700 font-bold">Total</p>
-      <p className="text-gray-700">{formatCurrency(purchaseStatus.total)}</p>
-    </div>
-    {/* Contenedor para IVA */}
-    <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-      <span className="text-2xl lg:text-3xl">🧮</span>
-      <p className="text-gray-700 font-bold">IVA</p>
-      <p className="text-gray-700">{formatCurrency(purchaseStatus.iva)}</p>
-    </div>
-  </div>
-)}
+          <div className="flex flex-wrap justify-between w-full mt-4">
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+              <span className="text-2xl lg:text-3xl">💰</span>
+              <p className="text-gray-700 font-bold">ReteFuente</p>
+              <p className="text-gray-700">{formatCurrency(purchaseStatus.retefuente)}</p>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+              <span className="text-2xl lg:text-3xl">🧾</span>
+              <p className="text-gray-700 font-bold">Subtotal</p>
+              <p className="text-gray-700">{formatCurrency(purchaseStatus.subtotal)}</p>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+              <span className="text-2xl lg:text-3xl">💳</span>
+              <p className="text-gray-700 font-bold">Total</p>
+              <p className="text-gray-700">{formatCurrency(purchaseStatus.total)}</p>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+              <span className="text-2xl lg:text-3xl">🧮</span>
+              <p className="text-gray-700 font-bold">IVA</p>
+              <p className="text-gray-700">{formatCurrency(purchaseStatus.iva)}</p>
+            </div>
+
+          </div>
+
+        )}
 
       </div>
-  
+
       {/* Listado de productos */}
       <div className="flex flex-col items-start px-4 py-4 bg-gray-100 w-full lg:w-2/6 overflow-y-auto h-full" style={{ maxHeight: '700px' }}>
         {items.map((item, index) => (

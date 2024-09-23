@@ -154,7 +154,7 @@ const TrackingTable = ({ data, role }) => {
     "LIDER DE PRESUPUESTO",
     "TIPO DE CUENTA",
     "ITEMS",
-    "CATEGORÍA",
+    // "CATEGORÍA",
     // "PRECIO",
     "SUBTOTAL",
     "TOTAL",
@@ -183,7 +183,7 @@ const TrackingTable = ({ data, role }) => {
           item.account_type.name,
 
           item.products.map((product) => product.name).join(", "),
-          item.category ? item.category.name : "N/A",
+          // item.category ? item.category.name : "N/A",
           // Formatear precios usando formatCurrency
           // formatCurrency(totalPrice),
           subtotal != null ? formatCurrency(subtotal) : "N/A",
