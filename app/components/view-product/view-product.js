@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { getAllShoppings } from "@/app/services/shoppingService";
+import { getAllShoppings, deleteShoppingById } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 
@@ -49,6 +49,9 @@ const FiltersComponent = () => {
   const [statusOptions, setStatusOptions] = useState([]);
   const [role, setRole] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Estado para el modal de confirmación de eliminación
+  const [shoppingToDelete, setShoppingToDelete] = useState(null); // Estado para almacenar el ID de la compra a eliminar
+
   const [selectedShoppingData, setSelectedShoppingData] = useState(null);
 
 
@@ -99,15 +102,15 @@ const FiltersComponent = () => {
     const fetchAreasAndAccountTypes = async () => {
       try {
         setLoadingOptions(true); // Comienza la carga de datos
-  
+
         // Obtener las áreas y tipos de cuenta
         const areasData = await getAllAreas();
         const accountTypesData = await getAllAccountTypes();
-  
+
         // Guardar los datos en el estado
         setAreas(areasData);
         setAccountTypes(accountTypesData);
-  
+
         // Asegúrate de cargar los valores solo si selectedShoppingData está disponible
         if (selectedShoppingData) {
           setSelectedAreaId(selectedShoppingData.area_id || "");
@@ -120,13 +123,13 @@ const FiltersComponent = () => {
         setLoadingOptions(false); // Finaliza la carga de datos
       }
     };
-  
+
     const fetchUsers = async () => {
       try {
         const data = await getAllProfiles();
         const filteredUsers = data.filter(user => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin");
         setUsers(filteredUsers);
-  
+
         // Asegúrate de que el líder de presupuesto esté preseleccionado correctamente
         if (selectedShoppingData) {
           setSelectedUserId(selectedShoppingData.user_id || "");
@@ -138,13 +141,13 @@ const FiltersComponent = () => {
         }));
       }
     };
-  
+
     if (isEditModalOpen && selectedShoppingData) {
       fetchAreasAndAccountTypes();
       fetchUsers(); // Solo cargar datos si el modal está abierto y hay datos seleccionados
     }
   }, [isEditModalOpen, selectedShoppingData]);
-  
+
 
 
 
@@ -225,6 +228,43 @@ const FiltersComponent = () => {
 
     filterData();
   }, [itemName, startDate, endDate, areaManager, statusFilter, data]);
+  // const handleDelete = async (shoppingId) => {
+  //   try {
+  //     const result = await deleteShoppingById(shoppingId);
+  //     console.log('Compra eliminada:', result);
+  //     // Aquí puedes actualizar tu estado o hacer otra acción tras la eliminación
+  //   } catch (error) {
+  //     console.error('Error al eliminar la compra:', error);
+  //   }
+  // };
+  const openDeleteModal = (shoppingId) => {
+    setShoppingToDelete(shoppingId);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Función que elimina la compra
+  const handleDelete = async () => {
+    try {
+      if (shoppingToDelete) {
+        const result = await deleteShoppingById(shoppingToDelete);
+        console.log('Compra eliminada:', result);
+
+        // Aquí puedes actualizar el estado o hacer otra acción tras la eliminación
+        const updatedData = data.filter((shopping) => shopping.id !== shoppingToDelete);
+        setData(updatedData);
+        setFilteredData(updatedData);
+        setIsDeleteModalOpen(false); // Cerrar el modal
+        // Puedes actualizar tu estado de `data` aquí si es necesario
+      }
+    } catch (error) {
+      console.error('Error al eliminar la compra:', error);
+    }
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setShoppingToDelete(null);
+  };
 
   const handleFilterReset = () => {
     setItemName("");
@@ -782,6 +822,11 @@ const FiltersComponent = () => {
                               className="text-green-500 hover:text-green-700 cursor-pointer"
                               onClick={() => handleOpenEditModal(shopping.id)} // Acción para abrir el modal de edición
                             />
+                            <FontAwesomeIcon
+                              icon={faDeleteLeft}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => openDeleteModal(shopping.id)} // Abrir modal antes de eliminar
+                            />
                           </>
                         )}
                       </div>
@@ -911,195 +956,213 @@ const FiltersComponent = () => {
           </div>
         </div>
       )}
+{isEditModalOpen && selectedShoppingData && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+      <h2 className="text-2xl font-bold mb-4">Editar Compra</h2>
+      <form onSubmit={handleEditSave}>
+        {/* Título y Descripción */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            value={selectedShoppingData.title || ''} // Verifica que el valor sea válido
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+        </div>
 
-      {isEditModalOpen && selectedShoppingData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-4">Editar Compra</h2>
-            <form onSubmit={handleEditSave}>
-              {/* Título y Descripción */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.title}
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                />
-              </div>
+        <div className="mb-4">
+          <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
+          <input
+            type="text"
+            value={selectedShoppingData.description || ''} // Verifica que el valor sea válido
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+        </div>
 
-              <div className="mb-4">
-                <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.description}
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                />
-              </div>
+        {/* Área Dropdown */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
+          <select
+            value={selectedShoppingData.area_id || ''} // Asegúrate de que el valor sea correcto
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, area_id: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un área</option>
+            {areas.map((area) => (
+              <option key={area.id} value={area.id}>
+                {area.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-              {/* Área Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.area_id} // Manejamos directamente el valor de selectedShoppingData
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, area_id: e.target.value })} // Actualizamos el estado
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un área</option>
-                  {areas.map((area) => (
-                    <option key={area.id} value={area.id}>
-                      {area.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        {/* Tipo de Cuenta Dropdown */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
+          <select
+            value={selectedShoppingData.account_type_id || ''} // Asegúrate de que el valor sea correcto
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, account_type_id: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un tipo de cuenta</option>
+            {accountTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Líder de Presupuesto Dropdown */}
+        <div className="mb-4">
+          <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
+          <select
+            value={selectedShoppingData.user_id || ''} // Asegúrate de que el valor sea correcto
+            onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, user_id: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          >
+            <option value="">Seleccione un líder de presupuesto</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Subtotal y Total */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">Subtotal</label>
+            <input
+              type="number"
+              value={selectedShoppingData.subtotal || ''} // Verifica que el valor sea válido
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">Total</label>
+            <input
+              type="number"
+              value={selectedShoppingData.total || ''} // Verifica que el valor sea válido
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">IVA</label>
+            <input
+              type="number"
+              value={selectedShoppingData.iva || ''} // Verifica que el valor sea válido
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full"
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-bold text-black">UNIDAD</label>
+            <input
+              type="number"
+              value={selectedShoppingData.unidad || ''} // Verifica que el valor sea válido
+              onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })}
+              className="border p-2 rounded w-full"
+            />
+          </div>
+        </div>
+
+        {/* Productos */}
+        <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
+        {selectedShoppingData.products.map((product, index) => (
+          <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Nombre del Producto</label>
+              <input
+                type="text"
+                value={product.name || ''} // Verifica que el valor sea válido
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].name = e.target.value;
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Descripción</label>
+              <input
+                type="text"
+                value={product.description || ''} // Verifica que el valor sea válido
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].description = e.target.value;
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label className="block mb-2 text-sm font-bold text-black">Precio</label>
+              <input
+                type="number"
+                value={product.price || ''} // Verifica que el valor sea válido
+                onChange={(e) => {
+                  const updatedProducts = [...selectedShoppingData.products];
+                  updatedProducts[index].price = parseFloat(e.target.value);
+                  setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                }}
+                className="border p-2 rounded w-full"
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* Botones de acción */}
+        <div className="flex justify-end space-x-2 mt-4">
+          <button
+            type="button"
+            className="bg-red-500 text-white px-4 py-2 rounded"
+            onClick={() => setIsEditModalOpen(false)} // Cerrar el modal
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
 
 
-              {/* Tipo de Cuenta Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.account_type_id} // Manejamos directamente el valor de selectedShoppingData
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, account_type_id: e.target.value })} // Actualizamos el estado
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un tipo de cuenta</option>
-                  {accountTypes.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-
-              <div className="mb-4">
-                <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.user_id} // Aquí estás directamente actualizando el estado de selectedShoppingData
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, user_id: e.target.value })} // Actualizas el campo user_id
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                >
-                  <option value="">Seleccione un líder de presupuesto</option>
-                  {users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-
-
-              {/* Subtotal y Total */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">Subtotal</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.subtotal}
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">Total</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.total}
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">IVA</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.iva}
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">UNIDAD</label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.unidad}
-                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })}
-                    className="border p-2 rounded w-full"
-                  />
-                </div>
-              </div>
-
-              {/* Productos */}
-              <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
-              {selectedShoppingData.products.map((product, index) => (
-                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Nombre del Producto</label>
-                    <input
-                      type="text"
-                      value={product.name}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].name = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Descripción</label>
-                    <input
-                      type="text"
-                      value={product.description}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].description = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">Precio</label>
-                    <input
-                      type="number"
-                      value={product.price}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].price = parseFloat(e.target.value);
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full"
-                    />
-                  </div>
-                </div>
-              ))}
-
-              {/* Botones de acción */}
-              <div className="flex justify-end space-x-2 mt-4">
-                <button
-                  type="button"
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                  onClick={() => setIsEditModalOpen(false)} // Cerrar el modal
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded"
-                >
-                  Guardar Cambios
-                </button>
-              </div>
-            </form>
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg">
+            <h2 className="text-lg font-semibold mb-4">Confirmar eliminación</h2>
+            <p>¿Estás seguro de que quieres eliminar esta compra?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                onClick={closeDeleteModal}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded"
+                onClick={handleDelete}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         </div>
       )}
-
-
 
 
 

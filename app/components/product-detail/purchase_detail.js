@@ -83,8 +83,16 @@ const CustomComponent = ({ shoppingId }) => {
     const numericValue = parseFloat(value); // Convertimos el valor a número
   
     // Verificamos si el valor convertido es un número válido
-    return !isNaN(numericValue) ? `$${numericValue.toFixed(2)}` : "N/A";
+    return !isNaN(numericValue)
+      ? new Intl.NumberFormat('es-CO', {
+          style: 'currency',
+          currency: 'COP', // Puedes cambiar a 'USD' u otra moneda si lo prefieres
+          minimumFractionDigits: 2, // Mínimo 2 decimales
+          maximumFractionDigits: 2 // Máximo 2 decimales
+        }).format(numericValue)
+      : "N/A";
   };
+  
   
 
   return (

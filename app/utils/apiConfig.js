@@ -44,6 +44,8 @@ const ENDPOINTS = {
   // ENDPOINTS DE COMPRAS
   shoppings: `${API_BASE_URL}/shoppings`,
   getShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+  DeleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
+
   getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
   getLatestStatisticalRequestsOfTheMonth: `${API_BASE_URL}/shoppings/summary`,
   getUserByLatestStatisticalRequestsOfTheMonth: (id) => `${API_BASE_URL}/shoppings/user/${id}/summary`,

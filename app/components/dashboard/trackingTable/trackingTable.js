@@ -154,7 +154,7 @@ const TrackingTable = ({ data, role }) => {
     "LIDER DE PRESUPUESTO",
     "ITEMS",
     "CATEGORÍA",
-    "PRECIO",
+    // "PRECIO",
     "SUBTOTAL",
     "TOTAL",
     "FACTURACIÓN",
@@ -171,7 +171,7 @@ const TrackingTable = ({ data, role }) => {
   
   const rows = Array.isArray(data)
     ? data.map((item) => {
-        const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
+        // const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
         const subtotal = item.subtotal; // Subtotal del backend
         const total = item.total; // Total del backend
         const billingExists = item.facturacion;
@@ -182,7 +182,7 @@ const TrackingTable = ({ data, role }) => {
           item.products.map((product) => product.name).join(", "),
           item.category ? item.category.name : "N/A",
           // Formatear precios usando formatCurrency
-          formatCurrency(totalPrice),
+          // formatCurrency(totalPrice),
           subtotal != null ? formatCurrency(subtotal) : "N/A",
           total != null ? formatCurrency(total) : "N/A",
 

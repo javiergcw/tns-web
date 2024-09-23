@@ -115,6 +115,38 @@ const createShopping = async (shoppingData) => {
     throw error;
   }
 };
+// services/shoppingService.js
+// Ejemplo de getAuthHeaders
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token'); // O el mecanismo de almacenamiento que uses
+  return {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+ // Cambia esto por tu URL base
+const deleteShoppingById = async (id) => {
+  try {
+    const response = await fetch(ENDPOINTS.DeleteShoppingById(id), {
+      method: 'DELETE',
+      headers: {
+        ...getAuthHeaders(), // Incluye los encabezados de autenticación
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al eliminar la compra con ID ${id}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Hubo un error al eliminar la compra: ", error);
+    throw error;
+  }
+};
+
+
 
 export {
   getAllShoppings,
@@ -123,4 +155,5 @@ export {
   getLatestStatisticalRequestsOfTheMonth,
   createShopping,
   getUserByLatestStatisticalRequestsOfTheMonth,
+  deleteShoppingById
 };
