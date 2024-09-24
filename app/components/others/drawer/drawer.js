@@ -144,7 +144,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Compras":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
+        ["/create-product", "/shoppings","/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
       case "Developer":
