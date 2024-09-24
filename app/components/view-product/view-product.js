@@ -650,20 +650,23 @@ const FiltersComponent = () => {
   return (
     <div className="app-container">
       <h1>{(role === "admin" || role === "Developer") ? "Compras ADMIN" : "Compras"}</h1>
-      <div className="filters-container">
-        <h2>Nombre de item</h2>
-        <div className="filter-inputs">
+      <div className="w-full bg-white p-4 rounded-lg shadow-md mb-6">
+        <h2 className="text-lg font-semibold mb-4 text-black">Nombre de item</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-black">
           <input
             type="text"
             placeholder="Item"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
+            className="border border-gray-300 rounded p-2 w-full text-black"
           />
 
           <select
             value={areaManager}
             onChange={(e) => setAreaManager(e.target.value)}
             ref={areaManagerRef}
+            className="border border-gray-300 rounded p-2 w-full text-black"
           >
             <option value="">Todos los Líderes</option>
             {leaderOptions.map((leader) => (
@@ -677,6 +680,7 @@ const FiltersComponent = () => {
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             ref={statusFilterRef}
+            className="border border-gray-300 rounded p-2 w-full text-black"
           >
             <option value="">Todos los Estados</option>
             {statusOptions.map((status) => (
@@ -686,61 +690,63 @@ const FiltersComponent = () => {
             ))}
           </select>
 
-          <button
-            onClick={handleFilterReset}
-            className="bg-red-500 text-white p-2 rounded"
-          >
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
+          <div className="flex space-x-4">
+            <button
+              onClick={handleFilterReset}
+              className="bg-red-500 text-white p-2 rounded"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
 
-          {/* Botón para descargar CSV */}
-          <button
-            onClick={handleDownloadExcel}
-            className="bg-blue-500 text-white p-2 rounded ml-2"
-          >
-            Exportar Tabla
-          </button>
+            <button
+              onClick={handleDownloadExcel}
+              className="bg-blue-500 text-white p-2 rounded"
+            >
+              Exportar Tabla
+            </button>
+          </div>
         </div>
       </div>
-      <div className="table-container">
-        <div className="table-wrapper overflow-x-auto w-full">
-          <table className="shopping-table table-auto w-full">
-            <thead>
+
+      <div className="w-full overflow-x-auto">
+        <div className="max-h-96 overflow-y-auto">
+          <table className="min-w-full table-auto text-base text-left text-black border border-gray-300">
+            <thead className="text-base text-white uppercase bg-blue-500">
               <tr>
-                <th className="px-4 py-2 min-w-[200px] text-center">ITEM</th>
-                <th className="px-4 py-2 min-w-[200px] text-center">LÍDER DE ÁREA</th>
-                <th className="px-4 py-2 min-w-[180px] text-center">TIPO DE CUENTA</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">ESTADO</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">FECHA PETICIÓN</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">FECHA APROBADO</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">SUBTOTAL</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">TOTAL</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">Factura</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">Acciones</th>
+                <th className="px-6 py-3 text-center border border-gray-300">ITEM</th>
+                <th className="px-6 py-3 text-center border border-gray-300">LÍDER DE ÁREA</th>
+                <th className="px-6 py-3 text-center border border-gray-300">TIPO DE CUENTA</th>
+                <th className="px-6 py-3 text-center border border-gray-300">ESTADO</th>
+                <th className="px-6 py-3 text-center border border-gray-300">FECHA PETICIÓN</th>
+                <th className="px-6 py-3 text-center border border-gray-300">FECHA APROBADO</th>
+                <th className="px-6 py-3 text-center border border-gray-300">SUBTOTAL</th>
+                <th className="px-6 py-3 text-center border border-gray-300">TOTAL</th>
+                <th className="px-6 py-3 text-center border border-gray-300">FACTURA</th>
+                <th className="px-6 py-3 text-center border border-gray-300">ACCIONES</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white divide-y divide-gray-200">
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan="11" className="text-center">No hay compras</td>
+                  <td colSpan="10" className="px-6 py-4 text-center border border-gray-300">No hay compras</td>
                 </tr>
               ) : (
                 filteredData.map((shopping) => (
-                  <tr key={shopping.id}>
-                    <td className="text-center px-4 py-2 truncate">
-                      <ul>
+                  <tr key={shopping.id} className="hover:bg-gray-100">
+                    <td className="px-6 py-4 text-center border border-gray-300">
+                      <ul className="list-disc pl-4">
                         {shopping.products.map((product) => (
                           <li key={product.id}>{product.name}</li>
                         ))}
                       </ul>
                     </td>
-                    <td className="text-center px-4 py-2 truncate">{shopping.user.profile.name}</td>
-                    <td className="text-center px-4 py-2 truncate">{shopping.account_type.name}</td>
-                    <td className="text-center px-4 py-2 truncate">
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">
                       {role === "admin" || role === "Developer" ? (
                         isEditing && editingId === shopping.id ? (
                           <div className="flex items-center space-x-2">
-                            <select value={newStatusId} onChange={handleStatusChange} className="border rounded p-1">
+                            <select value={newStatusId} onChange={handleStatusChange} className="border border-gray-300 rounded p-1">
                               <option value="">Selecciona un estado</option>
                               {statusOptions.map((status) => (
                                 <option key={status.id} value={status.id}>
@@ -748,7 +754,7 @@ const FiltersComponent = () => {
                                 </option>
                               ))}
                             </select>
-                            <button className="bg-blue-500 text-white p-2 rounded" onClick={handleSaveClick}>
+                            <button className="bg-green-500 text-white p-2 rounded" onClick={handleSaveClick}>
                               Confirmar
                             </button>
                           </div>
@@ -757,7 +763,7 @@ const FiltersComponent = () => {
                             <span>{shopping.status.name}</span>
                             <FontAwesomeIcon
                               icon={faEdit}
-                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
                               onClick={() => handleEditClick(shopping.id)}
                             />
                           </div>
@@ -766,25 +772,20 @@ const FiltersComponent = () => {
                         <span>{shopping.status.name}</span>
                       )}
                     </td>
-                    <td className="text-center px-4 py-2 truncate">{new Date(shopping.request_date).toLocaleDateString()}</td>
-                    <td className="text-center px-4 py-2 truncate">{new Date(shopping.date_approval).toLocaleDateString()}</td>
-                    <td className="text-center px-4 py-2 truncate">{shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}</td>
-                    <td className="text-center px-4 py-2 truncate">{shopping.total != null ? formatCurrency(shopping.total) : "N/A"}</td>
-                    <td className="text-center px-4 py-2 truncate">
+                    <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.subtotal ? formatCurrency(shopping.subtotal) : "N/A"}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.total ? formatCurrency(shopping.total) : "N/A"}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">
                       {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
-                          <a
-                            href={shopping.facturacion}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-red-500 hover:text-red-700 cursor-pointer"
-                          >
+                          <a href={shopping.facturacion} target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700">
                             <FontAwesomeIcon icon={faFilePdf} />
                           </a>
                           {(role === "admin" || role === "Compras" || role === "Developer") && (
                             <FontAwesomeIcon
                               icon={faEdit}
-                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
                               onClick={() => handleOpenInvoiceModal(shopping.id)}
                             />
                           )}
@@ -793,13 +794,13 @@ const FiltersComponent = () => {
                         (role === "admin" || role === "Compras" || role === "Developer") && (
                           <FontAwesomeIcon
                             icon={faFileUpload}
-                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            className="text-green-500 hover:text-green-700 cursor-pointer"
                             onClick={() => handleOpenInvoiceModal(shopping.id)}
                           />
                         )
                       )}
                     </td>
-                    <td className="text-center px-4 py-2 truncate">
+                    <td className="px-6 py-4 text-center border border-gray-300">
                       <div className="flex items-center space-x-2">
                         <FontAwesomeIcon
                           icon={faEye}
@@ -809,7 +810,7 @@ const FiltersComponent = () => {
                         {(role === "admin" || role === "Developer") && (
                           <FontAwesomeIcon
                             icon={faCommentDots}
-                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            className="text-green-500 hover:text-green-700 cursor-pointer"
                             onClick={() => handleOpenMessageModal(shopping.id)}
                           />
                         )}
@@ -821,8 +822,8 @@ const FiltersComponent = () => {
                               onClick={() => handleOpenEditModal(shopping.id)}
                             />
                             <FontAwesomeIcon
-                              icon={faDeleteLeft}
-                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              icon={faTrash}
+                              className="text-red-500 hover:text-red-700 cursor-pointer"
                               onClick={() => openDeleteModal(shopping.id)}
                             />
                           </>
@@ -836,6 +837,11 @@ const FiltersComponent = () => {
           </table>
         </div>
       </div>
+
+
+
+
+
 
 
 
