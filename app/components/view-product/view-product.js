@@ -704,17 +704,17 @@ const FiltersComponent = () => {
       </div>
       <div className="table-container">
         <div className="table-wrapper overflow-x-auto w-full">
-          <table className="shopping-table table-auto w-full sm:w-auto">
+          <table className="shopping-table table-auto w-full">
             <thead>
               <tr>
-                <th className="px-4 py-2 min-w-[300px] text-center">ITEM</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">LÍDER DE ÁREA</th>
-                <th className="px-4 py-2 min-w-[150px] text-center">TIPO DE CUENTA</th>
-                <th className="px-4 py-2 min-w-[100px] text-center">ESTADO</th>
-                <th className="px-4 py-2 min-w-[100px] text-center">FECHA PETICIÓN</th>
+                <th className="px-4 py-2 min-w-[200px] text-center">ITEM</th>
+                <th className="px-4 py-2 min-w-[200px] text-center">LÍDER DE ÁREA</th>
+                <th className="px-4 py-2 min-w-[180px] text-center">TIPO DE CUENTA</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">ESTADO</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">FECHA PETICIÓN</th>
                 <th className="px-4 py-2 min-w-[150px] text-center">FECHA APROBADO</th>
-                <th className="px-4 py-2 min-w-[100px] text-center">SUBTOTAL</th>
-                <th className="px-4 py-2 min-w-[100px] text-center">TOTAL</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">SUBTOTAL</th>
+                <th className="px-4 py-2 min-w-[150px] text-center">TOTAL</th>
                 <th className="px-4 py-2 min-w-[150px] text-center">Factura</th>
                 <th className="px-4 py-2 min-w-[150px] text-center">Acciones</th>
               </tr>
@@ -727,20 +727,20 @@ const FiltersComponent = () => {
               ) : (
                 filteredData.map((shopping) => (
                   <tr key={shopping.id}>
-                    <td className="text-center">
+                    <td className="text-center px-4 py-2 truncate">
                       <ul>
                         {shopping.products.map((product) => (
                           <li key={product.id}>{product.name}</li>
                         ))}
                       </ul>
                     </td>
-                    <td className="text-center">{shopping.user.profile.name}</td>
-                    <td className="text-center">{shopping.account_type.name}</td>
-                    <td className="text-center">
-                      {(role === "admin" || role === "Developer") ? (
+                    <td className="text-center px-4 py-2 truncate">{shopping.user.profile.name}</td>
+                    <td className="text-center px-4 py-2 truncate">{shopping.account_type.name}</td>
+                    <td className="text-center px-4 py-2 truncate">
+                      {role === "admin" || role === "Developer" ? (
                         isEditing && editingId === shopping.id ? (
                           <div className="flex items-center space-x-2">
-                            <select value={newStatusId} onChange={handleStatusChange}>
+                            <select value={newStatusId} onChange={handleStatusChange} className="border rounded p-1">
                               <option value="">Selecciona un estado</option>
                               {statusOptions.map((status) => (
                                 <option key={status.id} value={status.id}>
@@ -766,11 +766,11 @@ const FiltersComponent = () => {
                         <span>{shopping.status.name}</span>
                       )}
                     </td>
-                    <td className="text-center">{new Date(shopping.request_date).toLocaleDateString()}</td>
-                    <td className="text-center">{new Date(shopping.date_approval).toLocaleDateString()}</td>
-                    <td className="text-center">{shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}</td>
-                    <td className="text-center">{shopping.total != null ? formatCurrency(shopping.total) : "N/A"}</td>
-                    <td className="text-center">
+                    <td className="text-center px-4 py-2 truncate">{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td className="text-center px-4 py-2 truncate">{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                    <td className="text-center px-4 py-2 truncate">{shopping.subtotal != null ? formatCurrency(shopping.subtotal) : "N/A"}</td>
+                    <td className="text-center px-4 py-2 truncate">{shopping.total != null ? formatCurrency(shopping.total) : "N/A"}</td>
+                    <td className="text-center px-4 py-2 truncate">
                       {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
                           <a
@@ -799,37 +799,34 @@ const FiltersComponent = () => {
                         )
                       )}
                     </td>
-                    <td className="text-center">
+                    <td className="text-center px-4 py-2 truncate">
                       <div className="flex items-center space-x-2">
                         <FontAwesomeIcon
                           icon={faEye}
                           className="text-gray-500 hover:text-gray-700 cursor-pointer"
                           onClick={() => handleViewDetailsClick(shopping.id)}
                         />
-                        <>
-                          {(role === "admin" || role === "Developer") && (
+                        {(role === "admin" || role === "Developer") && (
+                          <FontAwesomeIcon
+                            icon={faCommentDots}
+                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            onClick={() => handleOpenMessageModal(shopping.id)}
+                          />
+                        )}
+                        {(role === "admin" || role === "Developer" || role === "Compras") && (
+                          <>
                             <FontAwesomeIcon
-                              icon={faCommentDots}
-                              className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                              onClick={() => handleOpenMessageModal(shopping.id)}
+                              icon={faEdit}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => handleOpenEditModal(shopping.id)}
                             />
-                          )}
-
-                          {(role === "admin" || role === "Developer" || role === "Compras") && (
-                            <>
-                              <FontAwesomeIcon
-                                icon={faEdit}
-                                className="text-green-500 hover:text-green-700 cursor-pointer"
-                                onClick={() => handleOpenEditModal(shopping.id)}
-                              />
-                              <FontAwesomeIcon
-                                icon={faDeleteLeft}
-                                className="text-green-500 hover:text-green-700 cursor-pointer"
-                                onClick={() => openDeleteModal(shopping.id)}
-                              />
-                            </>
-                          )}
-                        </>
+                            <FontAwesomeIcon
+                              icon={faDeleteLeft}
+                              className="text-green-500 hover:text-green-700 cursor-pointer"
+                              onClick={() => openDeleteModal(shopping.id)}
+                            />
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -839,6 +836,8 @@ const FiltersComponent = () => {
           </table>
         </div>
       </div>
+
+
 
 
 
