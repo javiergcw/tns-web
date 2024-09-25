@@ -338,7 +338,9 @@ const FiltersComponent = () => {
   const handleDownloadExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       filteredData.map((shopping) => ({
-        "ITEM": shopping.products.map((product) => product.name).join(", "),
+        // "ITEM": shopping.products.map((product) => product.name).join(", "),
+        "TITULO": shopping.title,
+        "DESCRIPCIÓN": shopping.description,
         "LÍDER DE ÁREA": shopping.user.profile.name,
         "TIPO DE CUENTA": shopping.account_type.name,
         "ESTADO": shopping.status.name,
@@ -713,7 +715,8 @@ const FiltersComponent = () => {
           <table className="min-w-full table-auto text-base text-left text-black border border-gray-300">
             <thead className="text-base text-white uppercase bg-blue-500">
               <tr>
-                <th className="px-6 py-3 text-center border border-gray-300">ITEM</th>
+                <th className="px-6 py-3 text-center border border-gray-300">TITULO</th>
+                <th className="px-6 py-3 text-center border border-gray-300">DESCRIPCIÓN</th>
                 <th className="px-6 py-3 text-center border border-gray-300">LÍDER DE ÁREA</th>
                 <th className="px-6 py-3 text-center border border-gray-300">TIPO DE CUENTA</th>
                 <th className="px-6 py-3 text-center border border-gray-300">ESTADO</th>
@@ -733,13 +736,15 @@ const FiltersComponent = () => {
               ) : (
                 filteredData.map((shopping) => (
                   <tr key={shopping.id} className="hover:bg-gray-100">
-                    <td className="px-6 py-4 text-center border border-gray-300">
+                    {/* <td className="px-6 py-4 text-center border border-gray-300">
                       <ul className="list-disc pl-4">
                         {shopping.products.map((product) => (
                           <li key={product.id}>{product.name}</li>
                         ))}
                       </ul>
-                    </td>
+                    </td> */}
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">
