@@ -26,22 +26,25 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   });
 
   const approvedCount = filteredResults.filter(
-    (item) => item.status.id === 2
+    (item) => item.status.id === 5
   ).length;
   const pendingCount = filteredResults.filter(
-    (item) => item.status.id === 1
+    (item) => item.status.id === 3
   ).length;
   const deniedCount = filteredResults.filter(
-    (item) => item.status.id === 3
+    (item) => item.status.id === 34
+  ).length;
+  const inProcessCount = filteredResults.filter(
+    (item) => item.status.id === 2 // Asumiendo que el ID para "En proceso" es 2
   ).length;
 
   const chartData = {
-    labels: ["Aprobadas", "Pendientes", "Denegadas"],
+    labels: ["Aprobadas", "Pendientes","En proceso", "Denegadas" ],
     datasets: [
       {
-        data: [approvedCount, pendingCount, deniedCount],
-        backgroundColor: ["#4fff52", "#36A2EB", "#ff4f4f"],
-        hoverBackgroundColor: ["#4fff52", "#36A2EB", "#ff4f4f"],
+        data: [approvedCount, pendingCount,inProcessCount, deniedCount ],
+        backgroundColor: ["#4fff52", "#36A2EB", "#ffc107","#ff4f4f" ],
+        hoverBackgroundColor: ["#4fff52", "#36A2EB", "#ffc107","#ff4f4f" ],
       },
     ],
   };
