@@ -39,7 +39,7 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   ).length;
 
   const chartData = {
-    labels: ["Aprobadas", "Pendientes","En proceso", "Denegadas" ],
+    labels: ["Aprobadas", "En espera","En proceso", "Denegadas" ],
     datasets: [
       {
         data: [approvedCount, pendingCount,inProcessCount, deniedCount ],
