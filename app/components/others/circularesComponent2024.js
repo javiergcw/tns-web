@@ -38,6 +38,11 @@ const data = [
     name: "Circular N9 Distribución de los estudiantes del grado kinder ",
     link: "https://drive.google.com/file/d/1A1W1ndx3eC9LcaodComGbcUqMo0i2QoM/view",
   },
+  {
+    name: "Circular N10 Expedición pedagógica Eje Cafetero bilingüe",
+    link: "https://drive.google.com/file/d/1yuSzs-Izmo93uAa-e97tDUo7avi-ntK2/view",
+  },
+  
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
   // { name: 'Circular N3 Servicio social', link: 'https://drive.google.com/file/d/1S0xqXbWqfyk5ySVANx3CBtgmTqlsyYmH/view?usp=sharing' },
