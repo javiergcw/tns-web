@@ -39,11 +39,11 @@ const data = [
     link: "https://drive.google.com/file/d/1A1W1ndx3eC9LcaodComGbcUqMo0i2QoM/view",
   },
   {
-    name: "Circular N10 Expedición pedagógica Eje Cafetero bilingüe",
+    name: "Circular N10 Expedición pedagógica Eje Cafetero bilingüe grado tercero",
     link: "https://drive.google.com/file/d/1yuSzs-Izmo93uAa-e97tDUo7avi-ntK2/view",
   },
   {
-    name: "Circular N11 Expedición pedagógica aventura",
+    name: "Circular N11 Expedición pedagógica aventura grado sexto",
     link: "https://drive.google.com/file/d/1Qu061EwO8idtczYKIYJgb4gXtaO18k_W/view",
   },
   
