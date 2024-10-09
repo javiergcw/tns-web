@@ -2,6 +2,100 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
   {
+    date: "October  09,2024",
+    imageUrl: ImagesPath.blog25,
+    title: "CosmoLab Un espacio de innovacion y aprendizaje en The New School",
+    body: `
+          
+        <p>En The New School, siempre hemos apostado por ofrecer experiencias educativas únicas que vayan más allá de lo tradicional. Con ese enfoque, surgió <em>CosmoLab</em>, un espacio donde el aprendizaje se entrelaza con la vida cotidiana, permitiendo a los estudiantes explorar diversas áreas del conocimiento a través de experiencias prácticas y significativas que integren el saber con saber hacer y el saber ser.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab1.png">
+            <img src="/images/blogs_body/cosmolab1.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>¿Qué es CosmoLab?</strong></h2>
+    <p>CosmoLab es mucho más que una cocina; es un ambiente de aprendizaje que nació del sueño del colegio de crear espacios donde se pueda vivir el aprendizaje significativo basado en nuestro modelo pedagógico de formación en consciencia.</p>
+    <p>Ubicado en el corazón del colegio, CosmoLab, es un espacio que permite que nuestros estudiantes exploren desde múltiples perspectivas, integrando materias como matemáticas, ciencias sociales, biología, economía y otras, en torno a un tema común.</p>
+    <p>Por ejemplo, una clase sobre pizza puede comenzar con conceptos matemáticos como el área y el diámetro, pero luego expandirse hacia la biología al aprender sobre la masa madre y cómo está compuesta de microorganismos vivos. Desde el área de sociales, los estudiantes investigan los orígenes culturales de la pizza, y en economía, exploran el impacto global de su producción. Todo esto, acompañado por un enfoque bilingüe, donde el inglés se integra naturalmente en las explicaciones, desarrollando así la competencia lingüística de nuestros estudiantes.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab3.png">
+            <img src="/images/blogs_body/cosmolab3.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>Ciclos temáticos: de la semilla a la mesa</strong></h2>
+    <p>Uno de los aspectos más emocionantes de CosmoLab es su enfoque en ciclos temáticos. Cada ciclo se centra en un ingrediente específico, que se explora desde diferentes ángulos y asignaturas. El año pasado, por ejemplo, los estudiantes trabajaron con ingredientes como el huevo, el banano y el cacao. A través de experimentos y actividades culinarias, aprendieron sobre las propiedades biológicas y químicas de estos alimentos, su historia y su impacto económico y sociocultural.</p>
+    <p>Este año, hemos comenzado con el maíz, un ingrediente fundamental en muchas culturas. Y para hacerlo aún más especial, hemos iniciado un pequeño cultivo en el colegio para que los estudiantes puedan observar el proceso de crecimiento, cosecha y uso del maíz en sus diferentes formas.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab2.png">
+            <img src="/images/blogs_body/cosmolab2.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>Aprender haciendo y siendo: formación para la vida</strong></h2>
+    <p>Además del saber conocer, CosmoLab también trabaja en el desarrollo de competencias del <em>saber hacer</em> y el <em>saber ser</em>, elementos claves dentro de la <em>formación en consciencia</em> que promovemos en The New School. Los estudiantes aprenden no solo sobre técnicas culinarias, sino también sobre la importancia de la higiene, el orden y la responsabilidad al preparar alimentos. Cada detalle cuenta, desde usar correctamente el delantal hasta manejar los utensilios de cocina con seguridad.</p>
+    <p>Este espacio también fomenta la creatividad, la autonomía y el espíritu colaborativo. Los estudiantes no solo siguen indicaciones para cocinar, sino que aprenden a adaptar lo que han aprendido en casa y a colaborar con sus compañeros. CosmoLab se convierte, entonces, en una herramienta para el desarrollo de habilidades que trascienden las aulas, un lugar donde se fomenta el respeto, la responsabilidad y el trabajo en equipo, brindando herramientas que serán útiles no solo en su vida académica, sino también en su vida cotidiana.</p>
+
+    <h2><strong>CosmoLab: un laboratorio para todos</strong></h2>
+    <p>CosmoLab no es exclusivo para los estudiantes de The New School. Este año, también abrió sus puertas para actividades extracurriculares y talleres dirigidos a padres y profesores. Además, hemos comenzado a ofrecer el espacio en alquiler para aquellas personas de nuestra comunidad o externos, que busquen un lugar único donde se combinen creatividad y aprendizaje.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab4.png">
+            <img src="/images/blogs_body/cosmolab4.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+    </br>
+    <h1>CosmoLab: A Space for Innovation and Learning at The New School</h1>
+    <br>
+        <p>At The New School, we are committed to offering unique educational experiences beyond traditional methods. With this in mind, CosmoLab was born as a space where learning intertwines with everyday life. It allows our students to explore various areas of knowledge through practical, meaningful experiences that integrate knowing with doing and being.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab1.png">
+            <img src="/images/blogs_body/cosmolab1.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>What is CosmoLab?</strong></h2>
+    <p>CosmoLab is much more than a kitchen; it's a learning environment that stems from our school's vision of creating spaces where profound learning can flourish. It is based on our pedagogical model of consciousness-based education, which aims to enlighten and empower our students.</p>
+    <p>Located in the heart of the school, CosmoLab allows our students to explore from multiple perspectives, integrating subjects like mathematics, social sciences, biology, economics, and others around a common theme.</p>
+    <p>For example, a lesson on pizza might begin with mathematical concepts like area and diameter but then expand into biology as students learn about sourdough, made of living microorganisms. From a social studies perspective, students can explore the cultural origins of pizza, and in economics, they study the global impact of its production. </p>
+    <p>This is complemented by a bilingual approach, where English is naturally integrated into the lessons, enhancing our students' language skills.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab3.png">
+            <img src="/images/blogs_body/cosmolab3.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>Thematic Cycles: From Seed to Table</strong></h2>
+    <p>One of CosmoLab's most exciting aspects is its focus on thematic cycles. Each cycle revolves around a specific ingredient, explored from different angles and subjects. Last year, for example, students worked with ingredients like eggs, bananas, and cacao. They learned about these foods' biological and chemical properties, history, and economic and sociocultural impact through experiments and culinary activities.</p>
+    <p>This year, we've started with corn, a fundamental ingredient in many cultures. To make it even more special, we have started a small crop in our school so that students can observe the process of growing, harvesting, and using corn in its different forms.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab2.png">
+            <img src="/images/blogs_body/cosmolab2.png" alt="tnsmun" width="400">
+        </a>
+    </div>
+
+    <h2><strong>Learning by Doing and Being: Formation for Life</strong></h2>
+    <p>Beyond knowledge, CosmoLab also focuses on developing the skills of doing and being, critical elements of the consciousness-based education we promote at The New School. Students learn culinary techniques and the importance of hygiene, order, and responsibility when preparing food. Every detail matters, from properly wearing an apron to safely handling kitchen utensils.</p>
+    <p>This space also fosters creativity, autonomy, and collaboration. Students don't just follow cooking instructions; they learn to adapt what they've learned at home and work with their peers. CosmoLab, therefore, becomes a tool for developing skills that transcend the classroom. It is a place where respect, responsibility, and teamwork are cultivated, providing tools that will be useful not only in school but also in their everyday lives.</p>
+
+    <h2><strong>CosmoLab: A Lab for Everyone</strong></h2>
+    <p>CosmoLab is not exclusive to TNS students. This year, it has also opened its doors for after-class activities and workshops for parents and teachers. Additionally, we've started offering the space for rent to community members or external individuals seeking a unique place where creativity and learning come together.</p>
+    <br>
+    <div align="center">
+        <a href="/images/blogs_body/cosmolab4.png">
+            <img src="/images/blogs_body/cosmolab4.png" alt="tnsmun" width="400">
+        </a>
+    </div>`,
+    banner: true,
+  },
+  {
     date: "August  23,2024",
     imageUrl: ImagesPath.blog24,
     title: "In The New School we learn for life",
