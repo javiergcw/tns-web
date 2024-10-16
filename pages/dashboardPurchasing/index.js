@@ -2,29 +2,18 @@
 import "/app/globals.css";
 import RequestsCarousel from "@/app/components/dashboard/listLastRequest/requestsCarousel";
 import Container from "@/app/components/dashboard/container/container";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
 import { getAllShoppings } from "@/app/services/shoppingService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
-import PrivateRoute from "@/app/components/privateRoute"; // Importa el HOC PrivateRoute
-
-/**
- * dashboardPurchasing Page
- *
- * Esta página es el área de trabajo general del are de compras.
- * Aquí se muestra un dashboard con un drawer navegable, un carrusel de peticiones recientes,
- * un componente de gastos mensuales y una tabla de seguimiento de peticiones.
- *
- * @page
- */
+import PrivateRoute from "@/app/components/privateRoute";
 
 /*
  * NOMBRE: fetchData
  * DESCRIPCIÓN: Función para obtener todas las compras.
- * @return: arreglo con todas las compras
  */
 const fetchData = async () => {
   try {
@@ -38,98 +27,94 @@ const fetchData = async () => {
 
 /*
  * NOMBRE: getApprovedExpenses
- * DESCRIPCIÓN: Función para obtener el valor total de las compras aprobadas en el mes y un array con estas compras aprobadas.
- * @param data: es la lista de las compras que devuelve el endpoint.
- * @return: 1) valor total de las compras aprobadas. 2) Array modificado.
+ * DESCRIPCIÓN: Filtrar las compras aprobadas del mes.
  */
 const getApprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
-  const ApprovedExpenses = data.filter(
+  const currentMonth = new Date().getMonth() + 1;
+  const approved = data.filter(
     (item) =>
-      item.status &&
-      item.status.id === 2 &&
+      item.status?.id === 2 &&
       new Date(item.updated_at).getMonth() + 1 === currentMonth
   );
 
-  const total = ApprovedExpenses.reduce((accumulator, item) => {
-    const productTotal = item.products.reduce(
-      (sum, product) => sum + product.price,
-      0
+  const total = approved.reduce((acc, item) => {
+    return (
+      acc +
+      item.products.reduce((sum, product) => sum + product.price, 0)
     );
-    return accumulator + productTotal;
   }, 0);
-  const flattenedExpenses = ApprovedExpenses.flatMap((item) =>
+
+  const flattenedExpenses = approved.flatMap((item) =>
     item.products.map((product) => ({
       price: product.price,
       name: product.description,
     }))
   );
+
   return { ApprovedExpenses: flattenedExpenses, total };
 };
 
 /*
  * NOMBRE: getUnapprovedExpenses
- * DESCRIPCIÓN: Función para obtener las compras no aprobadas del mes hasta el momento.
- * @param data: es la lista de las compras que devuelve el endpoint.
- * @return: Array con las compras no aprobadas del mes.
+ * DESCRIPCIÓN: Filtrar las compras no aprobadas del mes.
  */
 const getUnapprovedExpenses = (data) => {
-  const currentMonth = new Date().getMonth() + 1; // Mes actual (de 0 a 11)
-  const pendingExpenses = data.filter(
+  const currentMonth = new Date().getMonth() + 1;
+  return data.filter(
     (item) =>
-      item.status &&
-      item.status.id === 1 &&
+      item.status?.id === 1 &&
       new Date(item.updated_at).getMonth() + 1 === currentMonth
   );
-  return pendingExpenses;
 };
 
 const DashboardPurchasing = () => {
   const [totalExpenses, setTotalExpenses] = useState(0);
-  const [data, setData] = useState([]);
-  const [expensesData, setExpensesData] = useState([]);
-  const [unapprovedExpenses, setUnapprovedExpenses] = useState([]);
+  const [allData, setAllData] = useState([]); // Todas las compras
+  const [approvedExpensesData, setApprovedExpensesData] = useState([]); // Compras aprobadas del mes
+  const [unapprovedExpenses, setUnapprovedExpenses] = useState([]); // Compras no aprobadas del mes
 
-  // Obtener los datos de gastos cuando el componente se monta
   useEffect(() => {
     const fetchAndProcessData = async () => {
       const fetchedData = await fetchData();
-      setData(fetchedData);
+      console.log("Todas las compras:", fetchedData); // Verificar todas las compras
+
+      setAllData(fetchedData); // Guardar todas las compras
+
       const { ApprovedExpenses, total } = getApprovedExpenses(fetchedData);
-      setExpensesData(ApprovedExpenses);
-      setTotalExpenses(total);
+      setApprovedExpensesData(ApprovedExpenses); // Guardar solo las aprobadas del mes
+      setTotalExpenses(total); // Total de aprobadas
 
       const unapproved = getUnapprovedExpenses(fetchedData);
-      setUnapprovedExpenses(unapproved);
+      setUnapprovedExpenses(unapproved); // Guardar las no aprobadas del mes
     };
 
     fetchAndProcessData();
   }, []);
 
+  const memoizedAllData = useCallback(() => allData, [allData]); // Memoriza todas las compras
+
   return (
-    // Contenedor principal con flex para el layout
     <div className="min-h-screen h-2 justify-center bg-gray-100 overflow-y-auto">
-      {/* Drawer que se puede alternar */}
       <MainLayout>
-        {/* Contenedor principal que ajusta su margen según el estado del drawer */}
         <Container>
           <hr className="my-5" />
-          {/* Carrusel de peticiones del mes sin revisar */}
+          {/* Carrusel con las compras no aprobadas del mes */}
           <RequestsCarousel requestsData={unapprovedExpenses} />
           <hr className="my-5" />
-          {/* Componente de gastos mensuales */}
           <Text texto="ESTADISTICAS" color="blue-secondary" type="header" />
           <div className="flex flex-row space-x-4 pt-8 w-full">
-            <CircularDiagram className="w-1/2" type={"month"} data={data} />
+            {/* CircularDiagram muestra todas las compras */}
+            <CircularDiagram className="w-1/2" type={"month"} data={allData} />
+            {/* MonthlyExpenses muestra solo las aprobadas del mes */}
             <MonthlyExpenses
               className="w-1/2"
               total={totalExpenses}
-              data={expensesData}
+              data={approvedExpensesData}
             />
           </div>
           <hr className="my-5" />
-          {/* Tabla de seguimiento de peticiones */}
-          <TrackingTable data={data} />
+          {/* La tabla recibe todas las compras */}
+          <TrackingTable data={memoizedAllData()} />
         </Container>
       </MainLayout>
     </div>

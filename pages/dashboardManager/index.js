@@ -4,7 +4,7 @@ import Container from "@/app/components/dashboard/container/container";
 import TrackingTable from "@/app/components/dashboard/trackingTable/trackingTable";
 import MonthlyExpenses from "@/app/components/dashboard/monthlyExpenses/monthlyExpenses";
 import CircularDiagram from "@/app/components/others/graph/circularDiagram";
-import { getLatestStatisticalRequestsOfTheMonth, getUserByLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
+import { getLatestStatisticalRequestsOfTheMonth, getUserByLatestStatisticalRequestsOfTheMonth,getAllShoppings } from "@/app/services/shoppingService";
 import { getProfileById } from "@/app/services/profileService";
 import Text from "@/app/components/others/text/text";
 import MainLayout from "@/app/components/layout/drawerLayout";
@@ -109,6 +109,8 @@ const DashboardManager = () => {
 
         const unapproved = getUnapprovedExpenses(approvedShoppingData);
         setUnapprovedExpenses(unapproved);
+        const trackingData = await getAllShoppings();
+        setAllShoppingData(trackingData);
       } catch (error) {
         console.error("Error fetching user profile or data:", error);
       }
@@ -251,7 +253,8 @@ const DashboardManager = () => {
               </div>
             </div>
             <hr className="my-5" />
-            <TrackingTable data={data} role={userRole} />
+            <TrackingTable data={allShoppingData} role={userRole} />
+
 
           </Container>
         </MainLayout>
@@ -273,7 +276,7 @@ const DashboardManager = () => {
                   Estadísticas Anuales
                 </h3>
                 {allShoppingData.length > 0 ? (
-                  <CircularDiagram type={"year"} data={allShoppingData} />
+                  <CircularDiagram type={"year"} data={data} />
                 ) : (
                   <p className="text-gray-500 text-center">No hay compras disponibles</p>
                 )}
@@ -287,8 +290,8 @@ const DashboardManager = () => {
               </div>
             </div>
             <hr className="my-5" />
-            
-            <TrackingTable data={data} role={userRole} />
+
+            <TrackingTable data={allShoppingData} role={userRole} />
 
           </Container>
         </MainLayout>
@@ -298,13 +301,13 @@ const DashboardManager = () => {
   else {
     return (
 
-      
+
       <MainLayout>
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <h2 className="text-2xl font-bold text-red-600">
-          Rol de usuario no reconocido.
-        </h2>
-      </div>
+          <h2 className="text-2xl font-bold text-red-600">
+            Rol de usuario no reconocido.
+          </h2>
+        </div>
       </MainLayout>
     );
   }
