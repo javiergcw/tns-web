@@ -46,6 +46,14 @@ const data = [
     name: "Circular N11 Expedición pedagógica aventura grado sexto",
     link: "https://drive.google.com/file/d/1Qu061EwO8idtczYKIYJgb4gXtaO18k_W/view",
   },
+  {
+    name: "Circular N12 Expedición pedagógica historia de Colombia grado quinto",
+    link: "https://drive.google.com/file/d/1QvqxeGL7cnaalg74x2Kmodnm1Z_nyg__/view",
+  },
+  {
+    name: "Circular N13 Novedades e información importante del mes de Octubre",
+    link: "https://drive.google.com/file/d/1LYWjlf3CUE_Pevvl-rdu_9rNZewklSpH/view",
+  },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
