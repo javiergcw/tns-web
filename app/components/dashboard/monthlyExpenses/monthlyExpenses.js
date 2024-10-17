@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Text from "@/app/components/others/text/text";
-import { getLatestStatisticalRequestsOfTheMonth } from "@/app/services/shoppingService";
+import { getLatestStatisticalRequestsOfTheMonth,getAllShoppings } from "@/app/services/shoppingService";
 
 /**
  * MonthlyExpenses Component
@@ -16,7 +16,7 @@ const MonthlyExpenses = () => {
   useEffect(() => {
     const fetchMonthlyExpenses = async () => {
       try {
-        const response = await getLatestStatisticalRequestsOfTheMonth();
+        const response = await getAllShoppings();
 
         if (Array.isArray(response)) {
           const mappedData = response.map(shopping => ({
@@ -43,7 +43,7 @@ const MonthlyExpenses = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg  h-full w-full sm:w-full">
-      <Text texto="GASTOS DEL MES" color="blue-secondary" type="title" />
+      <Text texto="GASTOS ANUALES" color="blue-secondary" type="title" />
       <Text
         texto={
           total.toLocaleString("es-CO", {
@@ -55,7 +55,7 @@ const MonthlyExpenses = () => {
         type="title"
         className="text-2xl font-bold mb-4"
       />
-      <ul className="mt-4 overflow-y-auto max-h-48">
+      <ul className="mt-4 overflow-y-auto max-h-80">
         {data.map((item, index) => (
           <li
             key={index}

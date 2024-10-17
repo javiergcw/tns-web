@@ -42,7 +42,7 @@ const lastRequest = ({ children, cardTitle, buttonText, area, leader, descriptio
         className="text-left mb-1 font-bold"
       />
       <Text
-        texto="description:"
+        texto="descripción:"
         color="blue-secondary"
         type="normal"
         className="text-left mt-1 font-bold"

@@ -276,7 +276,7 @@ const DashboardManager = () => {
                   Estadísticas Anuales
                 </h3>
                 {allShoppingData.length > 0 ? (
-                  <CircularDiagram type={"year"} data={data} />
+                  <CircularDiagram type={"year"} data={allShoppingData} />
                 ) : (
                   <p className="text-gray-500 text-center">No hay compras disponibles</p>
                 )}
