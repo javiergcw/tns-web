@@ -62,3 +62,25 @@ export const createAdmission = async (admissionData) => {
       throw error;
     }
   };
+  // services/admissionService.js
+
+export const deleteAdmission = async (id) => {
+  try {
+    const response = await fetch(ENDPOINTS.deleteAdmision(id), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Error: ${errorData.message}`);
+    }
+
+    return { message: 'Admisión eliminada correctamente' };
+  } catch (error) {
+    console.error('Error al eliminar la admisión:', error);
+    throw error;
+  }
+};

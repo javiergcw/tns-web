@@ -25,8 +25,8 @@ export default function Admissions() {
       <HeaderInitial />
       
       {/* Usamos el AdmissionStepper con la función de creación */}
-      {/* <AdmissionStepper onSubmit={handleCreateAdmission} /> */}
-      <FormInscription />
+      <AdmissionStepper onSubmit={handleCreateAdmission} />
+      {/* <FormInscription /> */}
       <FooterTwo />
       <Footer />
     </Provider>

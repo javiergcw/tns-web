@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { BlueButton, RedButton } from "@/app/utils/Buttons"; // Asumo que este es tu componente de botón
 import { getAllAdmissions } from "@/app/services/admissionService"; // Servicio para obtener todas las admisiones
-import { updateAdmission } from "@/app/services/admissionService"; // Tu servicio de actualización
+import { updateAdmission } from "@/app/services/admissionService";
+import { deleteAdmission } from "@/app/services/admissionService"; // Tu servicio de actualización
+ // Tu servicio de actualización
 import AdmissionModel from "@/app/models/admission/admissionModel";
 import Table from "../others/table/table";
 import ConfirmationModal from "../modals/modalConfirmation";
@@ -26,10 +28,10 @@ const AdmissionsTable = () => {
             setLoading(true);
             const data = await getAllAdmissions();
             setAdmissions(data);
-            setLoading(false);
         } catch (error) {
             console.error("Error al obtener las admisiones:", error);
             setError("Error al obtener las admisiones");
+        } finally {
             setLoading(false);
         }
     };
@@ -50,10 +52,26 @@ const AdmissionsTable = () => {
         }
     };
 
+    const handleDeleteAdmission = async () => {
+        try {
+            await deleteAdmission(selectedAdmission.id); // Llamamos al servicio de eliminación
+            setIsDeleteModalOpen(false);
+            fetchAdmissions(); // Recargamos las admisiones después de eliminar
+        } catch (error) {
+            console.error("Error al eliminar la admisión:", error);
+            alert("Hubo un error al eliminar la admisión");
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const fieldValue = type === "checkbox" ? checked : value;
         setSelectedAdmission((prev) => ({ ...prev, [name]: fieldValue }));
+    };
+
+    const openDeleteModal = (admission) => {
+        setSelectedAdmission(admission);
+        setIsDeleteModalOpen(true);
     };
 
     const columns = [
@@ -87,7 +105,7 @@ const AdmissionsTable = () => {
             />
             <RedButton
                 text="Eliminar"
-                onClick={() => setIsDeleteModalOpen(true)}
+                onClick={() => openDeleteModal(admission)} // Abrimos el modal de confirmación
                 className="px-2 py-1"
             />
         </>,
@@ -118,6 +136,7 @@ const AdmissionsTable = () => {
                 onRequestClose={() => setIsDeleteModalOpen(false)}
                 title="Confirmar Eliminación"
                 message={`¿Está seguro que desea eliminar la admisión de "${selectedAdmission?.student_name}"?`}
+                onConfirm={handleDeleteAdmission} // Llamamos a la función para eliminar
             />
         </div>
     );

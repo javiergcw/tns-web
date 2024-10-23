@@ -23,6 +23,8 @@ const ENDPOINTS = {
 createAdmission:`${API_BASE_URL}/admissions`,
 getAdmission:`${API_BASE_URL}/admissions`,
 updateAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
+deleteAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
+
 
   //Areas
   getAllAreas: `${API_BASE_URL}/areas`,
