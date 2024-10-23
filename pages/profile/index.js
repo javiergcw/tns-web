@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import MainLayout from "@/app/components/layout/drawerLayout"; // Asegúrate de que la ruta sea correcta
+import DrawerLayout from "@/app/components/layout/drawerLayout";
 import ProfileForm from "@/app/components/others/container/profileForm";
 import CategoryTable from "@/app/components/profile/categoryTable";
 import ProfileTable from "@/app/components/profile/profileTable";
 import StatusTable from "@/app/components/profile/statusTable";
-import RoleTable from "@/app/components/profile/roleTable"; // Importa StatusTable
+import RoleTable from "@/app/components/profile/roleTable";
 import { getProfileById } from "@/app/services/profileService";
 import PrivateRoute from "@/app/components/privateRoute";
 import "/app/globals.css";
 import BugTable from "@/app/components/profile/bugTable";
-import DrawerLayout from "@/app/components/layout/drawerLayout";
 import AreaTable from "@/app/components/profile/areaTable";
 import AccountTypeTable from "@/app/components/profile/accounTypeTable";
+import AdmissionsTable from "@/app/components/admisiones/admissionTable";
 
 const Profile = ({ role }) => {
   return (
@@ -19,9 +19,15 @@ const Profile = ({ role }) => {
       <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 my-8 mx-4 md:mx-8 lg:mx-12 max-w-full">
         <ProfileForm />
       </div>
+
+      {(role === "Secretariado") && (
+        <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+          <AdmissionsTable />
+        </div>
+      )}
+
       {(role === "admin" || role === "Compras" || role === "Developer") && (
         <>
-          {/* Si el rol es "admin" o "Developer", muestra todas las tablas adicionales */}
           {(role === "admin" || role === "Developer") && (
             <>
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
@@ -36,24 +42,20 @@ const Profile = ({ role }) => {
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <RoleTable />
               </div>
+              <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+                <AdmissionsTable />
+              </div>
+              <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+                <AccountTypeTable />
+              </div>
             </>
           )}
 
-          {/* Estas tablas son visibles para admin, Developer y Compras */}
           <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
             <AreaTable />
           </div>
-          <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
-            <AccountTypeTable />
-          </div>
-          {/* <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
-            <CategoryTable />
-          </div> */}
         </>
       )}
-
-
-
     </div>
   );
 };
@@ -88,5 +90,4 @@ const ProfilePage = () => {
   );
 };
 
-// Envuelve ProfilePage con PrivateRoute para proteger la ruta
 export default PrivateRoute(ProfilePage);

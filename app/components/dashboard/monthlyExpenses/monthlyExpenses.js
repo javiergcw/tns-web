@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Text from "@/app/components/others/text/text";
-import { getLatestStatisticalRequestsOfTheMonth,getAllShoppings } from "@/app/services/shoppingService";
+import { getLatestStatisticalRequestsOfTheMonth, getAllShoppings } from "@/app/services/shoppingService";
 
 /**
  * MonthlyExpenses Component
@@ -18,21 +18,27 @@ const MonthlyExpenses = () => {
       try {
         const response = await getAllShoppings();
 
+        let mappedData = [];
+
         if (Array.isArray(response)) {
-          const mappedData = response.map(shopping => ({
+          mappedData = response.map(shopping => ({
             title: shopping.title,
-            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
+            requestDate: shopping.request_date,
+            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0),
           }));
-          setData(mappedData);
-          setTotal(mappedData.reduce((acc, item) => acc + item.totalPrice, 0));
         } else {
-          const mappedData = response.recent_shoppings.map(shopping => ({
+          mappedData = response.recent_shoppings.map(shopping => ({
             title: shopping.title,
-            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0)
+            requestDate: shopping.request_date,
+            totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0),
           })) || [];
-          setData(mappedData);
-          setTotal(response.monthly_expenses || mappedData.reduce((acc, item) => acc + item.totalPrice, 0));
         }
+
+        // Ordenar las compras por la fecha de petición más reciente
+        mappedData.sort((a, b) => new Date(b.requestDate) - new Date(a.requestDate));
+
+        setData(mappedData);
+        setTotal(mappedData.reduce((acc, item) => acc + item.totalPrice, 0));
       } catch (error) {
         console.error("Error al cargar los gastos mensuales:", error);
       }
@@ -45,12 +51,10 @@ const MonthlyExpenses = () => {
     <div className="bg-white p-4 rounded-lg  h-full w-full sm:w-full">
       <Text texto="GASTOS ANUALES" color="blue-secondary" type="title" />
       <Text
-        texto={
-          total.toLocaleString("es-CO", {
-            style: "currency",
-            currency: "COP",
-          })
-        }
+        texto={total.toLocaleString("es-CO", {
+          style: "currency",
+          currency: "COP",
+        })}
         color="green"
         type="title"
         className="text-2xl font-bold mb-4"
@@ -67,7 +71,7 @@ const MonthlyExpenses = () => {
                 currency: "COP",
               })}
             </span>
-            <span className="mx-2">|</span> {/* Divisor vertical */}
+            <span className="mx-2">|</span>
             <span>{item.title || "Sin título"}</span>
           </li>
         ))}

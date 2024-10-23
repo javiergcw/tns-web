@@ -35,10 +35,16 @@ const ShoppingTable = ({ userId }) => {
   const fetchShoppings = async () => {
     try {
       const fetchedShoppings = await getShoppingsByUserId(localStorage.getItem("userId"));
-      setShoppings(fetchedShoppings);
-      setFilteredShoppings(fetchedShoppings);
 
-      const statuses = [...new Set(fetchedShoppings.map((shopping) => shopping.status.name))];
+      // Ordenar por fecha de petición más reciente
+      const sortedShoppings = fetchedShoppings.sort(
+        (a, b) => new Date(b.request_date) - new Date(a.request_date)
+      );
+
+      setShoppings(sortedShoppings);
+      setFilteredShoppings(sortedShoppings);
+
+      const statuses = [...new Set(sortedShoppings.map((shopping) => shopping.status.name))];
       setStatusOptions(statuses);
     } catch (error) {
       setError(error.message);
@@ -293,15 +299,15 @@ const ShoppingTable = ({ userId }) => {
     "Acciones",
   ];
 
-// Función para formatear como moneda colombiana
-function formatCurrency(value) {
-  return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
-}
+  // Función para formatear como moneda colombiana
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+  }
 
-const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
-  ? filteredShoppings.map((shopping) => {
+  const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredShoppings.length > 0)
+    ? filteredShoppings.map((shopping) => {
       const totalPrice = shopping.products.reduce((total, product) => total + product.price, 0);
-      
+
       // Asegurarse de que subtotal y total sean números válidos, incluyendo 0
       const subtotal = shopping.subtotal != null ? shopping.subtotal : "N/A";
       const total = shopping.total != null ? shopping.total : "N/A";
@@ -374,7 +380,7 @@ const rows = (filteredShoppings && Array.isArray(filteredShoppings) && filteredS
         </div>,
       ];
     })
-  : [];
+    : [];
 
 
 

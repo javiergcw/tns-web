@@ -412,7 +412,7 @@ const CreateShoppingForm = () => {
         className="bg-white p-4 rounded-lg shadow-lg max-w-md mx-auto mt-16"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
-        <h2 className="text-xl font-semibold mb-4">¿Crear compra sin productos?</h2>
+        <h2 className="text-xl font-semibold mb-4 text-black">¿Crear compra sin productos?</h2>
         <p className="mb-4">No has añadido ningún producto. ¿Estás seguro de que deseas continuar?</p>
         <div className="flex justify-end space-x-4">
           <button

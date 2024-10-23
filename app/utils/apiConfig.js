@@ -19,6 +19,10 @@ const ENDPOINTS = {
   getAllProfiles: `${API_BASE_URL}/profiles`,
   updateProfile: (id) => `${API_BASE_URL}/profiles/${id}`,
   deleteCategory: `${API_BASE_URL}/categories/delete`,
+//Admission
+createAdmission:`${API_BASE_URL}/admissions`,
+getAdmission:`${API_BASE_URL}/admissions`,
+updateAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
 
   //Areas
   getAllAreas: `${API_BASE_URL}/areas`,

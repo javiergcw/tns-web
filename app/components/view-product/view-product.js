@@ -158,7 +158,12 @@ const FiltersComponent = () => {
         const statuses = await getStatuses();
         setStatusOptions(statuses);
 
-        const updatedData = fetchedData.map((shopping) => {
+        // Ordenar por fecha de petición más reciente
+        const sortedData = fetchedData.sort(
+          (a, b) => new Date(b.request_date) - new Date(a.request_date)
+        );
+
+        const updatedData = sortedData.map((shopping) => {
           const invoice = localStorage.getItem(`invoice_${shopping.id}`);
           return { ...shopping, invoice_url: invoice || shopping.facturacion };
         });
@@ -180,6 +185,7 @@ const FiltersComponent = () => {
 
     fetchAndProcessData();
   }, []);
+
 
   useEffect(() => {
     const filterData = () => {

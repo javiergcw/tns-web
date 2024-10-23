@@ -6,7 +6,7 @@ import { faEye, faEdit, faUpload, faTrash, faFilePdf } from "@fortawesome/free-s
 import CustomComponent from "../../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
-import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService"; 
+import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService";
 
 const TrackingTable = ({ data, role }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +23,7 @@ const TrackingTable = ({ data, role }) => {
   const fetchShoppings = async () => {
     try {
       const response = await getAllShoppings();
-      return response; 
+      return response;
     } catch (error) {
       console.error("Error al obtener las compras:", error);
       return [];
@@ -64,11 +64,11 @@ const TrackingTable = ({ data, role }) => {
     };
 
     try {
-      const newMessage = await createMessage(messageData); 
-      setMessages((prevMessages) => [...prevMessages, newMessage]); 
+      const newMessage = await createMessage(messageData);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       alert("Mensaje añadido correctamente.");
       setIsMessageModalOpen(false);
-      setNewMessageBody(""); 
+      setNewMessageBody("");
     } catch (error) {
       console.error("Error al añadir el mensaje:", error);
       alert("Hubo un error al añadir el mensaje.");
@@ -102,7 +102,7 @@ const TrackingTable = ({ data, role }) => {
       const updatedShopping = {
         shopping: {
           ...shopping,
-          facturacion: invoiceUrl, 
+          facturacion: invoiceUrl,
         },
         products: shopping.products.map((product) => ({
           id: product.id,
@@ -127,9 +127,9 @@ const TrackingTable = ({ data, role }) => {
 
       if (updateResponse.ok) {
         alert("Factura actualizada correctamente.");
-        setIsInvoiceModalOpen(false); 
-        setSelectedShoppingForInvoice(null); 
-        const updatedShoppings = await fetchShoppings(); 
+        setIsInvoiceModalOpen(false);
+        setSelectedShoppingForInvoice(null);
+        const updatedShoppings = await fetchShoppings();
       } else {
         alert("Hubo un error al actualizar la factura.");
       }
@@ -169,74 +169,69 @@ const TrackingTable = ({ data, role }) => {
   function formatCurrency(value) {
     return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
   }
-  
+
   const rows = Array.isArray(data)
-    ? data.map((item) => {
-        // const totalPrice = item.products.reduce((total, product) => total + product.price, 0);
-        const subtotal = item.subtotal; // Subtotal del backend
-        const total = item.total; // Total del backend
+    ? data
+      .slice() // Crear una copia del array original
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Ordenar por fecha más reciente
+      .map((item) => {
+        const subtotal = item.subtotal;
+        const total = item.total;
         const billingExists = item.facturacion;
-  
+
         return [
           item.id,
           item.user && item.user.profile ? item.user.profile.name : "N/A",
           item.account_type.name,
-
           item.products.map((product) => product.name).join(", "),
-          // item.category ? item.category.name : "N/A",
-          // Formatear precios usando formatCurrency
-          // formatCurrency(totalPrice),
           subtotal != null ? formatCurrency(subtotal) : "N/A",
           total != null ? formatCurrency(total) : "N/A",
-
-        <div className="flex items-center space-x-2">
-          {billingExists ? (
-            <>
-              <a
-                href={billingExists}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
-              </a>
-
-              {(role === "admin" || role === "Compras"  || role ==="Developer") && (
+          <div className="flex items-center space-x-2">
+            {billingExists ? (
+              <>
+                <a
+                  href={billingExists}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
+                </a>
+                {(role === "admin" || role === "Compras" || role === "Developer") && (
+                  <button
+                    className="text-blue-500 hover:text-blue-700"
+                    onClick={() => handleOpenInvoiceModal(item.id)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                )}
+              </>
+            ) : (
+              (role === "admin" || role === "Compras" || role === "Developer") && (
                 <button
                   className="text-blue-500 hover:text-blue-700"
                   onClick={() => handleOpenInvoiceModal(item.id)}
                 >
-                  <FontAwesomeIcon icon={faEdit} />
+                  <FontAwesomeIcon icon={faUpload} />
                 </button>
-              )}
-            </>
-          ) : (
-            (role === "admin" || role === "Compras" || role==="Developer") && (
-              <button
-                className="text-blue-500 hover:text-blue-700"
-                onClick={() => handleOpenInvoiceModal(item.id)}
-              >
-                <FontAwesomeIcon icon={faUpload} />
-              </button>
-            )
-          )}
-        </div>,
-
-        item.status ? item.status.name : "N/A",
-        item.created_at ? new Date(item.created_at).toLocaleDateString() : "N/A",
-        item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
-        item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
-
-        <div key={item.id} className="flex space-x-2">
-          <FontAwesomeIcon
-            icon={faEye}
-            className="text-gray-500 hover:text-gray-700 cursor-pointer"
-            onClick={() => handleViewDetailsClick(item)}
-          />
-        </div>,
-      ];
-    })
+              )
+            )}
+          </div>,
+          item.status ? item.status.name : "N/A",
+          item.created_at ? new Date(item.created_at).toLocaleDateString() : "N/A",
+          item.pending_date ? new Date(item.pending_date).toLocaleDateString() : "N/A",
+          item.date_approval ? new Date(item.date_approval).toLocaleDateString() : "N/A",
+          <div key={item.id} className="flex space-x-2">
+            <FontAwesomeIcon
+              icon={faEye}
+              className="text-gray-500 hover:text-gray-700 cursor-pointer"
+              onClick={() => handleViewDetailsClick(item)}
+            />
+          </div>,
+        ];
+      })
     : [];
+
 
   return (
     <>
@@ -263,7 +258,7 @@ const TrackingTable = ({ data, role }) => {
             <CustomComponent shoppingId={selectedShoppingId} />
 
             <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-            {(role === "admin" || "Lider de presupuesto" || role==="Developer") && (
+            {(role === "admin" || "Lider de presupuesto" || role === "Developer") && (
               <button
                 className="bg-blue-500 text-white p-2 rounded mb-4"
                 onClick={() => handleOpenMessageModal(selectedShoppingId)}
@@ -275,7 +270,7 @@ const TrackingTable = ({ data, role }) => {
               {messages.slice().reverse().map((message) => (
                 <div key={message.id} className="relative flex-shrink-0 w-auto">
                   <MessageCard message={message} />
-                  {(role === "admin"||role === "Developer") && (
+                  {(role === "admin" || role === "Developer") && (
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"

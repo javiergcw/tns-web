@@ -23,7 +23,44 @@
   }
 }
 
+/* styles/globals.css */
+/* styles/globals.css */
+.input {
+  @apply border p-2 w-full rounded;
+}
+
+.btn {
+  @apply px-4 py-2 rounded font-bold text-white;
+}
+
+.btn-primary {
+  @apply bg-blue-500 hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 hover:bg-gray-700;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
 @keyframes bounce {
+
   0%,
   100% {
     transform: scale(1);
@@ -57,9 +94,35 @@
   border-radius: 8px;
   outline: none;
 }
+
 .input-class:focus {
   outline: none;
   border: 2px solid blue;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.edit-modal {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  /* Ancho del modal aumentado */
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Añadir reset */
@@ -72,7 +135,8 @@
 }
 
 .bg-blue-700 {
-  background-color: #2b6cb0; /* Un color azul oscuro para resaltar el item seleccionado */
+  background-color: #2b6cb0;
+  /* Un color azul oscuro para resaltar el item seleccionado */
 }
 
 
@@ -90,6 +154,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -98,9 +163,12 @@
 text-white {
   color: white;
 }
+
 .icon-spacing {
-  margin-right: 8px; /* Ajusta el valor según sea necesario */
+  margin-right: 8px;
+  /* Ajusta el valor según sea necesario */
 }
+
 /* En tu archivo CSS global */
 img.rounded-full {
   border-radius: 80%;
@@ -196,8 +264,10 @@ body,
 .overflow-hidden {
   overflow: hidden;
 }
+
 .table-container {
-  max-height: calc(100vh - 200px); /* Ajusta el valor según sea necesario */
+  max-height: calc(100vh - 200px);
+  /* Ajusta el valor según sea necesario */
   overflow-y: auto;
 }
 
@@ -247,23 +317,28 @@ input[type="number"] {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .fade-enter {
   opacity: 0;
   transform: scale(0.9);
 }
+
 .fade-enter-active {
   opacity: 1;
   transform: scale(1);
   transition: opacity 300ms, transform 300ms;
 }
+
 .fade-exit {
   opacity: 1;
   transform: scale(1);
 }
+
 .fade-exit-active {
   opacity: 0;
   transform: scale(0.9);
@@ -288,15 +363,18 @@ nav {
   opacity: 0;
   transform: scale(0.95);
 }
+
 .fade-enter-active {
   opacity: 1;
   transform: scale(1);
   transition: opacity 500ms, transform 500ms;
 }
+
 .fade-exit {
   opacity: 1;
   transform: scale(1);
 }
+
 .fade-exit-active {
   opacity: 0;
   transform: scale(0.95);
