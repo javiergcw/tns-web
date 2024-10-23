@@ -20,11 +20,11 @@ const Profile = ({ role }) => {
         <ProfileForm />
       </div>
 
-      {(role === "Secretariado") && (
+      {/* {(role === "Secretariado") && (
         <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
           <AdmissionsTable />
         </div>
-      )}
+      )} */}
 
       {(role === "admin" || role === "Compras" || role === "Developer") && (
         <>
@@ -42,9 +42,9 @@ const Profile = ({ role }) => {
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <RoleTable />
               </div>
-              <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+              {/* <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <AdmissionsTable />
-              </div>
+              </div> */}
               <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
                 <AccountTypeTable />
               </div>
