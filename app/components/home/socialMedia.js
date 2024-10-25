@@ -7,7 +7,7 @@ const SocialMedia = () => {
     <div className="w-full flex justify-center flex-wrap gap-4 p-4">
       <div className="flex justify-center items-center m-2 w-full sm:w-1/2 md:w-1/3">
         <script src="https://static.elfsight.com/platform/platform.js" async></script>
-        <div class="elfsight-app-5458d3e0-e41e-4958-aa7c-f4f5f2932a0b" data-elfsight-app-lazy></div>
+        <div class="elfsight-app-bee47276-7966-48f1-8cd5-19ebf8bfb089" data-elfsight-app-lazy></div>
       </div>
       <div className="flex justify-center items-center m-2  w-full sm:w-1/2 md:w-1/3">
         <iframe
