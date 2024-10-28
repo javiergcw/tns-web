@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
-import Modal from "./components/modal"; // Importa el componente del modal
+import Modal from "./components/home/modalPDF"; // Importa el componente del modal
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
@@ -14,7 +14,10 @@ import { ImagesPath } from "./utils/assetsPath";
 import MainLayout from "./components/layout/mainLayout";
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(true); // Establece el estado inicial del modal en true
+  const [showModal, setShowModal] = useState(true); // Modal visible al inicio
+
+  const pdfUrl = "/pdf/brouchure.pdf"; // Sin 'public' en la ruta
+ // Ruta del PDF que deseas mostrar
 
   useEffect(() => {
     setShowModal(true); // Muestra el modal al montar el componente
@@ -47,14 +50,10 @@ export default function Home() {
     },
   ];
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
   return (
     <Provider store={store}>
       <MainLayout>
-        {/*  {showModal && <Modal setShowModal={setShowModal} />} */}
+        {showModal && <Modal setShowModal={setShowModal} pdfUrl={pdfUrl} />}
         <BannerCarousel imagePaths={imagePaths} />
         <ServicesHome images={servicesList} />
         <BlogsSection blogs={blogList} />
