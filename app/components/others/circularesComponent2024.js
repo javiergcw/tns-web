@@ -54,6 +54,10 @@ const data = [
     name: "Circular N13 Novedades e información importante del mes de Octubre",
     link: "https://drive.google.com/file/d/1LYWjlf3CUE_Pevvl-rdu_9rNZewklSpH/view",
   },
+  {
+    name: "Extensión Académica 2024",
+    link: "https://drive.google.com/file/d/1uFHKdFQzZMCf-FHYQ7YFxur6RjEVagi-/view",
+  },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
