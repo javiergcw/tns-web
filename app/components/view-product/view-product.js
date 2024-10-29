@@ -279,11 +279,11 @@ const FiltersComponent = () => {
     setAreaManager("");
     setStatusFilter("");
     setFilteredData(data);
-    if (itemNameRef.current) itemNameRef.current.blur();
-    if (startDateRef.current) startDateRef.current.blur();
-    if (endDateRef.current) itemNameRef.current.blur();
-    if (areaManagerRef.current) itemNameRef.current.blur();
-    if (statusFilterRef.current) itemNameRef.current.blur();
+    if (itemNameRef.current) itemNameRef.current;
+    if (startDateRef.current) startDateRef.current;
+    if (endDateRef.current) itemNameRef.current;
+    if (areaManagerRef.current) itemNameRef.current;
+    if (statusFilterRef.current) itemNameRef.current;
   };
   const handleOpenEditModal = async (shoppingId) => {
     try {
@@ -1171,6 +1171,25 @@ const FiltersComponent = () => {
                   />
                 </div>
               </div>
+
+              {/* Espacio adicional antes del Checkbox Innovated */}
+              <div className="mt-6 mb-4">
+                <label className="flex items-center space-x-4">
+                  <span className="text-black font-medium">¿Es innovador?</span>
+                  <input
+                    type="checkbox"
+                    checked={selectedShoppingData.innovated || false}
+                    onChange={(e) =>
+                      setSelectedShoppingData({ ...selectedShoppingData, innovated: e.target.checked })
+                    }
+                    className="form-checkbox h-5 w-5 text-blue-600"
+                  />
+                  <span className="ml-2 text-black font-medium">Innovado</span>
+                </label>
+              </div>
+
+
+
 
               {/* Productos */}
               <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
