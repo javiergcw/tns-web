@@ -58,6 +58,14 @@ const data = [
     name: "Extensión Académica 2024",
     link: "https://drive.google.com/file/d/1uFHKdFQzZMCf-FHYQ7YFxur6RjEVagi-/view",
   },
+  {
+    name: "Circular N14 Expedición Pedagógica Oriente Antioqueño grado segundo",
+    link: "https://drive.google.com/file/d/11MjrLuU63ucbSaoPNOGf5VyC03RO13yw/view",
+  },
+  {
+    name: "Circular N15 Expedición Pedagógica Jardín grado cuarto ",
+    link: "https://drive.google.com/file/d/1d1B2L29tubDa6ggggtyTQDn4SfXoku-X/view",
+  },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
