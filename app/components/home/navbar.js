@@ -180,7 +180,7 @@ const Navbar = () => {
               {/* Repetición de separadores y enlaces para el resto de elementos del menú */}
               <div style={dividerStyle} className="mx-2"></div>
               <a
-                href="https://drive.google.com/file/d/1_tEJSiabpas5d2LPahVxCsvxTGXkbgMv/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1gRs1SqN6hQvT22It53ivlkPZXFkgwwYW/view"
                 className="text-blueButton py-1"
                 target="_blank"
               >

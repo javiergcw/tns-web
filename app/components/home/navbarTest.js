@@ -152,7 +152,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="https://drive.google.com/file/d/1_tEJSiabpas5d2LPahVxCsvxTGXkbgMv/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1gRs1SqN6hQvT22It53ivlkPZXFkgwwYW/view"
                 className="block py-2 px-3 text-blueButton rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
                 SCHEDULE

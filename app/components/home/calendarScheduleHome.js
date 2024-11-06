@@ -61,7 +61,7 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See schedule"
           imgSrc="/images/others/schedule.png"
           imgAlt="Schedule"
-          url="https://drive.google.com/file/d/1_tEJSiabpas5d2LPahVxCsvxTGXkbgMv/view?usp=drive_link"
+          url="https://drive.google.com/file/d/1gRs1SqN6hQvT22It53ivlkPZXFkgwwYW/view"
         />
       </div>
       <div className="w-px bg-gray-300 mx-6 my-4 md:my-0 self-stretch"></div>
