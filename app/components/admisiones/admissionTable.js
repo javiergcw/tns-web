@@ -6,10 +6,15 @@ import { updateAdmission } from "@/app/services/admissionService";
 import { deleteAdmission } from "@/app/services/admissionService"; // Tu servicio de actualización
 // Tu servicio de actualización
 import AdmissionModel from "@/app/models/admission/admissionModel";
+import ViewAdmissionModal from "./detailModal";
 import Table from "../others/table/table";
 import ConfirmationModal from "../modals/modalConfirmation";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
 import EditAdmissionModal from "./ediAdmissionModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+// Nuevo estado para el modal de visualización
+
 
 const AdmissionsTable = () => {
     const [admissions, setAdmissions] = useState([]);
@@ -18,11 +23,14 @@ const AdmissionsTable = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedAdmission, setSelectedAdmission] = useState(new AdmissionModel());
-
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     useEffect(() => {
         fetchAdmissions();
     }, []);
-
+    const openViewModal = (admission) => {
+        setSelectedAdmission(admission);
+        setIsViewModalOpen(true);
+    };
     const fetchAdmissions = async () => {
         try {
             setLoading(true);
@@ -108,6 +116,12 @@ const AdmissionsTable = () => {
                 onClick={() => openDeleteModal(admission)}
                 className="px-2 py-1"
             />
+            <button
+                onClick={() => openViewModal(admission)}
+                className="text-blue-500 hover:text-blue-700 flex items-center"
+            >
+                <FontAwesomeIcon icon={faEye} className="h-5 w-5 mr-1" /> {/* Icono de ojo de FontAwesome */}
+            </button>
         </div>
 
     ]);
@@ -120,10 +134,12 @@ const AdmissionsTable = () => {
                 <p className="text-gray-500 text-lg mt-4">No hay datos disponibles</p>
             )}
             {!loading && admissions.length > 0 && (
-                <Table columns={columns} data={rows} />
+                <div className="flex-grow overflow-y-auto">
+                    <Table columns={columns} data={rows} />
+                </div>
             )}
             {error && <p className="text-red-500 text-lg mt-4">{error}</p>}
-
+    
             <EditAdmissionModal
                 isOpen={isEditModalOpen}
                 onRequestClose={() => setIsEditModalOpen(false)}
@@ -131,16 +147,22 @@ const AdmissionsTable = () => {
                 onChange={handleChange}
                 onSave={handleEditAdmission}
             />
-
+    
             <ConfirmationModal
                 isOpen={isDeleteModalOpen}
                 onRequestClose={() => setIsDeleteModalOpen(false)}
                 title="Confirmar Eliminación"
                 message={`¿Está seguro que desea eliminar la admisión de "${selectedAdmission?.student_name}"?`}
-                onConfirm={handleDeleteAdmission} // Llamamos a la función para eliminar
+                onConfirm={handleDeleteAdmission}
+            />
+            <ViewAdmissionModal
+                isOpen={isViewModalOpen}
+                onRequestClose={() => setIsViewModalOpen(false)}
+                admission={selectedAdmission}
             />
         </div>
     );
+    
 };
 
 export default AdmissionsTable;

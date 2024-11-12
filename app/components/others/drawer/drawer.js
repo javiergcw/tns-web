@@ -10,6 +10,9 @@ import {
   MdAddBox,
   MdSettings,
   MdShoppingCart,
+  MdRealEstateAgent,
+  MdOutlineManageAccounts,
+  MdAssignmentInd,
 } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
@@ -119,6 +122,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       name: "Create Product",
       icon: <MdAddBox style={{ color: greenDrawer }} />,
     },
+    {
+      link: "/admissions-view",
+      name: "Admisiones",
+      icon: <MdAssignmentInd style={{ color: greenDrawer }} />,
+    },
     // {
     //   link: "/settings",
     //   name: "Settings",
@@ -140,19 +148,20 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       );
       break;
     case "Secretariado":
-      accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
+      accessibleMenuItems = allMenuItems.filter(item =>
+        ["/admissions-view", "/profile"].includes(item.link))
       break;
     case "Compras":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/create-product","/view-product", "/dashboardManager", "/profile"].includes(item.link)
+        ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
-      case "Developer":
-        accessibleMenuItems = allMenuItems;
-        break;
+    case "Developer":
+      accessibleMenuItems = allMenuItems;
+      break;
     case "Sin rol":
       accessibleMenuItems = allMenuItems.filter(item =>
-        [ "/dashboardManager", "/profile"].includes(item.link)
+        ["/dashboardManager", "/profile"].includes(item.link)
       );
       break;
     default: // Sin rol

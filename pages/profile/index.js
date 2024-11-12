@@ -21,9 +21,10 @@ const Profile = ({ role }) => {
       </div>
 
       {(role === "Secretariado") && (
-        <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12">
+        <div className="bg-white rounded-lg shadow-lg pt-8 pb-6 mb-8 mx-4 md:mx-8 lg:mx-12"> {/* Ajuste de altura y padding */}
           <AdmissionsTable />
         </div>
+
       )}
 
       {(role === "admin" || role === "Compras" || role === "Developer") && (
