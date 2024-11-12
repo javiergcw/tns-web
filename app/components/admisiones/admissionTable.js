@@ -35,7 +35,9 @@ const AdmissionsTable = () => {
         try {
             setLoading(true);
             const data = await getAllAdmissions();
-            setAdmissions(data);
+            // Ordenamos las admisiones por la fecha de creación (created_at)
+            const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            setAdmissions(sortedData);
         } catch (error) {
             console.error("Error al obtener las admisiones:", error);
             setError("Error al obtener las admisiones");
@@ -43,6 +45,7 @@ const AdmissionsTable = () => {
             setLoading(false);
         }
     };
+
 
     const openEditModal = (admission) => {
         setSelectedAdmission(admission);
@@ -139,7 +142,7 @@ const AdmissionsTable = () => {
                 </div>
             )}
             {error && <p className="text-red-500 text-lg mt-4">{error}</p>}
-    
+
             <EditAdmissionModal
                 isOpen={isEditModalOpen}
                 onRequestClose={() => setIsEditModalOpen(false)}
@@ -147,7 +150,7 @@ const AdmissionsTable = () => {
                 onChange={handleChange}
                 onSave={handleEditAdmission}
             />
-    
+
             <ConfirmationModal
                 isOpen={isDeleteModalOpen}
                 onRequestClose={() => setIsDeleteModalOpen(false)}
@@ -162,7 +165,7 @@ const AdmissionsTable = () => {
             />
         </div>
     );
-    
+
 };
 
 export default AdmissionsTable;
