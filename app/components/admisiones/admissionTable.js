@@ -4,7 +4,7 @@ import { BlueButton, RedButton } from "@/app/utils/Buttons"; // Asumo que este e
 import { getAllAdmissions } from "@/app/services/admissionService"; // Servicio para obtener todas las admisiones
 import { updateAdmission } from "@/app/services/admissionService";
 import { deleteAdmission } from "@/app/services/admissionService"; // Tu servicio de actualización
- // Tu servicio de actualización
+// Tu servicio de actualización
 import AdmissionModel from "@/app/models/admission/admissionModel";
 import Table from "../others/table/table";
 import ConfirmationModal from "../modals/modalConfirmation";
@@ -97,18 +97,19 @@ const AdmissionsTable = () => {
         admission.english_level,
         admission.therapy_support ? "Sí" : "No",
         admission.therapy_type || "N/A",
-        <>
+        <div className="flex flex-col space-y-2">
             <BlueButton
                 text="Editar"
                 onClick={() => openEditModal(admission)}
-                className="px-2 py-1 mr-2"
+                className="px-2 py-1"
             />
             <RedButton
                 text="Eliminar"
-                onClick={() => openDeleteModal(admission)} // Abrimos el modal de confirmación
+                onClick={() => openDeleteModal(admission)}
                 className="px-2 py-1"
             />
-        </>,
+        </div>
+
     ]);
 
     return (

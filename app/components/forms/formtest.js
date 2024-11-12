@@ -4,7 +4,8 @@ import Stepper from '../admisiones/steeper';
 import AdmissionModel from '@/app/models/admission/admissionModel';
 import { createAdmission } from '@/app/services/admissionService';
 
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const steps = ['Datos del Estudiante', 'Confirmación'];
 
@@ -103,7 +104,6 @@ const AdmissionForm = () => {
     };
 
 
-
     const handleSubmit = async () => {
         console.log(formData); // Verifica el estado actual del formulario
 
@@ -139,7 +139,7 @@ const AdmissionForm = () => {
                                 name="student_name"
                                 value={formData.student_name}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -151,7 +151,7 @@ const AdmissionForm = () => {
                                 name="student_age"
                                 value={formData.student_age}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -163,7 +163,7 @@ const AdmissionForm = () => {
                                 name="birth_date"
                                 value={formData.birth_date}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -175,7 +175,7 @@ const AdmissionForm = () => {
                                 name="living_with"
                                 value={formData.living_with}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -187,7 +187,7 @@ const AdmissionForm = () => {
                                 name="aspired_grade"
                                 value={formData.aspired_grade}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -199,7 +199,7 @@ const AdmissionForm = () => {
                                 name="previous_school"
                                 value={formData.previous_school}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -249,7 +249,7 @@ const AdmissionForm = () => {
                                 name="city_country"
                                 value={formData.city_country}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -336,7 +336,7 @@ const AdmissionForm = () => {
                                         name="therapy_type"
                                         value={formData.therapy_type}
                                         onChange={handleChange}
-                                        className="input"
+                                        className="input text-black"
                                     />
                                 </div>
                             )}
@@ -374,7 +374,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Facebook'}
                                     />
-                                    <span>Facebook</span>
+                                    <span className="text-black">Facebook</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -384,7 +384,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Otra persona'}
                                     />
-                                    <span>Otra persona</span>
+                                    <span className="text-black">Otra persona</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -394,7 +394,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Junta directiva'}
                                     />
-                                    <span>Junta directiva</span>
+                                    <span className="text-black">Junta directiva</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -404,7 +404,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Empleado TNS'}
                                     />
-                                    <span>Empleado TNS</span>
+                                    <span className="text-black">Empleado TNS</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -414,7 +414,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Medios de comunicación'}
                                     />
-                                    <span>Medios de comunicación</span>
+                                    <span className="text-black">Medios de comunicación</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -424,7 +424,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Vía las palmas'}
                                     />
-                                    <span>Vía las palmas</span>
+                                    <span className="text-black">Vía las palmas</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -434,7 +434,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Otra institución educativa'}
                                     />
-                                    <span>Otra institución educativa</span>
+                                    <span className="text-black">Otra institución educativa</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -444,7 +444,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'TNS graduados'}
                                     />
-                                    <span>TNS graduados</span>
+                                    <span className="text-black">TNS graduados</span>
                                 </label>
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -454,7 +454,7 @@ const AdmissionForm = () => {
                                         onChange={handleChange}
                                         checked={formData.referral_source === 'Familia TNS'}
                                     />
-                                    <span>Familia TNS</span>
+                                    <span className="text-black">Familia TNS</span>
                                 </label>
                             </div>
                         </div>
@@ -474,7 +474,7 @@ const AdmissionForm = () => {
                                 name="mother_name"
                                 value={formData.mother_name}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -505,20 +505,23 @@ const AdmissionForm = () => {
                                 name="mother_id_number"
                                 value={formData.mother_id_number}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
                             <label className="block text-lg font-semibold text-black">
                                 Celular Mamá <span className="text-red-500">*</span>
                             </label>
-                            <input
-                                type="text"
-                                name="mother_phone"
+                            <PhoneInput
+                                country={'co'}  // Establece el país inicial
                                 value={formData.mother_phone}
-                                onChange={handleChange}
-                                className="input"
+                                onChange={(value) => setFormData({ ...formData, mother_phone: value })}
+                                inputClass="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" // Ajustes para el campo de entrada
+                                containerClass="w-full"  // Asegura que el contenedor ocupe el 100% del ancho disponible
+                                buttonClass="bg-gray-100 border-r border-gray-300 rounded-l-lg" // Estilo para el botón del indicativo
+                                dropdownClass="text-black bg-white" // Estilo para el menú desplegable
                             />
+
                         </div>
                         <div>
                             <label className="block text-lg font-semibold text-black">
@@ -529,7 +532,7 @@ const AdmissionForm = () => {
                                 name="mother_email"
                                 value={formData.mother_email}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -560,7 +563,7 @@ const AdmissionForm = () => {
                                 name="mother_occupation"
                                 value={formData.mother_occupation}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -572,7 +575,7 @@ const AdmissionForm = () => {
                                 name="father_name"
                                 value={formData.father_name}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -603,20 +606,23 @@ const AdmissionForm = () => {
                                 name="father_id_number"
                                 value={formData.father_id_number}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
                             <label className="block text-lg font-semibold text-black">
                                 Celular Papá <span className="text-red-500">*</span>
                             </label>
-                            <input
-                                type="text"
-                                name="father_phone"
+                            <PhoneInput
+                                country={'co'}  // País inicial
                                 value={formData.father_phone}
-                                onChange={handleChange}
-                                className="input"
+                                onChange={(value) => setFormData({ ...formData, father_phone: value })}
+                                inputClass="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" // Ajustes del campo de entrada
+                                containerClass="w-full"  // Asegura que el contenedor ocupe todo el ancho disponible
+                                buttonClass="bg-gray-100 border-r border-gray-300 rounded-l-lg" // Estilo para el botón del código de país
+                                dropdownClass="text-black bg-white" // Estilos del menú desplegable
                             />
+
                         </div>
                         <div>
                             <label className="block text-lg font-semibold text-black">
@@ -627,7 +633,7 @@ const AdmissionForm = () => {
                                 name="father_email"
                                 value={formData.father_email}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         <div>
@@ -658,7 +664,7 @@ const AdmissionForm = () => {
                                 name="father_occupation"
                                 value={formData.father_occupation}
                                 onChange={handleChange}
-                                className="input"
+                                className="input text-black"
                             />
                         </div>
                         {/* <div className="flex items-center space-x-8">
@@ -712,25 +718,26 @@ const AdmissionForm = () => {
     };
 
     return (
-        // Contenedor del formulario con padding superior e inferior
         <div className="container max-w-3xl mx-auto p-8 mb-10 bg-white shadow-lg rounded-lg">
+            <h1 className="text-2xl font-bold text-center text-black mb-6">Formulario de Admisión</h1>
 
-            <h1 className="text-2xl font-bold text-center mb-6">Formulario de Admisión</h1>
-
-            <Stepper steps={steps} currentStep={currentStep} />
+            {/* Asegúrate de que el componente Stepper esté configurado para que los números sean de color negro */}
+            <Stepper steps={steps} currentStep={currentStep} numberClassName="text-black" />
 
             <div className="py-8">
                 {renderStepContent()}
             </div>
 
             <div className="flex justify-between mt-8">
-                <button
-                    onClick={handleBack}
-                    disabled={currentStep === 0}
-                    className="btn btn-secondary"
-                >
-                    Atrás
-                </button>
+                {/* Ocultar botón de "Atrás" cuando currentStep sea igual a 0 */}
+                {currentStep > 0 && (
+                    <button
+                        onClick={handleBack}
+                        className="btn btn-secondary"
+                    >
+                        Atrás
+                    </button>
+                )}
                 {currentStep === steps.length - 1 ? (
                     <button onClick={handleSubmit} className="btn btn-primary">
                         Enviar
@@ -742,8 +749,8 @@ const AdmissionForm = () => {
                 )}
             </div>
         </div>
-
     );
+
 };
 
 export default AdmissionForm;

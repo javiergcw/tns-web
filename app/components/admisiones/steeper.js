@@ -7,7 +7,7 @@ const Stepper = ({ steps, currentStep }) => {
       {steps.map((step, index) => (
         <div key={index} className="flex items-center">
           <div
-            className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
+            className={`w-8 h-8 flex  text-black items-center justify-center rounded-full border-2 ${
               index <= currentStep ? 'border-blue-500' : 'border-gray-300'
             }`}
           >

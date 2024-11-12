@@ -22,7 +22,7 @@ export default function FooterTwo() {
               <strong>Teléfono:</strong> +57 (300) 5950 161
             </p>
             <p>
-              <strong>E-mails:</strong> Correo@thenewschool.edu.co
+              <strong>E-mail:</strong> Correo@thenewschool.edu.co
             </p>
           </div>
         </div>

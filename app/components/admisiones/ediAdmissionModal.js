@@ -42,7 +42,7 @@ const EditAdmissionModal = ({
     const renderRadioGroup = (name, options, labels = options) => (
         <div className="flex space-x-4">
             {options.map((option, index) => (
-                <label key={option} className="flex items-center">
+                <label key={option} className="flex items-center text-black">
                     <input
                         type="radio"
                         name={name}
@@ -71,7 +71,7 @@ const EditAdmissionModal = ({
             >
                 ✕
             </button>
-            <h2 className="text-lg font-bold mb-4 text-center">Editar Admisión</h2>
+            <h2 className="text-lg font-bold mb-4 text-center text-black">Editar Admisión</h2>
             <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                 {Object.keys(admission)
                     .filter((key) => !excludedFields.includes(key)) // Excluir campos no editables
@@ -80,7 +80,7 @@ const EditAdmissionModal = ({
 
                         return (
                             <div key={key}>
-                                <label className="block text-sm font-semibold mb-1">
+                                <label className="block text-sm font-semibold mb-1 text-black">
                                     {key.replace(/_/g, " ").toUpperCase()} <span className="text-red-500">*</span>
                                 </label>
                                 {key === "english_level"
@@ -100,7 +100,7 @@ const EditAdmissionModal = ({
                                                             value={admission[key]}
                                                             checked={admission[key]}
                                                             onChange={onChange}
-                                                            className="w-full p-2 border rounded"
+                                                            className="w-full p-2 border rounded text-black"
                                                         />
                                                     )}
                             </div>
