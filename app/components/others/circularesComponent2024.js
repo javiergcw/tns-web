@@ -66,7 +66,11 @@ const data = [
     name: "Circular N15 Expedición Pedagógica Jardín grado cuarto ",
     link: "https://drive.google.com/file/d/1d1B2L29tubDa6ggggtyTQDn4SfXoku-X/view",
   },
-  
+  {
+    name: "Circular N16 Expedición Pedagógica reservas naturales grado octavo",
+    link: "https://drive.google.com/file/d/1S2UardoQwaRHyEhxfsIu8ZeyrWTWSDC4/view",
+  },
+
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
   // { name: 'Circular N3 Servicio social', link: 'https://drive.google.com/file/d/1S0xqXbWqfyk5ySVANx3CBtgmTqlsyYmH/view?usp=sharing' },
