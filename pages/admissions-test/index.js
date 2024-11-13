@@ -9,26 +9,26 @@ import { createAdmission } from '@/app/services/admissionService'; // Importa el
 import FormInscription from '@/app/components/forms/formInscription';
 
 export default function Admissions() {
-  const handleCreateAdmission = async (formData) => {
-    try {
-      await createAdmission(formData);
-      alert('Admisión creada exitosamente');
-    } catch (error) {
-      alert('Error al crear la admisión');
-      console.error(error);
-    }
-  };
+    const handleCreateAdmission = async (formData) => {
+        try {
+            await createAdmission(formData);
+            alert('Admisión creada exitosamente');
+        } catch (error) {
+            alert('Error al crear la admisión');
+            console.error(error);
+        }
+    };
 
-  return (
-    <Provider store={store}>
-      <Navbar />
-      <HeaderInitial />
-      
-      {/* Usamos el AdmissionStepper con la función de creación */}
-      {/* <AdmissionStepper onSubmit={handleCreateAdmission} /> */}
-      <FormInscription />
-      <FooterTwo />
-      <Footer />
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <Navbar />
+            <HeaderInitial />
+
+
+            <AdmissionStepper onSubmit={handleCreateAdmission} />
+
+            <FooterTwo />
+            <Footer />
+        </Provider>
+    );
 }
