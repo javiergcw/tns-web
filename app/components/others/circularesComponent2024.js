@@ -70,7 +70,14 @@ const data = [
     name: "Circular N16 Expedición Pedagógica reservas naturales grado octavo",
     link: "https://drive.google.com/file/d/1S2UardoQwaRHyEhxfsIu8ZeyrWTWSDC4/view",
   },
-
+  {
+    name: "Circular N17 Escuela de padres ",
+    link: "https://drive.google.com/file/d/1QWs0ZciEslP5W8caDc46GNyGxIF31Pea/view",
+  },
+  {
+    name: "Circular N18  Novedades e información importante para finales de Noviembre e inicios de Diciembre ",
+    link: "https://drive.google.com/file/d/1qr3p5Iy2fI7ZRbUZ0A0spRahU2f2oQQN/view",
+  },
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
   // { name: 'Circular N3 Servicio social', link: 'https://drive.google.com/file/d/1S0xqXbWqfyk5ySVANx3CBtgmTqlsyYmH/view?usp=sharing' },
