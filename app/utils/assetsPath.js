@@ -12,8 +12,13 @@ export const ImagesPath = {
 
 
   //Banner carousel
+  banner11: "/images/banner/banner11.png",
+  banner10: "/images/banner/banner10.png",
+  banner9: "/images/banner/banner9.png",
+  
   banner8: "/images/banner/banner8.gif",
   banner7: "/images/banner/banner7.gif",
+  banner6: "/images/banner/banner6.gif",
   banner1: "/images/banner/banner1.png",
   banner2: "/images/banner/banner2.png",
   xdxd: "/images/others/xdxd.jpg",

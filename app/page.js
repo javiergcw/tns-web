@@ -24,10 +24,14 @@ export default function Home() {
   }, []);
 
   const imagePaths = [
-    ImagesPath.banner7,
-    ImagesPath.banner8,
-    ImagesPath.banner1,
-    ImagesPath.banner2,
+    // ImagesPath.banner7,
+    // ImagesPath.banner8,
+    ImagesPath.banner9,
+    ImagesPath.banner10,
+    ImagesPath.banner11,
+
+    // ImagesPath.banner1,
+    // ImagesPath.banner2,
   ];
 
   const servicesList = [
