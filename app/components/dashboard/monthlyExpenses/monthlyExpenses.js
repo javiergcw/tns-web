@@ -25,12 +25,14 @@ const MonthlyExpenses = () => {
             title: shopping.title,
             requestDate: shopping.request_date,
             totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0),
+            total: shopping.total,
           }));
         } else {
           mappedData = response.recent_shoppings.map(shopping => ({
             title: shopping.title,
             requestDate: shopping.request_date,
             totalPrice: shopping.products.reduce((acc, product) => acc + product.price, 0),
+            total: shopping.total,
           })) || [];
         }
 
@@ -46,6 +48,14 @@ const MonthlyExpenses = () => {
 
     fetchMonthlyExpenses();
   }, []);
+  function formatCurrency(value) {
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  }
 
   return (
     <div className="bg-white p-4 rounded-lg  h-full w-full sm:w-full">
@@ -66,11 +76,10 @@ const MonthlyExpenses = () => {
             className="flex items-center justify-start text-gray-600 text-2xl py-1 border-b"
           >
             <span className="font-bold">
-              {item.totalPrice.toLocaleString("es-CO", {
-                style: "currency",
-                currency: "COP",
-              })}
+              {formatCurrency(item.total)}
             </span>
+
+
             <span className="mx-2">|</span>
             <span>{item.title || "Sin título"}</span>
           </li>
