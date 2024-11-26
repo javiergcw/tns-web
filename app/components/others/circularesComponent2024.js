@@ -90,6 +90,10 @@ const data = [
     name: "Circular N22 Salidas pedagógicas ",
     link: "https://drive.google.com/file/d/1lSStO8oY1fFvvloJNbx5GITXeE3aaPPB/view",
   },
+  {
+    name: "Circular N23 Evento de luz y navidad 2024 ",
+    link: "https://drive.google.com/file/d/19Cpx3MMsekMnEftKT3_N7CgCGf1zjdAX/view",
+  },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
