@@ -79,10 +79,6 @@ const data = [
     link: "https://drive.google.com/file/d/1qr3p5Iy2fI7ZRbUZ0A0spRahU2f2oQQN/view",
   },
   {
-    name: "Circular N18  Novedades e información importante para finales de Noviembre e inicios de Diciembre ",
-    link: "https://drive.google.com/file/d/1qr3p5Iy2fI7ZRbUZ0A0spRahU2f2oQQN/view",
-  },
-  {
     name: "Circular N19  Salida pedagógica what's up teens grado 6,7,8 ",
     link: "https://drive.google.com/file/d/1b-PXf7dOj50CG3oJl0lcMgVPS4UhpDL6/view",
   },
