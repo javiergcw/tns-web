@@ -19,11 +19,11 @@ const ENDPOINTS = {
   getAllProfiles: `${API_BASE_URL}/profiles`,
   updateProfile: (id) => `${API_BASE_URL}/profiles/${id}`,
   deleteCategory: `${API_BASE_URL}/categories/delete`,
-//Admission
-createAdmission:`${API_BASE_URL}/admissions`,
-getAdmission:`${API_BASE_URL}/admissions`,
-updateAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
-deleteAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
+  //Admission
+  createAdmission: `${API_BASE_URL}/admissions`,
+  getAdmission: `${API_BASE_URL}/admissions`,
+  updateAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
+  deleteAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
 
 
   //Areas
@@ -40,7 +40,7 @@ deleteAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
   getAllMessages: `${API_BASE_URL}/messages`,
   createMessage: `${API_BASE_URL}/messages`,
   updateMessage: (id) => `${API_BASE_URL}/messages/${id}`,
-  deleteMessage:`${API_BASE_URL}/messages/delete`,
+  deleteMessage: `${API_BASE_URL}/messages/delete`,
   getMessagesByShoppingId: (shoppingId) => `${API_BASE_URL}/messages/shopping/${shoppingId}`,
 
 
@@ -55,7 +55,7 @@ deleteAdmision: (id) => `${API_BASE_URL}/admissions/${id}`,
   getShoppingByUserId: (id) => `${API_BASE_URL}/shoppings/user/${id}`,
   getLatestStatisticalRequestsOfTheMonth: `${API_BASE_URL}/shoppings/summary`,
   getUserByLatestStatisticalRequestsOfTheMonth: (id) => `${API_BASE_URL}/shoppings/user/${id}/summary`,
-
+  upload_invoice: (id) => `${API_BASE_URL}/upload_pdf/${id}`,
   updateShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   deleteShoppingById: (id) => `${API_BASE_URL}/shoppings/${id}`,
   create_shopping: `${API_BASE_URL}/create_shopping`,

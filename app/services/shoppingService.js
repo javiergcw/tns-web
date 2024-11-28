@@ -52,6 +52,33 @@ const getShoppingById = async (id) => {
     throw error;
   }
 };
+const uploadInvoice = async (id, file) => {
+  try {
+    // Configura el form-data para enviar el archivo
+    const formData = new FormData();
+    formData.append("file", file); // Asegúrate de que el campo 'file' coincida con el backend
+
+    // Realiza la solicitud POST al endpoint
+    const response = await axios.post(ENDPOINTS.upload_invoice(id), formData, {
+      headers: {
+        ...getAuthHeaders(), // Incluye encabezados de autenticación si es necesario
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    // Maneja la respuesta
+    if (response.status >= 200 && response.status < 300) {
+      console.log("Factura subida exitosamente:", response.data);
+      return response.data;
+    } else {
+      throw new Error(`Error al subir la factura: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error al subir la factura:", error);
+    throw error;
+  }
+};
+
 
 
 // Nuevo método para obtener las solicitudes estadísticas más recientes del mes
@@ -155,5 +182,6 @@ export {
   getLatestStatisticalRequestsOfTheMonth,
   createShopping,
   getUserByLatestStatisticalRequestsOfTheMonth,
-  deleteShoppingById
+  deleteShoppingById,
+  uploadInvoice
 };

@@ -6,29 +6,33 @@ import { faEye, faEdit, faUpload, faTrash, faFilePdf } from "@fortawesome/free-s
 import CustomComponent from "../../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
-import { getAllShoppings, getShoppingsWithInvoice } from "@/app/services/shoppingService";
+import { getAllShoppings, getShoppingsWithInvoice, uploadInvoice } from "@/app/services/shoppingService";
 
-const TrackingTable = ({ data, role }) => {
+const TrackingTable = ({ data: initialData, role }) => {
+  const [shoppings, setShoppings] = useState(initialData || []); // Renombramos `data` a `shoppings`
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
   const [selectedShopping, setSelectedShopping] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessageBody, setNewMessageBody] = useState("");
-
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
   const [invoiceUrl, setInvoiceUrl] = useState("");
 
-  const fetchShoppings = async () => {
-    try {
-      const response = await getAllShoppings();
-      return response;
-    } catch (error) {
-      console.error("Error al obtener las compras:", error);
-      return [];
-    }
-  };
+  useEffect(() => {
+    const fetchShoppings = async () => {
+      try {
+        const response = await getAllShoppings();
+        setShoppings(response); // Actualizamos el estado con las compras
+      } catch (error) {
+        console.error("Error al obtener las compras:", error);
+      }
+    };
+
+    fetchShoppings();
+  }, []);
+
 
   const handleViewDetailsClick = async (shopping) => {
     setSelectedShopping(shopping);
@@ -45,11 +49,24 @@ const TrackingTable = ({ data, role }) => {
     setIsModalOpen(true);
   };
 
-  const handleOpenInvoiceModal = (shoppingId) => {
-    setSelectedShoppingForInvoice(shoppingId);
-    setInvoiceUrl("");
-    setIsInvoiceModalOpen(true);
+  const handleUploadOrEditInvoice = async (event, itemId) => {
+    const file = event.target.files[0]; // Obtén el archivo seleccionado
+    if (!file) return;
+
+    try {
+      await uploadInvoice(itemId, file); // No necesitas capturar el resultado si no lo usas
+      alert("Factura subida o actualizada exitosamente");
+
+      // Recargar las compras directamente desde el backend
+      const updatedShoppings = await getAllShoppings();
+      setShoppings(updatedShoppings);
+    } catch (error) {
+      console.error("Error al subir o actualizar la factura:", error);
+      alert("Error al subir o actualizar la factura, inténtalo nuevamente.");
+    }
   };
+
+
 
   const handleCloseMessageModal = () => {
     setIsMessageModalOpen(false);
@@ -170,8 +187,8 @@ const TrackingTable = ({ data, role }) => {
     return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
   }
 
-  const rows = Array.isArray(data)
-    ? data
+  const rows = Array.isArray(shoppings)
+    ? shoppings
       .slice() // Crear una copia del array original
       .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Ordenar por fecha más reciente
       .map((item) => {
@@ -187,35 +204,42 @@ const TrackingTable = ({ data, role }) => {
           subtotal != null ? formatCurrency(subtotal) : "N/A",
           total != null ? formatCurrency(total) : "N/A",
           <div className="flex items-center space-x-2">
-            {billingExists ? (
-              <>
-                <a
-                  href={billingExists}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                >
-                  <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
-                </a>
-                {(role === "admin" || role === "Compras" || role === "Developer") && (
-                  <button
-                    className="text-blue-500 hover:text-blue-700"
-                    onClick={() => handleOpenInvoiceModal(item.id)}
+            <div className="flex items-center space-x-2">
+              {billingExists ? (
+                <>
+                  <a
+                    href={billingExists}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 cursor-pointer"
                   >
-                    <FontAwesomeIcon icon={faEdit} />
-                  </button>
-                )}
-              </>
-            ) : (
-              (role === "admin" || role === "Compras" || role === "Developer") && (
-                <button
-                  className="text-blue-500 hover:text-blue-700"
-                  onClick={() => handleOpenInvoiceModal(item.id)}
-                >
-                  <FontAwesomeIcon icon={faUpload} />
-                </button>
-              )
-            )}
+                    <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
+                  </a>
+                  {(role === "admin" || role === "Compras" || role === "Developer") && (
+                    <label className="cursor-pointer text-blue-500 hover:text-blue-700">
+                      <FontAwesomeIcon icon={faEdit} />
+                      <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => handleUploadOrEditInvoice(e, item.id)}
+                      />
+                    </label>
+                  )}
+                </>
+              ) : (
+                (role === "admin" || role === "Compras" || role === "Developer") && (
+                  <label className="cursor-pointer text-blue-500 hover:text-blue-700">
+                    <FontAwesomeIcon icon={faUpload} />
+                    <input
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => handleUploadOrEditInvoice(e, item.id)}
+                    />
+                  </label>
+                )
+              )}
+            </div>
+
           </div>,
           item.status ? item.status.name : "N/A",
           item.created_at ? new Date(item.created_at).toLocaleDateString() : "N/A",

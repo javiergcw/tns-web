@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { getAllShoppings, deleteShoppingById } from "@/app/services/shoppingService";
+import { getAllShoppings, deleteShoppingById, uploadInvoice } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
@@ -248,6 +248,8 @@ const FiltersComponent = () => {
     setIsDeleteModalOpen(true);
   };
 
+
+
   // Función que elimina la compra
   const handleDelete = async () => {
     try {
@@ -271,6 +273,74 @@ const FiltersComponent = () => {
     setIsDeleteModalOpen(false);
     setShoppingToDelete(null);
   };
+
+  const handleUploadInvoice = async (event, shoppingId) => {
+    const file = event.target.files[0]; // Obtén el archivo seleccionado
+    if (!file) return;
+  
+    try {
+      const result = await uploadInvoice(shoppingId, file); // Llama al método uploadInvoice
+      alert("Factura subida exitosamente");
+  
+      // Actualiza el estado local inmediatamente con la nueva URL
+      setData((prevData) =>
+        prevData.map((item) =>
+          item.id === shoppingId
+            ? { ...item, facturacion: result.fileUrl } // Actualizamos el campo facturacion
+            : item
+        )
+      );
+  
+      // Si necesitas más datos del backend después de subir la factura:
+      const updatedData = await fetchData(); // Supón que esta función actualiza los datos desde la API
+      setData(updatedData);
+    } catch (error) {
+      console.error("Error al subir la factura:", error);
+      alert("Error al subir la factura, inténtalo nuevamente.");
+    }
+  };
+  
+
+  const handleDeleteInvoice = async (shoppingId) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar esta factura?")) {
+      try {
+        // Crear el objeto con el campo facturacion vacío
+        const updatedShopping = {
+          facturacion: "", // Solo actualizamos este campo
+        };
+
+        // Realizar la solicitud PATCH al endpoint, usando el shoppingId
+        const updateResponse = await fetch(
+          `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(updatedShopping), // Solo enviamos el campo necesario
+          }
+        );
+
+        if (updateResponse.ok) {
+          alert("Factura eliminada correctamente.");
+          // Actualizar el estado local
+          setData((prevData) =>
+            prevData.map((item) =>
+              item.id === shoppingId ? { ...item, facturacion: "" } : item
+            )
+          );
+        } else {
+          alert("Hubo un error al eliminar la factura.");
+        }
+      } catch (error) {
+        console.error("Error al eliminar la factura:", error);
+        alert("Hubo un error al eliminar la factura.");
+      }
+    }
+  };
+
+
 
   const handleFilterReset = () => {
     setItemName("");
@@ -794,22 +864,43 @@ const FiltersComponent = () => {
                             <FontAwesomeIcon icon={faFilePdf} />
                           </a>
                           {(role === "admin" || role === "Compras" || role === "Developer") && (
-                            <FontAwesomeIcon
-                              icon={faEdit}
-                              className="text-green-500 hover:text-green-700 cursor-pointer"
-                              onClick={() => handleOpenInvoiceModal(shopping.id)}
-                            />
+                            <>
+                              <label className="cursor-pointer">
+                                <FontAwesomeIcon
+                                  icon={faEdit}
+                                  className="text-green-500 hover:text-green-700 cursor-pointer"
+                                />
+                                <input
+                                  type="file"
+                                  className="hidden"
+                                  onChange={(e) => handleUploadInvoice(e, shopping.id)} // Reutiliza el método de upload
+                                />
+                              </label>
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="text-red-500 hover:text-red-700 cursor-pointer"
+                                onClick={() => handleDeleteInvoice(shopping.id)}
+                              />
+                            </>
                           )}
                         </div>
                       ) : (
                         (role === "admin" || role === "Compras" || role === "Developer") && (
-                          <FontAwesomeIcon
-                            icon={faFileUpload}
-                            className="text-green-500 hover:text-green-700 cursor-pointer"
-                            onClick={() => handleOpenInvoiceModal(shopping.id)}
-                          />
+                          <label className="cursor-pointer">
+                            <FontAwesomeIcon
+                              icon={faFileUpload}
+                              className="text-green-500 hover:text-green-700"
+                            />
+                            <input
+                              type="file"
+                              className="hidden"
+                              onChange={(e) => handleUploadInvoice(e, shopping.id)} // Reutiliza el método de upload
+                            />
+                          </label>
                         )
                       )}
+
+
                     </td>
                     <td className="px-6 py-4 text-center border border-gray-300">
                       <div className="flex items-center space-x-2">
@@ -914,13 +1005,21 @@ const FiltersComponent = () => {
                 <p className="text-gray-500">No hay factura</p>
               )}
               {(role === "admin" || role === "Compras" || role === "Developer") && selectedShopping.facturacion && (
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                  onClick={() => handleOpenInvoiceModal(selectedShopping.id)}
-                />
+                <>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                    onClick={() => handleOpenInvoiceModal(selectedShopping.id)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="text-red-500 hover:text-red-700 cursor-pointer"
+                    onClick={() => handleDeleteInvoice(selectedShopping.id)}
+                  />
+                </>
               )}
             </div>
+
           </div>
         </div>
       )}
