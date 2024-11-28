@@ -1,11 +1,102 @@
 import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
-  {
-    date: "October  09,2024",
-    imageUrl: ImagesPath.blog25,
-    title: "CosmoLab Un espacio de innovacion y aprendizaje en The New School",
-    body: `
+    {
+        date: "November 28,2024",
+        imageUrl: ImagesPath.blog26,
+        title: "Awareness as the Essence of Educational and Personal Development at The New School",
+        body: `
+          
+         <p>As we stand at the threshold marking the end of a solar year, we must reflect on a theme central to our institutional philosophy and human development: <b>AWARENESS</b>. At the heart of our pedagogy, this concept demands a level of rigor that makes it a complex challenge. Addressing awareness goes beyond viewing it as the brain's capacity for heightened states of attention or a connection to goodness. It is an ongoing process encompassing all dimensions of human action, requiring tools, methods, observation, and commitment.</p>
+<br>
+    <p>In our <b>Educational Project (PEI)</b>, we have identified five dimensions that symbolize the greatness of the human condition. First is the <b>bodily dimension</b>, where the body is seen as a unique canvas reflecting sensitivity, creativity, and the ability to connect with others. Each body, with its unique characteristics, projects its essence in interacting with other humans and nature. It is a constantly evolving work of art, where experiences give it meaning through awareness.</p>
+</br>
+<br>
+    <p>The <b>cognitive dimension</b> relates to the development of knowledge and learning processes. Here, the ability to conceptualize reality enables understanding and transformation. This learning, grounded in theories, hypotheses, or discoveries, connects us with wonder and a profound world comprehension.</p>
+
+    </br>
+    <br>
+    <p>The <b>aesthetic-sensitive dimension</b> demands special care, as it touches the deepest aspects of humanity: the fragility of emotions and the capacity for imagination and creation. This dimension allows us to view life as an artistic canvas, giving it new meanings through conscious experience. Within this space, connections with others and nature acquire unique importance.</p>
+</br>
+<br>
+    <p>These dimensions are integrated into our educational philosophy's institutional coat of arms. However, to fully address awareness, we must acknowledge that it is not an individual trait but the sum of virtues that dignify humanity. <b>Prudence</b>, as the primary ally of awareness, invites us to observe and reflect before acting.</p>
+</br>
+<br>
+    <p>Adopting a second perspective is essential in a world where technology and information offer infinite possibilities for transformation. This perspective, nurtured by consciousness, helps us avoid hasty judgments and transform human actions from a reflective standpoint. Acting with awareness demands a profound commitment to truth, goodness, and usefulness, as Socrates proposed with his three filters: before speaking or acting, we must ask ourselves if what we say is true, good, and necessary.</p>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/nov28.png" alt="tnsum" style="max-width: 100%; height: auto;">
+    </div>
+<br>
+    <p>Let us remember that impulsive words or actions can create an irreversible impact. As a Chinese proverb says: "Three things cannot be taken back: the arrow shot, the spoken word, and the missed opportunity." Consciousness demands responsibility and freedom to seek alternatives in the pursuit of truth.</p>
+</br>
+<br>
+    <p>Origenes, the philosopher, reminds us that some, after acting, fail to reflect on their actions as if they lacked significance. For those of us working in education, however, being conscious of every action is essential, as our work profoundly impacts those around us. Being a teacher is a privilege that requires wisdom to elevate what is good and to recognize what must change.</p>
+</br>
+<br>
+    <p>In conclusion, living with awareness involves recognizing our responsibility to build a more humane world. From our educational role, we embrace this commitment as a vital adherence that enriches our intellect and transforms our essence and that of our community.</p>
+
+</br>
+<br>
+    <h1> La consciencia como esencia en la formación educativa y personal en The New School </h1>
+    </br>
+
+<br>
+    <p>Al encontrarnos en el umbral que marca el final de un año solar, es importante reflexionar sobre un tema esencial en nuestra filosofía institucional y en el desarrollo humano: la consciencia. Este tema, que forma parte del núcleo de nuestra pedagogía, demanda un nivel de exigencia que lo convierte en un reto complejo. Hablar de consciencia va más allá de considerarla una disposición del cerebro para estados elevados de atención o una conexión con el bien. Es un proceso permanente que abarca todas las dimensiones del actuar humano y que requiere herramientas, método, observación y compromiso.</p>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/nov28.png" alt="tnsum" style="max-width: 100%; height: auto;">
+    </div>
+    <br>
+    <p>En nuestro PEI hemos clasificado cinco dimensiones que representan la grandeza de la condición humana. En primer lugar, la dimensión corporal, donde el cuerpo se concibe como un escenario único que refleja sensibilidad, creatividad y capacidad de interrelación. Cada cuerpo, con sus particularidades, proyecta su esencia en contacto con otros seres humanos y con la naturaleza. Es una obra de arte en constante construcción, donde las experiencias alimentan su significado desde la consciencia.</p>
+</br>
+
+<br>
+    <p>La dimensión cognitiva, por su parte, se refiere al desarrollo del conocimiento y al proceso de aprendizaje. Aquí, la capacidad de conceptualizar la realidad, permite no solo comprenderla, sino también transformarla. Este aprendizaje, sustentado en teorías, hipótesis o descubrimientos, nos conecta con el asombro y el entendimiento profundo del mundo que nos rodea.</p>
+</br>
+<br>
+    <p>En cuanto a la dimensión estético-sensible, esta reclama un cuidado especial porque toca lo más profundo del ser humano: la fragilidad de los sentimientos y la capacidad de imaginar y crear. Es una dimensión que permite mirar la vida como un escenario artístico, dotándola de nuevos significados a través de la experiencia consciente. En este espacio, la conexión con otros y con la naturaleza, cobra una relevancia única.</p>
+</br>
+<br>
+    <p>La dimensión comunicativa, en cambio, se enfoca en el lenguaje como vehículo esencial para interactuar con los demás. Por medio de signos y símbolos construimos sentido, representamos nuestra realidad y establecemos vínculos. Comunicar, en este contexto, es mucho más que expresar ideas; es dejar hablar al alma, mostrar lo más profundo de nuestro ser y revelar la transparencia de nuestras intenciones.</p>
+</br>
+<br>
+    <p>Hasta este punto, estas dimensiones están integradas en el escudo institucional de nuestra filosofía educativa. No obstante, para abordar plenamente el tema de la consciencia, es necesario reconocer que ésta no es una cualidad individual, sino la suma de virtudes que dignifican al ser humano. La prudencia, como aliada principal de la consciencia, nos invita a observar y reflexionar antes de actuar.</p>
+</br>
+
+    <br>
+    <p>En un mundo donde la tecnología e información nos ofrecen infinitas posibilidades de transformación, es fundamental tener una segunda mirada. Esta mirada, alimentada por la consciencia, nos ayuda a evitar juicios apresurados y a transformar los acontecimientos humanos desde una perspectiva más reflexiva. Obrar en consciencia requiere un compromiso profundo con la verdad, la bondad y la utilidad, tal como lo proponía Sócrates con sus tres filtros: antes de hablar o actuar, debemos preguntarnos si lo que decimos es cierto, bueno y necesario.</p>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/nov282.png" alt="tnsum" style="max-width: 100%; height: auto;">
+    </div>
+
+    <br>
+    <p>Recordemos que palabras o acciones impulsivas pueden generar un impacto irreparable. Como señala un proverbio chino: “tres cosas no tienen retorno: la flecha lanzada, la palabra dicha y la oportunidad perdida”. La consciencia nos exige responsabilidad y libertad para buscar alternativas hacia la verdad.</p>
+</br>
+
+<br>
+<p>El filósofo Orígenes nos recuerda que algunos, después de actuar, no reflexionan sobre sus acciones, como si estas carecieran de valor; pero para quienes trabajamos en educación, ser conscientes de cada acto es esencial, pues nuestra labor tiene un impacto profundo en quienes nos rodean. Ser maestro es un privilegio que exige sabiduría para enaltecer lo bueno y reconocer lo que debe transformarse.</p>
+</br>
+
+<br>
+<p>En conclusión, vivir en consciencia implica reconocer nuestra responsabilidad en la construcción de un mundo más humano. Desde nuestro rol educativo, asumimos este compromiso como una adhesión vital que no solo enriquece nuestro intelecto, sino que también transforma nuestra esencia y la de nuestra comunidad.</p>
+</br>
+
+
+
+
+
+    </body>`,
+        banner: true,
+    },
+
+    {
+
+        date: "October  09,2024",
+        imageUrl: ImagesPath.blog25,
+        title: "CosmoLab Un espacio de innovacion y aprendizaje en The New School",
+        body: `
           
         <p>En The New School, siempre hemos apostado por ofrecer experiencias educativas únicas que vayan más allá de lo tradicional. Con ese enfoque, surgió <em>CosmoLab</em>, un espacio donde el aprendizaje se entrelaza con la vida cotidiana, permitiendo a los estudiantes explorar diversas áreas del conocimiento a través de experiencias prácticas y significativas que integren el saber con saber hacer y el saber ser.</p>
     <br>
@@ -93,13 +184,13 @@ const blogList = [
             <img src="/images/blogs_body/cosmolab4.png" alt="tnsmun" width="400">
         </a>
     </div>`,
-    banner: true,
-  },
-  {
-    date: "August  23,2024",
-    imageUrl: ImagesPath.blog24,
-    title: "In The New School we learn for life",
-    body: `
+        banner: true,
+    },
+    {
+        date: "August  23,2024",
+        imageUrl: ImagesPath.blog24,
+        title: "In The New School we learn for life",
+        body: `
         <p> En The New School, sabemos que educar es mucho más que enseñar contenidos. Se trata de formar seres humanos íntegros, capaces de enfrentar los desafíos de la vida con confianza y empatía. Por eso, en nuestro modelo pedagógico de formación en consciencia y formación para la vida y por la vida, integramos no solo el aprendizaje académico, sino también el desarrollo personal y social. </p>
         </br>
         <center>
@@ -130,14 +221,14 @@ const blogList = [
         <p>Creemos que un ambiente de diálogo abierto y un acompañamiento psicológico adecuado son esenciales para que nuestros estudiantes se conviertan en personas íntegras, listas para hacer su aporte al mundo, a su entorno y a sí mismos. </p>
         </br>
         `,
-    banner: true,
-  },
+        banner: true,
+    },
 
-  {
-    date: "June  20,2024",
-    imageUrl: ImagesPath.jun20_2024,
-    title: "The importance of mathematics and technology in education today",
-    body: `
+    {
+        date: "June  20,2024",
+        imageUrl: ImagesPath.jun20_2024,
+        title: "The importance of mathematics and technology in education today",
+        body: `
         <p> En la era actual, la tecnología ha revolucionado la forma en que vivimos, trabajamos y nos relacionamos. En el ámbito educativo y para The New School, la tecnología ha jugado un papel fundamental en la calidad educativa; y si ésta además es transversalizada con las matemáticas, el proceso se enriquece, favoreciendo el aprendizaje de los estudiantes.  </p>
         </br>
         <center>
@@ -157,14 +248,14 @@ const blogList = [
         </br>
   
         `,
-    banner: true,
-  },
-  {
-    date: "April 26,2024",
-    imageUrl: ImagesPath.portada9,
-    title:
-      "Multilingual Music Festival A space to celebrate linguistic diversity at The New School",
-    body: `
+        banner: true,
+    },
+    {
+        date: "April 26,2024",
+        imageUrl: ImagesPath.portada9,
+        title:
+            "Multilingual Music Festival A space to celebrate linguistic diversity at The New School",
+        body: `
         <p>At The New School, we proudly celebrate diversity in all its forms. Our annual Multilingual Music Festival is one of the most vibrant manifestations of this diversity. This event has grown and evolved and is more than just a display of musical talent. It celebrates the linguistic and cultural richness that defines our educational community.</p>
         </br>
         <p>The Multilingual Music Festival is a wonderful opportunity for our students to explore and celebrate the variety of languages spoken in our school environment through music, dance, and body expression as another language of the soul. What began as an English-focused event has blossomed into a collective learning space incorporating various languages, from French and Italian to Spanish. This linguistic diversity not only reflects the multicultural composition of our school and pedagogical proposal but also contributes to and enriches innovatively the educational experience of our students by offering them the opportunity to immerse themselves in different languages and cultures of the world.</p>
@@ -193,13 +284,13 @@ const blogList = [
         </p>
         </center>
         `,
-    banner: true,
-  },
-  {
-    date: "March 22,2024",
-    imageUrl: ImagesPath.blog7,
-    title: "The New School Educacion Bilingue de calidad",
-    body: `
+        banner: true,
+    },
+    {
+        date: "March 22,2024",
+        imageUrl: ImagesPath.blog7,
+        title: "The New School Educacion Bilingue de calidad",
+        body: `
         <p>Desde su fundación, The New School ha centrado su interés y compromiso con la formación en consciencia y la promoción del bilingüismo en sus estudiantes. En 2010, nuestro colegio alcanzó un hito significativo, al ser certificado como colegio bilingüe por el Ministerio de Educación de Colombia, gracias al deseo constante de ofrecer calidad educativa y facilitar herramientas competitivas para nuestros niños y jóvenes. Esta certificación reconoció el compromiso de The New School con la enseñanza bilingüe y otorgó a nuestros egresados la valiosa certificación en su segunda lengua, inglés, con el objetivo de fortalecer su perfil académico y profesional en un mundo cada vez más globalizado.</p>
        <br/>
        <p>Desde entonces, hemos mantenido nuestro compromiso con el fortalecimiento lingüístico, manteniendo una inmersión curricular en la segunda lengua que comienza desde los primeros años de edad</p>
@@ -222,13 +313,13 @@ const blogList = [
 <br/>
 <p>En The New School, brindamos una educación de vanguardia y estamos comprometidos con proporcionar una educación bilingüe de calidad que permita  a nuestros estudiantes desenvolverse en un mundo cada vez más diverso y competitivo.</p>
 `,
-    banner: true,
-  },
-  {
-    date: "February 27,2024",
-    imageUrl: ImagesPath.blog27,
-    title: "Explorando y Aprendiendo a traves de las Expediciones Pedagogicas",
-    body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
+        banner: true,
+    },
+    {
+        date: "February 27,2024",
+        imageUrl: ImagesPath.blog27,
+        title: "Explorando y Aprendiendo a traves de las Expediciones Pedagogicas",
+        body: `<h4><strong>En The New School, creemos en una educación que trasciende los límites físicos del aula de clase.</strong></h4>
         <br/>
         <br/>
         <center> <br/>
@@ -265,13 +356,13 @@ const blogList = [
         </center>
 
               `,
-    banner: false,
-  },
-  {
-    date: "January 19,2024",
-    imageUrl: ImagesPath.blog0,
-    title: "Formacion por la vida y para la vida",
-    body: `<h4><strong>Formar por la vida y para la vida es tarea permanente de El Nuevo Colegio, en su búsqueda por facilitar un camino de formación del Ser en su integralidad, en cada uno de los integrantes de la Comunidad Educativa.</strong></h4>   <br/>
+        banner: false,
+    },
+    {
+        date: "January 19,2024",
+        imageUrl: ImagesPath.blog0,
+        title: "Formacion por la vida y para la vida",
+        body: `<h4><strong>Formar por la vida y para la vida es tarea permanente de El Nuevo Colegio, en su búsqueda por facilitar un camino de formación del Ser en su integralidad, en cada uno de los integrantes de la Comunidad Educativa.</strong></h4>   <br/>
         Educar es un proceso que va más allá de la transmisión del conocimiento y las habilidades. Implica, el desarrollo integral de la persona, su capacidad para reflexionar sobre sí misma y sobre el mundo que la rodea. Formar en consciencia es una búsqueda de sentido y de trascendencia, la cual permite a cada integrante de la comunidad educativa descubrir y potenciar su propio talento, su conocimiento, sus habilidades y manejo de emociones; así como la posibilidad de contribuir al mejoramiento de su entorno más próximo y de la sociedad. De otro lado, es un proceso de autoconocimiento, de reflexión y de sensibilidad, el cual nos permite comprender mejor quiénes somos e identificar el por qué y el para qué de lo que nos acontece. Esta dinámica nos ayuda a tomar decisiones libres, responsables, y a relacionarnos mejor con nosotros mismos y con los demás a partir del respeto por la diversidad y la colaboración.
         
        <br/>
@@ -290,13 +381,13 @@ const blogList = [
         </ul>   <br/>
         <p style="font-weight: 400;">Estas estrategias, entre otras, se trabajan de manera transversal y tienen un impacto positivo para nuestro colegio, tanto en el ámbito interno como externo. Por un lado, mejoran la calidad de vida, la satisfacción, el compromiso de los colaboradores, la cohesión, el clima y la cultura organizacional. Por otro lado, refuerzan la imagen, la reputación y la competitividad del colegio.</p>
         `,
-    banner: true,
-  },
-  {
-    date: "December 12,2023",
-    imageUrl: ImagesPath.blog1,
-    title: "TNS Formadores de consciencia",
-    body: `Competencias del saber ser, pensar y hacer
+        banner: true,
+    },
+    {
+        date: "December 12,2023",
+        imageUrl: ImagesPath.blog1,
+        title: "TNS Formadores de consciencia",
+        body: `Competencias del saber ser, pensar y hacer
 
 En The New School entendemos que la educación es mucho más que la transmisión de conocimientos, es la oportunidad de fortalecer al ser humano. Por eso, dentro de nuestra propuesta pedagógica de formación en conciencia, integramos la aplicación de Las Competencias del Saber Ser como un proceso educativo que busca contribuir al desarrollo de la capacidad de los estudiantes para reconocerse a sí mismos, sus procesos cognitivos y sus emociones, así como para interactuar de manera positiva y respetuosa con los demás y con el entorno.
 <br/>
@@ -316,13 +407,13 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
 <p style="text-align: right;"><strong>Manifiesto de las competencias del Saber Ser TNS</strong></p>
 <p style="text-align: right;">“En el Nuevo Colegio encuentro sentido a lo que SOY, y lo que aprendo favorece mi autorrealización, contribuye a la expresión de mi SER en las interacciones humanas y guía mis aportes a la transformación de la sociedad, en armonía con la naturaleza”.</p>`,
 
-    banner: true,
-  },
-  {
-    date: "October 4,2023",
-    imageUrl: ImagesPath.blog2,
-    title: "Padres inspiradores",
-    body: `<b>Una iniciativa innovadora para fortalecer la comunicación y el acompañamiento entre padres e hijos en The New School </b>
+        banner: true,
+    },
+    {
+        date: "October 4,2023",
+        imageUrl: ImagesPath.blog2,
+        title: "Padres inspiradores",
+        body: `<b>Una iniciativa innovadora para fortalecer la comunicación y el acompañamiento entre padres e hijos en The New School </b>
         <br/>
         <span style="font-weight: 400;">El taller de padres inspiradores es una iniciativa de nuestro colegio </span><b>The New School</b><span style="font-weight: 400;"> que busca contribuir al viaje de la</span><b> Formación en Consciencia</b><span style="font-weight: 400;"> de los estudiantes, a través de un trabajo conjunto y colaborativo. La actividad consiste en construir una red de familias TNS que cocrean estrategias para inspirar a sus hijos en el desarrollo de sus potenciales, basándose en las </span><b>COMPETENCIAS DEL SABER SER,</b><span style="font-weight: 400;"> elementos claves del currículo institucional y de las habilidades del siglo XXI.</span>
         
@@ -363,14 +454,14 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         
         <br/><br/>
         `,
-    banner: true,
-  },
-  {
-    date: "August 1,2023",
-    imageUrl: ImagesPath.blog3,
-    title:
-      "El Modelo de la Organizacion de las Naciones Unidas (ONU) cumple tres años en The New School Tejidos de sueños que se proyectan en el tiempo",
-    body: `<p style="text-align: right;"><em><span style="color: #2479a3;">Por Santiago Hoyos Giraldo</span></em>
+        banner: true,
+    },
+    {
+        date: "August 1,2023",
+        imageUrl: ImagesPath.blog3,
+        title:
+            "El Modelo de la Organizacion de las Naciones Unidas (ONU) cumple tres años en The New School Tejidos de sueños que se proyectan en el tiempo",
+        body: `<p style="text-align: right;"><em><span style="color: #2479a3;">Por Santiago Hoyos Giraldo</span></em>
         <br/>
         <em><span style="color: #2479a3;"> Normalista, Licenciado en Inglés. Estudiante de Ciencias Políticas y de Maestría en Educación desde la Diversidad.</span></em></p>
         Prestos (¡o no tanto!) a enfrentar un mundo pandémico en el recordado 2020, no era visible en la conciencia que la enfermedad, contagiosa por demás, nos habitaba en el momento: la perversa enfermedad de la indiferencia. ¿Cuál es la responsabilidad ético-política de un/a ciudadano/a cuando apremian las respuestas ante los padecimientos colectivos? No sólo las afectaciones causadas por un virus que destrozó tanto física como emocionalmente a tantas familias, sino también los conflictos internacionales-locales, las hambrunas, las desigualdades, las economías fluctuantes, las discriminaciones, los deterioros del medio ambiente y las violencias son fenómenos que reflejan la crisis de la humanidad; la puesta en jaque de lo humano como sentido. ¿Quizá la crisis del sentido común?
@@ -404,14 +495,14 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         
         <br/>
         `,
-    banner: true,
-  },
-  {
-    date: "August 1,2023",
-    imageUrl: ImagesPath.blog5,
-    title:
-      "La investigacion y el aprendizaje experiencial, el motor formativo el Nuevo colegio",
-    body: `<h2 style="text-align: center;"><strong>A través de la investigación escolar, la creatividad, la experimentación y el compartir de saberes en The New School buscamos formar por y para la vida. </strong></h2>  <br/>
+        banner: true,
+    },
+    {
+        date: "August 1,2023",
+        imageUrl: ImagesPath.blog5,
+        title:
+            "La investigacion y el aprendizaje experiencial, el motor formativo el Nuevo colegio",
+        body: `<h2 style="text-align: center;"><strong>A través de la investigación escolar, la creatividad, la experimentación y el compartir de saberes en The New School buscamos formar por y para la vida. </strong></h2>  <br/>
         <br/>  <p style="text-align: justify;">En The New School tenemos una estrategia metodológica llamada CAMPOS, para la cual hemos diseñado una estructura de trabajo que organiza los estudiantes de preescolar a undécimo en CICLOS; a cada uno de ellos, le asignamos una dimensión del Ser Humano de acuerdo con las características de cada etapa evolutiva, buscando que, en cada una de ellas, haya un mayor enfoque en las respectivas dimensiones del SER, así:</p>
         <br/>  
         <center>
@@ -429,13 +520,13 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
         <br/> <p style="text-align: justify;"><a href="https://i.imgur.com/GbIxdbI.png"><img className="size-full wp-image-2100 aligncenter" src="https://i.imgur.com/GbIxdbI.png" alt="o}" width="589" height="256" /></a></p>
         </center>
         `,
-    banner: true,
-  },
-  {
-    date: "2023-04-12",
-    imageUrl: ImagesPath.blog6,
-    title: "Soy porque somos",
-    body: `
+        banner: true,
+    },
+    {
+        date: "2023-04-12",
+        imageUrl: ImagesPath.blog6,
+        title: "Soy porque somos",
+        body: `
         <h2 style="text-align: justify;"><img className="size-medium wp-image-1949 aligncenter" src="https://i.imgur.com/YSVQujq.png" alt="thumbnail_motus" width="300" height="282" /></h2>
         <br/> <h2 style="text-align: justify;"><strong>En septiembre de 2022 The New School, celebró 27 años de emprender este viaje en altamar y vivir en conciencia</strong></h2>
         <br/> 
@@ -458,13 +549,13 @@ La formación en consciencia y el desarrollo de las competencias del saber ser s
 </center></p>
 
         `,
-    banner: true,
-  },
-  {
-    date: "2022-03-10",
-    imageUrl: ImagesPath.blog5,
-    title: "5 tips para fortalecer el proceso de lecto-escritura",
-    body: `
+        banner: true,
+    },
+    {
+        date: "2022-03-10",
+        imageUrl: ImagesPath.blog5,
+        title: "5 tips para fortalecer el proceso de lecto-escritura",
+        body: `
         <a href="https://i.imgur.com/d4qCEEn.png"><img className="alignleft size-medium wp-image-1816" src="https://imgur.com/URuGwcQ.png" alt="Lecto escritura" width="225" height="300" /></a>La adquisición de las competencias de lectura y escritura se da poco a poco en los niños de acuerdo con las características y ritmos de aprendizaje de cada uno de ellos. Este proceso comienza desde que nacemos y es en el hogar donde se cimientan las bases que luego se fortalecen en la escuela. Por eso, queremos compartirles algunas recomendaciones que podemos poner en marcha para fortalecer dicho aprendizaje:
         <br/> 
         <ol>
@@ -481,8 +572,8 @@ En la actualidad, el uso de las mascarillas ha afectado el proceso de aprendizaj
 <br/> 
 Página recomendada: https://cuentosparacrecer.org/
         `,
-    banner: true,
-  },
+        banner: true,
+    },
 ];
 
 export default blogList;
