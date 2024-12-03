@@ -13,6 +13,7 @@ import { getAllProfiles } from "@/app/services/profileService";
 import { getAllAreas } from "@/app/services/areaService";
 import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import * as XLSX from 'xlsx';
+import { IoClose } from "react-icons/io5";
 
 const fetchData = async () => {
   try {
@@ -54,7 +55,8 @@ const FiltersComponent = () => {
 
   const [selectedShoppingData, setSelectedShoppingData] = useState(null);
 
-
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [newStatusId, setNewStatusId] = useState("");
@@ -277,11 +279,11 @@ const FiltersComponent = () => {
   const handleUploadInvoice = async (event, shoppingId) => {
     const file = event.target.files[0]; // Obtén el archivo seleccionado
     if (!file) return;
-  
+
     try {
       const result = await uploadInvoice(shoppingId, file); // Llama al método uploadInvoice
       alert("Factura subida exitosamente");
-  
+
       // Actualiza el estado local inmediatamente con la nueva URL
       setData((prevData) =>
         prevData.map((item) =>
@@ -290,7 +292,7 @@ const FiltersComponent = () => {
             : item
         )
       );
-  
+
       // Si necesitas más datos del backend después de subir la factura:
       const updatedData = await fetchData(); // Supón que esta función actualiza los datos desde la API
       setData(updatedData);
@@ -299,7 +301,7 @@ const FiltersComponent = () => {
       alert("Error al subir la factura, inténtalo nuevamente.");
     }
   };
-  
+
 
   const handleDeleteInvoice = async (shoppingId) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta factura?")) {
@@ -339,7 +341,15 @@ const FiltersComponent = () => {
       }
     }
   };
+  const handleViewPdf = (url) => {
+    setPdfUrl(url);
+    setIsPdfModalOpen(true);
+  };
 
+  const closePdfModal = () => {
+    setIsPdfModalOpen(false);
+    setPdfUrl("");
+  };
 
 
   const handleFilterReset = () => {
@@ -860,9 +870,14 @@ const FiltersComponent = () => {
                     <td className="px-6 py-4 text-center border border-gray-300">
                       {shopping.facturacion ? (
                         <div className="flex items-center space-x-2">
-                          <a href={shopping.facturacion} target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700">
+                          {/* Botón para abrir el modal y previsualizar el PDF */}
+                          <button
+                            onClick={() => handleViewPdf(shopping.facturacion)} // Llama a la función para abrir el modal
+                            className="text-red-500 hover:text-red-700"
+                          >
                             <FontAwesomeIcon icon={faFilePdf} />
-                          </a>
+                          </button>
+
                           {(role === "admin" || role === "Compras" || role === "Developer") && (
                             <>
                               <label className="cursor-pointer">
@@ -899,6 +914,7 @@ const FiltersComponent = () => {
                           </label>
                         )
                       )}
+
 
 
                     </td>
@@ -1023,327 +1039,274 @@ const FiltersComponent = () => {
           </div>
         </div>
       )}
+      {isPdfModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl relative">
+            {/* Botón para cerrar el modal */}
+            <button
+              className="absolute top-1 right-1 text-black hover:text-gray-900 text-xl font-bold"
+              onClick={closePdfModal}
+            >
+              <IoClose></IoClose>
+            </button>
+            {/* Previsualización del PDF */}
+            <iframe
+              src={pdfUrl}
+              className="w-full h-[600px] border-0"
+              title="Factura PDF"
+            ></iframe>
+          </div>
+        </div>
+      )}
+
+
+
+
 
       {/* Modal para ingresar la URL de la factura */}
-      {isInvoiceModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
-          <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
-            <button
-              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={() => setIsInvoiceModalOpen(false)}
-            >
-              X
-            </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Subir URL de Factura</h2>
-            <input
-              type="text"
-              placeholder="Ingresa la URL de la factura"
-              value={invoiceUrl}
-              onChange={(e) => setInvoiceUrl(e.target.value)}
-              className="w-full text-black p-2 border border-gray-300 rounded mb-4"
-            />
-            <button
-              className="bg-blue-500 text-white p-2 rounded w-full"
-              onClick={handleSaveInvoiceUrl}
-            >
-              Guardar Factura
-            </button>
+      {
+        isInvoiceModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+              <button
+                className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                onClick={() => setIsInvoiceModalOpen(false)}
+              >
+                X
+              </button>
+              <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Subir URL de Factura</h2>
+              <input
+                type="text"
+                placeholder="Ingresa la URL de la factura"
+                value={invoiceUrl}
+                onChange={(e) => setInvoiceUrl(e.target.value)}
+                className="w-full text-black p-2 border border-gray-300 rounded mb-4"
+              />
+              <button
+                className="bg-blue-500 text-white p-2 rounded w-full"
+                onClick={handleSaveInvoiceUrl}
+              >
+                Guardar Factura
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
-      {isMessageModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
-          <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
-            <button
-              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={handleCloseMessageModal}
-            >
-              X
-            </button>
-            <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
-            <input
-              type="text"
-              placeholder="Escribe tu mensaje aquí"
-              value={newMessageBody}
-              onChange={(e) => setNewMessageBody(e.target.value)}
-              className="w-full text-black p-2 border border-gray-300 rounded mb-4"
-            />
-            <button
-              className="bg-blue-500 text-white p-2 rounded w-full"
-              onClick={handleAddMessage}
-            >
-              Guardar Mensaje
-            </button>
+      {
+        isMessageModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+              <button
+                className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                onClick={handleCloseMessageModal}
+              >
+                X
+              </button>
+              <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+              <input
+                type="text"
+                placeholder="Escribe tu mensaje aquí"
+                value={newMessageBody}
+                onChange={(e) => setNewMessageBody(e.target.value)}
+                className="w-full text-black p-2 border border-gray-300 rounded mb-4"
+              />
+              <button
+                className="bg-blue-500 text-white p-2 rounded w-full"
+                onClick={handleAddMessage}
+              >
+                Guardar Mensaje
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-      {isEditModalOpen && selectedShoppingData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] overflow-y-auto">
-            {/* Botón para cerrar (X) */}
-            <button
-              className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
-              onClick={() => setIsEditModalOpen(false)}
-            >
-              X
-            </button>
+        )
+      }
+      {
+        isEditModalOpen && selectedShoppingData && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+              {/* Botón para cerrar (X) */}
+              <button
+                className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                onClick={() => setIsEditModalOpen(false)}
+              >
+                X
+              </button>
 
-            <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
-            <form onSubmit={handleEditSave}>
-              {/* Título */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.title || ''}
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                  required
-                  onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                  onInput={(e) => e.target.setCustomValidity('')}
-                />
-              </div>
-
-              {/* Descripción */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  value={selectedShoppingData.description || ''}
-                  onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                  required
-                  onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                  onInput={(e) => e.target.setCustomValidity('')}
-                />
-              </div>
-
-              {/* Área */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
-                <select
-                  value={selectedShoppingData.area?.id || ''}
-                  onChange={(e) =>
-                    setSelectedShoppingData({
-                      ...selectedShoppingData,
-                      area: areas.find((area) => area.id === parseInt(e.target.value)),
-                    })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                  required
-                  onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                  onInput={(e) => e.target.setCustomValidity('')}
-                >
-                  <option value="">Seleccione un área</option>
-                  {areas.map((area) => (
-                    <option key={area.id} value={area.id}>
-                      {area.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Tipo de Cuenta Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">
-                  Tipo de Cuenta: <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={selectedShoppingData.account_type?.id || ''}
-                  onChange={(e) =>
-                    setSelectedShoppingData({
-                      ...selectedShoppingData,
-                      account_type: accountTypes.find((type) => type.id === parseInt(e.target.value)),
-                    })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                  required
-                  onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                  onInput={(e) => e.target.setCustomValidity('')}
-                >
-                  <option value="">Seleccione un tipo de cuenta</option>
-                  {accountTypes.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Líder de Presupuesto Dropdown */}
-              <div className="mb-4">
-                <label className="block text-black font-medium">
-                  Líder de Presupuesto: <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={selectedShoppingData.user?.id || ''}
-                  onChange={(e) =>
-                    setSelectedShoppingData({
-                      ...selectedShoppingData,
-                      user: users.find((user) => user.id === parseInt(e.target.value)),
-                    })
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                  required
-                  onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                  onInput={(e) => e.target.setCustomValidity('')}
-                >
-                  <option value="">Seleccione un líder de presupuesto</option>
-                  {users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Subtotal y Total */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">
-                    Subtotal: <span className="text-red-500">*</span>
-                  </label>
+              <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
+              <form onSubmit={handleEditSave}>
+                {/* Título */}
+                <div className="mb-4">
+                  <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
                   <input
-                    type="number"
-                    value={selectedShoppingData.subtotal || ''}
-                    onChange={(e) =>
-                      setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })
-                    }
-                    className="border p-2 rounded w-full text-black"
+                    type="text"
+                    value={selectedShoppingData.title || ''}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
                     required
                     onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
                     onInput={(e) => e.target.setCustomValidity('')}
                   />
                 </div>
 
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">
-                    Total: <span className="text-red-500">*</span>
-                  </label>
+                {/* Descripción */}
+                <div className="mb-4">
+                  <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
                   <input
-                    type="number"
-                    value={selectedShoppingData.total || ''}
-                    onChange={(e) =>
-                      setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })
-                    }
-                    className="border p-2 rounded w-full text-black"
+                    type="text"
+                    value={selectedShoppingData.description || ''}
+                    onChange={(e) => setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
                     required
                     onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
                     onInput={(e) => e.target.setCustomValidity('')}
                   />
                 </div>
 
-                {/* IVA */}
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">
-                    IVA: <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.iva || ''}
+                {/* Área */}
+                <div className="mb-4">
+                  <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
+                  <select
+                    value={selectedShoppingData.area?.id || ''}
                     onChange={(e) =>
-                      setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })
+                      setSelectedShoppingData({
+                        ...selectedShoppingData,
+                        area: areas.find((area) => area.id === parseInt(e.target.value)),
+                      })
                     }
-                    className="border p-2 rounded w-full text-black"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
                     required
                     onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
                     onInput={(e) => e.target.setCustomValidity('')}
-                  />
+                  >
+                    <option value="">Seleccione un área</option>
+                    {areas.map((area) => (
+                      <option key={area.id} value={area.id}>
+                        {area.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
-                {/* Unidad */}
-                <div>
-                  <label className="block mb-2 text-sm font-bold text-black">
-                    Unidad: <span className="text-red-500">*</span>
+                {/* Tipo de Cuenta Dropdown */}
+                <div className="mb-4">
+                  <label className="block text-black font-medium">
+                    Tipo de Cuenta: <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="number"
-                    value={selectedShoppingData.unidad || ''}
+                  <select
+                    value={selectedShoppingData.account_type?.id || ''}
                     onChange={(e) =>
-                      setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })
+                      setSelectedShoppingData({
+                        ...selectedShoppingData,
+                        account_type: accountTypes.find((type) => type.id === parseInt(e.target.value)),
+                      })
                     }
-                    className="border p-2 rounded w-full text-black"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
                     required
                     onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
                     onInput={(e) => e.target.setCustomValidity('')}
-                  />
+                  >
+                    <option value="">Seleccione un tipo de cuenta</option>
+                    {accountTypes.map((type) => (
+                      <option key={type.id} value={type.id}>
+                        {type.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </div>
 
-              {/* Espacio adicional antes del Checkbox Innovated */}
-              <div className="mt-6 mb-4">
-                <label className="flex items-center space-x-4">
-                  <span className="text-black font-medium">¿Es innovador?</span>
-                  <input
-                    type="checkbox"
-                    checked={selectedShoppingData.innovated || false}
+                {/* Líder de Presupuesto Dropdown */}
+                <div className="mb-4">
+                  <label className="block text-black font-medium">
+                    Líder de Presupuesto: <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    value={selectedShoppingData.user?.id || ''}
                     onChange={(e) =>
-                      setSelectedShoppingData({ ...selectedShoppingData, innovated: e.target.checked })
+                      setSelectedShoppingData({
+                        ...selectedShoppingData,
+                        user: users.find((user) => user.id === parseInt(e.target.value)),
+                      })
                     }
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                  />
-                  <span className="ml-2 text-black font-medium">Innovado</span>
-                </label>
-              </div>
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                    required
+                    onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                    onInput={(e) => e.target.setCustomValidity('')}
+                  >
+                    <option value="">Seleccione un líder de presupuesto</option>
+                    {users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-
-
-
-              {/* Productos */}
-              <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
-              {selectedShoppingData.products.map((product, index) => (
-                <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
+                {/* Subtotal y Total */}
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-2 text-sm font-bold text-black">
-                      Nombre del Producto: <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={product.name || ''}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].name = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full text-black"
-                      required
-                      onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                      onInput={(e) => e.target.setCustomValidity('')}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">
-                      Descripción: <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={product.description || ''}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].description = e.target.value;
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
-                      className="border p-2 rounded w-full text-black"
-                      required
-                      onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                      onInput={(e) => e.target.setCustomValidity('')}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block mb-2 text-sm font-bold text-black">
-                      Precio: <span className="text-red-500">*</span>
+                      Subtotal: <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
-                      value={product.price || ''}
-                      onChange={(e) => {
-                        const updatedProducts = [...selectedShoppingData.products];
-                        updatedProducts[index].price = parseFloat(e.target.value);
-                        setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
-                      }}
+                      value={selectedShoppingData.subtotal || ''}
+                      onChange={(e) =>
+                        setSelectedShoppingData({ ...selectedShoppingData, subtotal: parseFloat(e.target.value) })
+                      }
+                      className="border p-2 rounded w-full text-black"
+                      required
+                      onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                      onInput={(e) => e.target.setCustomValidity('')}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm font-bold text-black">
+                      Total: <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      value={selectedShoppingData.total || ''}
+                      onChange={(e) =>
+                        setSelectedShoppingData({ ...selectedShoppingData, total: parseFloat(e.target.value) })
+                      }
+                      className="border p-2 rounded w-full text-black"
+                      required
+                      onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                      onInput={(e) => e.target.setCustomValidity('')}
+                    />
+                  </div>
+
+                  {/* IVA */}
+                  <div>
+                    <label className="block mb-2 text-sm font-bold text-black">
+                      IVA: <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      value={selectedShoppingData.iva || ''}
+                      onChange={(e) =>
+                        setSelectedShoppingData({ ...selectedShoppingData, iva: parseFloat(e.target.value) })
+                      }
+                      className="border p-2 rounded w-full text-black"
+                      required
+                      onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                      onInput={(e) => e.target.setCustomValidity('')}
+                    />
+                  </div>
+
+                  {/* Unidad */}
+                  <div>
+                    <label className="block mb-2 text-sm font-bold text-black">
+                      Unidad: <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      value={selectedShoppingData.unidad || ''}
+                      onChange={(e) =>
+                        setSelectedShoppingData({ ...selectedShoppingData, unidad: parseFloat(e.target.value) })
+                      }
                       className="border p-2 rounded w-full text-black"
                       required
                       onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
@@ -1351,58 +1314,142 @@ const FiltersComponent = () => {
                     />
                   </div>
                 </div>
-              ))}
 
-              {/* Botones de acción */}
-              <div className="flex justify-end space-x-2 mt-4">
+                {/* Espacio adicional antes del Checkbox Innovated */}
+                <div className="mt-6 mb-4">
+                  <label className="flex items-center space-x-4">
+                    <span className="text-black font-medium">¿Es innovador?</span>
+                    <input
+                      type="checkbox"
+                      checked={selectedShoppingData.innovated || false}
+                      onChange={(e) =>
+                        setSelectedShoppingData({ ...selectedShoppingData, innovated: e.target.checked })
+                      }
+                      className="form-checkbox h-5 w-5 text-blue-600"
+                    />
+                    <span className="ml-2 text-black font-medium">Innovado</span>
+                  </label>
+                </div>
+
+
+
+
+                {/* Productos */}
+                <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
+                {selectedShoppingData.products.map((product, index) => (
+                  <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-black">
+                        Nombre del Producto: <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={product.name || ''}
+                        onChange={(e) => {
+                          const updatedProducts = [...selectedShoppingData.products];
+                          updatedProducts[index].name = e.target.value;
+                          setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                        }}
+                        className="border p-2 rounded w-full text-black"
+                        required
+                        onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                        onInput={(e) => e.target.setCustomValidity('')}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-black">
+                        Descripción: <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={product.description || ''}
+                        onChange={(e) => {
+                          const updatedProducts = [...selectedShoppingData.products];
+                          updatedProducts[index].description = e.target.value;
+                          setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                        }}
+                        className="border p-2 rounded w-full text-black"
+                        required
+                        onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                        onInput={(e) => e.target.setCustomValidity('')}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-black">
+                        Precio: <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        value={product.price || ''}
+                        onChange={(e) => {
+                          const updatedProducts = [...selectedShoppingData.products];
+                          updatedProducts[index].price = parseFloat(e.target.value);
+                          setSelectedShoppingData({ ...selectedShoppingData, products: updatedProducts });
+                        }}
+                        className="border p-2 rounded w-full text-black"
+                        required
+                        onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
+                        onInput={(e) => e.target.setCustomValidity('')}
+                      />
+                    </div>
+                  </div>
+                ))}
+
+                {/* Botones de acción */}
+                <div className="flex justify-end space-x-2 mt-4">
+                  <button
+                    type="button"
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                    onClick={() => setIsEditModalOpen(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                  >
+                    Guardar Cambios
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )
+      }
+
+
+
+
+      {
+        isDeleteModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <h2 className="text-lg font-semibold mb-4 text-black">Confirmar eliminación</h2>
+              <p>¿Estás seguro de que quieres eliminar esta compra?</p>
+              <div className="flex justify-end mt-4 text-black">
                 <button
-                  type="button"
-                  className="bg-red-500 text-white px-4 py-2 rounded"
-                  onClick={() => setIsEditModalOpen(false)}
+                  className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                  onClick={closeDeleteModal}
                 >
                   Cancelar
                 </button>
                 <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  onClick={handleDelete}
                 >
-                  Guardar Cambios
+                  Eliminar
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-
-
-
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-lg font-semibold mb-4 text-black">Confirmar eliminación</h2>
-            <p>¿Estás seguro de que quieres eliminar esta compra?</p>
-            <div className="flex justify-end mt-4 text-black">
-              <button
-                className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
-                onClick={closeDeleteModal}
-              >
-                Cancelar
-              </button>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={handleDelete}
-              >
-                Eliminar
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
 
 
-    </div>
+    </div >
   );
 };
 

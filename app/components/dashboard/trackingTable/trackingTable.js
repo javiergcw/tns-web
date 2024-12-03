@@ -19,6 +19,8 @@ const TrackingTable = ({ data: initialData, role }) => {
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
   const [invoiceUrl, setInvoiceUrl] = useState("");
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
 
   useEffect(() => {
     const fetchShoppings = async () => {
@@ -33,7 +35,15 @@ const TrackingTable = ({ data: initialData, role }) => {
     fetchShoppings();
   }, []);
 
+  const handleViewPdf = (url) => {
+    setPdfUrl(url);
+    setIsPdfModalOpen(true);
+  };
 
+  const closePdfModal = () => {
+    setIsPdfModalOpen(false);
+    setPdfUrl("");
+  };
   const handleViewDetailsClick = async (shopping) => {
     setSelectedShopping(shopping);
     setSelectedShoppingId(shopping.id);
@@ -207,14 +217,14 @@ const TrackingTable = ({ data: initialData, role }) => {
             <div className="flex items-center space-x-2">
               {billingExists ? (
                 <>
-                  <a
-                    href={billingExists}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  {/* Botón para abrir el modal y previsualizar el PDF */}
+                  <button
+                    onClick={() => handleViewPdf(billingExists)} // Llama a la función para abrir el modal
                     className="text-blue-500 hover:text-blue-700 cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faFilePdf} className="text-red-500" />
-                  </a>
+                  </button>
+
                   {(role === "admin" || role === "Compras" || role === "Developer") && (
                     <label className="cursor-pointer text-blue-500 hover:text-blue-700">
                       <FontAwesomeIcon icon={faEdit} />
@@ -332,6 +342,25 @@ const TrackingTable = ({ data: initialData, role }) => {
         </div>
       )}
 
+      {isPdfModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl relative">
+            {/* Botón para cerrar el modal */}
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-900 text-lg font-bold"
+              onClick={closePdfModal}
+            >
+              X
+            </button>
+            {/* Previsualización del PDF */}
+            <iframe
+              src={pdfUrl}
+              className="w-full h-[600px] border-0"
+              title="Factura PDF"
+            ></iframe>
+          </div>
+        </div>
+      )}
       {/* Modal para añadir mensaje */}
       {isMessageModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
