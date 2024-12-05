@@ -1,4 +1,4 @@
-import { get, post } from "./apiRequest";
+import { get, post, postFormData } from "./apiRequest";
 import { ENDPOINTS } from "@/app/utils/apiConfig";
 import axios from "axios";
 import { ShoppingDTO } from "../models/shoppings/shoppingsModel"; // Asegúrate de que la ruta sea correcta
@@ -126,17 +126,31 @@ const getUserByLatestStatisticalRequestsOfTheMonth = async (id) => {
 };
 
 // Método para crear una nueva compra
-const createShopping = async (shoppingData) => {
+
+/* const createShopping = async (shoppingData) => {
   try {
     const response = await post(
       ENDPOINTS.create_shopping,
 
       shoppingData,
     );
-    /*  const response = await post(ENDPOINTS.create_shopping, shoppingData); */
+
     if (response.status >= 200 && response.status < 300) {
       return true;
-    } //return new ShoppingDTO(response);
+    }
+  } catch (error) {
+    console.error("Error al crear la compra:", error);
+    throw error;
+  }
+}; */
+
+const createShopping = async (shoppingData) => {
+  try {
+    const response = await postFormData(ENDPOINTS.create_shopping, shoppingData);
+    print(response);
+    if (response.status >= 200 && response.status < 300) {
+      return true;
+    }
   } catch (error) {
     console.error("Error al crear la compra:", error);
     throw error;
@@ -152,7 +166,7 @@ const getAuthHeaders = () => {
   };
 };
 
- // Cambia esto por tu URL base
+// Cambia esto por tu URL base
 const deleteShoppingById = async (id) => {
   try {
     const response = await fetch(ENDPOINTS.DeleteShoppingById(id), {

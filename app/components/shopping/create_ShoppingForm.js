@@ -28,11 +28,13 @@ const CreateShoppingForm = () => {
   const [error, setError] = useState({});
   const [unidad, setUnidad] = useState(1);
   const [iva, setIva] = useState("");
-  const [retefuente, setRetefuente] = useState(""); 
+  const [retefuente, setRetefuente] = useState("");
   const [innovated, setInnovated] = useState(false);
   const [total, setTotal] = useState("");
   const [subtotal, setSubTotal] = useState("");
-  
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+
   const [isModalOpen, setIsModalOpen] = useState(false);  // Estado para el modal
   const [confirmSubmit, setConfirmSubmit] = useState(false);  // Estado para confirmar envío sin productos
 
@@ -110,13 +112,28 @@ const CreateShoppingForm = () => {
     setInnovated(newProduct.innovated);
     setUnidad(newProduct.unidad);
   };
-  
+
 
   const handleRemoveProduct = (uniqueId) => {
     setProducts(products.filter((product) => product.uniqueId !== uniqueId));
     setUnidad(1);
     setInnovated(false);
     toast.success("Producto eliminado exitosamente!");
+  };
+
+  const handleFileRemove = () => {
+    setUploadedFile(null);
+    toast.success("Archivo PDF eliminado.");
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === "application/pdf") {
+      setUploadedFile(file);
+      toast.success("Archivo PDF subido exitosamente!");
+    } else {
+      toast.error("Solo se permiten archivos PDF.");
+    }
   };
 
   const validateForm = () => {
@@ -151,8 +168,106 @@ const CreateShoppingForm = () => {
 
     await createPurchase();
   };
-
   const createPurchase = async () => {
+    const shopping = {
+      title,
+      description,
+      category_id: 35,
+      status_id: parseInt(status_id, 10),
+      area_id: parseInt(selectedAreaId, 10),
+      account_type_id: parseInt(selectedAccountTypeId, 10),
+      user_id: parseInt(selectedUserId, 10),
+      request_date: new Date().toISOString(),
+      pending_date: new Date().toISOString(),
+      date_approval: new Date().toISOString(),
+      iva: parseFloat(iva),
+      retefuente: retefuente ? parseFloat(retefuente) : 0,
+      innovated,
+      unidad,
+      subtotal: parseFloat(subtotal),
+      total: parseFloat(total),
+      products: products.map((product) => ({
+        id: product.uniqueId,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        url: product.url,
+      })),
+    };
+
+    const formData = new FormData();
+    Object.keys(shopping).forEach((key) => {
+      if (key === "products") {
+        shopping.products.forEach((product, index) => {
+          Object.keys(product).forEach((productKey) => {
+            formData.append(`products[${index}][${productKey}]`, product[productKey]);
+          });
+        });
+      } else {
+        formData.append(`shopping[${key}]`, shopping[key]);
+      }
+    });
+
+    if (uploadedFile) {
+      formData.append("file", uploadedFile);
+    }
+
+    try {
+      const isCreated = await createShopping(formData);
+      if (isCreated) {
+        resetForm();
+        toast.success("Compra creada exitosamente!");
+      } else {
+        setError({ general: "No se logró crear la compra" });
+      }
+    } catch (error) {
+      console.error("Error al crear la compra:", error); // Mostrar detalles del error
+      setError({ general: error.response?.data?.message || "Error al crear la compra" }); // Intenta mostrar un mensaje más claro
+
+    }
+  };
+
+  /* const createPurchase = async () => {
+    const shopping = {
+      title,
+      description,
+      category_id: 35,
+      status_id: parseInt(status_id, 10),
+      area_id: parseInt(selectedAreaId, 10),
+      account_type_id: parseInt(selectedAccountTypeId, 10),
+      user_id: parseInt(selectedUserId, 10),
+      request_date: new Date().toISOString(),
+      pending_date: new Date().toISOString(),
+      date_approval: new Date().toISOString(),
+      iva: parseFloat(iva),
+      retefuente: retefuente ? parseFloat(retefuente) : 0,
+      innovated,
+      unidad,
+      subtotal: parseFloat(subtotal),
+      total: parseFloat(total),
+      products: products.map((product) => ({
+        id: product.uniqueId,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        url: product.url,
+      })),
+    };
+
+    try {
+      const isCreated = await createShopping(shopping);
+      if (isCreated) {
+        resetForm();
+        toast.success("Compra creada exitosamente!");
+      } else {
+        setError({ general: "No se logró crear la compra" });
+      }
+    } catch (error) {
+      setError({ general: "Error al crear la compra" });
+    }
+  }; */
+
+  /* const createPurchase = async () => {
     const shopping = {
       shopping: {
         title,
@@ -192,7 +307,7 @@ const CreateShoppingForm = () => {
     } catch (error) {
       setError({ general: "Error al crear la compra" });
     }
-  };
+  }; */
 
   const resetForm = () => {
     setTitle("");
@@ -207,6 +322,7 @@ const CreateShoppingForm = () => {
     setTotal("");
     setSubTotal("");
     setError({});
+    setUploadedFile(null);
   };
 
   const handleModalConfirm = async () => {
@@ -358,6 +474,29 @@ const CreateShoppingForm = () => {
           {error.total && <p className="text-red-500">{error.total}</p>}
         </div>
 
+        <div className="mb-4">
+          <label className="block text-black font-medium">Subir Archivo PDF:</label>
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileUpload}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+          />
+          {uploadedFile && (
+            <div className="mt-4 bg-gray-100 p-4 rounded-md">
+              <p className="text-black font-medium">Archivo: {uploadedFile.name}</p>
+              <button
+                type="button"
+                className="text-red-500 hover:text-red-700 mt-2"
+                onClick={handleFileRemove}
+              >
+                Eliminar Archivo
+              </button>
+            </div>
+          )}
+        </div>
+
+        <br />
         <h3 className="text-lg font-semibold mb-4">Producto en la Orden</h3>
         {products.length === 0 ? (
           <p className="text-red-500">No hay producto. Añade un producto primero si lo deseas.</p>
