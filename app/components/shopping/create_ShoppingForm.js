@@ -187,7 +187,6 @@ const CreateShoppingForm = () => {
       subtotal: parseFloat(subtotal),
       total: parseFloat(total),
       products: products.map((product) => ({
-        id: product.uniqueId,
         name: product.name,
         description: product.description,
         price: product.price,
@@ -200,7 +199,9 @@ const CreateShoppingForm = () => {
       if (key === "products") {
         shopping.products.forEach((product, index) => {
           Object.keys(product).forEach((productKey) => {
-            formData.append(`products[${index}][${productKey}]`, product[productKey]);
+            if (product[productKey]) {
+              formData.append(`products[${index}][${productKey}]`, product[productKey]);
+            }
           });
         });
       } else {
@@ -213,101 +214,29 @@ const CreateShoppingForm = () => {
     }
 
     try {
-      const isCreated = await createShopping(formData);
-      if (isCreated) {
-        resetForm();
+      const response = await createShopping(formData);
+      console.log("Respuesta del backend:", response);
+
+      if (response.status === 201) {
         toast.success("Compra creada exitosamente!");
+        resetForm();
+        window.onbeforeprint = null;
+        window.onafterprint = null;
       } else {
+        toast.error("No se logró crear la compra.");
         setError({ general: "No se logró crear la compra" });
       }
     } catch (error) {
-      console.error("Error al crear la compra:", error); // Mostrar detalles del error
-      setError({ general: error.response?.data?.message || "Error al crear la compra" }); // Intenta mostrar un mensaje más claro
-
+      console.error("Error al crear la compra:", error.response?.data || error.message);
+      toast.error("Error al crear la compra.");
+      setError({ general: error.response?.data?.message || "Error al crear la compra" });
     }
   };
 
-  /* const createPurchase = async () => {
-    const shopping = {
-      title,
-      description,
-      category_id: 35,
-      status_id: parseInt(status_id, 10),
-      area_id: parseInt(selectedAreaId, 10),
-      account_type_id: parseInt(selectedAccountTypeId, 10),
-      user_id: parseInt(selectedUserId, 10),
-      request_date: new Date().toISOString(),
-      pending_date: new Date().toISOString(),
-      date_approval: new Date().toISOString(),
-      iva: parseFloat(iva),
-      retefuente: retefuente ? parseFloat(retefuente) : 0,
-      innovated,
-      unidad,
-      subtotal: parseFloat(subtotal),
-      total: parseFloat(total),
-      products: products.map((product) => ({
-        id: product.uniqueId,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        url: product.url,
-      })),
-    };
 
-    try {
-      const isCreated = await createShopping(shopping);
-      if (isCreated) {
-        resetForm();
-        toast.success("Compra creada exitosamente!");
-      } else {
-        setError({ general: "No se logró crear la compra" });
-      }
-    } catch (error) {
-      setError({ general: "Error al crear la compra" });
-    }
-  }; */
 
-  /* const createPurchase = async () => {
-    const shopping = {
-      shopping: {
-        title,
-        description,
-        category_id: 35, 
-        status_id: parseInt(status_id, 10),
-        area_id: parseInt(selectedAreaId, 10),
-        account_type_id: parseInt(selectedAccountTypeId, 10),
-        user_id: parseInt(selectedUserId, 10),
-        request_date: new Date().toISOString(),
-        pending_date: new Date().toISOString(),
-        date_approval: new Date().toISOString(),
-        iva: parseFloat(iva),
-        retefuente: retefuente ? parseFloat(retefuente) : 0, 
-        innovated,
-        unidad,
-        subtotal: parseFloat(subtotal),
-        total: parseFloat(total),
-      },
-      products: products.length > 0 ? products.map((product) => ({
-        id: product.uniqueId,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        url: product.url,
-      })) : [],
-    };
 
-    try {
-      const isCreated = await createShopping(shopping);
-      if (isCreated !== "") {
-        resetForm();
-        toast.success("Compra creada exitosamente!");
-      } else {
-        setError({ general: "No se logró crear la compra" });
-      }
-    } catch (error) {
-      setError({ general: "Error al crear la compra" });
-    }
-  }; */
+
 
   const resetForm = () => {
     setTitle("");

@@ -148,14 +148,13 @@ const createShopping = async (shoppingData) => {
   try {
     const response = await postFormData(ENDPOINTS.create_shopping, shoppingData);
     print(response);
-    if (response.status >= 200 && response.status < 300) {
-      return true;
-    }
+    return response; // Retorna el objeto completo
   } catch (error) {
     console.error("Error al crear la compra:", error);
     throw error;
   }
 };
+
 // services/shoppingService.js
 // Ejemplo de getAuthHeaders
 const getAuthHeaders = () => {

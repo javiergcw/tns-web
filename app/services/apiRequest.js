@@ -49,51 +49,30 @@ export const post = (url, data, authRequired = true) =>
   apiRequest("post", url, data, null, authRequired);
 
 export const postFormData = async (url, data, authRequired = true) => {
-  const formData = new FormData();
-
-  // Construcción de FormData
-  Object.keys(data).forEach((key) => {
-    if (Array.isArray(data[key])) {
-      data[key].forEach((item, index) => {
-        if (typeof item === "object" && item !== null) {
-          Object.keys(item).forEach((subKey) => {
-            formData.append(`${key}[${index}][${subKey}]`, item[subKey]);
-          });
-        } else {
-          formData.append(`${key}[${index}]`, item);
-        }
-      });
-    } else {
-      formData.append(key, data[key]);
-    }
-  });
-
-  // Configuración de encabezados
   const headers = authRequired
-    ? {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    }
+    ? { Authorization: `Bearer ${localStorage.getItem("token")}` }
     : {};
 
   try {
-    // Envío de la solicitud
     const response = await fetch(url, {
       method: "POST",
-      body: formData, // Enviamos el FormData directamente
-      headers, // No incluimos Content-Type aquí
+      body: data,
+      headers,
     });
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
 
-    // Parseamos la respuesta
-    return await response.json();
+    // Retorna el status y los datos
+    const responseData = await response.json();
+    return { status: response.status, data: responseData };
   } catch (error) {
     console.error("Error en el POST:", error);
     throw error;
   }
 };
+
 
 
 export const del = (url, data) => apiRequest("delete", url, data);
