@@ -17,7 +17,7 @@ export default function CardNew({ date, imageUrl, title }) {
                             </svg>
                             <span>{date}</span>
                         </div>
-                        <h3 className="text-white text-lg mt-2">{title}</h3>
+                        <h3 className="text-white text-lg mt-2 text-black">{title}</h3>
                         <div className="h-1 w-0 bg-blue-500 group-hover:w-full transition-all duration-300 ease-in-out"></div>
                     </div>
                 </div>

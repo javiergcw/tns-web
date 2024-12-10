@@ -35,15 +35,15 @@ const BlogDetail = () => {
             <MainLayout>
             <div className='flex flex-col px-4 md:px-24 pb-22 my-8'>
                 <div className="md:flex-row flex flex-col-reverse items-start gap-4 md:gap-8">
-                    <div className="w-full md:w-1/5 flex flex-col justify-start">
+                    <div className="w-full md:w-1/5 flex flex-col justify-start text-black">
                         <SocialShareButtons blogUrl={`https://tuurl.com/${blog.slug}`} />
                     </div>
                     <div className="w-full md:w-4/5">
-                        <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
+                        <h1 className="text-4xl text-black font-bold mb-4">{blog.title}</h1>
                         <div className="flex items-center mb-2">
                             <span className="inline-block bg-gray-200 p-2 rounded-full mr-2">👤</span>
-                            <span>Published by admin</span>
-                            <span className="ml-4">{blog.date}</span>
+                            <span className="text-black">Published by admin,</span>
+                            <span className="ml-4 text-black">{blog.date}</span>
                         </div>
                         <div className="relative group w-full overflow-hidden flex justify-center items-center my-8">
                             {blog.banner ? (

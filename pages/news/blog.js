@@ -15,7 +15,7 @@ const blog = () => {
                 
                 <HeaderInitial />
                 <br />
-                <h1 className="text-3xl font-bold text-center mt-4">In The New School we learn for life</h1>
+                <h1 className="text-3xl font-bold text-center text-black mt-4">In The New School we learn for life</h1>
                 <br/>
                 <div className="flex flex-wrap justify-center gap-4 text-black">
                     {blogList.map((data, index) => (
