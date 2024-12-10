@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
-import Modal from "./components/home/modalPDF"; // Importa el componente del modal
+ // Importa el nuevo modal
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
@@ -12,26 +12,21 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { ImagesPath } from "./utils/assetsPath";
 import MainLayout from "./components/layout/mainLayout";
+import ModalImage from "./components/home/ModalImage";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(true); // Modal visible al inicio
 
-  const pdfUrl = "/pdf/brouchure.pdf"; // Sin 'public' en la ruta
- // Ruta del PDF que deseas mostrar
+  const imageUrl = "/images/pendon_preescolar.png"; // Ruta de la imagen que deseas mostrar
 
   useEffect(() => {
     setShowModal(true); // Muestra el modal al montar el componente
   }, []);
 
   const imagePaths = [
-    // ImagesPath.banner7,
-    // ImagesPath.banner8,
     ImagesPath.banner9,
     ImagesPath.banner10,
     ImagesPath.banner11,
-
-    // ImagesPath.banner1,
-    // ImagesPath.banner2,
   ];
 
   const servicesList = [
@@ -57,7 +52,7 @@ export default function Home() {
   return (
     <Provider store={store}>
       <MainLayout>
-        {showModal && <Modal setShowModal={setShowModal} pdfUrl={pdfUrl} />}
+        {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />}
         <BannerCarousel imagePaths={imagePaths} />
         <ServicesHome images={servicesList} />
         <BlogsSection blogs={blogList} />
