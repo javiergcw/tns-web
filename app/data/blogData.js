@@ -2,6 +2,256 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "December 12,2024",
+        imageUrl: ImagesPath.volcan1,
+        title: "LA VOLCANA UN LABORATORIO VIVO POR Y PARA LA VIDA ",
+        body: `
+          
+         <p>La fauna y la flora convierten a The New School en un entorno en el que nosotros, como 
+comunidad educativa, coexistimos desde el respeto hacia los diferentes ambientes y 
+habitantes naturales de nuestra institución.  </p>
+<br>
+    <p>A partir de ese respeto, nos vinculamos al estudio y al cuidado de estos ecosistemas, 
+particularmente los recursos hídricos, junto con la Universidad Eafit y la Secretaría de 
+Planeación y de Medio Ambiente, con quienes creamos una alianza interinstitucional 
+que enriquece y fortalece este compromiso medioambiental.</p>
+</br>
+<br>
+    <p>Entre los bosques y cuencas de nuestro colegio se abren camino hacia su 
+desembocadura en el Río Medellín dos afluentes, hablamos de las cuencas La Marucha 
+y La Volcana. Esta última, la pensamos además como un espacio académico desde el 
+cual construimos consciencia. </p>
+    </br>
+    </br>
+    <div align="center">
+        <img src="/images/blogs_body/lavolcana1.jpg" alt="tnsum" style="max-width: 50%; height: 50%;">
+    </div>
+<br>
+    <br>
+    <p><b>¿Qué son las cuencas?</b> </p>
+</br>
+<br>
+    <p>Una cuenca es un sistema de corredores naturales a través de los cuales diferentes 
+afluentes se abren paso y encuentran su desembocadura hacia un área más grande de 
+agua como un río o el mar incluso. Algo así como un sistema circulatorio en el que las 
+quebradas son las arterias que transportan el agua desde las montañas hacia los ríos y 
+mares, contribuyendo así con los ciclos del agua que permiten la vida en la tierra. </p>
+</br>
+<br>
+    <p>En ese camino, cada río y cada quebrada se relaciona de diversas formas con otros 
+actores de su entorno y viceversa. Las comunidades, flora y fauna influyen directa e 
+indirectamente en la vida de las cuencas y al mismo tiempo se benefician de ellas, ya 
+sea como fuente de alimento o corredores naturales para el transporte, de ahí la 
+importancia 
+de su cuidado.</p>
+<br>
+    
+    <p><b>Laboratorio Vivo Cuenca La Volcana. </b> </p>
+</br>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/urbam1.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>El Laboratorio Vivo Cuenca La Volcana es un taller que trabajamos en equipo con el 
+Centro de Estudios Ambientales URBAM*, de la Universidad Eafit, para sensibilizar a 
+nuestros estudiantes sobre la importancia, la función y el valor que las cuencas 
+hidrográficas aportan a las comunidades y a la naturaleza, y en el caso de La Volcana, 
+por el valor que esta ofrece para nuestra institución. </p>
+</br>
+<br>
+    <p>Con la participación de los estudiantes de Décimo y de la mano de Juan Sebastián 
+Bustamante, líder de Investigación en Eafit, nos encaminamos por los senderos de 
+nuestro colegio para identificar los elementos que conforman el cauce de La Volcana, 
+así mismo, el de las quebradas de nuestros barrios. A partir de este ejercicio, 
+comprendimos cómo influimos y nos comprometemos con la protección de los 
+afluentes del área metropolitana del Valle de Aburrá.</p>
+</br>
+<br>
+    <p>A través de actividades que implican la observación y la planeación de espacios, los 
+estudiantes aplicaron conceptos de cartografía, sostenibilidad y urbanismo para 
+comprender los aspectos socio-territoriales que influyen en el desarrollo de las 
+comunidades y el medioambiente.</p>
+
+</br>
+
+    <p>Aplicando la Fórmula de la triple A, trabajamos tres conceptos desde los cuales 
+mejoramos en nuestra interacción y relación con los ecosistemas: <b>Anticipar</b>, que lo 
+logramos desde el conocimiento del entorno y la información que adquirimos para 
+evaluar y prever posibles amenazas; <b>Adaptar</b>, para que una vez identifiquemos dichas 
+amenazas, contemos con un plan de acción con el que estemos preparados; y <b>Actuar</b>, 
+para reconocernos como agentes activos que influyen en el cuidado, preservación de 
+las cuencas y la transformación de los territorios. </p>
+</br>
+<br>
+    
+    <p><b>Sembrando conciencia por y para la vida  </b> </p>
+</br>
+
+    <div align="center">
+        <img src="/images/blogs_body/lavolcana3.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>Con el mapeo y caracterización de La Volcana, aprendimos a conocerla desde su 
+entorno como un sistema complejo en el cual influyen muchos factores claves que 
+posibilitan la vida de esta cuenca. </p>
+</br>
+
+<br>
+    <p>Entonces, reconociendo la fauna y la flora como uno de esos elementos que aportan a 
+la vida de La Volcana, el pasado 29 de noviembre nos encaminamos en una jornada de 
+reforestación de su entorno a través de la siembra de plantas nativas y de raíces 
+profundas, entendiendo desde el aprendizaje vivencial cómo estas raíces regeneran y 
+estabilizan las laderas de los ríos, previenen la erosión de los suelos y protegen los 
+ecosistemas. 
+</p>
+</br>
+<br>
+    <p>Además, para hacer más significativas las actividades de siembra y recorridos por esta 
+cuenca hidrográfica de nuestra institución, reconocimos la importancia de hacer un 
+seguimiento al crecimiento de los árboles y plantas sembradas. Por eso, nuestro 
+objetivo es continuar el próximo año con este laboratorio en el que trascendemos de la 
+coexistencia con nuestros ecosistemas naturales, hacia un rol activo desde el cual 
+aprendemos mientras los protegemos. </p>
+</br>
+<br>
+    <p>Gracias a esta alianza, ampliamos en los estudiantes la consciencia hacia las cuencas 
+hidrográficas que recorren los bosques de nuestro colegio y nuestra ciudad. Este taller, 
+que seguiremos implementando de la mano del Urbam, es un compromiso con la 
+sociedad hacia estas cuencas que nos conforman, nos atraviesan y, sobre todo, nos 
+permiten aprender desde la transversalidad que procuramos siempre en nuestra 
+propuesta educativa.</p>
+</br>
+<br>
+    <p>*El <b>Centro de Estudios Urbanos y Ambientales URBAM</b> es un proyecto de la 
+Universidad Eafit para la formación, investigación y proyección en temas de ciudad 
+como la planeación urbana, el desarrollo y el cuidado medioambiental a partir de 
+alianzas con diferentes sectores sociales, económicos, culturales y ambientales para 
+crear un puente sostenible entre lo urbano y lo ambiental.</p>
+</br>
+
+
+<p><b>LA VOLCANA, A LIVING LABORATORY TO LIFE AND FOR LIFE </b><p>
+
+         <p>Fauna and flora make The New School an environment in which we coexist as an 
+educational community, respecting our institution's different environments and natural 
+inhabitants.</p>
+<br>
+    <p>Based on this respect, we are committed to studying and caring for these ecosystems, 
+particularly <b>water resources</b>. With Eafit University and Secretaría de Planeación y de 
+Medio Ambiente, we created an inter-institutional alliance that enriches and strengthens 
+this environmental commitment.  </p>
+</br>
+<br>
+    <p>Among the forests and basins of our school, two affluents make their way to the Medellín 
+River; we are talking about <b>La Marucha</b> and <b>La Volcana</b>. We also consider the latter an 
+academic space from which we build consciousness. 
+ </p>
+    </br>
+    </br>
+    <div align="center">
+        <img src="/images/blogs_body/lavolcana1.jpg" alt="tnsum" style="max-width: 50%; height: 50%;">
+    </div>
+<br>
+    <br>
+    <p><b>What are water basins?</b> </p>
+</br>
+<br>
+    <p>A water basin is a system of natural corridors through which different tributaries make 
+their way and find their mouth into a larger area of water, such as a river or even the sea. 
+It is like a <b>circulatory system</b> in which streams are the arteries that transport water from 
+the mountains to rivers and seas, contributing to the water cycles that allow life on Earth.  </p>
+</br>
+<br>
+    <p>Along this path, each river and stream relate in various ways to other actors in its 
+environment and vice versa. Communities, flora, and fauna, directly and indirectly, 
+influence the life of water basins and, at the same time, benefit from them, either as a 
+source of food or natural corridors for transport, hence the importance of their care.</p>
+<br>
+    
+    <p><b>La Volcana Water Basin live Lab.  </b> </p>
+</br>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/urbam1.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>This laboratory is a workshop in which we work with the Center for Environmental Studies 
+<b>URBAM*of</b> Eafit University to raise our students' awareness of the importance, function, 
+and value that watersheds contribute to communities and nature, and in the case of La 
+Volcana, because of the value it offers to our institution.    </p>
+</br>
+<br>
+    <p>With the participation of the Tenth-grade students and the help of Juan Sebastián 
+Bustamante, Research Leader at Eafit, we went along our school's forest paths to identify 
+the elements that shape the basin of La Volcana and the rivers of our neighborhoods. 
+From this exercise, we understood how we influence and are committed to protecting 
+the water basins of the metropolitan area of the Aburrá Valley. </p>
+</br>
+<br>
+    <p>Through activities that involve the observation and planning of spaces, students applied 
+concepts of cartography, sustainability, and urbanism to understand the socio-territorial 
+aspects that influence the development of communities and the environment. </p>
+
+</br>
+
+    <p>Applying the triple-A Formula, we worked on three concepts from which we improve our 
+interaction and relationship with ecosystems: <b>Anticipate</bZ, which we achieve from the 
+knowledge of the environment and the information we acquire to evaluate and foresee 
+possible threats;<b> Adapt</b>, so that once we identify these threats, we have an action plan; 
+and <b>Act</b>, to recognize ourselves as active agents that influence the care, preservation of 
+water basins and the transformation of territories.  </p>
+</br>
+<br>
+    
+    <p><b>Sowing awareness to life and for life</b> </p>
+</br>
+
+    <div align="center">
+        <img src="/images/blogs_body/lavolcana3.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>With the mapping and characterization of La Volcana, we learned to know it from its 
+environment as a complex system in which many key factors influence the life of this 
+water basin.</p>
+</br>
+
+<br>
+    <p>So, recognizing the fauna and flora as elements that contribute to the life of La Volcana, 
+on November 29, we set out on a day of reforestation of its environment by planting native 
+plants with deep roots. From experiential learning, we understood how these roots 
+regenerate and stabilize the slopes of the rivers, prevent soil erosion, and protect 
+ecosystems.  
+</p>
+</br>
+<br>
+    <p>Furthermore, to make the planting activities and tours of our institution's water basin 
+more meaningful, we recognized the importance of monitoring the growth of the trees 
+and plants planted. For this reason, our goal is to continue next year with this laboratory, 
+in which we transcend from coexistence with our natural ecosystems to an active role 
+from which we learn while protecting them. </p>
+</br>
+<br>
+    <p>Thanks to this alliance, we are expanding students' awareness of the water basins that 
+run through the forests of our school and our city. This workshop, which we will continue 
+to implement hand in hand with Urbam, is a commitment to society toward these basins 
+that shape us, cross us, and, above all, allow us to learn from the transversality that we 
+always seek in our educational proposal.</p>
+</br>
+<br>
+    <p>*The <b>Center for Urban and Environmental Studies URBAM</b> is a project of Eafit 
+University that provides training, research, and projection on city issues such as urban 
+planning, development, and environmental care. It is based on alliances with different 
+social, economic, cultural, and environmental sectors to create a sustainable bridge 
+between the urban and the environmental.</p>
+</br>
+
+
+
+    </body>`,
+        banner: true,
+    },
+    {
         date: "November 28,2024",
         imageUrl: ImagesPath.blog26,
         title: "Awareness as the Essence of Educational and Personal Development at The New School",

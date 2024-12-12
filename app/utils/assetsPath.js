@@ -15,7 +15,7 @@ export const ImagesPath = {
   banner11: "/images/banner/banner11.png",
   banner10: "/images/banner/banner10.png",
   banner9: "/images/banner/banner9.png",
-  
+
   banner8: "/images/banner/banner8.gif",
   banner7: "/images/banner/banner7.gif",
   banner6: "/images/banner/banner6.gif",
@@ -88,6 +88,9 @@ export const ImagesPath = {
   blog7: "/images/blogs/blog7.jpg",
   blog27: "/images/blogs/blog27.jpeg",
   dos: "/images/blogs_body/dos.jpeg",
+  volcan1: "/images/blogs_body/lavolcana1.jpg",
+
+
   uno: "/images/blogs_body/uno.jpeg",
   blog0: "/images/blogs/blog0.jpeg",
   blog1: "/images/blogs/blog1.jpg",
@@ -106,7 +109,7 @@ export const ImagesPath = {
   blog23: "/images/blogs/blog23.jpg",
   blog24: "/images/blogs/blog28.jpeg",
   blog25: "/images/blogs/portadablog09.jpg",
-  blog26:"/images/blogs_body/nov28.png",
+  blog26: "/images/blogs_body/nov28.png",
 
 
   YSVQujq: "https://i.imgur.com/YSVQujq.png",
