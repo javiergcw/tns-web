@@ -4,9 +4,125 @@ const blogList = [
     {
         date: "December 12,2024",
         imageUrl: ImagesPath.volcan1,
-        title: "LA VOLCANA UN LABORATORIO VIVO POR Y PARA LA VIDA ",
+        title: "La Volcana a living laboratory to life and for life",
         body: `
           
+
+
+
+
+
+         <p>Fauna and flora make The New School an environment in which we coexist as an 
+educational community, respecting our institution's different environments and natural 
+inhabitants.</p>
+<br>
+    <p>Based on this respect, we are committed to studying and caring for these ecosystems, 
+particularly <b>water resources</b>. With Eafit University and Secretaría de Planeación y de 
+Medio Ambiente, we created an inter-institutional alliance that enriches and strengthens 
+this environmental commitment.  </p>
+</br>
+<br>
+    <p>Among the forests and basins of our school, two affluents make their way to the Medellín 
+River; we are talking about <b>La Marucha</b> and <b>La Volcana</b>. We also consider the latter an 
+academic space from which we build consciousness. 
+ </p>
+    </br>
+    <br>
+    <p><b>What are water basins?</b> </p>
+</br>
+<br>
+    <p>A water basin is a system of natural corridors through which different tributaries make 
+their way and find their mouth into a larger area of water, such as a river or even the sea. 
+It is like a <b>circulatory system</b> in which streams are the arteries that transport water from 
+the mountains to rivers and seas, contributing to the water cycles that allow life on Earth.  </p>
+</br>
+<br>
+    <p>Along this path, each river and stream relate in various ways to other actors in its 
+environment and vice versa. Communities, flora, and fauna, directly and indirectly, 
+influence the life of water basins and, at the same time, benefit from them, either as a 
+source of food or natural corridors for transport, hence the importance of their care.</p>
+<br>
+    
+    <p><b>La Volcana Water Basin live Lab.  </b> </p>
+</br>
+</br>
+    <div align="center">
+        <img src="/images/blogs_body/urbam1.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>This laboratory is a workshop in which we work with the Center for Environmental Studies 
+<b>URBAM*of</b> Eafit University to raise our students' awareness of the importance, function, 
+and value that watersheds contribute to communities and nature, and in the case of La 
+Volcana, because of the value it offers to our institution.    </p>
+</br>
+<br>
+    <p>With the participation of the Tenth-grade students and the help of Juan Sebastián 
+Bustamante, Research Leader at Eafit, we went along our school's forest paths to identify 
+the elements that shape the basin of La Volcana and the rivers of our neighborhoods. 
+From this exercise, we understood how we influence and are committed to protecting 
+the water basins of the metropolitan area of the Aburrá Valley. </p>
+</br>
+<br>
+    <p>Through activities that involve the observation and planning of spaces, students applied 
+concepts of cartography, sustainability, and urbanism to understand the socio-territorial 
+aspects that influence the development of communities and the environment. </p>
+
+</br>
+
+    <p>Applying the triple-A Formula, we worked on three concepts from which we improve our 
+interaction and relationship with ecosystems: <b>Anticipate</bZ, which we achieve from the 
+knowledge of the environment and the information we acquire to evaluate and foresee 
+possible threats;<b> Adapt</b>, so that once we identify these threats, we have an action plan; 
+and <b>Act</b>, to recognize ourselves as active agents that influence the care, preservation of 
+water basins and the transformation of territories.  </p>
+</br>
+<br>
+    
+    <p><b>Sowing awareness to life and for life</b> </p>
+</br>
+
+    <div align="center">
+        <img src="/images/blogs_body/lavolcana3.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+    </div>
+<br>
+    <p>With the mapping and characterization of La Volcana, we learned to know it from its 
+environment as a complex system in which many key factors influence the life of this 
+water basin.</p>
+</br>
+
+<br>
+    <p>So, recognizing the fauna and flora as elements that contribute to the life of La Volcana, 
+on November 29, we set out on a day of reforestation of its environment by planting native 
+plants with deep roots. From experiential learning, we understood how these roots 
+regenerate and stabilize the slopes of the rivers, prevent soil erosion, and protect 
+ecosystems.  
+</p>
+</br>
+<br>
+    <p>Furthermore, to make the planting activities and tours of our institution's water basin 
+more meaningful, we recognized the importance of monitoring the growth of the trees 
+and plants planted. For this reason, our goal is to continue next year with this laboratory, 
+in which we transcend from coexistence with our natural ecosystems to an active role 
+from which we learn while protecting them. </p>
+</br>
+<br>
+    <p>Thanks to this alliance, we are expanding students' awareness of the water basins that 
+run through the forests of our school and our city. This workshop, which we will continue 
+to implement hand in hand with Urbam, is a commitment to society toward these basins 
+that shape us, cross us, and, above all, allow us to learn from the transversality that we 
+always seek in our educational proposal.</p>
+</br>
+<br>
+    <p>*The <b>Center for Urban and Environmental Studies URBAM</b> is a project of Eafit 
+University that provides training, research, and projection on city issues such as urban 
+planning, development, and environmental care. It is based on alliances with different 
+social, economic, cultural, and environmental sectors to create a sustainable bridge 
+between the urban and the environmental.</p>
+</br>
+
+
+<p><b>La Volcana un laboratorio vivo por y para la vida </b><p>
+
          <p>La fauna y la flora convierten a The New School en un entorno en el que nosotros, como 
 comunidad educativa, coexistimos desde el respeto hacia los diferentes ambientes y 
 habitantes naturales de nuestra institución.  </p>
@@ -22,11 +138,8 @@ desembocadura en el Río Medellín dos afluentes, hablamos de las cuencas La Mar
 y La Volcana. Esta última, la pensamos además como un espacio académico desde el 
 cual construimos consciencia. </p>
     </br>
-    </br>
-    <div align="center">
-        <img src="/images/blogs_body/lavolcana1.jpg" alt="tnsum" style="max-width: 50%; height: 50%;">
-    </div>
-<br>
+   
+
     <br>
     <p><b>¿Qué son las cuencas?</b> </p>
 </br>
@@ -131,120 +244,7 @@ crear un puente sostenible entre lo urbano y lo ambiental.</p>
 </br>
 
 
-<p><b>LA VOLCANA, A LIVING LABORATORY TO LIFE AND FOR LIFE </b><p>
 
-         <p>Fauna and flora make The New School an environment in which we coexist as an 
-educational community, respecting our institution's different environments and natural 
-inhabitants.</p>
-<br>
-    <p>Based on this respect, we are committed to studying and caring for these ecosystems, 
-particularly <b>water resources</b>. With Eafit University and Secretaría de Planeación y de 
-Medio Ambiente, we created an inter-institutional alliance that enriches and strengthens 
-this environmental commitment.  </p>
-</br>
-<br>
-    <p>Among the forests and basins of our school, two affluents make their way to the Medellín 
-River; we are talking about <b>La Marucha</b> and <b>La Volcana</b>. We also consider the latter an 
-academic space from which we build consciousness. 
- </p>
-    </br>
-    </br>
-    <div align="center">
-        <img src="/images/blogs_body/lavolcana1.jpg" alt="tnsum" style="max-width: 50%; height: 50%;">
-    </div>
-<br>
-    <br>
-    <p><b>What are water basins?</b> </p>
-</br>
-<br>
-    <p>A water basin is a system of natural corridors through which different tributaries make 
-their way and find their mouth into a larger area of water, such as a river or even the sea. 
-It is like a <b>circulatory system</b> in which streams are the arteries that transport water from 
-the mountains to rivers and seas, contributing to the water cycles that allow life on Earth.  </p>
-</br>
-<br>
-    <p>Along this path, each river and stream relate in various ways to other actors in its 
-environment and vice versa. Communities, flora, and fauna, directly and indirectly, 
-influence the life of water basins and, at the same time, benefit from them, either as a 
-source of food or natural corridors for transport, hence the importance of their care.</p>
-<br>
-    
-    <p><b>La Volcana Water Basin live Lab.  </b> </p>
-</br>
-</br>
-    <div align="center">
-        <img src="/images/blogs_body/urbam1.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
-    </div>
-<br>
-    <p>This laboratory is a workshop in which we work with the Center for Environmental Studies 
-<b>URBAM*of</b> Eafit University to raise our students' awareness of the importance, function, 
-and value that watersheds contribute to communities and nature, and in the case of La 
-Volcana, because of the value it offers to our institution.    </p>
-</br>
-<br>
-    <p>With the participation of the Tenth-grade students and the help of Juan Sebastián 
-Bustamante, Research Leader at Eafit, we went along our school's forest paths to identify 
-the elements that shape the basin of La Volcana and the rivers of our neighborhoods. 
-From this exercise, we understood how we influence and are committed to protecting 
-the water basins of the metropolitan area of the Aburrá Valley. </p>
-</br>
-<br>
-    <p>Through activities that involve the observation and planning of spaces, students applied 
-concepts of cartography, sustainability, and urbanism to understand the socio-territorial 
-aspects that influence the development of communities and the environment. </p>
-
-</br>
-
-    <p>Applying the triple-A Formula, we worked on three concepts from which we improve our 
-interaction and relationship with ecosystems: <b>Anticipate</bZ, which we achieve from the 
-knowledge of the environment and the information we acquire to evaluate and foresee 
-possible threats;<b> Adapt</b>, so that once we identify these threats, we have an action plan; 
-and <b>Act</b>, to recognize ourselves as active agents that influence the care, preservation of 
-water basins and the transformation of territories.  </p>
-</br>
-<br>
-    
-    <p><b>Sowing awareness to life and for life</b> </p>
-</br>
-
-    <div align="center">
-        <img src="/images/blogs_body/lavolcana3.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
-    </div>
-<br>
-    <p>With the mapping and characterization of La Volcana, we learned to know it from its 
-environment as a complex system in which many key factors influence the life of this 
-water basin.</p>
-</br>
-
-<br>
-    <p>So, recognizing the fauna and flora as elements that contribute to the life of La Volcana, 
-on November 29, we set out on a day of reforestation of its environment by planting native 
-plants with deep roots. From experiential learning, we understood how these roots 
-regenerate and stabilize the slopes of the rivers, prevent soil erosion, and protect 
-ecosystems.  
-</p>
-</br>
-<br>
-    <p>Furthermore, to make the planting activities and tours of our institution's water basin 
-more meaningful, we recognized the importance of monitoring the growth of the trees 
-and plants planted. For this reason, our goal is to continue next year with this laboratory, 
-in which we transcend from coexistence with our natural ecosystems to an active role 
-from which we learn while protecting them. </p>
-</br>
-<br>
-    <p>Thanks to this alliance, we are expanding students' awareness of the water basins that 
-run through the forests of our school and our city. This workshop, which we will continue 
-to implement hand in hand with Urbam, is a commitment to society toward these basins 
-that shape us, cross us, and, above all, allow us to learn from the transversality that we 
-always seek in our educational proposal.</p>
-</br>
-<br>
-    <p>*The <b>Center for Urban and Environmental Studies URBAM</b> is a project of Eafit 
-University that provides training, research, and projection on city issues such as urban 
-planning, development, and environmental care. It is based on alliances with different 
-social, economic, cultural, and environmental sectors to create a sustainable bridge 
-between the urban and the environmental.</p>
-</br>
 
 
 
