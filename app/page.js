@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <Provider store={store}>
       <MainLayout>
-        {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />}
+        {/* {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />} */}
         <BannerCarousel imagePaths={imagePaths} />
         <ServicesHome images={servicesList} />
         <BlogsSection blogs={blogList} />
