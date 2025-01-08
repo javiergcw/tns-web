@@ -15,7 +15,7 @@ const BlogsSection = ({ blogs }) => {
                 BE UP TO DATE WITH
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl text-blueButton mb-5 sm:mb-8 md:mb-10 bounce">
-                <strong>OUR ACTIVITIES</strong>
+                <strong>OUR**** ACTIVITIES</strong>
             </h1>
 
             <div className="flex justify-center flex-wrap gap-4 gap-12 mt-4">
