@@ -2,7 +2,7 @@ import createProduct from "@/pages/create-product";
 
 // config/apiConfig.js
 const API_BASE_URL =
-  "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1";
+  "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1";
 
 const ENDPOINTS = {
   login: `${API_BASE_URL}/login`,
