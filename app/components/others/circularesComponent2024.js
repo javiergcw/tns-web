@@ -96,11 +96,11 @@ const data = [
   },
   {
     name: "Circular N°24 PRUEBA SABER 11 ",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EcH1KFfoZf1HsKux-81MCwIBDuHQANXIkZ7-1iHVmhyeJg?e=5Uz2ac",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EcH1KFfoZf1HsKux-81MCwIBfdSGS4Jfq4fSkQZOfdwU1A?e=l21Leh",
   },
   {
     name: "Circular N°25 - Entrega de informes finales 1 período ",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EeIMNIv5OfdJubZ-C-dyoEEBnZS9MzuBmU-1TcrfBxEc6Q?e=0ii1FF",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EeIMNIv5OfdJubZ-C-dyoEEB7Y10qoxAzoqyZbnrcXLOBg?e=DQSvFs",
   },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
