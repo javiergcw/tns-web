@@ -94,6 +94,14 @@ const data = [
     name: "Circular N23 Evento de luz y navidad 2024 ",
     link: "https://drive.google.com/file/d/19Cpx3MMsekMnEftKT3_N7CgCGf1zjdAX/view",
   },
+  {
+    name: "Circular N°24 PRUEBA SABER 11 ",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EcH1KFfoZf1HsKux-81MCwIBDuHQANXIkZ7-1iHVmhyeJg?e=5Uz2ac",
+  },
+  {
+    name: "Circular N°25 - Entrega de informes finales 1 período ",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EeIMNIv5OfdJubZ-C-dyoEEBnZS9MzuBmU-1TcrfBxEc6Q?e=0ii1FF",
+  },
   
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
