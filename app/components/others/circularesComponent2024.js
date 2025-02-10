@@ -184,7 +184,7 @@ const CircularList = () => {
   const [circularData, setCircularData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortDirection, setSortDirection] = useState("desc");
 
   useEffect(() => {
     setCircularData(data);
@@ -207,7 +207,7 @@ const CircularList = () => {
     updatedData.sort((a, b) => {
       const numA = getNumberFromName(a.name);
       const numB = getNumberFromName(b.name);
-      return sortDirection === "asc" ? numA - numB : numB - numA;
+      return numB - numA; // Mayor a menor
     });
 
     setFilteredData(updatedData);
@@ -215,7 +215,7 @@ const CircularList = () => {
 
   const clearFilters = () => {
     setSearchTerm("");
-    setSortDirection("asc");
+    setSortDirection("desc");
     setFilteredData(circularData);
   };
 
