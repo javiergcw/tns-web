@@ -313,7 +313,7 @@ const FiltersComponent = () => {
 
         // Realizar la solicitud PATCH al endpoint, usando el shoppingId
         const updateResponse = await fetch(
-          `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+          `https://flow-api-9a1502cb3d68.herokuapp.com/v1/shoppings/${shoppingId}`,
           {
             method: "PATCH",
             headers: {
@@ -368,7 +368,7 @@ const FiltersComponent = () => {
   const handleOpenEditModal = async (shoppingId) => {
     try {
       const response = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}`,
         {
           method: "GET",
           headers: {
@@ -470,7 +470,7 @@ const FiltersComponent = () => {
 
     try {
       const response = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${editingId}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${editingId}`,
         {
           method: "GET",
           headers: {
@@ -495,7 +495,7 @@ const FiltersComponent = () => {
       };
 
       const updateResponse = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${editingId}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${editingId}`,
         {
           method: "PATCH",
           headers: {
@@ -556,7 +556,7 @@ const FiltersComponent = () => {
 
 
       const updateResponse = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingData.id}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${selectedShoppingData.id}`,
         {
           method: "PATCH",
           headers: {
@@ -601,7 +601,7 @@ const FiltersComponent = () => {
 
     try {
       const response = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
         {
           method: "GET",
           headers: {
@@ -646,7 +646,7 @@ const FiltersComponent = () => {
       };
 
       const updateResponse = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
         {
           method: "PATCH",
           headers: {

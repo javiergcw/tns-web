@@ -2,6 +2,70 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "2025-01-31",
+        imageUrl: ImagesPath.blog28,
+        title: "Como sienten los adolescentes-La regulacion emocional desde la maduracion cerebral",
+        body: `
+<p>Muchas veces cuando observamos y analizamos el porqué del comportamiento de nuestros adolescentes, puede surgir la pregunta de si acaso la juventud de ahora está desorientada; pero este cuestionamiento implica una mirada más profunda.</p>
+<br>
+<p>La adolescencia es una etapa llena de cambios, dudas y descubrimientos. En esta etapa de la vida, el cerebro de los jóvenes está en pleno proceso de maduración; lo que influye directamente en la forma en que asimilan el mundo, toman decisiones y tramitan sus emociones.</p>
+</br>
+<br>
+<p>Este artículo está basado en una reciente charla dictada en una de nuestras Escuelas de Padres del colegio por <a href="https://sporti.com.co/" target="_blank"><b>SPORTI</b></a>, una institución privada, especializada y dedicada al abordaje integral de la salud mental y las adicciones. Durante su visita, ahondamos la importancia de entender cómo funciona el cerebro de nuestros adolescentes y cómo esto influye en su manera de percibir e interactuar con el mundo.</p>
+</br>
+
+<br>
+<p><b>EL CEREBRO ADOLESCENTE</b></p>
+</br>
+<br>
+<p>El cerebro comienza su formación desde la gestación y sigue desarrollándose hasta los 25 años. Durante la adolescencia, el sistema límbico, que procesa el placer y la recompensa, tiene una mayor influencia en la toma de decisiones, mientras que el área prefrontal, responsable de la planificación y el juicio moral, aún está en desarrollo. Esto explica por qué los jóvenes pueden tomar decisiones impulsivas basadas en lo que les resulta más atractivo en el momento e influenciados por sus emociones en constante estado de cambio, dada la alteración de sus hormonas.</p>
+</br>
+<br>
+<p>Para no encontrar en esta teoría una única justificación a las decisiones en la temprana edad, es importante que el adulto se entrene en la manera de acompañar la regulación emocional del adolescente; una habilidad que no es interna, debido a que no están aún las condiciones biológicas de la maduración del cerebro, más sí es externa, dado que se aprende de las figuras de autoridad, como padres y maestros. Sin embargo, entre los 10 y 19 años, los amigos pasan a formar parte de estas figuras de autoridad, ya que el vínculo social toma una relevancia importante durante esta etapa de la vida en la que prevalecen más los conceptos de aprobación e inclusión, y el joven se vuelve más sensible ante el rechazo, que le provoca dolor y sufrimiento.</p>
+</br>
+<br>
+<p>Una consecuencia delicada de ello es el consumo de sustancias, entre otras conductas disruptivas, la cual se explica muchas veces por el afán de querer evitar el malestar y el displacer de sentir el no pertenecer o no cumplir con las expectativas del grupo de amigos.</p>
+</br>
+
+<br>
+<p><b>EL AFRONTAMIENTO ÓPTIMO, UN APRENDIZAJE CLAVE.</b></p>
+</br>
+<br>
+<p>Otro factor para tener en cuenta es que, durante este período de vida de los adolescentes, en el cual muchas veces permanecen más tiempo con sus docentes que con sus padres, se hace necesario estar capacitados para la regulación de las emociones, tanto en el contexto escolar como en el hogar, aplicando patrones y lineamientos coherentes que favorezcan el desarrollo de su cerebro, el cual se fundamenta en la interacción social.</p>
+</br>
+<br>
+<p>Una de las conductas más frecuentes del adolescente es la forma de evitar o escapar a las situaciones difíciles. La evitación implica huir de experiencias que puedan generar malestar, como evitar relaciones para no sufrir una pérdida. El escape, por otro lado, se refiere a la búsqueda de distracciones, como el uso excesivo de tecnología o el consumo de sustancias para aliviar el malestar de manera temporal.</p>
+</br>
+
+<br>
+<p><b>Afrontar saludablemente las emociones, implica:</b></p>
+</br>
+<br>
+<p><b>1. Hacer una pausa:</b> observar y darle su lugar a cada emoción. Parar, respirar y contar hasta 10 para responder de una mejor manera.</p>
+</br>
+<br>
+<p><b>2. Identificar:</b> darle un nombre a la emoción y tratar de entender qué estamos sintiendo, por qué nos sentimos así y qué podemos hacer con eso.</p>
+</br>
+<br>
+<p><b>3. Discriminar:</b> discernir entre las posibilidades de actuar que me da la emoción, cuál nos acerca más a lo que queremos lograr.</p>
+</br>
+<br>
+<p><b>4. Actuar:</b> elegir la mejor alternativa para responder de manera adecuada.</p>
+</br>
+
+<br>
+<p>La gestión de las emociones es un componente que debemos cultivar como sociedad, entre ellas, la tolerancia a la frustración, porque cuando nos permitimos estar un momento con el malestar, tenemos claridad de hacia dónde queremos dirigir nuestras acciones, ya que podemos medir sus consecuencias en vez de buscar siempre un alivio inmediato que disipe esa sensación indeseada.</p>
+</br>
+<br>
+<p>Podemos entonces concluir que la juventud de hoy no está desorientada, es sólo que debemos ser conscientes que existen diferentes modernidades, lo cual nos obliga constantemente a enfrentar la demanda que cada generación trae, haciendo un esfuerzo para impactar favorable su salud metal y su desarrollo socioemocional.</p>
+</br>
+<br>
+<p>Es por lo anterior, que nosotros como adultos, debemos de igual forma que le sugerimos a ellos, revisar nuestra gestión de emociones y entrar en coherencia con el discurso que le transmitimos a quienes están bajo nuestro cuidado; porque bien dice el proverbio: “Bien predica fray ejemplo, sin alborotar el templo”. El hogar como ambiente protector es condición imprescindible para la maduración mental y cognitiva del joven, para ello The New School recomienda brindar espacios de diálogo en familia y garantizar un acompañamiento libre de maltrato físico y verbal frente a situaciones que normalmente puede alterar nuestra razón y que pueden atenderse con empatía, una buena comunicación y el establecimiento de consecuencias.</p>
+</br>
+  `,
+        banner: true,
+    },
+    {
         date: "December 12,2024",
         imageUrl: ImagesPath.volcan1,
         title: "La Volcana a living laboratory to life and for life",
@@ -824,70 +888,7 @@ Página recomendada: https://cuentosparacrecer.org/
         `,
         banner: true,
     },
-    {
-        date: "2025-01-31",
-        imageUrl: ImagesPath.blog28,
-        title: "Como sienten los adolescentes-La regulacion emocional desde la maduracion cerebral",
-        body: `
-<p>Muchas veces cuando observamos y analizamos el porqué del comportamiento de nuestros adolescentes, puede surgir la pregunta de si acaso la juventud de ahora está desorientada; pero este cuestionamiento implica una mirada más profunda.</p>
-<br>
-<p>La adolescencia es una etapa llena de cambios, dudas y descubrimientos. En esta etapa de la vida, el cerebro de los jóvenes está en pleno proceso de maduración; lo que influye directamente en la forma en que asimilan el mundo, toman decisiones y tramitan sus emociones.</p>
-</br>
-<br>
-<p>Este artículo está basado en una reciente charla dictada en una de nuestras Escuelas de Padres del colegio por <a href="https://sporti.com.co/" target="_blank"><b>SPORTI</b></a>, una institución privada, especializada y dedicada al abordaje integral de la salud mental y las adicciones. Durante su visita, ahondamos la importancia de entender cómo funciona el cerebro de nuestros adolescentes y cómo esto influye en su manera de percibir e interactuar con el mundo.</p>
-</br>
 
-<br>
-<p><b>EL CEREBRO ADOLESCENTE</b></p>
-</br>
-<br>
-<p>El cerebro comienza su formación desde la gestación y sigue desarrollándose hasta los 25 años. Durante la adolescencia, el sistema límbico, que procesa el placer y la recompensa, tiene una mayor influencia en la toma de decisiones, mientras que el área prefrontal, responsable de la planificación y el juicio moral, aún está en desarrollo. Esto explica por qué los jóvenes pueden tomar decisiones impulsivas basadas en lo que les resulta más atractivo en el momento e influenciados por sus emociones en constante estado de cambio, dada la alteración de sus hormonas.</p>
-</br>
-<br>
-<p>Para no encontrar en esta teoría una única justificación a las decisiones en la temprana edad, es importante que el adulto se entrene en la manera de acompañar la regulación emocional del adolescente; una habilidad que no es interna, debido a que no están aún las condiciones biológicas de la maduración del cerebro, más sí es externa, dado que se aprende de las figuras de autoridad, como padres y maestros. Sin embargo, entre los 10 y 19 años, los amigos pasan a formar parte de estas figuras de autoridad, ya que el vínculo social toma una relevancia importante durante esta etapa de la vida en la que prevalecen más los conceptos de aprobación e inclusión, y el joven se vuelve más sensible ante el rechazo, que le provoca dolor y sufrimiento.</p>
-</br>
-<br>
-<p>Una consecuencia delicada de ello es el consumo de sustancias, entre otras conductas disruptivas, la cual se explica muchas veces por el afán de querer evitar el malestar y el displacer de sentir el no pertenecer o no cumplir con las expectativas del grupo de amigos.</p>
-</br>
-
-<br>
-<p><b>EL AFRONTAMIENTO ÓPTIMO, UN APRENDIZAJE CLAVE.</b></p>
-</br>
-<br>
-<p>Otro factor para tener en cuenta es que, durante este período de vida de los adolescentes, en el cual muchas veces permanecen más tiempo con sus docentes que con sus padres, se hace necesario estar capacitados para la regulación de las emociones, tanto en el contexto escolar como en el hogar, aplicando patrones y lineamientos coherentes que favorezcan el desarrollo de su cerebro, el cual se fundamenta en la interacción social.</p>
-</br>
-<br>
-<p>Una de las conductas más frecuentes del adolescente es la forma de evitar o escapar a las situaciones difíciles. La evitación implica huir de experiencias que puedan generar malestar, como evitar relaciones para no sufrir una pérdida. El escape, por otro lado, se refiere a la búsqueda de distracciones, como el uso excesivo de tecnología o el consumo de sustancias para aliviar el malestar de manera temporal.</p>
-</br>
-
-<br>
-<p><b>Afrontar saludablemente las emociones, implica:</b></p>
-</br>
-<br>
-<p><b>1. Hacer una pausa:</b> observar y darle su lugar a cada emoción. Parar, respirar y contar hasta 10 para responder de una mejor manera.</p>
-</br>
-<br>
-<p><b>2. Identificar:</b> darle un nombre a la emoción y tratar de entender qué estamos sintiendo, por qué nos sentimos así y qué podemos hacer con eso.</p>
-</br>
-<br>
-<p><b>3. Discriminar:</b> discernir entre las posibilidades de actuar que me da la emoción, cuál nos acerca más a lo que queremos lograr.</p>
-</br>
-<br>
-<p><b>4. Actuar:</b> elegir la mejor alternativa para responder de manera adecuada.</p>
-</br>
-
-<br>
-<p>La gestión de las emociones es un componente que debemos cultivar como sociedad, entre ellas, la tolerancia a la frustración, porque cuando nos permitimos estar un momento con el malestar, tenemos claridad de hacia dónde queremos dirigir nuestras acciones, ya que podemos medir sus consecuencias en vez de buscar siempre un alivio inmediato que disipe esa sensación indeseada.</p>
-</br>
-<br>
-<p>Podemos entonces concluir que la juventud de hoy no está desorientada, es sólo que debemos ser conscientes que existen diferentes modernidades, lo cual nos obliga constantemente a enfrentar la demanda que cada generación trae, haciendo un esfuerzo para impactar favorable su salud metal y su desarrollo socioemocional.</p>
-</br>
-<br>
-<p>Es por lo anterior, que nosotros como adultos, debemos de igual forma que le sugerimos a ellos, revisar nuestra gestión de emociones y entrar en coherencia con el discurso que le transmitimos a quienes están bajo nuestro cuidado; porque bien dice el proverbio: “Bien predica fray ejemplo, sin alborotar el templo”. El hogar como ambiente protector es condición imprescindible para la maduración mental y cognitiva del joven, para ello The New School recomienda brindar espacios de diálogo en familia y garantizar un acompañamiento libre de maltrato físico y verbal frente a situaciones que normalmente puede alterar nuestra razón y que pueden atenderse con empatía, una buena comunicación y el establecimiento de consecuencias.</p>
-</br>
-  `,
-        banner: true,
-    },
 ];
 
 export default blogList;

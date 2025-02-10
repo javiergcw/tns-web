@@ -227,7 +227,7 @@ const ShoppingTable = ({ userId }) => {
 
     try {
       const response = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
         {
           method: "GET",
           headers: {
@@ -258,7 +258,7 @@ const ShoppingTable = ({ userId }) => {
       };
 
       const updateResponse = await fetch(
-        `https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${selectedShoppingForInvoice}`,
         {
           method: "PATCH",
           headers: {

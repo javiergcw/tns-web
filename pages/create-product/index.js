@@ -71,7 +71,7 @@ const CreateProduct = (termsAccepted = false) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://peaceful-basin-91811-0bab38de372b.herokuapp.com/api/v1/create_shopping",
+      "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/create_shopping",
       {
         method: "POST",
         headers: {
