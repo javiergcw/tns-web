@@ -172,7 +172,7 @@ const CreateShoppingForm = () => {
     const shopping = {
       title,
       description,
-      category_id: 35,
+      category_id: 1,
       status_id: parseInt(status_id, 10),
       area_id: parseInt(selectedAreaId, 10),
       account_type_id: parseInt(selectedAccountTypeId, 10),
