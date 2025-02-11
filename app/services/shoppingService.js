@@ -147,7 +147,7 @@ const getUserByLatestStatisticalRequestsOfTheMonth = async (id) => {
 const createShopping = async (shoppingData) => {
   try {
     const response = await postFormData(ENDPOINTS.create_shopping, shoppingData);
-    print(response);
+    //print(response);
     return response; // Retorna el objeto completo
   } catch (error) {
     console.error("Error al crear la compra:", error);
