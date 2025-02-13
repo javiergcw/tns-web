@@ -18,10 +18,15 @@ import { IoClose } from "react-icons/io5";
 const fetchData = async () => {
   try {
     const res = await getAllShoppings();
+    // Aquí puedes verificar si res es válido antes de retornarlo
+    if (!res) {
+      console.log('getAllShoppings returned undefined or null');
+      return []; // Return an empty array if res is undefined or null
+    }
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return [];
+    return []; // Return an empty array on error
   }
 };
 
@@ -157,6 +162,16 @@ const FiltersComponent = () => {
     const fetchAndProcessData = async () => {
       try {
         const fetchedData = await fetchData();
+
+        console.log('Fetched data:', fetchedData);
+        if (!Array.isArray(fetchedData)) {
+          console.warn('Fetched data is not an array:', fetchedData);
+          setData([]); // Ensure data is an array
+          setFilteredData([]);
+          return;
+        }
+
+
         const statuses = await getStatuses();
         setStatusOptions(statuses);
 
