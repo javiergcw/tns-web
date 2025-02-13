@@ -179,7 +179,8 @@ const FiltersComponent = () => {
           return;
         }
 
-
+        const statuses = await getStatuses(); // Si este método depende de otro servicio, asegúrate de que también funcione.
+        setStatusOptions(statuses);
 
         const sortedData = fetchedData.sort(
             (a, b) => new Date(b.request_date) - new Date(a.request_date)
