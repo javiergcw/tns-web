@@ -192,6 +192,8 @@ const FiltersComponent = () => {
         }
 
         const statuses = await statusesResponse.json();
+        console.log('Estados recibidos:', statuses); // Añade este log para verificar en consola
+
         setStatusOptions(statuses);
 
         const sortedData = fetchedData.sort(
@@ -754,7 +756,7 @@ const FiltersComponent = () => {
                 className="border border-gray-300 rounded p-2 w-full text-black"
             >
               <option value="">Todos los Estados</option>
-              {statusOptions.map((status) => (
+              {statusOptions && statusOptions.map((status) => (
                   <option key={status.id} value={status.name}>
                     {status.name}
                   </option>
