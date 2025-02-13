@@ -810,8 +810,8 @@ const FiltersComponent = () => {
                       <tr key={shopping.id} className="hover:bg-gray-100">
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
-                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name}</td>
-                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name}</td>
+                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name || "N/A" }</td>
+                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name || "N/A" }</td>
                         <td className="px-6 py-4 text-center border border-gray-300">
                           {role === "admin" || role === "Developer" ? (
                               isEditing && editingId === shopping.id ? (
@@ -820,7 +820,7 @@ const FiltersComponent = () => {
                                       <option value="">Selecciona un estado</option>
                                       {statusOptions.map((status) => (
                                           <option key={status.id} value={status.id}>
-                                            {status.name}
+                                            {status.name || "N/A" }
                                           </option>
                                       ))}
                                     </select>
