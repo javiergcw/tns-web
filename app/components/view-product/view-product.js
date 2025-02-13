@@ -179,7 +179,19 @@ const FiltersComponent = () => {
           return;
         }
 
-        const statuses = await getStatuses(); // Si este método depende de otro servicio, asegúrate de que también funcione.
+        const statusesResponse = await fetch('https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/statuses', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+        });
+
+        if (!statusesResponse.ok) {
+          throw new Error(`Error al obtener estados: ${statusesResponse.status}`);
+        }
+
+        const statuses = await statusesResponse.json();
         setStatusOptions(statuses);
 
         const sortedData = fetchedData.sort(
