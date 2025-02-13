@@ -17,11 +17,11 @@ import { IoClose } from "react-icons/io5";
 
 const fetchData = async () => {
   try {
-    const res = await getAllShoppings();
+    const res = await getAllShoppings(`?timestamp=${Date.now()}`); // Agregar timestamp a la URL
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return [];
+    return;
   }
 };
 
