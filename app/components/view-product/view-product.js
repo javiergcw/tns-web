@@ -156,8 +156,22 @@ const FiltersComponent = () => {
   useEffect(() => {
     const fetchAndProcessData = async () => {
       try {
-        const fetchedData = await fetchData();
+        const token = localStorage.getItem("token");
+        const response = await fetch('https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const fetchedData = await response.json();
         console.log('Datos antes de procesar:', fetchedData);
+
         if (!Array.isArray(fetchedData)) {
           console.warn('Los datos obtenidos no son un array:', fetchedData);
           setData([]);
@@ -165,8 +179,7 @@ const FiltersComponent = () => {
           return;
         }
 
-        const statuses = await getStatuses();
-        setStatusOptions(statuses);
+
 
         const sortedData = fetchedData.sort(
             (a, b) => new Date(b.request_date) - new Date(a.request_date)
