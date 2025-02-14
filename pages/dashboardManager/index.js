@@ -83,6 +83,12 @@ const DashboardManager = () => {
   useEffect(() => {
     const fetchAndProcessData = async () => {
       try {
+        const profileId = localStorage.getItem("profileId");
+        if (!profileId) {
+          console.error("No se encontró profileId en localStorage");
+          return;
+        }
+
         const profile = await getProfileById(localStorage.getItem("profileId"));
         setUserRole(profile.rol?.name || "Sin Rol");
 
