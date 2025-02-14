@@ -44,7 +44,7 @@ const FiltersComponent = () => {
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [leaderOptions, setLeaderOptions] = useState([]);
@@ -157,18 +157,41 @@ const FiltersComponent = () => {
   useEffect(() => {
     const fetchAndProcessData = async () => {
       try {
-        const fetchedData = await fetchData(); // Llama a fetchData y espera la respuesta
-        const statuses = await getStatuses();
+        const token = localStorage.getItem("token"); // Obtener el token
+        console.log("Token:", token); // Verificar el token
+
+        const response = await fetch(
+            "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`, // Usar el token
+                "Content-Type": "application/json",
+              },
+            }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+              `Error al obtener las compras: ${response.status} - ${
+                  errorData.message || response.statusText
+              }`
+          );
+        }
+
+        const fetchedData = await response.json();
+        const statuses = await getStatuses(); // Esto se mantiene igual
         console.log("Statuses:", statuses);
-        console.log("fetchedData:", fetchedData); // Verifica los datos obtenidos
+        console.log("fetchedData:", fetchedData);
 
         setData(fetchedData);
         setFilteredData(fetchedData);
-        setStatusOptions(statuses);
+        setStatusOptions(statuses);  // Esto también se mantiene
 
-        // Ordenar por fecha de petición más reciente
+        // Ordenar y actualizar datos (igual que antes)
         const sortedData = fetchedData.sort(
-          (a, b) => new Date(b.request_date) - new Date(a.request_date)
+            (a, b) => new Date(b.request_date) - new Date(a.request_date)
         );
 
         const updatedData = sortedData.map((shopping) => {
@@ -176,16 +199,20 @@ const FiltersComponent = () => {
           return { ...shopping, invoice_url: invoice || shopping.facturacion };
         });
 
-        setData(updatedData);
-        setFilteredData(updatedData);
+        setData(updatedData); //Actualiza luego de mapear la data
+        setFilteredData(updatedData); //Actualiza luego de mapear la data
         setIsLoading(false);
+
 
         const leaders = [
           ...new Set(fetchedData.map((shopping) => shopping.user.profile.name)),
         ];
         setLeaderOptions(leaders);
+
+
       } catch (error) {
         setError(error.message);
+        console.error("Error en fetchAndProcessData:", error); // Log del error
       } finally {
         setIsLoading(false);
       }
