@@ -17,12 +17,12 @@ import { IoClose } from "react-icons/io5";
 
 const fetchData = async () => {
   try {
-    const res = await getAllShoppings();
-    console.log(res);
+    const res = await getAllShoppings(); //  'await' espera la respuesta
+    console.log("Datos de la API:", res); // Mejor descripción en el console.log
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return [];
+    return []; // Devuelve un array vacío en caso de error.  IMPORTANTE:  siempre devolver algo.
   }
 };
 
@@ -157,10 +157,13 @@ const FiltersComponent = () => {
   useEffect(() => {
     const fetchAndProcessData = async () => {
       try {
-        const fetchedData = await fetchData();
+        const fetchedData = await fetchData(); // Llama a fetchData y espera la respuesta
         const statuses = await getStatuses();
-        console.log(statuses);
-        console.log("fetchedData:", fetchedData);
+        console.log("Statuses:", statuses);
+        console.log("fetchedData:", fetchedData); // Verifica los datos obtenidos
+
+        setData(fetchedData);
+        setFilteredData(fetchedData);
         setStatusOptions(statuses);
 
         // Ordenar por fecha de petición más reciente
