@@ -844,148 +844,151 @@ const FiltersComponent = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredData.length === 0 ? (
+            {filteredData.length === 0 ? (
                 <tr>
                   <td colSpan="10" className="px-6 py-4 text-center border border-gray-300">No hay compras</td>
                 </tr>
-              ) : (
+            ) : (
                 filteredData.map((shopping) => (
-                  <tr key={shopping.id} className="hover:bg-gray-100">
-                    {/* <td className="px-6 py-4 text-center border border-gray-300">
-                      <ul className="list-disc pl-4">
-                        {shopping.products.map((product) => (
-                          <li key={product.id}>{product.name}</li>
-                        ))}
-                      </ul>
-                    </td> */}
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">
-                      {role === "admin" || role === "Developer" ? (
-                        isEditing && editingId === shopping.id ? (
-                          <div className="flex items-center space-x-2">
-                            <select value={newStatusId} onChange={handleStatusChange} className="border border-gray-300 rounded p-1">
-                              <option value="">Selecciona un estado</option>
-                              {statusOptions.map((status) => (
-                                <option key={status.id} value={status.id}>
-                                  {status.name}
-                                </option>
-                              ))}
-                            </select>
-                            <button className="bg-green-500 text-white p-2 rounded" onClick={handleSaveClick}>
-                              Confirmar
-                            </button>
-                          </div>
+                    <tr key={shopping.id} className="hover:bg-gray-100">
+                      {/* Columna de productos (comentada) */}
+                      {/* <td className="px-6 py-4 text-center border border-gray-300">
+          <ul className="list-disc pl-4">
+            {Array.isArray(shopping.products) && shopping.products.map((product) => (
+              <li key={product.id}>{product.name}</li>
+            ))}
+          </ul>
+        </td> */}
+                      <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">
+                        {shopping.user?.profile?.name || "No disponible"}
+                      </td>
+                      <td className="px-6 py-4 text-center border border-gray-300">
+                        {shopping.account_type?.name || "N/A"}
+                      </td>
+                      <td className="px-6 py-4 text-center border border-gray-300">
+                        {role === "admin" || role === "Developer" ? (
+                            isEditing && editingId === shopping.id ? (
+                                <div className="flex items-center space-x-2">
+                                  <select value={newStatusId} onChange={handleStatusChange} className="border border-gray-300 rounded p-1">
+                                    <option value="">Selecciona un estado</option>
+                                    {statusOptions.map((status) => (
+                                        <option key={status.id} value={status.id}>
+                                          {status.name}
+                                        </option>
+                                    ))}
+                                  </select>
+                                  <button className="bg-green-500 text-white p-2 rounded" onClick={handleSaveClick}>
+                                    Confirmar
+                                  </button>
+                                </div>
+                            ) : (
+                                <div className="flex items-center space-x-2">
+                                  <span>{shopping.status?.name || "N/A"}</span> {/*  <-- APLICAR AQUÍ TAMBIÉN */}
+                                  <FontAwesomeIcon
+                                      icon={faEdit}
+                                      className="text-green-500 hover:text-green-700 cursor-pointer"
+                                      onClick={() => handleEditClick(shopping.id)}
+                                  />
+                                </div>
+                            )
                         ) : (
-                          <div className="flex items-center space-x-2">
-                            <span>{shopping.status.name}</span>
-                            <FontAwesomeIcon
-                              icon={faEdit}
-                              className="text-green-500 hover:text-green-700 cursor-pointer"
-                              onClick={() => handleEditClick(shopping.id)}
-                            />
-                          </div>
-                        )
-                      ) : (
-                        <span>{shopping.status.name}</span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.request_date).toLocaleDateString()}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.date_approval).toLocaleDateString()}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.subtotal ? formatCurrency(shopping.subtotal) : "N/A"}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.total ? formatCurrency(shopping.total) : "N/A"}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">
-                      {shopping.facturacion ? (
-                        <div className="flex items-center space-x-2">
-                          {/* Botón para abrir el modal y previsualizar el PDF */}
-                          <button
-                            onClick={() => handleViewPdf(shopping.facturacion)} // Llama a la función para abrir el modal
-                            className="text-red-500 hover:text-red-700"
-                          >
-                            <FontAwesomeIcon icon={faFilePdf} />
-                          </button>
+                            <span>{shopping.status?.name || "N/A"}</span>  {/*  <-- APLICAR AQUÍ TAMBIÉN */}
+                          )}
+                      </td>
+                      <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.request_date).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.date_approval).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">{shopping.subtotal ? formatCurrency(shopping.subtotal) : "N/A"}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">{shopping.total ? formatCurrency(shopping.total) : "N/A"}</td>
+                      <td className="px-6 py-4 text-center border border-gray-300">
+                        {shopping.facturacion ? (
+                            <div className="flex items-center space-x-2">
+                              {/* Botón para abrir el modal y previsualizar el PDF */}
+                              <button
+                                  onClick={() => handleViewPdf(shopping.facturacion)}
+                                  className="text-red-500 hover:text-red-700"
+                              >
+                                <FontAwesomeIcon icon={faFilePdf} />
+                              </button>
 
-                          {(role === "admin" || role === "Compras" || role === "Developer") && (
-                            <>
-                              <label className="cursor-pointer">
-                                <FontAwesomeIcon
-                                  icon={faEdit}
-                                  className="text-green-500 hover:text-green-700 cursor-pointer"
-                                />
-                                <input
-                                  type="file"
-                                  className="hidden"
-                                  onChange={(e) => handleUploadInvoice(e, shopping.id)} // Reutiliza el método de upload
-                                />
-                              </label>
+                              {(role === "admin" || role === "Compras" || role === "Developer") && (
+                                  <>
+                                    <label className="cursor-pointer">
+                                      <FontAwesomeIcon
+                                          icon={faEdit}
+                                          className="text-green-500 hover:text-green-700 cursor-pointer"
+                                      />
+                                      <input
+                                          type="file"
+                                          className="hidden"
+                                          onChange={(e) => handleUploadInvoice(e, shopping.id)}
+                                      />
+                                    </label>
+                                    <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className="text-red-500 hover:text-red-700 cursor-pointer"
+                                        onClick={() => handleDeleteInvoice(shopping.id)}
+                                    />
+                                  </>
+                              )}
+                            </div>
+                        ) : (
+                            (role === "admin" || role === "Compras" || role === "Developer") && (
+                                <label className="cursor-pointer">
+                                  <FontAwesomeIcon
+                                      icon={faFileUpload}
+                                      className="text-green-500 hover:text-green-700"
+                                  />
+                                  <input
+                                      type="file"
+                                      className="hidden"
+                                      onChange={(e) => handleUploadInvoice(e, shopping.id)}
+                                  />
+                                </label>
+                            )
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-center border border-gray-300">
+                        {/*  (El contenido de esta celda no accede a propiedades anidadas,
+               así que no necesita cambios) */}
+                        <div className="flex items-center space-x-2">
+                          <FontAwesomeIcon
+                              icon={faEye}
+                              className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                              onClick={() => handleViewDetailsClick(shopping.id)}
+                          />
+                          {(role === "admin" || role === "Developer") && (
                               <FontAwesomeIcon
-                                icon={faTrash}
-                                className="text-red-500 hover:text-red-700 cursor-pointer"
-                                onClick={() => handleDeleteInvoice(shopping.id)}
+                                  icon={faCommentDots}
+                                  className="text-green-500 hover:text-green-700 cursor-pointer"
+                                  onClick={() => handleOpenMessageModal(shopping.id)}
                               />
-                            </>
+                          )}
+                          {(role === "admin" || role === "Developer") && (
+                              <>
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className="text-red-500 hover:text-red-700 cursor-pointer"
+                                    onClick={() => openDeleteModal(shopping.id)}
+                                />
+                              </>
+                          )}
+
+                          {(role === "admin" || role === "Developer" || role === "Compras") && (
+                              <>
+                                <FontAwesomeIcon
+                                    icon={faEdit}
+                                    className="text-green-500 hover:text-green-700 cursor-pointer"
+                                    onClick={() => handleOpenEditModal(shopping.id)}
+                                />
+                              </>
                           )}
                         </div>
-                      ) : (
-                        (role === "admin" || role === "Compras" || role === "Developer") && (
-                          <label className="cursor-pointer">
-                            <FontAwesomeIcon
-                              icon={faFileUpload}
-                              className="text-green-500 hover:text-green-700"
-                            />
-                            <input
-                              type="file"
-                              className="hidden"
-                              onChange={(e) => handleUploadInvoice(e, shopping.id)} // Reutiliza el método de upload
-                            />
-                          </label>
-                        )
-                      )}
-
-
-
-                    </td>
-                    <td className="px-6 py-4 text-center border border-gray-300">
-                      <div className="flex items-center space-x-2">
-                        <FontAwesomeIcon
-                          icon={faEye}
-                          className="text-gray-500 hover:text-gray-700 cursor-pointer"
-                          onClick={() => handleViewDetailsClick(shopping.id)}
-                        />
-                        {(role === "admin" || role === "Developer") && (
-                          <FontAwesomeIcon
-                            icon={faCommentDots}
-                            className="text-green-500 hover:text-green-700 cursor-pointer"
-                            onClick={() => handleOpenMessageModal(shopping.id)}
-                          />
-                        )}
-                        {(role === "admin" || role === "Developer") && (
-                          <>
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              className="text-red-500 hover:text-red-700 cursor-pointer"
-                              onClick={() => openDeleteModal(shopping.id)}
-                            />
-                          </>
-                        )}
-
-                        {(role === "admin" || role === "Developer" || role === "Compras") && (
-                          <>
-                            <FontAwesomeIcon
-                              icon={faEdit}
-                              className="text-green-500 hover:text-green-700 cursor-pointer"
-                              onClick={() => handleOpenEditModal(shopping.id)}
-                            />
-                          </>
-                        )}
-
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
                 ))
-              )}
+            )}
             </tbody>
           </table>
         </div>
