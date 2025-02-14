@@ -894,7 +894,7 @@ const FiltersComponent = () => {
                                 </div>
                             )
                         ) : (
-                            <span>{shopping.status?.name || "N/A"}</span>  {/*  <-- APLICAR AQUÍ TAMBIÉN */}
+                            <span>{shopping.status?.name || "N/A"}</span>
                           )}
                       </td>
                       <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.request_date).toLocaleDateString()}</td>
