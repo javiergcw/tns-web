@@ -92,12 +92,13 @@ const getLatestStatisticalRequestsOfTheMonth = async () => {
     );
   } catch (error) {
     console.error(
-      "Error al obtener las solicitudes estadísticas más recientes del mes:",
+      "Error al obtener las solicitudes estadísticas más recientes del mes 1:",
       error
     );
     throw error;
   }
 };
+
 const getUserByLatestStatisticalRequestsOfTheMonth = async (id) => {
   try {
     const response = await get(
@@ -118,7 +119,7 @@ const getUserByLatestStatisticalRequestsOfTheMonth = async (id) => {
     };
   } catch (error) {
     console.error(
-      "Error al obtener las solicitudes estadísticas más recientes del mes para el usuario:",
+      "Error al obtener las solicitudes estadísticas más recientes del mes para el usuario 2:",
       error
     );
     throw error;

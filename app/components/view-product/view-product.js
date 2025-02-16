@@ -161,22 +161,21 @@ const FiltersComponent = () => {
         console.log("Token:", token); // Verificar el token
 
         const response = await fetch(
-            "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings",
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`, // Usar el token
-                "Content-Type": "application/json",
-              },
-            }
+          "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`, // Usar el token
+              "Content-Type": "application/json",
+            },
+          }
         );
 
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(
-              `Error al obtener las compras: ${response.status} - ${
-                  errorData.message || response.statusText
-              }`
+            `Error al obtener las compras: ${response.status} - ${errorData.message || response.statusText
+            }`
           );
         }
 
@@ -191,7 +190,7 @@ const FiltersComponent = () => {
 
         // Ordenar y actualizar datos (igual que antes)
         const sortedData = fetchedData.sort(
-            (a, b) => new Date(b.request_date) - new Date(a.request_date)
+          (a, b) => new Date(b.request_date) - new Date(a.request_date)
         );
 
         const updatedData = sortedData.map((shopping) => {
@@ -204,8 +203,15 @@ const FiltersComponent = () => {
         setIsLoading(false);
 
 
-        const leaders = [
+        /* const leaders = [
           ...new Set(fetchedData.map((shopping) => shopping.user.profile.name)),
+        ]; */
+        const leaders = [
+          ...new Set(
+            fetchedData
+              .filter(shopping => shopping.user && shopping.user.profile) // Filtrar los que tienen user.profile
+              .map(shopping => shopping.user.profile.name)
+          ),
         ];
         setLeaderOptions(leaders);
 
@@ -860,7 +866,9 @@ const FiltersComponent = () => {
                     </td> */}
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{shopping.user.profile.name}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">
+                      {shopping.user && shopping.user.profile ? shopping.user.profile.name : "Sin usuario"}
+                    </td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.account_type.name}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">
                       {role === "admin" || role === "Developer" ? (

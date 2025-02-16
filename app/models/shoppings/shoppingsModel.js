@@ -19,7 +19,7 @@ class UserProfileDTO {
 class UserDTO {
   constructor({ id, profile }) {
     this.id = id;
-    this.profile = new UserProfileDTO(profile);
+    this.profile = profile ? new UserProfileDTO(profile) : null;
   }
 }
 
@@ -76,7 +76,7 @@ class ShoppingDTO {
     area,
     account_type,
     total,
-    subtotal,      // Nuevo campo
+    subtotal,
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -92,23 +92,23 @@ class ShoppingDTO {
     this.products = Array.isArray(products) ? products.map((product) => new ProductDTO(product)) : [];
     this.account_type_id = account_type_id;
 
-    // Asignación de los nuevos campos
-    this.innovated = innovated;
+    // Conversión de valores numéricos
+    this.innovated = Boolean(innovated);
     this.unidad = unidad;
-    this.iva = iva;
-    this.retefuente = retefuente;
+    this.iva = parseFloat(iva) || 0;
+    this.retefuente = parseFloat(retefuente) || 0;
     this.facturacion = facturacion;
 
-    // Asignación de los nuevos objetos relacionados, con validaciones
+    // Manejo de objetos anidados con validación
     this.area = area ? new AreaDTO(area) : null;
     this.account_type = account_type ? new AccountTypeDTO(account_type) : null;
 
-    // Asignación del nuevo campo total
-    this.total = total;
-    this.subtotal = subtotal;
-
+    // Conversión de total y subtotal a número
+    this.total = parseFloat(total) || 0;
+    this.subtotal = parseFloat(subtotal) || 0;
   }
 }
+
 
 
 export { ShoppingDTO };
