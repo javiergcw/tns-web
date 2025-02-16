@@ -89,7 +89,7 @@ const RequestsCarousel = () => {
                   <LastRequests
                     key={index}
                     area={request.category.name || "N/A"}
-                    leader={request.user.profile.name || "N/A"}
+                    leader={request.user && request.user.profile && request.user.profile.name ? request.user.profile.name : "N/A"}
                     description={request.description || "N/A"}
                     className="flex-grow min-w-0"
                   />
