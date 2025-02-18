@@ -158,7 +158,6 @@ const FiltersComponent = () => {
     const fetchAndProcessData = async () => {
       try {
         const token = localStorage.getItem("token"); // Obtener el token
-        console.log("Token:", token); // Verificar el token
 
         const response = await fetch(
           "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings",
@@ -831,7 +830,7 @@ const FiltersComponent = () => {
         </div>
       </div>
 
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto max-w-full">
         <div className="max-h-96 overflow-y-auto">
           <table className="min-w-full table-auto text-base text-left text-black border border-gray-300">
             <thead className="text-base text-white uppercase bg-blue-500">
