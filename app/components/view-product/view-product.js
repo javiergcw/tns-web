@@ -831,8 +831,8 @@ const FiltersComponent = () => {
       </div>
 
       <div className="w-full overflow-x-auto max-w-full">
-        <div className="max-h-96 overflow-y-auto">
-          <table className="min-w-full table-auto text-base text-left text-black border border-gray-300">
+        <div className="w-full overflow-x-auto">
+          <table className="shopping-table min-w-[1200px] text-base text-left text-black border border-gray-300">
             <thead className="text-base text-white uppercase bg-blue-500">
               <tr>
                 <th className="px-6 py-3 text-center border border-gray-300">TITULO</th>
