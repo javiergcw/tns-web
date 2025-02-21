@@ -55,7 +55,7 @@ const data = [
     link: "https://drive.google.com/file/d/1LYWjlf3CUE_Pevvl-rdu_9rNZewklSpH/view",
   },
   {
-    name: "Extensión Académica 2024",
+    name: "Circular N20 Extensión Académica 2024",
     link: "https://drive.google.com/file/d/1uFHKdFQzZMCf-FHYQ7YFxur6RjEVagi-/view",
   },
   {
