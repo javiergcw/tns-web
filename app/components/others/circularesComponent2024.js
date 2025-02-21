@@ -106,6 +106,10 @@ const data = [
     name: "Circular N°26 ANUARIO PROMOCIÓN 24 ",
     link: "https://drive.google.com/file/d/1MmCAHk72RZLHo4ccVQUV0KuPuEE7L7ai/view?usp=sharing",
   },
+  {
+    name: "Circular N°27 Examen English FCE ",
+        link: "https://drive.google.com/file/d/1MAQ7elsVwkVJts0i5-X62zm8hlDrGtGN/view?usp=sharing",
+  },
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
