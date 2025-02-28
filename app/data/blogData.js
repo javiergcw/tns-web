@@ -2,6 +2,111 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "2025-02-28",
+        imageUrl: ImagesPath.blog29,
+        title: "El impacto de las redes sociales en los estudiantes y su vida cotidiana",
+        body:`
+<p>El impacto de las redes sociales en los estudiantes y su vida cotidiana</p>
+<br>
+<p>Las redes sociales transformaron la forma de comunicarnos, informamos y relacionarnos con los demás. Sin embargo, su impacto en los estudiantes, desde primaria hasta bachillerato, es un tema que merece especial atención.</p>
+<br>
+<p>Estas plataformas están diseñadas para captar nuestra atención y modificar nuestro comportamiento, con consecuencias significativas sobre todo en el rendimiento escolar, la vida personal, social y familiar, así como en la salud física y mental de los jóvenes, tal como se expone en El documental  El Dilema de las Redes Sociales, del director Jeff Orlowski, nominado a Mejor Documental en los Premios BAFTA 2021.</p>
+<br>
+<p>Las redes sociales pueden ser una fuente constante de distracción para los estudiantes. La facilidad de acceso a plataformas como Instagram, TikTok o WhatsApp y su uso desproporcionado reducen la capacidad de concentración y afectan la productividad académica.</p>
+<br>
+<p>Es común que los estudiantes interrumpan sus sesiones de estudio para revisar notificaciones, un gancho que usan las plataformas estratégicamente para redirigir a los jóvenes hacia estas, lo cual fragmenta su atención y disminuye su capacidad de retención de información.</p>
+<br>
+<p>Además, el hábito de utilizar dispositivos electrónicos hasta altas horas de la noche interfiere con el descanso, lo que repercute negativamente en el desempeño académico.</p>
+<br>
+<p class="text-xl"><b>Efectos en la vida personal y social</b></p>
+<br/>
+<div>
+     <img src="/images/blogs/blog-29-b.png" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>Para los adolescentes, la imagen y la aceptación social son aspectos fundamentales en su desarrollo. Por eso, las redes sociales han redefinido el concepto de reputación, basándolo en el número de “me gusta”, comentarios y seguidores. Es la viralidad digital quien direcciona ahora nuestra atención y  nuestro tiempo.</p>
+<br>
+<p>Esto puede generar ansiedad y una necesidad constante de validación externa. Además, la comparación con estilos de vida idealizados en redes puede afectar la autoestima y generar sentimientos de insuficiencia.</p>
+<br>
+<p>En el ámbito social y familiar, el uso excesivo de estas plataformas puede reducir la interacción cara a cara, debilitando las relaciones interpersonales y limitando la capacidad de desarrollar habilidades sociales esenciales.</p>
+<br>
+<p class="text-xl"><b>Consecuencias en la Salud Física y Mental</b></p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-c.png" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>El Dilema de las Redes Sociales resalta cómo el diseño adictivo de estas plataformas puede contribuir a la ansiedad y la depresión en los jóvenes. La exposición constante a contenidos cuidadosamente seleccionados puede distorsionar la percepción de la realidad y aumentar la insatisfacción personal.</p>
+<br>
+<p>A nivel físico, el uso prolongado de dispositivos reduce la actividad física y favorece el sedentarismo, lo que puede derivar en problemas de salud como obesidad o alteraciones del sueño debido a la exposición a pantallas antes de dormir.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-d.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>Es fundamental que estudiantes, padres y docentes tomemos conciencia de estos efectos y promovamos siempre un uso sano de las redes sociales. Establecer límites de tiempo, fomentar actividades offline y educar sobre el impacto de los algoritmos puede ayudar a los jóvenes a desarrollar una relación equilibrada con la tecnología.</p>
+<br>
+<p>La educación digital y el pensamiento crítico son herramientas clave para que los estudiantes comprendan cómo funcionan estas plataformas y tomen decisiones más informadas sobre su uso.</p>
+<br>
+<p>Las redes sociales pueden ser una herramienta poderosa cuando se utilizan con consciencia y moderación. Sin embargo, es crucial que los estudiantes aprendan a equilibrar su vida digital con su bienestar académico, personal y social, asegurando así un desarrollo integral y saludable.</p>
+<br>
+<p>Desde nuestra institución procuramos día a día elevar los niveles de consciencia desde nuestra propuesta educativa. Extender esos niveles de consciencia al ámbito de lo digital es una tarea y a la vez un reto que nos involucra a todos como comunidad educativa. Si entendemos la lógica y la intención de los algoritmos digitales, aprenderemos a hacer un uso más sano y más eficiente de las redes sociales.</p>
+<br>
+<p>-------------------------------------------------------------------------------------------------------</p>
+<br>
+<p class="text-xl">The Impact of Social Media on Students and Their Daily Lives</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-a.png" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>Social media has transformed the way we communicate, obtain information, and interact with others. However, its impact on students, from elementary school to high school, is a topic that deserves special attention.</p>
+<br>
+<p>These platforms are designed to capture our attention and modify our behavior, with significant consequences, especially on academic performance, personal, social, and family life, as well as the physical and mental health of young people, as highlighted in the documentary  The Social Dilemma , directed by Jeff Orlowski and nominated for Best Documentary at the 2021 BAFTA Awards.</p>
+<br>
+<p>Social media can be a constant source of distraction for students. The ease of access to platforms such as Instagram, TikTok, or WhatsApp and their disproportionate use reduce concentration levels and affect academic productivity.</p>
+<br>
+<p>It is common for students to interrupt their study sessions to check notifications— a strategic hook used by these platforms to redirect young users back to them, which fragments their attention and diminishes their ability to retain information.</p>
+<br>
+<p>Additionally, the habit of using electronic devices late at night interferes with sleep, negatively impacting academic performance.</p>
+<br>
+<p class="text-xl"><b>Effects on Personal and Social Life</b></p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-b.png" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>For teenagers, image and social acceptance are fundamental aspects of their development. This is why social media has redefined the concept of reputation, basing it on the number of “likes,” comments, and followers. Digital virality now dictates our attention and time.</p>
+<br>
+<p>This can generate anxiety and a constant need for external validation. Furthermore, comparing oneself to idealized lifestyles on social media can affect self-esteem and create feelings of inadequacy.</p>
+<br>
+<p>In social and family settings, excessive use of these platforms can reduce face-to-face interactions, weakening interpersonal relationships and limiting the development of essential social skills.</p>
+<br>
+<p class="text-xl"><b>Consequences on Physical and Mental Health</b></p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-c.png" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>The Social Dilemma  highlights how the addictive design of these platforms can contribute to anxiety and depression in young people. Constant exposure to carefully curated content can distort their perception of reality and increase personal dissatisfaction.</p>
+<br>
+<p>On a physical level, prolonged use of devices reduces physical activity and promotes a sedentary lifestyle, which can lead to health issues such as obesity or sleep disorders due to screen exposure before bedtime.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-29-d.jpg" alt="tnsum" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>It is essential that students, parents, and teachers become aware of these effects and always promote a healthy use of social media. Setting time limits, encouraging offline activities, and educating about the impact of algorithms can help young people develop a balanced relationship with technology.</p>
+<br>
+<p>Digital education and critical thinking are key tools for students to understand how these platforms work and to make more informed decisions about their use.</p>
+<br>
+<p>Social media can be a powerful tool when used consciously and in moderation. However, it is crucial for students to learn to balance their digital lives with their academic, personal, and social well-being, ensuring comprehensive and healthy development.</p>
+<br>
+<p>At our institution, we strive every day to raise awareness through our educational approach. Extending this awareness to the digital realm is both a task and a challenge that involves all of us as an educational community. If we understand the logic and intentions behind digital algorithms, we will learn to use social media in a healthier and more efficient way.</p>
+`,
+        banner: true,
+    },
+    {
         date: "2025-01-31",
         imageUrl: ImagesPath.blog28,
         title: "Como sienten los adolescentes-La regulacion emocional desde la maduracion cerebral",
