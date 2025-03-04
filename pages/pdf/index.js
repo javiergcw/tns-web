@@ -3,7 +3,7 @@ import React from "react";
 
 const Pdf = () => {
   return (
-    <Link href="https://drive.google.com/file/d/18S9SR1HwOTGpbGw7lvqiIwH-wxKX0kOU/view?usp=sharing">
+    <Link href="https://drive.google.com/file/d/1dzSs-L53VnDPK-W6CXruPyceSypgMf6m/view?usp=sharing">
       Pdf
     </Link>
   );

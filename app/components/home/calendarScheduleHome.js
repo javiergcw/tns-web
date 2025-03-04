@@ -61,7 +61,7 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See schedule"
           imgSrc="/images/others/schedule.png"
           imgAlt="Schedule"
-          url="https://drive.google.com/file/d/1gRs1SqN6hQvT22It53ivlkPZXFkgwwYW/view"
+          url="https://drive.google.com/file/d/1dzSs-L53VnDPK-W6CXruPyceSypgMf6m/view?usp=sharing"
         />
       </div>
       <div className="w-px bg-gray-300 mx-6 my-4 md:my-0 self-stretch"></div>
@@ -72,7 +72,7 @@ const CalendarScheduleHome = () => {
           buttonTextLabel="See calendar"
           imgSrc="/images/others/calendar.png"
           imgAlt="Calendar"
-          url="https://drive.google.com/file/d/18S9SR1HwOTGpbGw7lvqiIwH-wxKX0kOU/view?usp=sharing"
+          url="https://drive.google.com/file/d/1dzSs-L53VnDPK-W6CXruPyceSypgMf6m/view?usp=sharing"
         />
       </div>
     </div>
