@@ -899,7 +899,17 @@ const FiltersComponent = () => {
                         <span>{shopping.status.name}</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.request_date).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-center border border-gray-300">
+                      {shopping.request_date ? new Date(shopping.request_date).toLocaleString('es-CO', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false // O true, según prefieras 24h o 12h
+                      }) : "N/A"}
+                    </td>
                     <td className="px-6 py-4 text-center border border-gray-300">{new Date(shopping.date_approval).toLocaleDateString()}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.subtotal ? formatCurrency(shopping.subtotal) : "N/A"}</td>
                     <td className="px-6 py-4 text-center border border-gray-300">{shopping.total ? formatCurrency(shopping.total) : "N/A"}</td>
@@ -951,8 +961,6 @@ const FiltersComponent = () => {
                         )
                       )}
 
-
-
                     </td>
                     <td className="px-6 py-4 text-center border border-gray-300">
                       <div className="flex items-center space-x-2">
@@ -997,16 +1005,6 @@ const FiltersComponent = () => {
           </table>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
 
       {isModalOpen && selectedShopping && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
@@ -1094,10 +1092,6 @@ const FiltersComponent = () => {
           </div>
         </div>
       )}
-
-
-
-
 
       {/* Modal para ingresar la URL de la factura */}
       {
@@ -1367,9 +1361,6 @@ const FiltersComponent = () => {
                   </label>
                 </div>
 
-
-
-
                 {/* Productos */}
                 <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
                 {selectedShoppingData.products.map((product, index) => (
@@ -1455,9 +1446,6 @@ const FiltersComponent = () => {
         )
       }
 
-
-
-
       {
         isDeleteModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -1482,8 +1470,6 @@ const FiltersComponent = () => {
           </div>
         )
       }
-
-
 
     </div >
   );

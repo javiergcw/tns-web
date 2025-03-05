@@ -36,7 +36,7 @@ const StatusBuy = ({ time, data }) => {
   const deniedCount = countStatus(3);
 
   const chartData = {
-    labels: ['Canceladas', 'Aprobadas', 'Pendientes'],
+    labels: ['Rechazadas', 'Aprobadas', 'Pendientes'],
     datasets: [
       {
         label: 'Compras',
