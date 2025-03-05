@@ -114,6 +114,14 @@ const data = [
     name: "Circular N°28 PRUEBA PILOTO SIN DISPOSITIVOS ELECTRÓNICOS ",
     link: "https://drive.google.com/file/d/1kumpvXUipge4AsLbBqPjp6d5MP3g2rFo/view?usp=sharing",
   },
+  {
+    name: "Circular N°29 Novedades con docentes ",
+    link: "https://drive.google.com/file/d/1U9DKGF-LkPibxM8d2hIR3hO-cKHePq9J/view?usp=sharing",
+  },
+  {
+    name: "Circular N°30 - Día Virtual ",
+    link: "https://drive.google.com/file/d/1M2oejSMP6_Es5SymDhvWxrGGTE_K6Jbt/view?usp=sharing",
+  },
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
