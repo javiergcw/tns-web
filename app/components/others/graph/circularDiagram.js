@@ -26,7 +26,7 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   });
 
   const approvedCount = filteredResults.filter(
-    (item) => item.status.id === 1
+    (item) => item.status.id === 35
   ).length;
   const pendingCount = filteredResults.filter(
     (item) => item.status.id === 2
@@ -35,7 +35,7 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
     (item) => item.status.id === 3
   ).length;
   const inProcessCount = filteredResults.filter(
-    (item) => item.status.id === 35 // Asumiendo que el ID para "En proceso" es 2
+    (item) => item.status.id === 1 // Asumiendo que el ID para "En proceso" es 2
   ).length;
 
   const chartData = {
