@@ -1251,23 +1251,26 @@ const FiltersComponent = () => {
                     Líder de Presupuesto: <span className="text-red-500">*</span>
                   </label>
                   <select
-                    value={selectedShoppingData.user?.id || ''}
-                    onChange={(e) =>
-                      setSelectedShoppingData({
-                        ...selectedShoppingData,
-                        user: users.find((user) => user.id === parseInt(e.target.value)),
-                      })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-                    required
-                    onInvalid={(e) => e.target.setCustomValidity('Rellena este campo')}
-                    onInput={(e) => e.target.setCustomValidity('')}
+                      value={selectedShoppingData.user?.id || ""}
+                      onChange={(e) => {
+                        const selectedUserId = parseInt(e.target.value);
+                        const selectedProfile = users.find((profile) => profile.user.id === selectedUserId);
+                        console.log("Usuario seleccionado en edición - user.id:", selectedUserId, "profile:", selectedProfile);
+                        setSelectedShoppingData({
+                          ...selectedShoppingData,
+                          user: selectedProfile ? { id: selectedProfile.user.id, profile: { id: selectedProfile.id, name: selectedProfile.name } } : null,
+                        });
+                      }}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                      required
+                      onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
+                      onInput={(e) => e.target.setCustomValidity("")}
                   >
                     <option value="">Seleccione un líder de presupuesto</option>
-                    {users.map((user) => (
-                      <option key={user.id} value={user.id}>
-                        {user.name}
-                      </option>
+                    {users.map((profile) => (
+                        <option key={profile.user.id} value={profile.user.id}>
+                          {profile.name}
+                        </option>
                     ))}
                   </select>
                 </div>
