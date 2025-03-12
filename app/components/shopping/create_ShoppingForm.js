@@ -370,6 +370,7 @@ const CreateShoppingForm = () => {
                 type="number"
                 value={iva}
                 onChange={(e) => setIva(e.target.value)}
+                onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
             {error.iva && <p className="text-red-500">{error.iva}</p>}
@@ -381,6 +382,7 @@ const CreateShoppingForm = () => {
                 type="number"
                 value={retefuente}
                 onChange={(e) => setRetefuente(e.target.value)}
+                onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
           </div>
@@ -391,10 +393,12 @@ const CreateShoppingForm = () => {
                 type="number"
                 value={subtotal}
                 onChange={(e) => setSubTotal(e.target.value)}
+                onWheel={(e) => e.target.blur()} // Agrega esto
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
             {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
           </div>
+
 
           <div className="mb-4">
             <label className="block text-black font-medium">Total: <span className="text-red-500">*</span></label>
@@ -402,6 +406,7 @@ const CreateShoppingForm = () => {
                 type="number"
                 value={total}
                 onChange={(e) => setTotal(e.target.value)}
+                onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
             {error.total && <p className="text-red-500">{error.total}</p>}
