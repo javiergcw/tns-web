@@ -180,7 +180,6 @@ const CreateShoppingForm = () => {
       user_id: parseInt(selectedUserId, 10),
       request_date: new Date().toISOString(),
       pending_date: new Date().toISOString(),
-      date_approval: new Date().toISOString(),
       iva: parseFloat(iva),
       retefuente: retefuente ? parseFloat(retefuente) : 0,
       innovated,

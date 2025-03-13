@@ -186,7 +186,7 @@ const ShoppingTable = ({ userId }) => {
   const handleDownloadExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       filteredShoppings.map((shopping) => ({
-        "ITEM": shopping.products.map((product) => product.name).join(", "),
+        "ITEM": shopping.title,
         "DESCRIPCIÓN": shopping.description,
         "LÍDER DE ÁREA": shopping.user.profile.name,
         "TIPO DE CUENTA": shopping.account_type.name,
@@ -313,7 +313,7 @@ const ShoppingTable = ({ userId }) => {
       const total = shopping.total != null ? shopping.total : "N/A";
 
       return [
-        shopping.products.map((product) => product.name).join(", "),
+        shopping.title,
         shopping.description,
         shopping.user.profile.name,
         shopping.account_type.name,

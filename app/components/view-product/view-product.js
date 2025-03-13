@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye, faFilePdf, faCommentDots, faFileUpload, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
-
 import { getAllProfiles } from "@/app/services/profileService";
 import { getAllAreas } from "@/app/services/areaService";
 import { getAllAccountTypes } from "@/app/services/accountTypeService";
@@ -17,12 +16,12 @@ import { IoClose } from "react-icons/io5";
 
 const fetchData = async () => {
   try {
-    const res = await getAllShoppings(); // 'await' espera la respuesta
-    console.log("Datos de la API:", res); // Mejor descripción en el console.log
+    const res = await getAllShoppings();
+    console.log("Datos de la API:", res);
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return []; // Devuelve un array vacío en caso de error. IMPORTANTE: siempre devolver algo.
+    return [];
   }
 };
 
@@ -39,21 +38,17 @@ const FiltersComponent = () => {
   const [loadingOptions, setLoadingOptions] = useState(true);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState("");
-
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [leaderOptions, setLeaderOptions] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
   const [role, setRole] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [shoppingToDelete, setShoppingToDelete] = useState(null);
-
   const [selectedShoppingData, setSelectedShoppingData] = useState(null);
-
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -61,16 +56,15 @@ const FiltersComponent = () => {
   const [newStatusId, setNewStatusId] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShoppingId, setSelectedShoppingId] = useState(null);
-
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
   const [invoiceUrl, setInvoiceUrl] = useState("");
-
   const [messages, setMessages] = useState([]);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [newMessageBody, setNewMessageBody] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
 
-  const [sortConfig, setSortConfig] = useState({
+  const sortConfig = useRef({
     key: "request_date",
     direction: "descending",
   });
@@ -83,25 +77,25 @@ const FiltersComponent = () => {
 
   const sortData = (dataToSort) => {
     const sortedData = [...dataToSort];
-    if (sortConfig.key) {
+    if (sortConfig.current.key) {
       sortedData.sort((a, b) => {
         let valueA, valueB;
-        if (sortConfig.key.includes(".")) {
-          const keys = sortConfig.key.split(".");
+        if (sortConfig.current.key.includes(".")) {
+          const keys = sortConfig.current.key.split(".");
           valueA = keys.reduce((obj, key) => obj?.[key], a) || "";
           valueB = keys.reduce((obj, key) => obj?.[key], b) || "";
         } else {
-          valueA = a[sortConfig.key] || "";
-          valueB = b[sortConfig.key] || "";
+          valueA = a[sortConfig.current.key] || "";
+          valueB = b[sortConfig.current.key] || "";
         }
 
-        if (sortConfig.key === "request_date" || sortConfig.key === "date_approval") {
+        if (sortConfig.current.key === "request_date" || sortConfig.current.key === "date_approval") {
           const dateA = new Date(valueA);
           const dateB = new Date(valueB);
-          return sortConfig.direction === "ascending" ? dateA - dateB : dateB - dateA;
+          return sortConfig.current.direction === "ascending" ? dateA - dateB : dateB - dateA;
         }
 
-        return sortConfig.direction === "ascending"
+        return sortConfig.current.direction === "ascending"
             ? valueA.toString().localeCompare(valueB.toString())
             : valueB.toString().localeCompare(valueA.toString());
       });
@@ -128,7 +122,6 @@ const FiltersComponent = () => {
           const profile = await getProfileById(storedUserId);
           const userRole = profile.rol.name ? profile.rol.name : "";
           setRole(userRole);
-
           console.log("El rol del usuario logueado es:", userRole);
         } else {
           throw new Error("User ID not found in localStorage");
@@ -251,58 +244,49 @@ const FiltersComponent = () => {
 
   useEffect(() => {
     const filterData = () => {
-      let filtered = data; // Comienza con todos los datos originales sin filtrar
+      let filtered = data;
 
-      // Filtro por nombre del item: busca coincidencias parciales en el título de la compra
       if (itemName) {
         filtered = filtered.filter((shopping) =>
             shopping.title.toLowerCase().includes(itemName.toLowerCase())
         );
       }
 
-      // Filtro por fecha de inicio: muestra solo las compras creadas a partir de la fecha seleccionada
       if (startDate) {
         filtered = filtered.filter(
             (shopping) => new Date(shopping.created_at) >= new Date(startDate)
         );
       }
 
-      // Filtro por fecha de fin: muestra solo las compras creadas hasta la fecha seleccionada
       if (endDate) {
         filtered = filtered.filter(
             (shopping) => new Date(shopping.created_at) <= new Date(endDate)
         );
       }
 
-      // Filtro por líder de área: muestra solo las compras asignadas al líder seleccionado
       if (areaManager) {
         filtered = filtered.filter(
             (shopping) =>
-                shopping.user && // Verifica que exista el objeto user
-                shopping.user.profile && // Verifica que exista el perfil del usuario
-                shopping.user.profile.name.toLowerCase() === areaManager.toLowerCase() // Compara el nombre del líder
+                shopping.user &&
+                shopping.user.profile &&
+                shopping.user.profile.name.toLowerCase() === areaManager.toLowerCase()
         );
       }
 
-      // Filtro por estado: muestra solo las compras con el estado seleccionado (ej. "Aprobadas")
       if (statusFilter) {
         filtered = filtered.filter(
             (shopping) =>
-                shopping.status.name && // Verifica que exista el nombre del estado
-                shopping.status.name.toLowerCase() === statusFilter.toLowerCase() // Compara con el estado seleccionado
+                shopping.status.name &&
+                shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
         );
       }
 
-      // Ordena los datos filtrados según la configuración de ordenamiento (sortConfig)
       const sortedFilteredData = sortData(filtered);
-
-      // Actualiza el estado filteredData con los datos filtrados y ordenados
       setFilteredData(sortedFilteredData);
     };
 
-    // Ejecuta la función de filtrado cada vez que cambie alguno de los valores en las dependencias
     filterData();
-  }, [itemName, startDate, endDate, areaManager, statusFilter, data, sortConfig]);
+  }, [itemName, startDate, endDate, areaManager, statusFilter, data]);
 
   useEffect(() => {
     const sortedFilteredData = sortData(filteredData);
@@ -566,7 +550,7 @@ const FiltersComponent = () => {
       );
 
       if (updateResponse.ok) {
-        alert("Estado actualizado correctamente.");
+        setSuccessMessage("Estado cambiado con éxito"); // Mostrar mensaje de éxito
         setIsEditing(false);
         setEditingId(null);
         setNewStatusId("");
@@ -583,6 +567,16 @@ const FiltersComponent = () => {
       alert("Hubo un error al actualizar el estado.");
     }
   };
+
+  // Efecto para ocultar el mensaje después de 4 segundos
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage("");
+      }, 4000); // 4000 milisegundos = 4 segundos
+      return () => clearTimeout(timer); // Limpiar el temporizador si el componente se desmonta
+    }
+  }, [successMessage]);
 
   const handleEditSave = async (e) => {
     e.preventDefault();
@@ -798,7 +792,6 @@ const FiltersComponent = () => {
         <h1>{(role === "admin" || role === "Developer") ? "Compras ADMIN" : "Compras"}</h1>
         <div className="w-full bg-white p-4 rounded-lg shadow-md mb-6">
           <h2 className="text-lg font-semibold mb-4 text-black">Nombre de item</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-black">
             <input
                 type="text"
@@ -807,7 +800,6 @@ const FiltersComponent = () => {
                 onChange={(e) => setItemName(e.target.value)}
                 className="border border-gray-300 rounded p-2 w-full text-black"
             />
-
             <select
                 value={areaManager}
                 onChange={(e) => setAreaManager(e.target.value)}
@@ -821,7 +813,6 @@ const FiltersComponent = () => {
                   </option>
               ))}
             </select>
-
             <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -835,19 +826,16 @@ const FiltersComponent = () => {
                   </option>
               ))}
             </select>
-
             <div className="flex space-x-4">
               <button onClick={handleFilterReset} className="bg-red-500 text-white p-2 rounded">
                 <FontAwesomeIcon icon={faTrash} />
               </button>
-
               <button onClick={handleDownloadExcel} className="bg-blue-500 text-white p-2 rounded">
                 Exportar Tabla
               </button>
             </div>
           </div>
         </div>
-
         <div className="w-full overflow-x-auto max-w-full">
           <div className="w-full overflow-y-auto max-h-[600px]">
             <table className="shopping-table min-w-[1200px] text-base text-left text-black border border-gray-300">
@@ -1061,12 +1049,20 @@ const FiltersComponent = () => {
                           </div>
                         </td>
                       </tr>
-                  ))
-              )}
+                  )))
+
+              }
               </tbody>
             </table>
           </div>
         </div>
+
+        {/* Mostrar mensaje de éxito */}
+        {successMessage && (
+            <div className="fixed top-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg z-50">
+              {successMessage}
+            </div>
+        )}
 
         {isModalOpen && selectedShopping && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
@@ -1147,7 +1143,6 @@ const FiltersComponent = () => {
               </div>
             </div>
         )}
-
         {isInvoiceModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
@@ -1171,7 +1166,6 @@ const FiltersComponent = () => {
               </div>
             </div>
         )}
-
         {isMessageModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
@@ -1204,7 +1198,6 @@ const FiltersComponent = () => {
                 >
                   X
                 </button>
-
                 <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
                 <form onSubmit={handleEditSave}>
                   <div className="mb-4">
@@ -1223,7 +1216,6 @@ const FiltersComponent = () => {
                         onInput={(e) => e.target.setCustomValidity("")}
                     />
                   </div>
-
                   <div className="mb-4">
                     <label className="block text-black font-medium">
                       Descripción: <span className="text-red-500">*</span>
@@ -1240,7 +1232,6 @@ const FiltersComponent = () => {
                         onInput={(e) => e.target.setCustomValidity("")}
                     />
                   </div>
-
                   <div className="mb-4">
                     <label className="block text-black font-medium">
                       Área: <span className="text-red-500">*</span>
@@ -1266,7 +1257,6 @@ const FiltersComponent = () => {
                       ))}
                     </select>
                   </div>
-
                   <div className="mb-4">
                     <label className="block text-black font-medium">
                       Tipo de Cuenta: <span className="text-red-500">*</span>
@@ -1292,7 +1282,6 @@ const FiltersComponent = () => {
                       ))}
                     </select>
                   </div>
-
                   <div className="mb-4">
                     <label className="block text-black font-medium">
                       Líder de Presupuesto: <span className="text-red-500">*</span>
@@ -1323,7 +1312,6 @@ const FiltersComponent = () => {
                       ))}
                     </select>
                   </div>
-
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2 text-sm font-bold text-black">
@@ -1344,7 +1332,6 @@ const FiltersComponent = () => {
                           onInput={(e) => e.target.setCustomValidity("")}
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm font-bold text-black">
                         Total: <span className="text-red-500">*</span>
@@ -1364,7 +1351,6 @@ const FiltersComponent = () => {
                           onInput={(e) => e.target.setCustomValidity("")}
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm font-bold text-black">
                         IVA: <span className="text-red-500">*</span>
@@ -1384,7 +1370,6 @@ const FiltersComponent = () => {
                           onInput={(e) => e.target.setCustomValidity("")}
                       />
                     </div>
-
                     <div>
                       <label className="block mb-2 text-sm font-bold text-black">
                         Unidad: <span className="text-red-500">*</span>
@@ -1405,7 +1390,6 @@ const FiltersComponent = () => {
                       />
                     </div>
                   </div>
-
                   <div className="mt-6 mb-4">
                     <label className="flex items-center space-x-4">
                       <span className="text-black font-medium">¿Es innovador?</span>
@@ -1423,7 +1407,6 @@ const FiltersComponent = () => {
                       <span className="ml-2 text-black font-medium">Innovado</span>
                     </label>
                   </div>
-
                   <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
                   {selectedShoppingData.products.map((product, index) => (
                       <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
@@ -1448,7 +1431,6 @@ const FiltersComponent = () => {
                               onInput={(e) => e.target.setCustomValidity("")}
                           />
                         </div>
-
                         <div>
                           <label className="block mb-2 text-sm font-bold text-black">
                             Descripción: <span className="text-red-500">*</span>
@@ -1470,7 +1452,6 @@ const FiltersComponent = () => {
                               onInput={(e) => e.target.setCustomValidity("")}
                           />
                         </div>
-
                         <div>
                           <label className="block mb-2 text-sm font-bold text-black">
                             Precio: <span className="text-red-500">*</span>
@@ -1494,7 +1475,6 @@ const FiltersComponent = () => {
                         </div>
                       </div>
                   ))}
-
                   <div className="flex justify-end space-x-2 mt-4">
                     <button
                         type="button"
@@ -1511,7 +1491,6 @@ const FiltersComponent = () => {
               </div>
             </div>
         )}
-
         {isDeleteModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded shadow-lg">
