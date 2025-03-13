@@ -23,7 +23,7 @@ export const register = async (
         identification_type: identificationType,
         identification_number: identificationNumber,
         photo: ImagesPath.profileDefaultPhoto, // Debes asignar aquí la URL real de la foto si está disponible
-        rol_id: 2, // Ajusta este valor según el rol que deba asignarse
+        rol_id: 1, // Ajusta este valor según el rol que deba asignarse
       },
     },
   };
