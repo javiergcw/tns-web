@@ -246,6 +246,15 @@ const FiltersComponent = () => {
     const filterData = () => {
       let filtered = data;
 
+      // Excluir compras aprobadas por defecto, a menos que se filtre por "aprobadas"
+      if (!statusFilter || statusFilter.toLowerCase() !== "aprobadas") {
+        filtered = filtered.filter(
+            (shopping) =>
+                shopping.status.name &&
+                shopping.status.name.toLowerCase() !== "aprobadas"
+        );
+      }
+
       if (itemName) {
         filtered = filtered.filter((shopping) =>
             shopping.title.toLowerCase().includes(itemName.toLowerCase())
@@ -1050,7 +1059,6 @@ const FiltersComponent = () => {
                         </td>
                       </tr>
                   )))
-
               }
               </tbody>
             </table>

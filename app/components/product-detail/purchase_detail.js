@@ -84,24 +84,24 @@ const CustomComponent = ({ shoppingId }) => {
                 {purchaseStatus && (
                     <div className="flex flex-wrap justify-between w-full">
                         <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-                            <span className="text-2xl lg:text-3xl">💰</span>
-                            <p className="text-gray-700 font-bold">ReteFuente</p>
-                            <p className="text-gray-700">{formatCurrency(purchaseStatus.retefuente)}</p>
-                        </div>
-                        <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
                             <span className="text-2xl lg:text-3xl">🧾</span>
                             <p className="text-gray-700 font-bold">Subtotal</p>
                             <p className="text-gray-700">{formatCurrency(purchaseStatus.subtotal)}</p>
                         </div>
                         <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
-                            <span className="text-2xl lg:text-3xl">💳</span>
-                            <p className="text-gray-700 font-bold">Total</p>
-                            <p className="text-gray-700">{formatCurrency(purchaseStatus.total)}</p>
-                        </div>
-                        <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
                             <span className="text-2xl lg:text-3xl">🧮</span>
                             <p className="text-gray-700 font-bold">IVA</p>
                             <p className="text-gray-700">{formatCurrency(purchaseStatus.iva)}</p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+                            <span className="text-2xl lg:text-3xl">💰</span>
+                            <p className="text-gray-700 font-bold">ReteFuente</p>
+                            <p className="text-gray-700">{formatCurrency(purchaseStatus.retefuente)}</p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full lg:w-1/5 mx-1 mb-4 lg:mb-0">
+                            <span className="text-2xl lg:text-3xl">💳</span>
+                            <p className="text-gray-700 font-bold">Total</p>
+                            <p className="text-gray-700">{formatCurrency(purchaseStatus.total)}</p>
                         </div>
                     </div>
                 )}
