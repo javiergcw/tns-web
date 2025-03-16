@@ -246,33 +246,46 @@ const FiltersComponent = () => {
     const filterData = () => {
       let filtered = data;
 
-      // Excluir compras aprobadas por defecto, a menos que se filtre por "aprobadas"
-      if (!statusFilter || statusFilter.toLowerCase() !== "aprobadas") {
+      // Excluir compras con estado "rechazada" y "aprobadas" por defecto, a menos que se filtre explícitamente por uno de esos estados
+      if (!statusFilter) {
+        // Si no hay filtro de estado, excluimos tanto "rechazada" como "aprobadas"
         filtered = filtered.filter(
             (shopping) =>
                 shopping.status.name &&
+                shopping.status.name.toLowerCase() !== "rechazada" &&
                 shopping.status.name.toLowerCase() !== "aprobadas"
+        );
+      } else {
+        // Si hay un filtro de estado, solo mostramos los que coincidan con el filtro seleccionado
+        filtered = filtered.filter(
+            (shopping) =>
+                shopping.status.name &&
+                shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
         );
       }
 
+      // Filtro por nombre del ítem
       if (itemName) {
         filtered = filtered.filter((shopping) =>
             shopping.title.toLowerCase().includes(itemName.toLowerCase())
         );
       }
 
+      // Filtro por fecha de inicio
       if (startDate) {
         filtered = filtered.filter(
             (shopping) => new Date(shopping.created_at) >= new Date(startDate)
         );
       }
 
+      // Filtro por fecha de fin
       if (endDate) {
         filtered = filtered.filter(
             (shopping) => new Date(shopping.created_at) <= new Date(endDate)
         );
       }
 
+      // Filtro por gerente de área
       if (areaManager) {
         filtered = filtered.filter(
             (shopping) =>
@@ -282,20 +295,13 @@ const FiltersComponent = () => {
         );
       }
 
-      if (statusFilter) {
-        filtered = filtered.filter(
-            (shopping) =>
-                shopping.status.name &&
-                shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
-        );
-      }
-
       const sortedFilteredData = sortData(filtered);
       setFilteredData(sortedFilteredData);
     };
 
     filterData();
   }, [itemName, startDate, endDate, areaManager, statusFilter, data]);
+
 
   useEffect(() => {
     const sortedFilteredData = sortData(filteredData);
