@@ -250,7 +250,7 @@ const FiltersComponent = () => {
       if (!statusFilter) {
         filtered = filtered.filter((shopping) => {
           const statusName = shopping.status?.name?.toLowerCase();
-          return statusName && statusName !== "Rechazadas" && statusName !== "aprobadas";
+          return statusName && statusName !== "rechazadas" && statusName !== "aprobadas";
         });
       } else {
         // Si hay un filtro de estado, solo mostrar los que coincidan exactamente
