@@ -246,28 +246,24 @@ const FiltersComponent = () => {
     const filterData = () => {
       let filtered = data;
 
-      // Excluir compras con estado "rechazada" y "aprobadas" por defecto, a menos que se filtre explícitamente por uno de esos estados
+      // Excluir "rechazada" y "aprobadas" por defecto si no hay filtro de estado
       if (!statusFilter) {
-        // Si no hay filtro de estado, excluimos tanto "rechazada" como "aprobadas"
-        filtered = filtered.filter(
-            (shopping) =>
-                shopping.status.name &&
-                shopping.status.name.toLowerCase() !== "rechazada" &&
-                shopping.status.name.toLowerCase() !== "aprobadas"
-        );
+        filtered = filtered.filter((shopping) => {
+          const statusName = shopping.status?.name?.toLowerCase();
+          return statusName && statusName !== "Rechazadas" && statusName !== "aprobadas";
+        });
       } else {
-        // Si hay un filtro de estado, solo mostramos los que coincidan con el filtro seleccionado
-        filtered = filtered.filter(
-            (shopping) =>
-                shopping.status.name &&
-                shopping.status.name.toLowerCase() === statusFilter.toLowerCase()
-        );
+        // Si hay un filtro de estado, solo mostrar los que coincidan exactamente
+        filtered = filtered.filter((shopping) => {
+          const statusName = shopping.status?.name?.toLowerCase();
+          return statusName && statusName === statusFilter.toLowerCase();
+        });
       }
 
       // Filtro por nombre del ítem
       if (itemName) {
         filtered = filtered.filter((shopping) =>
-            shopping.title.toLowerCase().includes(itemName.toLowerCase())
+            shopping.title?.toLowerCase().includes(itemName.toLowerCase())
         );
       }
 
@@ -289,9 +285,7 @@ const FiltersComponent = () => {
       if (areaManager) {
         filtered = filtered.filter(
             (shopping) =>
-                shopping.user &&
-                shopping.user.profile &&
-                shopping.user.profile.name.toLowerCase() === areaManager.toLowerCase()
+                shopping.user?.profile?.name?.toLowerCase() === areaManager.toLowerCase()
         );
       }
 
