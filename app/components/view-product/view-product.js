@@ -75,42 +75,80 @@ const FiltersComponent = () => {
   const areaManagerRef = useRef(null);
   const statusFilterRef = useRef(null);
 
+  // Modificar sortData para priorizar is_priority
   const sortData = (dataToSort) => {
     const sortedData = [...dataToSort];
-    if (sortConfig.current.key) {
-      sortedData.sort((a, b) => {
-        let valueA, valueB;
-        if (sortConfig.current.key.includes(".")) {
-          const keys = sortConfig.current.key.split(".");
-          valueA = keys.reduce((obj, key) => obj?.[key], a) || "";
-          valueB = keys.reduce((obj, key) => obj?.[key], b) || "";
-        } else {
-          valueA = a[sortConfig.current.key] || "";
-          valueB = b[sortConfig.current.key] || "";
-        }
 
-        if (sortConfig.current.key === "request_date" || sortConfig.current.key === "date_approval") {
-          const dateA = new Date(valueA);
-          const dateB = new Date(valueB);
-          return sortConfig.current.direction === "ascending" ? dateA - dateB : dateB - dateA;
-        }
+    // Primero ordenar por is_priority (true primero, false después)
+    sortedData.sort((a, b) => {
+      if (a.is_priority && !b.is_priority) return -1;
+      if (!a.is_priority && b.is_priority) return 1;
 
-        return sortConfig.current.direction === "ascending"
-            ? valueA.toString().localeCompare(valueB.toString())
-            : valueB.toString().localeCompare(valueA.toString());
-      });
-    }
+      // Si ambos tienen el mismo is_priority, aplicar el ordenamiento de sortConfig
+      let valueA, valueB;
+      if (sortConfig.current.key.includes(".")) {
+        const keys = sortConfig.current.key.split(".");
+        valueA = keys.reduce((obj, key) => obj?.[key], a) || "";
+        valueB = keys.reduce((obj, key) => obj?.[key], b) || "";
+      } else {
+        valueA = a[sortConfig.current.key] || "";
+        valueB = b[sortConfig.current.key] || "";
+      }
+
+      if (sortConfig.current.key === "request_date" || sortConfig.current.key === "date_approval") {
+        const dateA = new Date(valueA);
+        const dateB = new Date(valueB);
+        return sortConfig.current.direction === "ascending" ? dateA - dateB : dateB - dateA;
+      }
+
+      return sortConfig.current.direction === "ascending"
+          ? valueA.toString().localeCompare(valueB.toString())
+          : valueB.toString().localeCompare(valueA.toString());
+    });
+
     return sortedData;
   };
 
   const handleSort = (key) => {
-    setSortConfig((prevConfig) => {
-      const direction =
-          prevConfig.key === key && prevConfig.direction === "ascending"
-              ? "descending"
-              : "ascending";
-      return { key, direction };
-    });
+    sortConfig.current = {
+      key,
+      direction: sortConfig.current.key === key && sortConfig.current.direction === "ascending" ? "descending" : "ascending",
+    };
+    const sortedFilteredData = sortData(filteredData);
+    setFilteredData(sortedFilteredData);
+  };
+
+  // Nueva función para alternar prioridad
+  const handleTogglePriority = async (shoppingId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+          `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/toggle_priority`,
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+      );
+
+      if (!response.ok) throw new Error("Error al actualizar prioridad");
+
+      const updatedShopping = await response.json();
+      const updatedData = data.map((item) =>
+          item.id === shoppingId ? { ...item, is_priority: updatedShopping.is_priority } : item
+      );
+      const sortedData = sortData(updatedData);
+      setData(sortedData);
+      setFilteredData(sortData(filteredData.map((item) =>
+          item.id === shoppingId ? { ...item, is_priority: updatedShopping.is_priority } : item
+      )));
+      setSuccessMessage(`Prioridad ${updatedShopping.is_priority ? "activada" : "desactivada"} con éxito`);
+    } catch (error) {
+      console.error("Error toggling priority:", error);
+      alert("Error al cambiar la prioridad");
+    }
   };
 
   useEffect(() => {
@@ -854,6 +892,12 @@ const FiltersComponent = () => {
                     className="px-6 py-3 text-center border border-gray-300 cursor-pointer"
                     onClick={() => handleSort("title")}
                 >
+                  ID {sortConfig.key === "ID" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
+                </th>
+                <th
+                    className="px-6 py-3 text-center border border-gray-300 cursor-pointer"
+                    onClick={() => handleSort("title")}
+                >
                   TITULO {sortConfig.key === "title" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
                 </th>
                 <th
@@ -908,6 +952,7 @@ const FiltersComponent = () => {
               ) : (
                   filteredData.map((shopping) => (
                       <tr key={shopping.id} className="hover:bg-gray-100">
+                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.id}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">
@@ -1029,6 +1074,21 @@ const FiltersComponent = () => {
                         </td>
                         <td className="px-6 py-4 text-center border border-gray-300">
                           <div className="flex items-center space-x-2">
+                            {/* SVG dinámico para la bandera */}
+                            <svg
+                                onClick={() => handleTogglePriority(shopping.id)}
+                                className={`w-6 h-6 cursor-pointer ${
+                                    shopping.is_priority ? "text-red-500" : "text-gray-500"
+                                }`}
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                              <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216.655.32Z"/>
+                            </svg>
                             <FontAwesomeIcon
                                 icon={faEye}
                                 className="text-gray-500 hover:text-gray-700 cursor-pointer"

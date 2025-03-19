@@ -34,6 +34,14 @@ const CreateShoppingForm = () => {
   const [subtotal, setSubTotal] = useState("");
   const [uploadedFile, setUploadedFile] = useState(null);
 
+  // Nuevos estados para la funcionalidad de búsqueda
+  const [areaSearch, setAreaSearch] = useState("");
+  const [accountTypeSearch, setAccountTypeSearch] = useState("");
+  const [userSearch, setUserSearch] = useState("");
+  const [showAreaDropdown, setShowAreaDropdown] = useState(false);
+  const [showAccountTypeDropdown, setShowAccountTypeDropdown] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
 
@@ -108,6 +116,17 @@ const CreateShoppingForm = () => {
     fetchAreas();
     fetchAccountTypes();
   }, []);
+
+  // Filtrado de opciones según búsqueda
+  const filteredAreas = areas.filter((area) =>
+      area.name.toLowerCase().includes(areaSearch.toLowerCase())
+  );
+  const filteredAccountTypes = accountTypes.filter((type) =>
+      type.name.toLowerCase().includes(accountTypeSearch.toLowerCase())
+  );
+  const filteredUsers = users.filter((user) =>
+      user.name.toLowerCase().includes(userSearch.toLowerCase())
+  );
 
   const handleProductCreate = (newProduct) => {
     const productWithId = { ...newProduct, uniqueId: Date.now() };
@@ -249,6 +268,10 @@ const CreateShoppingForm = () => {
     setSubTotal("");
     setError({});
     setUploadedFile(null);
+    // Resetear los campos de búsqueda
+    setAreaSearch("");
+    setAccountTypeSearch("");
+    setUserSearch("");
   };
 
   const handleModalConfirm = async () => {
@@ -306,62 +329,125 @@ const CreateShoppingForm = () => {
             {error.status_id && <p className="text-red-500">{error.status_id}</p>}
           </div>
 
-          <div className="mb-4">
+          {/* Inicio del campo Área con búsqueda */}
+          <div className="mb-4 relative">
             <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
-            <select
-                value={selectedAreaId}
-                onChange={(e) => setSelectedAreaId(e.target.value)}
+            <input
+                type="text"
+                value={areaSearch}
+                onChange={(e) => {
+                  setAreaSearch(e.target.value);
+                  setShowAreaDropdown(true);
+                }}
+                onFocus={() => setShowAreaDropdown(true)}
+                placeholder="Busca un área..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-            >
-              <option value="">Seleccione un área</option>
-              {areas.map((area) => (
-                  <option key={area.id} value={area.id}>
-                    {area.name}
-                  </option>
-              ))}
-            </select>
+            />
+            {/* Lista desplegable para Área */}
+            {showAreaDropdown && (
+                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                  {filteredAreas.length > 0 ? (
+                      filteredAreas.map((area) => (
+                          <li
+                              key={area.id}
+                              onClick={() => {
+                                setSelectedAreaId(area.id);
+                                setAreaSearch(area.name);
+                                setShowAreaDropdown(false);
+                              }}
+                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {area.name}
+                          </li>
+                      ))
+                  ) : (
+                      <li className="px-3 py-2 text-gray-500">No hay coincidencias</li>
+                  )}
+                </ul>
+            )}
             {error.area_id && <p className="text-red-500">{error.area_id}</p>}
           </div>
+          {/* Fin del campo Área */}
 
-          <div className="mb-4">
+          {/* Inicio del campo Tipo de Cuenta con búsqueda */}
+          <div className="mb-4 relative">
             <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
-            <select
-                value={selectedAccountTypeId}
-                onChange={(e) => setSelectedAccountTypeId(e.target.value)}
+            <input
+                type="text"
+                value={accountTypeSearch}
+                onChange={(e) => {
+                  setAccountTypeSearch(e.target.value);
+                  setShowAccountTypeDropdown(true);
+                }}
+                onFocus={() => setShowAccountTypeDropdown(true)}
+                placeholder="Busca un tipo de cuenta..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-            >
-              <option value="">Seleccione un tipo de cuenta</option>
-              {accountTypes.map((type) => (
-                  <option key={type.id} value={type.id}>
-                    {type.name}
-                  </option>
-              ))}
-            </select>
+            />
+            {/* Lista desplegable para Tipo de Cuenta */}
+            {showAccountTypeDropdown && (
+                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                  {filteredAccountTypes.length > 0 ? (
+                      filteredAccountTypes.map((type) => (
+                          <li
+                              key={type.id}
+                              onClick={() => {
+                                setSelectedAccountTypeId(type.id);
+                                setAccountTypeSearch(type.name);
+                                setShowAccountTypeDropdown(false);
+                              }}
+                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {type.name}
+                          </li>
+                      ))
+                  ) : (
+                      <li className="px-3 py-2 text-gray-500">No hay coincidencias</li>
+                  )}
+                </ul>
+            )}
             {error.account_type_id && <p className="text-red-500">{error.account_type_id}</p>}
           </div>
+          {/* Fin del campo Tipo de Cuenta */}
 
-          <div className="mb-4">
-            <label className="block text-black font-medium">Lider de presupuesto: <span className="text-red-500">*</span></label>
-            <select
-                value={selectedUserId}
+          {/* Inicio del campo Líder de Presupuesto con búsqueda */}
+          <div className="mb-4 relative">
+            <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
+            <input
+                type="text"
+                value={userSearch}
                 onChange={(e) => {
-                  console.log("Usuario seleccionado - value:", e.target.value);
-                  setSelectedUserId(e.target.value);
+                  setUserSearch(e.target.value);
+                  setShowUserDropdown(true);
                 }}
+                onFocus={() => setShowUserDropdown(true)}
+                placeholder="Busca un líder..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
-            >
-              <option value="">Seleccione un Lider de presupuesto</option>
-              {users.map((profile) => {
-                console.log(`Renderizando opción - profile.id: ${profile.id}, user.id: ${profile.user.id}, name: ${profile.name}`);
-                return (
-                    <option key={profile.user.id} value={profile.user.id}>
-                      {profile.name}
-                    </option>
-                );
-              })}
-            </select>
+            />
+            {/* Lista desplegable para Líder de Presupuesto */}
+            {showUserDropdown && (
+                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                  {filteredUsers.length > 0 ? (
+                      filteredUsers.map((profile) => (
+                          <li
+                              key={profile.user.id}
+                              onClick={() => {
+                                setSelectedUserId(profile.user.id);
+                                setUserSearch(profile.name);
+                                setShowUserDropdown(false);
+                              }}
+                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {profile.name}
+                          </li>
+                      ))
+                  ) : (
+                      <li className="px-3 py-2 text-gray-500">No hay coincidencias</li>
+                  )}
+                </ul>
+            )}
             {error.user_id && <p className="text-red-500">{error.user_id}</p>}
           </div>
+          {/* Fin del campo Líder de Presupuesto */}
 
           <div className="mb-4">
             <label className="block text-black font-medium">IVA (%): <span className="text-red-500">*</span></label>
@@ -392,12 +478,11 @@ const CreateShoppingForm = () => {
                 type="number"
                 value={subtotal}
                 onChange={(e) => setSubTotal(e.target.value)}
-                onWheel={(e) => e.target.blur()} // Agrega esto
+                onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
             {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
           </div>
-
 
           <div className="mb-4">
             <label className="block text-black font-medium">Total: <span className="text-red-500">*</span></label>
