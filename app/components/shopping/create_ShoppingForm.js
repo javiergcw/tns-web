@@ -320,11 +320,23 @@ const CreateShoppingForm = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             >
               <option value="">Seleccione un estado</option>
-              {statuses.map((status) => (
-                  <option key={status.id} value={status.id}>
-                    {status.name}
-                  </option>
-              ))}
+              {statuses
+                  .filter(status =>
+                      status.id === 35 || // Aprobadas
+                      status.id === 3 ||  // Rechazadas
+                      status.id === 1     // En proceso
+                  )
+                  .sort((a, b) => {
+                    // Orden: "En proceso" (1), "Aprobadas" (35), "Rechazadas" (3)
+                    const order = { "en proceso": 0, "aprobadas": 1, "rechazadas": 2 };
+                    return order[a.name.toLowerCase()] - order[b.name.toLowerCase()];
+                  })
+                  .map(status => (
+                      <option key={status.id} value={status.id}>
+                        {status.name}
+                      </option>
+                  ))
+              }
             </select>
             {error.status_id && <p className="text-red-500">{error.status_id}</p>}
           </div>

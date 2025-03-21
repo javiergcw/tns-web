@@ -1,6 +1,6 @@
 import "/app/globals.css";
 import Modal from "react-modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMenu } from "react-icons/io5";
 import {
   MdDashboard,
@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { RedButton, BlueButton } from "@/app/utils/Buttons";
 import ConfirmationModal from "../../modals/modalConfirmation";
 import { createBug } from "@/app/services/bugService";
+import { fetchWithAuth } from "@/app/utils/api";
 
 const greenDrawer = "#96C11F";
 
@@ -34,6 +35,33 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   const [description, setDescription] = useState("");
 
   const router = useRouter();
+
+  // Verificar token al cargar el componente y periódicamente
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
+      try {
+        // Usar un endpoint protegido para verificar el token
+        await fetchWithAuth("https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/check-token");
+      } catch (error) {
+        if (error.message === "Sesión expirada") {
+          console.error("Token inválido o expirado:", error);
+          router.push("/login");
+        } else {
+          console.error("Error al verificar el token:", error);
+        }
+      }
+    };
+
+    checkToken();
+    const interval = setInterval(checkToken, 5 * 60 * 1000); // Cada 5 minutos
+    return () => clearInterval(interval);
+  }, [router]);
 
   const handleNavigation = (link) => {
     if (router.pathname === link) {
@@ -68,7 +96,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
     const user_id = localStorage.getItem("userId");
     if (!user_id) {
-      alert("User not logged in");
+      router.push("/login");
       return;
     }
 
@@ -80,11 +108,28 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     };
 
     try {
-      const newBug = await createBug(bugData);
-      alert("Bug creado:");
+      const response = await fetchWithAuth(
+          "https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/bugs",
+          {
+            method: "POST",
+            body: JSON.stringify(bugData),
+          }
+      );
+      if (!response.ok) {
+        throw new Error("Error al crear el bug");
+      }
+      const newBug = await response.json();
+      console.log("Bug creado:", newBug);
       setIsModalOpen(false);
+      setTitle("");
+      setCategoryId("");
+      setDescription("");
     } catch (error) {
-      alert("Error al crear el bug");
+      if (error.message === "Sesión expirada") {
+        router.push("/login");
+      } else {
+        console.error("Error al crear el bug:", error);
+      }
     }
   };
 
@@ -127,33 +172,26 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       name: "Admisiones",
       icon: <MdAssignmentInd style={{ color: greenDrawer }} />,
     },
-    // {
-    //   link: "/settings",
-    //   name: "Settings",
-    //   icon: <MdSettings style={{ color: greenDrawer }} />,
-    // },
   ];
 
-  // Lógica de roles
-  // Modificación en la lógica de roles
   let accessibleMenuItems = [];
-
   switch (profile?.rol?.name) {
     case "admin":
       accessibleMenuItems = allMenuItems;
       break;
     case "Lider de presupuesto":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
+          ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
       );
       break;
     case "Secretariado":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/admissions-view", "/profile"].includes(item.link))
+          ["/admissions-view", "/profile"].includes(item.link)
+      );
       break;
     case "Compras":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
+          ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
     case "Developer":
@@ -161,16 +199,14 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Sin rol":
       accessibleMenuItems = allMenuItems.filter(item =>
-        ["/dashboardManager", "/profile"].includes(item.link)
+          ["/dashboardManager", "/profile"].includes(item.link)
       );
       break;
-    default: // Sin rol
+    default:
       accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
       break;
   }
 
-
-  // Agregar logout para todos los roles
   accessibleMenuItems.push({
     link: "#",
     name: "Logout",
@@ -179,176 +215,158 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   });
 
   return (
-    <>
-      <div
-        className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${isOpen ? "w-64" : "w-24"
-          } transition-all duration-300 ease-in-out flex flex-col items-center`}
-      >
-        <button
-          onClick={onToggle}
-          className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
+      <>
+        <div
+            className={`fixed top-0 left-0 h-full bg-[#004F9F] text-white z-50 shadow-lg ${
+                isOpen ? "w-64" : "w-24"
+            } transition-all duration-300 ease-in-out flex flex-col items-center`}
         >
-          <IoMenu
-            className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"
-              } transition-all duration-300`}
-          />
-        </button>
-        <div className="flex flex-col items-center w-full mt-4 flex-1">
-          <div className="flex items-center w-full px-4">
-            <img
-              src={profile?.photo || ImagesPath.drawerPhoto}
-              alt="Profile"
-              className="w-16 h-16 rounded-full border-2 border-greenDrawer mb-2"
+          <button
+              onClick={onToggle}
+              className="mt-4 bg-transparent text-white px-2 py-1 rounded-md self-center"
+          >
+            <IoMenu
+                className={`text-greenDrawer ${isOpen ? "text-2xl" : "text-4xl"} transition-all duration-300`}
             />
-            {isOpen && (
-              <div className="text-left ml-4">
-                <Text
-                  texto={profile?.name || "Nombre Apellido1 Apellido2"}
-                  color="white"
-                  type="normal"
-                  className="font-bold text-[15px] text-white"
-                  style={{ fontFamily: "Patua One, sans-serif" }}
-                />
-                <div className="border-t border-green-500 w-full my-1"></div>
-                <Text
-                  texto={profile?.rol?.name}
-                  color="white"
-                  type="normal"
-                  className="text-[10px] text-white mt-1"
-                  style={{ fontFamily: "Patua One, sans-serif" }}
-                />
-              </div>
-            )}
-          </div>
-          <ul className="mt-6 space-y-4 w-full flex-1">
-            {accessibleMenuItems.map((item, index) => (
-              <li
-                key={index}
-                className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${isOpen ? "items-center" : "justify-center"
-                  } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
-                onClick={
-                  item.onClick
-                    ? item.onClick
-                    : () => handleNavigation(item.link)
-                }
-              >
-                <div
-                  className={`flex items-center w-full ${isOpen ? "" : "justify-center"
-                    }`}
-                >
+          </button>
+          <div className="flex flex-col items-center w-full mt-4 flex-1">
+            <div className="flex items-center w-full px-4">
+              <img
+                  src={profile?.photo || ImagesPath.drawerPhoto}
+                  alt="Profile"
+                  className="w-16 h-16 rounded-full border-2 border-greenDrawer mb-2"
+              />
+              {isOpen && (
+                  <div className="text-left ml-4">
+                    <Text
+                        texto={profile?.name || "Nombre Apellido1 Apellido2"}
+                        color="white"
+                        type="normal"
+                        className="font-bold text-[15px] text-white"
+                        style={{ fontFamily: "Patua One, sans-serif" }}
+                    />
+                    <div className="border-t border-green-500 w-full my-1"></div>
+                    <Text
+                        texto={profile?.rol?.name}
+                        color="white"
+                        type="normal"
+                        className="text-[10px] text-white mt-1"
+                        style={{ fontFamily: "Patua One, sans-serif" }}
+                    />
+                  </div>
+              )}
+            </div>
+            <ul className="mt-6 space-y-4 w-full flex-1">
+              {accessibleMenuItems.map((item, index) => (
+                  <li
+                      key={index}
+                      className={`px-4 py-2 hover:bg-blueHard cursor-pointer flex ${
+                          isOpen ? "items-center" : "justify-center"
+                      } ${router.pathname === item.link ? "bg-blue-700" : ""}`}
+                      onClick={item.onClick ? item.onClick : () => handleNavigation(item.link)}
+                  >
+                    <div className={`flex items-center w-full ${isOpen ? "" : "justify-center"}`}>
                   <span
-                    className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"
-                      } flex items-center justify-center transition-all duration-300`}
+                      className={`text-green-500 ${isOpen ? "text-2xl" : "text-4xl"} flex items-center justify-center transition-all duration-300`}
                   >
                     {item.icon}
                   </span>
-                  {isOpen && (
-                    <span className="ml-3">
+                      {isOpen && (
+                          <span className="ml-3">
                       <Text
-                        texto={item.name}
-                        color="white"
-                        type="normal"
-                        className="ml-3"
-                        style={{ fontFamily: "Patua One, sans-serif" }}
+                          texto={item.name}
+                          color="white"
+                          type="normal"
+                          className="ml-3"
+                          style={{ fontFamily: "Patua One, sans-serif" }}
                       />
                     </span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+                      )}
+                    </div>
+                  </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mb-4 flex flex-col items-center">
+            {profile?.rol?.name !== "Sin rol" && (
+                <button onClick={handleAlertClick} className="bg-red-500 p-2 rounded-full mb-2">
+                  <FiAlertTriangle className="text-white text-2xl" />
+                </button>
+            )}
+            <Text
+                texto="TNS V.1"
+                color="white"
+                type="normal"
+                className="font-bold text-white"
+                style={{ fontFamily: "Patua One, sans-serif" }}
+            />
+          </div>
         </div>
-        <div className="mb-4 flex flex-col items-center">
-          {profile?.rol?.name !== "Sin rol" && (
-            <button
-              onClick={handleAlertClick}
-              className="bg-red-500 p-2 rounded-full mb-2"
-            >
-              <FiAlertTriangle className="text-white text-2xl" />
+        {loading && <LoaderOverlay />}
+        <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            contentLabel="Solicitud de Alerta"
+            className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold text-black">Solicitud de Alertas</h2>
+            <button onClick={closeModal} className="text-black text-4xl font-bold">
+              ×
             </button>
-          )}
-          <Text
-            texto="TNS V.1"
-            color="white"
-            type="normal"
-            className="font-bold text-white"
-            style={{ fontFamily: "Patua One, sans-serif" }}
-          />
-        </div>
-      </div>
-      {loading && <LoaderOverlay />}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Solicitud de Alerta"
-        className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto mt-10"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-      >
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-black">Solicitud de Alertas</h2>
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="text-black text-4xl font-bold"
-          >
-            ×
-          </button>
-        </div>
-        <form onSubmit={handleModalSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">Título</label>
-            <input
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">
-              Categoría ID
-            </label>
-            <select
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-              required
-            >
-              <option value="" disabled>
-                Selecciona una categoría
-              </option>
-              <option value="1">Categoría 1</option>
-              <option value="2">Categoría 2</option>
-              <option value="3">Categoría 3</option>
-              {/* Añade más opciones según sea necesario */}
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-black mb-2">Descripción</label>
-            <textarea
-              className="w-full p-2 border border-gray-300 rounded text-black"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <RedButton text="Cancelar" onClick={closeModal} className="mr-2" />
-            <BlueButton text="Enviar" onClick={handleModalSubmit} />
-          </div>
-        </form>
-      </Modal>
-
-      <ConfirmationModal
-        isOpen={isLogoutModalOpen}
-        onRequestClose={closeLogoutModal}
-        onConfirm={confirmLogout}
-        title="Confirmar Cierre de Sesión"
-        message="¿Estás seguro que deseas cerrar sesión?"
-      />
-    </>
+          <form onSubmit={handleModalSubmit}>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-black mb-2">Título</label>
+              <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded text-black"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-black mb-2">Categoría ID</label>
+              <select
+                  className="w-full p-2 border border-gray-300 rounded text-black"
+                  value={categoryId}
+                  onChange={(e) => setCategoryId(e.target.value)}
+                  required
+              >
+                <option value="" disabled>
+                  Selecciona una categoría
+                </option>
+                <option value="1">Categoría 1</option>
+                <option value="2">Categoría 2</option>
+                <option value="3">Categoría 3</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-black mb-2">Descripción</label>
+              <textarea
+                  className="w-full p-2 border border-gray-300 rounded text-black"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+              />
+            </div>
+            <div className="flex justify-end">
+              <RedButton text="Cancelar" onClick={closeModal} className="mr-2" />
+              <BlueButton text="Enviar" type="submit" />
+            </div>
+          </form>
+        </Modal>
+        <ConfirmationModal
+            isOpen={isLogoutModalOpen}
+            onRequestClose={closeLogoutModal}
+            onConfirm={confirmLogout}
+            title="Confirmar Cierre de Sesión"
+            message="¿Estás seguro que deseas cerrar sesión?"
+        />
+      </>
   );
-
 };
 
 export default Drawer;

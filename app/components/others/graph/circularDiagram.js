@@ -28,9 +28,6 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   const approvedCount = filteredResults.filter(
     (item) => item.status.id === 35
   ).length;
-  const pendingCount = filteredResults.filter(
-    (item) => item.status.id === 2
-  ).length;
   const deniedCount = filteredResults.filter(
     (item) => item.status.id === 3
   ).length;
@@ -39,10 +36,10 @@ const CircularDiagram = ({ type = "month", data = [] }) => {
   ).length;
 
   const chartData = {
-    labels: ["Aprobadas", "En espera","En proceso", "Denegadas" ],
+    labels: ["Aprobadas", "En proceso", "Denegadas" ],
     datasets: [
       {
-        data: [approvedCount, pendingCount,inProcessCount, deniedCount ],
+        data: [approvedCount,inProcessCount, deniedCount ],
         backgroundColor: ["#4fff52", "#36A2EB", "#ffc107","#ff4f4f" ],
         hoverBackgroundColor: ["#4fff52", "#36A2EB", "#ffc107","#ff4f4f" ],
       },

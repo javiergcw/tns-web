@@ -64,6 +64,7 @@ const FiltersComponent = () => {
   const [newMessageBody, setNewMessageBody] = useState("");
   const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
   const [selectedShoppings, setSelectedShoppings] = useState([]); // Estado para rastrear IDs seleccionados
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const sortConfig = useRef({
     key: "request_date",
@@ -448,6 +449,69 @@ const FiltersComponent = () => {
         console.error("Error al eliminar la factura:", error);
         alert("Hubo un error al eliminar la factura.");
       }
+    }
+  };
+
+  // metodo para actualizar (aprobar y rechazar) ordenes seleccionando una o muchas
+  const handleStatusUpdate = async (newStatusName) => {
+    try {
+      const statusId = statusOptions.find(
+          status => status.name.toLowerCase() === newStatusName.toLowerCase()
+      )?.id;
+
+      if (!statusId) {
+        setSuccessMessage("Estado no encontrado"); // Cambiamos alert por notificación
+        return;
+      }
+
+      const isApproved = newStatusName.toLowerCase() === "aprobadas";
+      const updatePromises = selectedShoppings.map(async (shoppingId) => {
+        const response = await fetch(
+            `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+        );
+
+        const shopping = await response.json();
+
+        const updatedShopping = {
+          shopping: {
+            ...shopping,
+            status_id: statusId,
+            date_approval: isApproved ? new Date().toISOString() : null,
+          },
+          products: shopping.products,
+        };
+
+        return fetch(
+            `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify(updatedShopping),
+            }
+        );
+      });
+
+      await Promise.all(updatePromises);
+
+      const updatedData = await fetchData();
+      const sortedData = sortData(updatedData);
+      setData(sortedData);
+      setFilteredData(sortedData);
+      setSelectedShoppings([]);
+      setSelectedStatus("");
+      setSuccessMessage(`Estado cambiado a ${newStatusName} para ${selectedShoppings.length} compra(s)`);
+    } catch (error) {
+      console.error("Error updating statuses:", error);
+      setSuccessMessage("Error al actualizar los estados"); // Cambiamos alert por notificación
     }
   };
 
@@ -890,11 +954,23 @@ const FiltersComponent = () => {
                 className="border border-gray-300 rounded p-2 w-full text-black"
             >
               <option value="">Todos los Estados</option>
-              {statusOptions.map((status) => (
-                  <option key={status.id} value={status.name}>
-                    {status.name}
-                  </option>
-              ))}
+              {statusOptions
+                  .filter(status =>
+                      status.id === 35 || // Aprobadas
+                      status.id === 3 ||  // Rechazadas
+                      status.id === 1     // En proceso
+                  )
+                  .sort((a, b) => {
+                    // Orden: "En proceso" (1), "Aprobadas" (35), "Rechazadas" (3)
+                    const order = { "en proceso": 0, "aprobadas": 1, "rechazadas": 2 };
+                    return order[a.name.toLowerCase()] - order[b.name.toLowerCase()];
+                  })
+                  .map(status => (
+                      <option key={status.id} value={status.name}>
+                        {status.name}
+                      </option>
+                  ))
+              }
             </select>
             <div className="flex space-x-4">
               <button onClick={handleFilterReset} className="bg-red-500 text-white p-2 rounded">
@@ -904,15 +980,32 @@ const FiltersComponent = () => {
                 Exportar Tabla
               </button>
               {(role === "admin" || role === "Compras") && (
-                  <button
-                      className={`bg-red-500 text-white p-2 rounded ${
-                          selectedShoppings.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-red-700"
-                      }`}
-                      onClick={() => openDeleteModal(null)}
+                  <select
+                      value={selectedStatus}
+                      onChange={(e) => {
+                        setSelectedStatus(e.target.value);
+                        if (selectedShoppings.length > 0 && e.target.value) {
+                          handleStatusUpdate(e.target.value);
+                        }
+                      }}
                       disabled={selectedShoppings.length === 0}
+                      className={`border border-gray-300 rounded p-2 text-black ${
+                          selectedShoppings.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                   >
-                    Eliminar ({selectedShoppings.length})
-                  </button>
+                    <option value="">Cambiar estado ({selectedShoppings.length})</option>
+                    {statusOptions
+                        .filter(status =>
+                            status.name.toLowerCase() === "aprobadas" ||
+                            status.name.toLowerCase() === "rechazadas"
+                        )
+                        .map(status => (
+                            <option key={status.id} value={status.name.toLowerCase()}>
+                              {status.name}
+                            </option>
+                        ))
+                    }
+                  </select>
               )}
             </div>
           </div>
