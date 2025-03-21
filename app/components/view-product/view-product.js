@@ -63,6 +63,7 @@ const FiltersComponent = () => {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [newMessageBody, setNewMessageBody] = useState("");
   const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
+  const [selectedShoppings, setSelectedShoppings] = useState([]); // Estado para rastrear IDs seleccionados
 
   const sortConfig = useRef({
     key: "request_date",
@@ -149,6 +150,15 @@ const FiltersComponent = () => {
       console.error("Error toggling priority:", error);
       alert("Error al cambiar la prioridad");
     }
+  };
+
+  // Función para manejar los cambios de los checkboxes
+  const handleCheckboxChange = (shoppingId) => {
+    setSelectedShoppings((prevSelected) =>
+        prevSelected.includes(shoppingId)
+            ? prevSelected.filter((id) => id !== shoppingId) // Desmarcar
+            : [...prevSelected, shoppingId] // Marcar
+    );
   };
 
   useEffect(() => {
@@ -334,31 +344,44 @@ const FiltersComponent = () => {
     filterData();
   }, [itemName, startDate, endDate, areaManager, statusFilter, data]);
 
-
   useEffect(() => {
     const sortedFilteredData = sortData(filteredData);
     setFilteredData(sortedFilteredData);
   }, [sortConfig]);
 
   const openDeleteModal = (shoppingId) => {
-    setShoppingToDelete(shoppingId);
+    if (shoppingId) {
+      setShoppingToDelete(shoppingId);
+    }
     setIsDeleteModalOpen(true);
   };
 
   const handleDelete = async () => {
     try {
-      if (shoppingToDelete) {
+      if (selectedShoppings.length > 0) {
+        // Eliminar múltiples registros
+        await Promise.all(selectedShoppings.map((id) => deleteShoppingById(id)));
+        const updatedData = data.filter((shopping) => !selectedShoppings.includes(shopping.id));
+        const sortedData = sortData(updatedData);
+        setData(sortedData);
+        setFilteredData(sortedData);
+        setSelectedShoppings([]); // Limpiar selecciones
+        setSuccessMessage("Compras eliminadas con éxito");
+      } else if (shoppingToDelete) {
+        // Eliminar un solo registro
         const result = await deleteShoppingById(shoppingToDelete);
         console.log("Compra eliminada:", result);
-
         const updatedData = data.filter((shopping) => shopping.id !== shoppingToDelete);
         const sortedData = sortData(updatedData);
         setData(sortedData);
         setFilteredData(sortedData);
-        setIsDeleteModalOpen(false);
+        setShoppingToDelete(null);
+        setSuccessMessage("Compra eliminada con éxito");
       }
+      setIsDeleteModalOpen(false);
     } catch (error) {
-      console.error("Error al eliminar la compra:", error);
+      console.error("Error al eliminar la(s) compra(s):", error);
+      alert("Hubo un error al eliminar la(s) compra(s).");
     }
   };
 
@@ -880,6 +903,17 @@ const FiltersComponent = () => {
               <button onClick={handleDownloadExcel} className="bg-blue-500 text-white p-2 rounded">
                 Exportar Tabla
               </button>
+              {(role === "admin" || role === "Compras") && (
+                  <button
+                      className={`bg-red-500 text-white p-2 rounded ${
+                          selectedShoppings.length === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-red-700"
+                      }`}
+                      onClick={() => openDeleteModal(null)}
+                      disabled={selectedShoppings.length === 0}
+                  >
+                    Eliminar ({selectedShoppings.length})
+                  </button>
+              )}
             </div>
           </div>
         </div>
@@ -952,7 +986,19 @@ const FiltersComponent = () => {
               ) : (
                   filteredData.map((shopping) => (
                       <tr key={shopping.id} className="hover:bg-gray-100">
-                        <td className="px-6 py-4 text-center border border-gray-300">{shopping.id}</td>
+                        <td className="px-6 py-4 text-center border border-gray-300">
+                          <div className="flex items-center justify-center space-x-2">
+                            {(role === "admin" || role === "Compras") && (
+                                <input
+                                    type="checkbox"
+                                    class="bg-gray-200 border-gray-300 rounded mr-2 all-checkbox"
+                                    checked={selectedShoppings.includes(shopping.id)}
+                                    onChange={() => handleCheckboxChange(shopping.id)}
+                                />
+                            )}
+                            <span>{shopping.id}</span>
+                          </div>
+                        </td>
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.title}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">{shopping.description}</td>
                         <td className="px-6 py-4 text-center border border-gray-300">
@@ -1563,7 +1609,13 @@ const FiltersComponent = () => {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded shadow-lg">
                 <h2 className="text-lg font-semibold mb-4 text-black">Confirmar eliminación</h2>
-                <p>¿Estás seguro de que quieres eliminar esta compra?</p>
+                <p>
+                  ¿Estás seguro de que quieres eliminar{" "}
+                  {selectedShoppings.length > 0
+                      ? `${selectedShoppings.length} compra(s) seleccionada(s)`
+                      : "esta compra"}
+                  ?
+                </p>
                 <div className="flex justify-end mt-4 text-black">
                   <button
                       className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
