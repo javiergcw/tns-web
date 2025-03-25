@@ -1,6 +1,6 @@
 import "/app/globals.css";
 import Modal from "react-modal";
-import React, { useState } from "react"; // Quitamos useEffect
+import React, { useState, useEffect } from "react";
 import { IoMenu } from "react-icons/io5";
 import {
   MdDashboard,
@@ -29,8 +29,22 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   const [title, setTitle] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [description, setDescription] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "https://thenewschool.edu.co/login";
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  if (!isAuthenticated) {
+    return null; // No renderiza nada si no hay token
+  }
 
   const handleNavigation = (link) => {
     if (router.pathname === link) {
@@ -53,7 +67,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsLogoutModalOpen(false);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    router.push("/login"); // Redirige a la ruta interna /login
+    window.location.href = "https://thenewschool.edu.co/login";
   };
 
   const handleAlertClick = () => {
@@ -64,6 +78,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     event.preventDefault();
 
     const user_id = localStorage.getItem("userId");
+    if (!user_id) {
+      window.location.href = "https://thenewschool.edu.co/login";
+      return;
+    }
+
     const bugData = {
       title,
       category_id: categoryId,
