@@ -30,6 +30,7 @@
     "instagram-scraper": "^1.0.6",
     "instagram-web-api": "^2.2.2",
     "isomorphic-unfetch": "^4.0.2",
+    "jwt-decode": "^4.0.0",
     "next": "^14.1.0",
     "puppeteer": "^22.10.0",
     "react": "^18.2.0",

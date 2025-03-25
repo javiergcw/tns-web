@@ -1,21 +1,50 @@
+"use client";
 
-import { Inter } from 'next/font/google'
-import './globals.css'
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Colegio bilingüe en Medellin',
-  description: 'We educate in CONSCIOUSNESS to and for life. The New School (TNS).',
-}
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
+    const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(null); // null = cargando, true = autenticado, false = no autenticado
 
-      <body className={inter.className}>{children}</body>
+    useEffect(() => {
+        const checkAuth = () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                router.replace("/login"); // Redirige a la ruta interna /login
+                setIsAuthenticated(false);
+            } else {
+                setIsAuthenticated(true);
+            }
+        };
 
+        checkAuth();
+    }, [router]);
 
-    </html>
-  )
+    // Mientras se valida la autenticación, no renderizamos nada o mostramos un loading
+    if (isAuthenticated === null) {
+        return (
+            <html lang="en">
+            <body className={inter.className}>
+            <div>Loading...</div> {/* Puedes usar un componente de Loader aquí */}
+            </body>
+            </html>
+        );
+    }
+
+    // Si no está autenticado, no renderizamos el contenido
+    if (!isAuthenticated) {
+        return null; // La redirección ya está manejada por el router.replace
+    }
+
+    // Si está autenticado, renderizamos los hijos (páginas y componentes)
+    return (
+        <html lang="en">
+        <body className={inter.className}>{children}</body>
+        </html>
+    );
 }

@@ -65,6 +65,7 @@ const FiltersComponent = () => {
   const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
   const [selectedShoppings, setSelectedShoppings] = useState([]); // Estado para rastrear IDs seleccionados
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [priorityStates, setPriorityStates] = useState({});
 
   const sortConfig = useRef({
     key: "request_date",
@@ -120,10 +121,53 @@ const FiltersComponent = () => {
     setFilteredData(sortedFilteredData);
   };
 
+  useEffect(() => {
+    if (data.length > 0 && Object.keys(priorityStates).length === 0) {
+      const initialPriorities = {};
+      data.forEach((item) => {
+        if (item.is_priority && !item.is_completed) {
+          initialPriorities[item.id] = 1; // Rojo
+        } else if (!item.is_priority && item.is_completed) {
+          initialPriorities[item.id] = 2; // Verde
+        } else {
+          initialPriorities[item.id] = 0; // Gris
+        }
+      });
+      console.log("Initial priorityStates:", initialPriorities);
+      setPriorityStates(initialPriorities);
+    }
+  }, [data]);
+
   // Nueva función para alternar prioridad
   const handleTogglePriority = async (shoppingId) => {
     try {
       const token = localStorage.getItem("token");
+      const currentState = priorityStates[shoppingId] !== undefined ? priorityStates[shoppingId] : 0;
+      let nextState;
+      let isPriority;
+      let isCompleted;
+
+      // Definir el siguiente estado y valores para el backend
+      if (currentState === 0) {
+        // Gris → Rojo
+        nextState = 1;
+        isPriority = true;
+        isCompleted = false;
+      } else if (currentState === 1) {
+        // Rojo → Verde
+        nextState = 2;
+        isPriority = false;
+        isCompleted = true;
+      } else {
+        // Verde → Gris
+        nextState = 0;
+        isPriority = false;
+        isCompleted = false;
+      }
+
+      console.log(`Before update - Shopping ID: ${shoppingId}, Current: ${currentState}, Next: ${nextState}, is_priority: ${isPriority}, is_completed: ${isCompleted}`);
+
+      // Enviar solicitud al backend
       const response = await fetch(
           `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/toggle_priority`,
           {
@@ -132,21 +176,43 @@ const FiltersComponent = () => {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
+            body: JSON.stringify({
+              shopping: { is_priority: isPriority, is_completed: isCompleted },
+            }),
           }
       );
 
       if (!response.ok) throw new Error("Error al actualizar prioridad");
 
       const updatedShopping = await response.json();
+
+      // Actualizar el estado local
+      setPriorityStates((prevState) => {
+        const newState = { ...prevState, [shoppingId]: nextState };
+        console.log("After update - New priorityStates:", newState);
+        return newState;
+      });
+
+      // Actualizar data y filteredData
       const updatedData = data.map((item) =>
-          item.id === shoppingId ? { ...item, is_priority: updatedShopping.is_priority } : item
+          item.id === shoppingId
+              ? { ...item, is_priority: updatedShopping.is_priority, is_completed: updatedShopping.is_completed }
+              : item
       );
       const sortedData = sortData(updatedData);
       setData(sortedData);
-      setFilteredData(sortData(filteredData.map((item) =>
-          item.id === shoppingId ? { ...item, is_priority: updatedShopping.is_priority } : item
-      )));
-      setSuccessMessage(`Prioridad ${updatedShopping.is_priority ? "activada" : "desactivada"} con éxito`);
+
+      const updatedFilteredData = filteredData.map((item) =>
+          item.id === shoppingId
+              ? { ...item, is_priority: updatedShopping.is_priority, is_completed: updatedShopping.is_completed }
+              : item
+      );
+      const sortedFilteredData = sortData(updatedFilteredData);
+      setFilteredData(sortedFilteredData);
+
+      setSuccessMessage(
+          `Prioridad ${nextState === 1 ? "activada" : nextState === 2 ? "completada" : "reiniciada"} con éxito`
+      );
     } catch (error) {
       console.error("Error toggling priority:", error);
       alert("Error al cambiar la prioridad");
@@ -860,7 +926,7 @@ const FiltersComponent = () => {
   };
 
   const handleOpenMessageModal = (shoppingId) => {
-    if (role === "admin" || role === "Developer") {
+    if (role === "admin" || role === "Developer" || role === "Compras") {
       setSelectedShoppingId(shoppingId);
       setIsMessageModalOpen(true);
     }
@@ -1108,13 +1174,23 @@ const FiltersComponent = () => {
                                         className="border border-gray-300 rounded p-1"
                                     >
                                       <option value="">Selecciona un estado</option>
-                                      {statusOptions.map((status) => (
-                                          <option key={status.id} value={status.id}>
-                                            {status.name}
-                                          </option>
-                                      ))}
+                                      {statusOptions
+                                          .filter(
+                                              (status) =>
+                                                  status.id === 35 || // Aprobadas
+                                                  status.id === 3 ||  // Rechazadas
+                                                  status.id === 1     // En proceso
+                                          )
+                                          .map((status) => (
+                                              <option key={status.id} value={status.id}>
+                                                {status.name}
+                                              </option>
+                                          ))}
                                     </select>
-                                    <button className="bg-green-500 text-white p-2 rounded" onClick={handleSaveClick}>
+                                    <button
+                                        className="bg-green-500 text-white p-2 rounded"
+                                        onClick={handleSaveClick}
+                                    >
                                       Confirmar
                                     </button>
                                   </div>
@@ -1213,27 +1289,56 @@ const FiltersComponent = () => {
                         </td>
                         <td className="px-6 py-4 text-center border border-gray-300">
                           <div className="flex items-center space-x-2">
-                            {/* SVG dinámico para la bandera */}
-                            <svg
-                                onClick={() => handleTogglePriority(shopping.id)}
-                                className={`w-6 h-6 cursor-pointer ${
-                                    shopping.is_priority ? "text-red-500" : "text-gray-500"
-                                }`}
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                              <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216.655.32Z"/>
-                            </svg>
+                            {/* Icono dinámico según priorityLevel */}
+                            {priorityStates[shopping.id] === 0 ? (
+                                <svg
+                                    onClick={() => handleTogglePriority(shopping.id)}
+                                    className="w-6 h-6 cursor-pointer text-gray-500"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                  <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                </svg>
+                            ) : priorityStates[shopping.id] === 1 ? (
+                                <svg
+                                    onClick={() => handleTogglePriority(shopping.id)}
+                                    className="w-6 h-6 cursor-pointer text-red-500"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                  <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                </svg>
+                            ) : priorityStates[shopping.id] === 2 ? (
+                                <svg
+                                    onClick={() => handleTogglePriority(shopping.id)}
+                                    className="w-6 h-6 cursor-pointer text-green-500"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+                                </svg>
+                            ) : (
+                                <span>Estado desconocido</span>
+                            )}
+                            {/* Otras acciones */}
                             <FontAwesomeIcon
                                 icon={faEye}
                                 className="text-gray-500 hover:text-gray-700 cursor-pointer"
                                 onClick={() => handleViewDetailsClick(shopping.id)}
                             />
-                            {(role === "admin" || role === "Developer") && (
+                            {(role === "admin" || role === "Developer" || role === "Compras") && (
                                 <FontAwesomeIcon
                                     icon={faCommentDots}
                                     className="text-green-500 hover:text-green-700 cursor-pointer"
@@ -1283,7 +1388,7 @@ const FiltersComponent = () => {
                 <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
                 <CustomComponent shoppingId={selectedShoppingId} />
                 <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
-                {(role === "admin" || role === "Developer") && (
+                {(role === "admin" || role === "Developer" || role === "Compras") && (
                     <button
                         className="bg-blue-500 text-white p-2 rounded mb-4"
                         onClick={() => handleOpenMessageModal(selectedShoppingId)}

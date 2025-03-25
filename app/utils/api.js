@@ -13,10 +13,10 @@ export const fetchWithAuth = async (url, options = {}) => {
 
     const response = await fetch(url, defaultOptions);
 
-    if (response.status === 401) { // Unauthorized
+    if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
-        throw new Error("Sesión expirada");
+        window.location.href = "/login"; // Redirige siempre a la ruta interna
     }
 
     return response;

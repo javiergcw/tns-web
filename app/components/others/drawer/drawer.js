@@ -1,6 +1,6 @@
 import "/app/globals.css";
 import Modal from "react-modal";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react"; // Quitamos useEffect
 import { IoMenu } from "react-icons/io5";
 import {
   MdDashboard,
@@ -8,20 +8,16 @@ import {
   MdExitToApp,
   MdVisibility,
   MdAddBox,
-  MdSettings,
   MdShoppingCart,
-  MdRealEstateAgent,
-  MdOutlineManageAccounts,
   MdAssignmentInd,
 } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
 import { ImagesPath } from "@/app/utils/assetsPath";
 import LoaderOverlay from "@/app/utils/loaderOverlay";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { RedButton, BlueButton } from "@/app/utils/Buttons";
 import ConfirmationModal from "../../modals/modalConfirmation";
-import { createBug } from "@/app/services/bugService";
 import { fetchWithAuth } from "@/app/utils/api";
 
 const greenDrawer = "#96C11F";
@@ -35,33 +31,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   const [description, setDescription] = useState("");
 
   const router = useRouter();
-
-  // Verificar token al cargar el componente y periódicamente
-  useEffect(() => {
-    const checkToken = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
-
-      try {
-        // Usar un endpoint protegido para verificar el token
-        await fetchWithAuth("https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/check-token");
-      } catch (error) {
-        if (error.message === "Sesión expirada") {
-          console.error("Token inválido o expirado:", error);
-          router.push("/login");
-        } else {
-          console.error("Error al verificar el token:", error);
-        }
-      }
-    };
-
-    checkToken();
-    const interval = setInterval(checkToken, 5 * 60 * 1000); // Cada 5 minutos
-    return () => clearInterval(interval);
-  }, [router]);
 
   const handleNavigation = (link) => {
     if (router.pathname === link) {
@@ -84,7 +53,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsLogoutModalOpen(false);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    router.push("/login");
+    router.push("/login"); // Redirige a la ruta interna /login
   };
 
   const handleAlertClick = () => {
@@ -95,11 +64,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     event.preventDefault();
 
     const user_id = localStorage.getItem("userId");
-    if (!user_id) {
-      router.push("/login");
-      return;
-    }
-
     const bugData = {
       title,
       category_id: categoryId,
@@ -125,11 +89,8 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       setCategoryId("");
       setDescription("");
     } catch (error) {
-      if (error.message === "Sesión expirada") {
-        router.push("/login");
-      } else {
-        console.error("Error al crear el bug:", error);
-      }
+      console.error("Error al crear el bug:", error);
+      // fetchWithAuth manejará la redirección si es un 401
     }
   };
 
@@ -180,17 +141,17 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       accessibleMenuItems = allMenuItems;
       break;
     case "Lider de presupuesto":
-      accessibleMenuItems = allMenuItems.filter(item =>
+      accessibleMenuItems = allMenuItems.filter((item) =>
           ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
       );
       break;
     case "Secretariado":
-      accessibleMenuItems = allMenuItems.filter(item =>
+      accessibleMenuItems = allMenuItems.filter((item) =>
           ["/admissions-view", "/profile"].includes(item.link)
       );
       break;
     case "Compras":
-      accessibleMenuItems = allMenuItems.filter(item =>
+      accessibleMenuItems = allMenuItems.filter((item) =>
           ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
       );
       break;
@@ -198,12 +159,12 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       accessibleMenuItems = allMenuItems;
       break;
     case "Sin rol":
-      accessibleMenuItems = allMenuItems.filter(item =>
+      accessibleMenuItems = allMenuItems.filter((item) =>
           ["/dashboardManager", "/profile"].includes(item.link)
       );
       break;
     default:
-      accessibleMenuItems = allMenuItems.filter(item => item.link === "/profile");
+      accessibleMenuItems = allMenuItems.filter((item) => item.link === "/profile");
       break;
   }
 
