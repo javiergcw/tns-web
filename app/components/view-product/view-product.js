@@ -67,6 +67,11 @@ const FiltersComponent = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [priorityStates, setPriorityStates] = useState({});
 
+  // Obtener el ID del usuario autenticado desde localStorage, esto es para la funcionalidad de la bandera permitida para ciertos usuarios
+  const userId = parseInt(localStorage.getItem("userId"), 10) || 0; // Default a 0 si no existe
+  const allowedUserIds = [1, 36, 105]; // IDs permitidos
+  const canManagePriority = allowedUserIds.includes(userId); // Verificar permiso
+
   const sortConfig = useRef({
     key: "request_date",
     direction: "descending",
@@ -1290,47 +1295,51 @@ const FiltersComponent = () => {
                         <td className="px-6 py-4 text-center border border-gray-300">
                           <div className="flex items-center space-x-2">
                             {/* Icono dinámico según priorityLevel */}
-                            {priorityStates[shopping.id] === 0 ? (
-                                <svg
-                                    onClick={() => handleTogglePriority(shopping.id)}
-                                    className="w-6 h-6 cursor-pointer text-gray-500"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                  <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
-                                </svg>
-                            ) : priorityStates[shopping.id] === 1 ? (
-                                <svg
-                                    onClick={() => handleTogglePriority(shopping.id)}
-                                    className="w-6 h-6 cursor-pointer text-red-500"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                  <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
-                                </svg>
-                            ) : priorityStates[shopping.id] === 2 ? (
-                                <svg
-                                    onClick={() => handleTogglePriority(shopping.id)}
-                                    className="w-6 h-6 cursor-pointer text-green-500"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
-                                </svg>
-                            ) : (
-                                <span>Estado desconocido</span>
+                            {canManagePriority && (
+                                <>
+                                  {priorityStates[shopping.id] === 0 ? (
+                                      <svg
+                                          onClick={() => handleTogglePriority(shopping.id)}
+                                          className="w-6 h-6 cursor-pointer text-gray-500"
+                                          aria-hidden="true"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          fill="currentColor"
+                                          viewBox="0 0 24 24"
+                                      >
+                                        <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                      </svg>
+                                  ) : priorityStates[shopping.id] === 1 ? (
+                                      <svg
+                                          onClick={() => handleTogglePriority(shopping.id)}
+                                          className="w-6 h-6 cursor-pointer text-red-500"
+                                          aria-hidden="true"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          fill="currentColor"
+                                          viewBox="0 0 24 24"
+                                      >
+                                        <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                      </svg>
+                                  ) : priorityStates[shopping.id] === 2 ? (
+                                      <svg
+                                          onClick={() => handleTogglePriority(shopping.id)}
+                                          className="w-6 h-6 cursor-pointer text-green-500"
+                                          aria-hidden="true"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                      >
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+                                      </svg>
+                                  ) : (
+                                      <span>Estado desconocido</span>
+                                  )}
+                                </>
                             )}
                             {/* Otras acciones */}
                             <FontAwesomeIcon
