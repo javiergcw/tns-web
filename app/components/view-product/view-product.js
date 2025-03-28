@@ -958,9 +958,9 @@ const FiltersComponent = () => {
       shopping_id: selectedShoppingId,
       user_id: localStorage.getItem("userId"),
     };
-
     try {
       const newMessage = await createMessage(messageData);
+      console.log("Respuesta de createMessage:", newMessage); // Agrega esto
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       alert("Mensaje añadido correctamente.");
       setIsMessageModalOpen(false);

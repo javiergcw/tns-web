@@ -1,6 +1,6 @@
 const MessageCard = ({ message }) => {
-    const userName = message?.userName || "Usuario Desconocido";
-    const userEmail = message?.userEmail || "Correo no disponible";
+    const userName = message?.user?.profile?.name || "Usuario Desconocido";
+    const userEmail = message?.user?.email || "Correo no disponible";
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 m-2 max-w-full lg:max-w-md">
