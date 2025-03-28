@@ -74,8 +74,13 @@ const FiltersComponent = () => {
 // Detectar shoppingId de la URL y abrir el modal automáticamente
   useEffect(() => {
     const shoppingId = searchParams.get("shoppingId");
+    console.log("useEffect ejecutado - searchParams:", searchParams.toString());
+    console.log("shoppingId detectado:", shoppingId);
     if (shoppingId) {
+      console.log("Llamando a handleViewDetailsClick con ID:", parseInt(shoppingId));
       handleViewDetailsClick(parseInt(shoppingId));
+    } else {
+      console.log("No se encontró shoppingId en la URL");
     }
   }, [searchParams]);
 
@@ -658,10 +663,14 @@ const FiltersComponent = () => {
   };
 
   const handleViewDetailsClick = async (shoppingId) => {
+    console.log("handleViewDetailsClick iniciado con shoppingId:", shoppingId);
     setSelectedShoppingId(shoppingId);
+    console.log("selectedShoppingId establecido a:", shoppingId);
 
     try {
+      console.log("Intentando obtener mensajes para shoppingId:", shoppingId);
       const messagesResponse = await getMessagesByShoppingId(shoppingId);
+      console.log("Mensajes obtenidos:", messagesResponse);
       setMessages(messagesResponse);
     } catch (error) {
       console.error("Error al obtener los mensajes:", error);
@@ -669,6 +678,7 @@ const FiltersComponent = () => {
     }
 
     setIsModalOpen(true);
+    console.log("isModalOpen establecido a true");
   };
 
   function formatCurrency(value) {
