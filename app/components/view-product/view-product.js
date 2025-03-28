@@ -962,7 +962,7 @@ const FiltersComponent = () => {
     try {
       const newMessage = await createMessage(messageData);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-      alert("Mensaje añadido correctamente.");
+      setSuccessMessage("Mensaje añadido correctamente.");
       setIsMessageModalOpen(false);
       setNewMessageBody("");
     } catch (error) {
