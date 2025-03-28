@@ -960,8 +960,13 @@ const FiltersComponent = () => {
     };
     try {
       const newMessage = await createMessage(messageData);
-      console.log("Respuesta de createMessage:", newMessage); // Agrega esto
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      // Normalizar la estructura
+      const normalizedMessage = {
+        ...newMessage,
+        userName: newMessage.user?.profile?.name,
+        userEmail: newMessage.user?.email,
+      };
+      setMessages((prevMessages) => [...prevMessages, normalizedMessage]);
       alert("Mensaje añadido correctamente.");
       setIsMessageModalOpen(false);
       setNewMessageBody("");
