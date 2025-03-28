@@ -958,15 +958,10 @@ const FiltersComponent = () => {
       shopping_id: selectedShoppingId,
       user_id: localStorage.getItem("userId"),
     };
+
     try {
       const newMessage = await createMessage(messageData);
-      // Normalizar la estructura
-      const normalizedMessage = {
-        ...newMessage,
-        userName: newMessage.user?.profile?.name,
-        userEmail: newMessage.user?.email,
-      };
-      setMessages((prevMessages) => [...prevMessages, normalizedMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       alert("Mensaje añadido correctamente.");
       setIsMessageModalOpen(false);
       setNewMessageBody("");

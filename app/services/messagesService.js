@@ -34,24 +34,14 @@ const getAllMessages = async () => {
 const createMessage = async (messageData) => {
     try {
         const response = await post(ENDPOINTS.createMessage, messageData);
-        console.log('Respuesta del servidor en createMessage:', response);  // Depuración
+        console.log('Respuesta del servidor en createMessage:', response); // Depuración
 
         if (!response.id) {
-            // Si el ID no se genera correctamente, lanza un error
             throw new Error('El ID del mensaje no fue generado correctamente.');
         }
 
-        // Retornar un nuevo objeto MessageDTO basado en la respuesta
-        return new MessageDTO(
-            response.id,
-            response.body,
-            response.user_id, // Cambiado para que coincida con la estructura de la respuesta
-            "Usuario Desconocido", // Ajustado ya que no se devuelve el perfil en la respuesta
-            "Correo no disponible", // Ajustado ya que no se devuelve el email en la respuesta
-            response.shopping_id,
-            response.created_at,
-            response.updated_at
-        );
+        // Usar MessageDTO.fromApiResponse para construir el objeto
+        return MessageDTO.fromApiResponse(response);
     } catch (error) {
         console.error('Error:', error);
         throw error;
@@ -103,22 +93,14 @@ const deleteMessage = async (id) => {
 const getMessagesByShoppingId = async (shoppingId) => {
     try {
         const response = await get(ENDPOINTS.getMessagesByShoppingId(shoppingId));
-        console.log('Respuesta del servidor en getMessagesByShoppingId:', response);  // Depuración
+        console.log('Respuesta del servidor en getMessagesByShoppingId:', response); // Depuración
 
         if (!Array.isArray(response)) {
             throw new Error('Formato de respuesta inválido');
         }
 
-        return response.map(message => new MessageDTO(
-            message.id,
-            message.body,
-            message.user.id,
-            message.user.profile?.name || "Usuario Desconocido",
-            message.user.email || "Correo no disponible",
-            message.shopping_id,
-            message.created_at,
-            message.updated_at
-        ));
+        // Mapear cada mensaje usando MessageDTO.fromApiResponse
+        return response.map(message => MessageDTO.fromApiResponse(message));
     } catch (error) {
         console.error('Error:', error);
         throw error;
