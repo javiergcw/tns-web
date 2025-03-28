@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getAllShoppings, deleteShoppingById, uploadInvoice } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
 import { getProfileById } from "@/app/services/profileService";
@@ -66,6 +67,17 @@ const FiltersComponent = () => {
   const [selectedShoppings, setSelectedShoppings] = useState([]); // Estado para rastrear IDs seleccionados
   const [selectedStatus, setSelectedStatus] = useState("");
   const [priorityStates, setPriorityStates] = useState({});
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+// Detectar shoppingId de la URL y abrir el modal automáticamente
+  useEffect(() => {
+    const shoppingId = searchParams.get("shoppingId");
+    if (shoppingId) {
+      handleViewDetailsClick(parseInt(shoppingId));
+    }
+  }, [searchParams]);
 
   // Obtener el ID del usuario autenticado desde localStorage, esto es para la funcionalidad de la bandera permitida para ciertos usuarios
   const userId = parseInt(localStorage.getItem("userId"), 10) || 0; // Default a 0 si no existe
@@ -971,6 +983,7 @@ const FiltersComponent = () => {
     setIsModalOpen(false);
     setSelectedShoppingId(null);
     setMessages([]);
+    router.push("/view-product"); // Limpia la URL
   };
 
   const handleCloseMessageModal = () => {
