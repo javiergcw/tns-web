@@ -2,9 +2,101 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "2025-03-31",
+        imageUrl: ImagesPath.blog30,
+        title: "Lombricultura: Una Solución Natural para el Cuidado del Medio Ambiente",
+        body: `
+<p>En The New School transformamos cada espacio en una oportunidad de aprendizaje, y nuestro lombricultivo es un ejemplo vivo de cómo la sostenibilidad puede integrarse en la educación.</p>
+<br>
+<p>La lombricultura es una técnica que utiliza lombrices para convertir residuos orgánicos, como cáscaras de frutas y vegetales, en humus, un fertilizante natural que enriquece el suelo. Este proceso no solo reduce la basura que generamos, sino que también fomenta un ecosistema más saludable.</p>
+<br>
+<p>En nuestro colegio, este espacio nos permite explorar los procesos agrícolas sostenibles que hacen posible llevar alimentos a nuestras mesas, mientras enseñamos a los estudiantes la importancia de cuidar el planeta de manera práctica y orgánica.</p>
+<br>
+<br>
+<p class="text-xl"><b>¿Cómo funciona la lombricultura?</b></p>
+<br>
+<p>La lombriz roja africana, la especie más utilizada, transforma la materia orgánica en su sistema digestivo con la ayuda de pequeñas “piedritas” que actúan como dientes. El resultado es el humus, un excremento rico en nutrientes que revitaliza el suelo y crea hábitats para otros animales.</p>
+<br>
+<p>Este proceso es un ejemplo perfecto de sostenibilidad: recicla desechos, produce abono natural y mejora la fertilidad del suelo, todo mientras reduce la contaminación ambiental.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-b.png" alt="lombricultura" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p class="text-xl"><b>Beneficios educativos y ecológicos</b></p>
+<br>
+<p>Implementar la lombricultura en nuestra comunidad escolar tiene un doble propósito. Por un lado, los estudiantes aprenden sobre la biología de las lombrices, el ciclo de descomposición y la importancia histórica de estas criaturas—consideradas sagradas en el antiguo Egipto. Por otro lado, desarrollan una conciencia ecológica al ver cómo los residuos se convierten en recursos útiles.</p>
+<br>
+<p>Además, el humus puede usarse en huertos escolares, y las lombrices incluso sirven como alimento para aves o, en algunas culturas, para consumo humano.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-c.png" alt="lombricultura" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p class="text-xl"><b>Por qué lo tenemos en nuestro colegio</b></p>
+<br>
+<p>Nuestro lombricultivo es más que un proyecto ambiental: es una herramienta pedagógica. A través de él, los estudiantes exploran temas interdisciplinarios como la ciencia, la historia y la agricultura sostenible, mientras adquieren habilidades prácticas de reciclaje y cuidado del medio ambiente.</p>
+<br>
+<p>Esta iniciativa fomenta el pensamiento crítico sobre cómo nuestras acciones impactan el planeta y nos invita a todos—estudiantes, docentes y familias—a ser parte del cambio hacia un futuro más verde.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-d.png" alt="lombricultura" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>La lombricultura nos enseña que incluso los organismos más pequeños, como las lombrices, pueden tener un gran impacto. En The New School, seguimos apostando por estas prácticas para formar ciudadanos responsables y comprometidos con el cuidado de la Tierra.</p>
+<br>
+<p>-------------------------------------------------------------------------------------------------------</p>
+<br>
+<p class="text-xl">Vermiculture: A Natural Solution for Environmental Care</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-a.png" alt="vermiculture" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p>At The New School, we turn every space into a learning opportunity, and our vermiculture system is a living example of how sustainability can be integrated into education.</p>
+<br>
+<p>Vermiculture is a technique that uses worms to transform organic waste, such as fruit and vegetable peels, into humus—a natural fertilizer that enriches the soil. This process not only reduces the waste we produce but also promotes a healthier ecosystem.</p>
+<br>
+<p>At our school, this space allows us to explore sustainable agricultural processes that bring food to our tables while teaching students the importance of caring for the planet in a practical and organic way.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-b.png" alt="vermiculture" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p class="text-xl"><b>How does vermiculture work?</b></p>
+<br>
+<p>The African red worm, the most commonly used species, processes organic matter in its digestive system with the help of tiny “stones” that act as teeth. The result is humus, a nutrient-rich casting that revitalizes the soil and creates habitats for other animals.</p>
+<br>
+<p>This process is a perfect example of sustainability: it recycles waste, produces natural fertilizer, and improves soil fertility, all while reducing environmental pollution.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-c.png" alt="vermiculture" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p class="text-xl"><b>Educational and ecological benefits</b></p>
+<br>
+<p>Implementing vermiculture in our school community serves a dual purpose. On one hand, students learn about worm biology, the decomposition cycle, and the historical significance of these creatures—considered sacred in ancient Egypt. On the other hand, they develop ecological awareness by seeing how waste becomes a valuable resource.</p>
+<br>
+<p>Additionally, the humus can be used in school gardens, and worms can even serve as food for poultry or, in some cultures, for human consumption.</p>
+<br>
+<div>
+     <img src="/images/blogs/blog-30-d.png" alt="vermiculture" style="max-width: 70%; height: auto;">
+</div>
+<br>
+<p class="text-xl"><b>Why we have it at our school</b></p>
+<br>
+<p>Our vermiculture system is more than an environmental project: it’s a teaching tool. Through it, students explore interdisciplinary topics like science, history, and sustainable agriculture while gaining practical recycling and environmental care skills.</p>
+<br>
+<p>This initiative encourages critical thinking about how our actions impact the planet and invites everyone—students, teachers, and families—to be part of the change toward a greener future.</p>
+<br>
+<p>Vermiculture teaches us that even the smallest organisms, like worms, can make a big difference. At The New School, we continue to embrace these practices to shape responsible citizens committed to caring for the Earth.</p>
+`,
+        banner: true,
+    },
+    {
         date: "2025-02-28",
         imageUrl: ImagesPath.blog29,
-        title: "El impacto de las redes sociales en los estudiantes y su vida cotidiana",
+        title: "Lombricultura Una Solución Natural para el Cuidado del Medio Ambiente",
         body:`
 <p>El impacto de las redes sociales en los estudiantes y su vida cotidiana</p>
 <br>
