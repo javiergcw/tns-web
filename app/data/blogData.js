@@ -96,7 +96,7 @@ const blogList = [
     {
         date: "2025-02-28",
         imageUrl: ImagesPath.blog29,
-        title: "Lombricultura Una Solución Natural para el Cuidado del Medio Ambiente",
+        title: "El impacto de las redes sociales en los estudiantes y su vida cotidiana",
         body:`
 <p>El impacto de las redes sociales en los estudiantes y su vida cotidiana</p>
 <br>
