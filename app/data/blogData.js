@@ -4,7 +4,7 @@ const blogList = [
     {
         date: "2025-03-31",
         imageUrl: ImagesPath.blog30,
-        title: "Lombricultura: Una Solución Natural para el Cuidado del Medio Ambiente",
+        title: "Lombricultura Una Solución Natural para el Cuidado del Medio Ambiente",
         body: `
 <p>En The New School transformamos cada espacio en una oportunidad de aprendizaje, y nuestro lombricultivo es un ejemplo vivo de cómo la sostenibilidad puede integrarse en la educación.</p>
 <br>
