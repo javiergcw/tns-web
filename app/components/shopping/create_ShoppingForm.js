@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react"; // Añadimos useRef
 import { createShopping } from "@/app/services/shoppingService";
 import CreateProductForm from "./create_ProductForm";
 import { getStatuses } from "@/app/services/statusService";
@@ -32,7 +32,8 @@ const CreateShoppingForm = () => {
   const [innovated, setInnovated] = useState(false);
   const [total, setTotal] = useState("");
   const [subtotal, setSubTotal] = useState("");
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const fileInputRef = useRef(null); // Referencia al input de archivos
 
   // Nuevos estados para la funcionalidad de búsqueda
   const [areaSearch, setAreaSearch] = useState("");
@@ -142,18 +143,31 @@ const CreateShoppingForm = () => {
     toast.success("Producto eliminado exitosamente!");
   };
 
-  const handleFileRemove = () => {
-    setUploadedFile(null);
-    toast.success("Archivo PDF eliminado.");
+  const handleFileRemove = (index) => {
+    setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
+    toast.success("Archivo eliminado.");
   };
 
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/pdf") {
-      setUploadedFile(file);
-      toast.success("Archivo PDF subido exitosamente!");
-    } else {
-      toast.error("Solo se permiten archivos PDF.");
+    const files = Array.from(e.target.files); // Convierte FileList a arreglo
+    const allowedTypes = [
+      "application/pdf",
+      "image/jpeg",
+      "image/png",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // DOCX
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" // XLSX
+    ];
+
+    const validFiles = files.filter(file => allowedTypes.includes(file.type));
+    const invalidFiles = files.filter(file => !allowedTypes.includes(file.type));
+
+    if (invalidFiles.length > 0) {
+      toast.error("Algunos archivos no son válidos. Solo se permiten PDF, JPEG, PNG, DOCX y XLSX.");
+    }
+
+    if (validFiles.length > 0) {
+      setUploadedFiles([...uploadedFiles, ...validFiles]);
+      toast.success(`${validFiles.length} archivo(s) subido(s) exitosamente!`);
     }
   };
 
@@ -230,9 +244,10 @@ const CreateShoppingForm = () => {
       }
     });
 
-    if (uploadedFile) {
-      formData.append("file", uploadedFile);
-    }
+    // Añade los archivos bajo la clave 'file[]'
+    uploadedFiles.forEach((file) => {
+      formData.append("file[]", file);
+    });
 
     try {
       const response = await createShopping(formData);
@@ -267,7 +282,11 @@ const CreateShoppingForm = () => {
     setTotal("");
     setSubTotal("");
     setError({});
-    setUploadedFile(null);
+    setUploadedFiles([]); // Resetea el arreglo de archivos
+    // Limpiar el input de archivos
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Resetea el valor del input
+    }
     // Resetear los campos de búsqueda
     setAreaSearch("");
     setAccountTypeSearch("");
@@ -509,23 +528,30 @@ const CreateShoppingForm = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Subir Archivo PDF:</label>
+            <label className="block text-black font-medium">Subir Archivos:</label>
             <input
                 type="file"
-                accept="application/pdf"
+                accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx"
                 onChange={handleFileUpload}
+                multiple
+                ref={fileInputRef} // Añadimos la referencia al input
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
             />
-            {uploadedFile && (
-                <div className="mt-4 bg-gray-100 p-4 rounded-md">
-                  <p className="text-black font-medium">Archivo: {uploadedFile.name}</p>
-                  <button
-                      type="button"
-                      className="text-red-500 hover:text-red-700 mt-2"
-                      onClick={handleFileRemove}
-                  >
-                    Eliminar Archivo
-                  </button>
+            {uploadedFiles.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-black font-medium">Archivos Subidos:</h4>
+                  {uploadedFiles.map((file, index) => (
+                      <div key={index} className="bg-gray-100 p-2 rounded-md mt-2 flex justify-between items-center">
+                        <p className="text-black">{file.name}</p>
+                        <button
+                            type="button"
+                            className="text-red-500 hover:text-red-700"
+                            onClick={() => handleFileRemove(index)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                  ))}
                 </div>
             )}
           </div>

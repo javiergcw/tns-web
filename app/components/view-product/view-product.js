@@ -67,9 +67,75 @@ const FiltersComponent = () => {
   const [selectedShoppings, setSelectedShoppings] = useState([]); // Estado para rastrear IDs seleccionados
   const [selectedStatus, setSelectedStatus] = useState("");
   const [priorityStates, setPriorityStates] = useState({});
+  // Estado para el modal de archivos
+  const [isFilesModalOpen, setIsFilesModalOpen] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState([]); // Archivos a mostrar en el modal
+  const [selectedFileToView, setSelectedFileToView] = useState(null); // Archivo seleccionado para visualizar
+  const [isFileViewModalOpen, setIsFileViewModalOpen] = useState(false); // Modal para visualizar un archivo
+  const [selectedShoppingIdForFiles, setSelectedShoppingIdForFiles] = useState(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Función para abrir el modal de archivos
+  const handleOpenFilesModal = (files, shoppingId) => {
+    setSelectedFiles(files || []);
+    setSelectedShoppingIdForFiles(shoppingId); // Guardar el shoppingId
+    setIsFilesModalOpen(true);
+  };
+
+// Función para cerrar el modal de archivos
+  const closeFilesModal = () => {
+    setIsFilesModalOpen(false);
+    setSelectedFiles([]);
+  };
+
+// Función para visualizar un archivo
+  const handleViewFile = (file) => {
+    setSelectedFileToView(file);
+    setIsFileViewModalOpen(true);
+  };
+
+// Función para cerrar el modal de visualización de archivo
+  const closeFileViewModal = () => {
+    setIsFileViewModalOpen(false);
+    setSelectedFileToView(null);
+  };
+
+// Función para determinar el ícono según el tipo de archivo
+  const getFileIcon = (fileType) => {
+    if (fileType.includes("pdf")) {
+      return (
+          <svg className="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/>
+          </svg>
+      );
+    } else if (fileType.includes("image")) {
+      return (
+          <svg className="w-6 h-6 text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 10l-4-4-4 4h8z"/>
+          </svg>
+      );
+    } else if (fileType.includes("spreadsheetml") || fileType.includes("excel")) {
+      return (
+          <svg className="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM9 12l2 2-2 2h3v2H7v-2l2-2-2-2v-2h5v2H9z"/>
+          </svg>
+      );
+    } else if (fileType.includes("wordprocessingml") || fileType.includes("msword")) {
+      return (
+          <svg className="w-6 h-6 text-blue-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM7 12h2l2 3 2-6h2v10h-2v-6l-2 3-2-3v6H7v-10z"/>
+          </svg>
+      );
+    } else {
+      return (
+          <svg className="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/>
+          </svg>
+      );
+    }
+  };
 
 // Detectar shoppingId de la URL y abrir el modal automáticamente
   useEffect(() => {
@@ -477,26 +543,49 @@ const FiltersComponent = () => {
   };
 
   const handleUploadInvoice = async (event, shoppingId) => {
-    const file = event.target.files[0];
-    if (!file) return;
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
 
     try {
-      const result = await uploadInvoice(shoppingId, file);
-      alert("Factura subida exitosamente");
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("file[]", file); // Usamos "file[]" para enviar múltiples archivos
+      });
 
-      setData((prevData) =>
-          prevData.map((item) =>
-              item.id === shoppingId ? { ...item, facturacion: result.fileUrl } : item
-          )
+      const response = await fetch(
+          `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/upload_archives`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: formData,
+          }
       );
 
-      const updatedData = await fetchData();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error al subir los archivos: ${errorData.error || response.statusText}`);
+      }
+
+      const updatedShopping = await response.json();
+      setSuccessMessage("Archivos subidos exitosamente");
+
+      // Actualizar los datos con los nuevos archivos
+      const updatedData = data.map((item) =>
+          item.id === shoppingId ? { ...item, shopping_files: updatedShopping.files } : item
+      );
       const sortedData = sortData(updatedData);
       setData(sortedData);
       setFilteredData(sortedData);
+
+      // Actualizar los archivos en el modal si está abierto
+      if (isFilesModalOpen && selectedShoppingIdForFiles === shoppingId) {
+        setSelectedFiles(updatedShopping.files); // Actualiza selectedFiles con los archivos nuevos
+      }
     } catch (error) {
-      console.error("Error al subir la factura:", error);
-      alert("Error al subir la factura, inténtalo nuevamente.");
+      console.error("Error al subir los archivos:", error);
+      alert(`Error al subir los archivos: ${error.message}`);
     }
   };
 
@@ -534,6 +623,48 @@ const FiltersComponent = () => {
         console.error("Error al eliminar la factura:", error);
         alert("Hubo un error al eliminar la factura.");
       }
+    }
+  };
+
+  const handleDeleteFile = async (shoppingId, fileId) => {
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este archivo?")) return;
+
+    if (!shoppingId) {
+      setSuccessMessage("Error: No se pudo identificar la compra asociada.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+          `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/files/${fileId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error al eliminar archivo: ${errorData.error || response.statusText}`);
+      }
+
+      setSuccessMessage("Archivo eliminado con éxito");
+
+      const updatedData = data.map((item) =>
+          item.id === shoppingId
+              ? { ...item, shopping_files: item.shopping_files.filter((file) => file.id !== fileId) }
+              : item
+      );
+      const sortedData = sortData(updatedData);
+      setData(sortedData);
+      setFilteredData(sortedData);
+
+      setSelectedFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
+    } catch (error) {
+      console.error("Error al eliminar archivo:", error);
+      setSuccessMessage(`Error: ${error.message}`);
     }
   };
 
@@ -1262,51 +1393,52 @@ const FiltersComponent = () => {
                           {shopping.total ? formatCurrency(shopping.total) : "N/A"}
                         </td>
                         <td className="px-6 py-4 text-center border border-gray-300">
-                          {shopping.facturacion ? (
-                              <div className="flex items-center space-x-2">
-                                <button
-                                    onClick={() => handleViewPdf(shopping.facturacion)}
-                                    className="text-red-500 hover:text-red-700"
-                                >
-                                  <FontAwesomeIcon icon={faFilePdf} />
-                                </button>
+                          <div className="flex items-center space-x-2">
+                            {/* Botón para ver la lista de archivos (siempre visible) */}
+                            <button
+                                onClick={() => handleOpenFilesModal(shopping.shopping_files, shopping.id)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                              <svg
+                                  className="w-6 h-6 text-gray-500 dark:text-white"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                              >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M10 3v4a1 1 0 0 1-1 1H5m8-2h3m-3 3h3m-4 3v6m4-3H8M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 12v6h8v-6H8Z"
+                                />
+                              </svg>
+                            </button>
 
-                                {(role === "admin" || role === "Compras" || role === "Developer") && (
-                                    <>
+                            {/* Botones para admin, Compras o Developer */}
+                            {(role === "admin" || role === "Compras" || role === "Developer") && (
+                                <>
+                                  {/* Botón para subir archivo (solo si no hay archivos) */}
+                                  {(!shopping.shopping_files || shopping.shopping_files.length === 0) && (
                                       <label className="cursor-pointer">
                                         <FontAwesomeIcon
-                                            icon={faEdit}
-                                            className="text-green-500 hover:text-green-700 cursor-pointer"
+                                            icon={faFileUpload}
+                                            className="text-green-500 hover:text-green-700"
                                         />
                                         <input
                                             type="file"
                                             className="hidden"
+                                            multiple
                                             onChange={(e) => handleUploadInvoice(e, shopping.id)}
                                         />
                                       </label>
-                                      <FontAwesomeIcon
-                                          icon={faTrash}
-                                          className="text-red-500 hover:text-red-700 cursor-pointer"
-                                          onClick={() => handleDeleteInvoice(shopping.id)}
-                                      />
-                                    </>
-                                )}
-                              </div>
-                          ) : (
-                              (role === "admin" || role === "Compras" || role === "Developer") && (
-                                  <label className="cursor-pointer">
-                                    <FontAwesomeIcon
-                                        icon={faFileUpload}
-                                        className="text-green-500 hover:text-green-700"
-                                    />
-                                    <input
-                                        type="file"
-                                        className="hidden"
-                                        onChange={(e) => handleUploadInvoice(e, shopping.id)}
-                                    />
-                                  </label>
-                              )
-                          )}
+                                  )}
+                                </>
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 text-center border border-gray-300">
                           <div className="flex items-center space-x-2">
@@ -1850,6 +1982,134 @@ const FiltersComponent = () => {
                     Eliminar
                   </button>
                 </div>
+              </div>
+            </div>
+        )}
+        {/* Modal para mostrar todos los archivos */}
+        {isFilesModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+              <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/2 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
+                <button
+                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    onClick={closeFilesModal}
+                >
+                  X
+                </button>
+                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Archivos Subidos</h2>
+                {selectedFiles.length > 0 ? (
+                    <ul className="space-y-2">
+                      {selectedFiles.map((file, index) => (
+                          <li
+                              key={file.id}
+                              className="flex items-center justify-between p-2 border border-gray-300 rounded"
+                          >
+                            <div className="flex items-center space-x-2">
+                              {getFileIcon(file.file_type)}
+                              <span
+                                  className="text-blue-500 hover:underline cursor-pointer"
+                                  onClick={() => handleViewFile(file)}
+                              >
+                  {`Archivo ${index + 1}`}
+                </span>
+                            </div>
+                            {(role === "admin" || role === "Compras" || role === "Developer") && (
+                                <button
+                                    onClick={() => handleDeleteFile(selectedShoppingIdForFiles, file.id)}
+                                    className="text-red-500 hover:text-red-700"
+                                >
+                                  <svg
+                                      className="w-5 h-5"
+                                      aria-hidden="true"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                  </svg>
+                                </button>
+                            )}
+                          </li>
+                      ))}
+                    </ul>
+                ) : (
+                    <p className="text-gray-500 text-center">No hay archivos subidos.</p>
+                )}
+                {(role === "admin" || role === "Compras" || role === "Developer") && (
+                    <div className="mt-4 flex justify-center">
+                      <label className="cursor-pointer bg-blue-500 text-white p-2 rounded">
+                        Agregar otro archivo
+                        <input
+                            type="file"
+                            className="hidden"
+                            multiple
+                            onChange={(e) => handleUploadInvoice(e, selectedShoppingIdForFiles)}
+                        />
+                      </label>
+                    </div>
+                )}
+              </div>
+            </div>
+        )}
+
+        {/* Modal para visualizar un archivo */}
+        {isFileViewModalOpen && selectedFileToView && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl relative">
+                <button
+                    className="absolute top-1 right-1 text-black hover:text-gray-900 text-xl font-bold"
+                    onClick={closeFileViewModal}
+                >
+                  <IoClose />
+                </button>
+                {selectedFileToView.file_type.includes("pdf") || selectedFileToView.file_url.toLowerCase().endsWith(".pdf") ? (
+                    <iframe
+                        src={selectedFileToView.file_url}
+                        className="w-full h-[600px] border-0"
+                        title="Archivo PDF"
+                    ></iframe>
+                ) : (
+                    selectedFileToView.file_type.includes("image") ||
+                    selectedFileToView.file_url.toLowerCase().endsWith(".jpg") ||
+                    selectedFileToView.file_url.toLowerCase().endsWith(".jpeg") ||
+                    selectedFileToView.file_url.toLowerCase().endsWith(".png")
+                ) ? (
+                    <img
+                        src={selectedFileToView.file_url}
+                        alt="Archivo de imagen"
+                        className="w-full h-auto max-h-[600px] object-contain"
+                    />
+                ) : (
+                    selectedFileToView.file_type.includes("wordprocessingml") ||
+                    selectedFileToView.file_type.includes("msword") ||
+                    selectedFileToView.file_url.toLowerCase().endsWith(".docx") ||
+                    selectedFileToView.file_type.includes("spreadsheetml") ||
+                    selectedFileToView.file_type.includes("excel") ||
+                    selectedFileToView.file_url.toLowerCase().endsWith(".xlsx")
+                ) ? (
+                    <iframe
+                        src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedFileToView.file_url)}&embedded=true`}
+                        className="w-full h-[600px] border-0"
+                        title="Archivo Office"
+                    ></iframe>
+                ) : (
+                    <div className="text-center">
+                      <p className="mb-4">Este tipo de archivo no se puede visualizar directamente.</p>
+                      <a
+                          href={selectedFileToView.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-500 text-white p-2 rounded"
+                      >
+                        Descargar o Abrir Archivo
+                      </a>
+                    </div>
+                )}
               </div>
             </div>
         )}
