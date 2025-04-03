@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"; // Añadimos useRef
+import React, { useState, useEffect, useRef } from "react";
 import { createShopping } from "@/app/services/shoppingService";
 import CreateProductForm from "./create_ProductForm";
 import { getStatuses } from "@/app/services/statusService";
@@ -6,11 +6,11 @@ import { getAllProfiles } from "@/app/services/profileService";
 import { getAllAreas } from "@/app/services/areaService";
 import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { FaTrash } from "react-icons/fa";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 
 const CreateShoppingForm = () => {
   const [title, setTitle] = useState("");
@@ -33,9 +33,10 @@ const CreateShoppingForm = () => {
   const [total, setTotal] = useState("");
   const [subtotal, setSubTotal] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const fileInputRef = useRef(null); // Referencia al input de archivos
+  const fileInputRef = useRef(null);
+  const [creationTime, setCreationTime] = useState(null); // Nuevo estado para el tiempo de creación
 
-  // Nuevos estados para la funcionalidad de búsqueda
+  // Estados para la funcionalidad de búsqueda
   const [areaSearch, setAreaSearch] = useState("");
   const [accountTypeSearch, setAccountTypeSearch] = useState("");
   const [userSearch, setUserSearch] = useState("");
@@ -44,7 +45,6 @@ const CreateShoppingForm = () => {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [confirmSubmit, setConfirmSubmit] = useState(false);
 
   useEffect(() => {
     const fetchStatuses = async () => {
@@ -66,11 +66,9 @@ const CreateShoppingForm = () => {
       setLoading(true);
       try {
         const data = await getAllProfiles();
-        console.log("Datos crudos de getAllProfiles:", data);
         const filteredUsers = data.filter(
             (user) => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin"
         );
-        console.log("Usuarios filtrados:", filteredUsers);
         setUsers(filteredUsers);
       } catch (error) {
         setError((prev) => ({
@@ -149,17 +147,17 @@ const CreateShoppingForm = () => {
   };
 
   const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files); // Convierte FileList a arreglo
+    const files = Array.from(e.target.files);
     const allowedTypes = [
       "application/pdf",
       "image/jpeg",
       "image/png",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // DOCX
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" // XLSX
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     ];
 
-    const validFiles = files.filter(file => allowedTypes.includes(file.type));
-    const invalidFiles = files.filter(file => !allowedTypes.includes(file.type));
+    const validFiles = files.filter((file) => allowedTypes.includes(file.type));
+    const invalidFiles = files.filter((file) => !allowedTypes.includes(file.type));
 
     if (invalidFiles.length > 0) {
       toast.error("Algunos archivos no son válidos. Solo se permiten PDF, JPEG, PNG, DOCX y XLSX.");
@@ -203,6 +201,10 @@ const CreateShoppingForm = () => {
   };
 
   const createPurchase = async () => {
+    setLoading(true); // Activar estado de carga
+    setCreationTime(null); // Reiniciar el tiempo de creación
+    const startTime = Date.now(); // Capturar tiempo de inicio
+
     const shopping = {
       title,
       description,
@@ -227,8 +229,6 @@ const CreateShoppingForm = () => {
       })),
     };
 
-    console.log("Datos enviados al backend:", shopping);
-
     const formData = new FormData();
     Object.keys(shopping).forEach((key) => {
       if (key === "products") {
@@ -244,28 +244,33 @@ const CreateShoppingForm = () => {
       }
     });
 
-    // Añade los archivos bajo la clave 'file[]'
     uploadedFiles.forEach((file) => {
       formData.append("file[]", file);
     });
 
     try {
       const response = await createShopping(formData);
-      console.log("Respuesta del backend:", response);
+
+      const endTime = Date.now(); // Capturar tiempo de fin
+      const timeTaken = ((endTime - startTime) / 1000).toFixed(2); // Calcular tiempo en segundos
+      setCreationTime(timeTaken); // Guardar el tiempo tomado
 
       if (response.status === 201) {
-        toast.success("Compra creada exitosamente!");
+        toast.success(`Compra creada exitosamente`);
         resetForm();
-        window.onbeforeprint = null;
-        window.onafterprint = null;
       } else {
         toast.error("No se logró crear la compra.");
         setError({ general: "No se logró crear la compra" });
       }
     } catch (error) {
+      const endTime = Date.now();
+      const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+      setCreationTime(timeTaken);
       console.error("Error al crear la compra:", error.response?.data || error.message);
-      toast.error("Error al crear la compra.");
+      toast.error(`Error al crear la compra después de ${timeTaken} segundos.`);
       setError({ general: error.response?.data?.message || "Error al crear la compra" });
+    } finally {
+      setLoading(false); // Desactivar estado de carga
     }
   };
 
@@ -282,15 +287,14 @@ const CreateShoppingForm = () => {
     setTotal("");
     setSubTotal("");
     setError({});
-    setUploadedFiles([]); // Resetea el arreglo de archivos
-    // Limpiar el input de archivos
+    setUploadedFiles([]);
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Resetea el valor del input
+      fileInputRef.current.value = "";
     }
-    // Resetear los campos de búsqueda
     setAreaSearch("");
     setAccountTypeSearch("");
     setUserSearch("");
+    setCreationTime(null); // Reiniciar el tiempo de creación
   };
 
   const handleModalConfirm = async () => {
@@ -316,6 +320,7 @@ const CreateShoppingForm = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading} // Deshabilitar mientras carga
             />
             {error.title && <p className="text-red-500">{error.title}</p>}
           </div>
@@ -327,6 +332,7 @@ const CreateShoppingForm = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
             {error.description && <p className="text-red-500">{error.description}</p>}
           </div>
@@ -337,30 +343,25 @@ const CreateShoppingForm = () => {
                 value={status_id}
                 onChange={(e) => setStatus(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             >
               <option value="">Seleccione un estado</option>
               {statuses
-                  .filter(status =>
-                      status.id === 35 || // Aprobadas
-                      status.id === 3 ||  // Rechazadas
-                      status.id === 1     // En proceso
-                  )
+                  .filter((status) => [35, 3, 1].includes(status.id))
                   .sort((a, b) => {
-                    // Orden: "En proceso" (1), "Aprobadas" (35), "Rechazadas" (3)
                     const order = { "en proceso": 0, "aprobadas": 1, "rechazadas": 2 };
                     return order[a.name.toLowerCase()] - order[b.name.toLowerCase()];
                   })
-                  .map(status => (
+                  .map((status) => (
                       <option key={status.id} value={status.id}>
                         {status.name}
                       </option>
-                  ))
-              }
+                  ))}
             </select>
             {error.status_id && <p className="text-red-500">{error.status_id}</p>}
           </div>
 
-          {/* Inicio del campo Área con búsqueda */}
+          {/* Campo Área */}
           <div className="mb-4 relative">
             <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
             <input
@@ -373,8 +374,8 @@ const CreateShoppingForm = () => {
                 onFocus={() => setShowAreaDropdown(true)}
                 placeholder="Busca un área..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
-            {/* Lista desplegable para Área */}
             {showAreaDropdown && (
                 <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
                   {filteredAreas.length > 0 ? (
@@ -398,9 +399,8 @@ const CreateShoppingForm = () => {
             )}
             {error.area_id && <p className="text-red-500">{error.area_id}</p>}
           </div>
-          {/* Fin del campo Área */}
 
-          {/* Inicio del campo Tipo de Cuenta con búsqueda */}
+          {/* Campo Tipo de Cuenta */}
           <div className="mb-4 relative">
             <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
             <input
@@ -413,8 +413,8 @@ const CreateShoppingForm = () => {
                 onFocus={() => setShowAccountTypeDropdown(true)}
                 placeholder="Busca un tipo de cuenta..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
-            {/* Lista desplegable para Tipo de Cuenta */}
             {showAccountTypeDropdown && (
                 <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
                   {filteredAccountTypes.length > 0 ? (
@@ -438,9 +438,8 @@ const CreateShoppingForm = () => {
             )}
             {error.account_type_id && <p className="text-red-500">{error.account_type_id}</p>}
           </div>
-          {/* Fin del campo Tipo de Cuenta */}
 
-          {/* Inicio del campo Líder de Presupuesto con búsqueda */}
+          {/* Campo Líder de Presupuesto */}
           <div className="mb-4 relative">
             <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
             <input
@@ -453,8 +452,8 @@ const CreateShoppingForm = () => {
                 onFocus={() => setShowUserDropdown(true)}
                 placeholder="Busca un líder..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
-            {/* Lista desplegable para Líder de Presupuesto */}
             {showUserDropdown && (
                 <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
                   {filteredUsers.length > 0 ? (
@@ -478,7 +477,6 @@ const CreateShoppingForm = () => {
             )}
             {error.user_id && <p className="text-red-500">{error.user_id}</p>}
           </div>
-          {/* Fin del campo Líder de Presupuesto */}
 
           <div className="mb-4">
             <label className="block text-black font-medium">IVA (%): <span className="text-red-500">*</span></label>
@@ -488,6 +486,7 @@ const CreateShoppingForm = () => {
                 onChange={(e) => setIva(e.target.value)}
                 onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
             {error.iva && <p className="text-red-500">{error.iva}</p>}
           </div>
@@ -500,6 +499,7 @@ const CreateShoppingForm = () => {
                 onChange={(e) => setRetefuente(e.target.value)}
                 onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
           </div>
 
@@ -511,6 +511,7 @@ const CreateShoppingForm = () => {
                 onChange={(e) => setSubTotal(e.target.value)}
                 onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
             {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
           </div>
@@ -523,6 +524,7 @@ const CreateShoppingForm = () => {
                 onChange={(e) => setTotal(e.target.value)}
                 onWheel={(e) => e.target.blur()}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
             {error.total && <p className="text-red-500">{error.total}</p>}
           </div>
@@ -534,8 +536,9 @@ const CreateShoppingForm = () => {
                 accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx"
                 onChange={handleFileUpload}
                 multiple
-                ref={fileInputRef} // Añadimos la referencia al input
+                ref={fileInputRef}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                disabled={loading}
             />
             {uploadedFiles.length > 0 && (
                 <div className="mt-4">
@@ -547,6 +550,7 @@ const CreateShoppingForm = () => {
                             type="button"
                             className="text-red-500 hover:text-red-700"
                             onClick={() => handleFileRemove(index)}
+                            disabled={loading}
                         >
                           <FaTrash />
                         </button>
@@ -564,7 +568,7 @@ const CreateShoppingForm = () => {
               <div className="overflow-x-auto">
                 <div className="flex space-x-4">
                   {products.map((product) => (
-                      <div key={product.uniqueId} className="bg-white rounded-lg shadow-md p-4 flex-shrink-0" style={{ minWidth: '250px' }}>
+                      <div key={product.uniqueId} className="bg-white rounded-lg shadow-md p-4 flex-shrink-0" style={{ minWidth: "250px" }}>
                         <div className="flex items-center">
                           {product.image && (
                               <img
@@ -582,6 +586,7 @@ const CreateShoppingForm = () => {
                             type="button"
                             className="text-red-500 hover:text-red-700 mt-2"
                             onClick={() => handleRemoveProduct(product.uniqueId)}
+                            disabled={loading}
                         >
                           <FaTrash />
                         </button>
@@ -591,12 +596,19 @@ const CreateShoppingForm = () => {
               </div>
           )}
 
+          {/* Botón de Crear Orden con estado de carga */}
           <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4"
+              className={`bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4 ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"}`}
+              disabled={loading}
           >
-            Crear Orden
+            {loading ? "Creando orden..." : "Crear Orden"}
           </button>
+
+          {/* Mostrar tiempo de creación si está disponible */}
+          {creationTime && (
+              <p className="text-gray-600 mt-2">Última orden creada</p>
+          )}
         </form>
 
         <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
@@ -616,12 +628,14 @@ const CreateShoppingForm = () => {
             <button
                 className="bg-red-500 text-white px-4 py-2 rounded-md"
                 onClick={handleModalCancel}
+                disabled={loading}
             >
               Cancelar
             </button>
             <button
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
                 onClick={handleModalConfirm}
+                disabled={loading}
             >
               Confirmar
             </button>
