@@ -130,6 +130,10 @@ const data = [
     name: "Circular N°32 SALIDAS PEDAGÓGICAS TNS ",
     link: "https://drive.google.com/file/d/1kpdj1kAVSPmu_yryfpNoyVwKVxA5QGI8/view?usp=sharing",
   },
+  {
+    name: "Circular N°33 ENTREGA DE INFORMES PARCIALES\n" + "2\n" + "do PERÍODO ACADÉMICO ",
+    link: "https://drive.google.com/file/d/1evWK50989Mu9Fmnt2wynydFJJGs9B-aY/view?usp=sharing",
+  }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
   // { name: 'Circular N2 Escuela de padres Cuarto y Quinto', link: 'https://drive.google.com/file/d/1RwEdJzreDcsFt_ZKNNYl_z_eSlUriNN3/view?usp=sharing' },
