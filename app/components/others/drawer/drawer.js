@@ -55,7 +55,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
         localStorage.removeItem("userId");
         localStorage.removeItem("profileId");
         window.location.href = "https://thenewschool.edu.co/login";
-      },60 * 1000); // 30 minutos en milisegundos
+      }, 30 * 60 * 1000); // 30 minutos en milisegundos
     };
 
     // Eventos que indican actividad del usuario
