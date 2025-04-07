@@ -33,13 +33,47 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
   const router = useRouter();
 
+  // Verificación inicial del token y manejo de inactividad
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
+      console.log("No token found, redirecting to login...");
       window.location.href = "https://thenewschool.edu.co/login";
-    } else {
-      setIsAuthenticated(true);
+      return;
     }
+    setIsAuthenticated(true);
+
+    // Temporizador de inactividad
+    let inactivityTimeout;
+
+    const resetTimer = () => {
+      console.log("User activity detected, resetting inactivity timer...");
+      clearTimeout(inactivityTimeout);
+      inactivityTimeout = setTimeout(() => {
+        console.log("Inactivity timeout reached, logging out...");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("profileId");
+        window.location.href = "https://thenewschool.edu.co/login";
+      },60 * 1000); // 30 minutos en milisegundos
+    };
+
+    // Eventos que indican actividad del usuario
+    const events = ["mousemove", "keydown", "click", "scroll", "input"];
+    events.forEach((event) => {
+      window.addEventListener(event, resetTimer);
+      console.log(`Added ${event} event listener for inactivity timer`);
+    });
+
+    // Iniciar el temporizador al cargar
+    resetTimer();
+
+    // Limpiar eventos y temporizador al desmontar el componente
+    return () => {
+      console.log("Cleaning up inactivity timer and event listeners...");
+      clearTimeout(inactivityTimeout);
+      events.forEach((event) => window.removeEventListener(event, resetTimer));
+    };
   }, []);
 
   if (!isAuthenticated) {
@@ -67,6 +101,7 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     setIsLogoutModalOpen(false);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("profileId");
     window.location.href = "https://thenewschool.edu.co/login";
   };
 
@@ -109,7 +144,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       setDescription("");
     } catch (error) {
       console.error("Error al crear el bug:", error);
-      // fetchWithAuth manejará la redirección si es un 401
     }
   };
 

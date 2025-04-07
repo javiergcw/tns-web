@@ -15,10 +15,6 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
       }
     }
 
-    //////console.log("Making request to:", url); // Para depuración
-    //////console.log("Request headers:", headers); // Para depuración
-    //////console.log("Request data:", data); // Para depuración
-
     const response = await axios({
       method,
       url,
@@ -27,18 +23,22 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
       headers,
     });
 
-    //////console.log("Response data:", response.data); // Para depuración
-
     if (response.status < 300) {
       return response.data;
     } else {
       throw new Error(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.error(
-      `API request error: ${error.response ? error.response.data : error.message
-      }`
-    );
+    console.error(`API request error: ${error.response ? error.response.data : error.message}`);
+    // Manejar error 401: sesión expirada o token inválido
+    if (error.response && error.response.status === 401) {
+      console.log("Received 401 Unauthorized, redirecting to login...");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("profileId");
+      window.location.href = "https://thenewschool.edu.co/login";
+      return; // Terminar la ejecución para evitar que el error se propague
+    }
     throw error;
   }
 };
@@ -46,12 +46,12 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
 // Funciones para cada tipo de solicitud HTTP
 export const get = (url, params) => apiRequest("get", url, null, params);
 export const post = (url, data, authRequired = true) =>
-  apiRequest("post", url, data, null, authRequired);
+    apiRequest("post", url, data, null, authRequired);
 
 export const postFormData = async (url, data, authRequired = true) => {
   const headers = authRequired
-    ? { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    : {};
+      ? { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      : {};
 
   try {
     const response = await fetch(url, {
@@ -61,10 +61,17 @@ export const postFormData = async (url, data, authRequired = true) => {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        console.log("Received 401 Unauthorized in postFormData, redirecting to login...");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("profileId");
+        window.location.href = "https://thenewschool.edu.co/login";
+        return;
+      }
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
 
-    // Retorna el status y los datos
     const responseData = await response.json();
     return { status: response.status, data: responseData };
   } catch (error) {
@@ -72,8 +79,6 @@ export const postFormData = async (url, data, authRequired = true) => {
     throw error;
   }
 };
-
-
 
 export const del = (url, data) => apiRequest("delete", url, data);
 export const patch = (url, data) => apiRequest("patch", url, data);
