@@ -133,6 +133,10 @@ const data = [
   {
     name: "Circular N°33 ENTREGA DE INFORMES PARCIALES\n" + "2\n" + "do PERÍODO ACADÉMICO ",
     link: "https://drive.google.com/file/d/1evWK50989Mu9Fmnt2wynydFJJGs9B-aY/view?usp=sharing",
+  },
+  {
+    name: "Circular N°34 SALIDA PEDAGÓGICA 9° ",
+    link: "https://drive.google.com/file/d/1RgQG7yP1x17FK4WhLs3913hiwenBiKB3/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
