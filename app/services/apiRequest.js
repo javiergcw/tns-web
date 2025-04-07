@@ -29,10 +29,8 @@ const apiRequest = async (method, url, data = null, params = null, authRequired 
       throw new Error(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.error(`API request error: ${error.response ? error.response.data : error.message}`);
     // Manejar error 401: sesión expirada o token inválido
     if (error.response && error.response.status === 401) {
-      console.log("Received 401 Unauthorized, redirecting to login...");
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       localStorage.removeItem("profileId");
@@ -62,7 +60,6 @@ export const postFormData = async (url, data, authRequired = true) => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        console.log("Received 401 Unauthorized in postFormData, redirecting to login...");
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         localStorage.removeItem("profileId");

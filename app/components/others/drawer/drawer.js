@@ -37,7 +37,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      console.log("No token found, redirecting to login...");
       window.location.href = "https://thenewschool.edu.co/login";
       return;
     }
@@ -47,7 +46,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     let inactivityTimeout;
 
     const resetTimer = () => {
-      console.log("User activity detected, resetting inactivity timer...");
       clearTimeout(inactivityTimeout);
       inactivityTimeout = setTimeout(() => {
         console.log("Inactivity timeout reached, logging out...");
@@ -62,7 +60,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
     const events = ["mousemove", "keydown", "click", "scroll", "input"];
     events.forEach((event) => {
       window.addEventListener(event, resetTimer);
-      console.log(`Added ${event} event listener for inactivity timer`);
     });
 
     // Iniciar el temporizador al cargar
@@ -70,7 +67,6 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
 
     // Limpiar eventos y temporizador al desmontar el componente
     return () => {
-      console.log("Cleaning up inactivity timer and event listeners...");
       clearTimeout(inactivityTimeout);
       events.forEach((event) => window.removeEventListener(event, resetTimer));
     };

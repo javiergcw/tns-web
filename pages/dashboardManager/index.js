@@ -310,8 +310,8 @@ const DashboardManager = () => {
 
       <MainLayout>
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-          <h2 className="text-2xl font-bold text-red-600">
-            Rol de usuario no reconocido.
+          <h2 className="text-2xl text-gray-600">
+           Cargando.....
           </h2>
         </div>
       </MainLayout>
