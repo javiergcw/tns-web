@@ -67,7 +67,7 @@ const CreateShoppingForm = () => {
       try {
         const data = await getAllProfiles();
         const filteredUsers = data.filter(
-            (user) => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin"
+            (user) => user.rol?.name === "Lider de presupuesto" || user.rol?.name === "admin" || user.rol?.name === "Compras"
         );
         setUsers(filteredUsers);
       } catch (error) {
