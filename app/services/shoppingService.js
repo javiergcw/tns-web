@@ -22,9 +22,9 @@ const getShoppingsByUserId = async (id) => {
       profile: response.profile,
     };
     const shoppings = response.shoppings.map(
-      (shopping) => new ShoppingDTO({ ...shopping, user })
+        (shopping) => new ShoppingDTO({ ...shopping, user })
     );
-    return shoppings;
+    return shoppings; // Devuelve el arreglo de ShoppingDTO
   } catch (error) {
     console.error("Error al obtener las compras por ID de usuario:", error);
     throw error;

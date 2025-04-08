@@ -53,6 +53,15 @@ class AccountTypeDTO { // Nueva clase para manejar 'account_type'
   }
 }
 
+// Nueva clase para manejar los archivos
+class ShoppingFileDTO {
+  constructor({ id, file_url, file_type }) {
+    this.id = id;
+    this.file_url = file_url;
+    this.file_type = file_type;
+  }
+}
+
 class ShoppingDTO {
   constructor({
     id,
@@ -77,6 +86,7 @@ class ShoppingDTO {
     account_type,
     total,
     subtotal,
+    shopping_files,
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -106,6 +116,11 @@ class ShoppingDTO {
     // Conversión de total y subtotal a número
     this.total = parseFloat(total) || 0;
     this.subtotal = parseFloat(subtotal) || 0;
+
+    // Agregar shopping_files como un arreglo de ShoppingFileDTO
+    this.shopping_files = Array.isArray(shopping_files)
+        ? shopping_files.map((file) => new ShoppingFileDTO(file))
+        : [];
   }
 }
 

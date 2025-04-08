@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEye, faCommentDots, faFileUpload, faFilePdf, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye, faCommentDots, faFileUpload } from "@fortawesome/free-solid-svg-icons";
 import Table from "@/app/components/others/table/table";
 import Text from "@/app/components/others/text/text";
 import CustomComponent from "../product-detail/purchase_detail";
 import MessageCard from "@/app/components/messages/messagesCard";
 import { getProfileById } from "@/app/services/profileService";
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 import { IoClose } from "react-icons/io5";
 
 const ShoppingTable = ({ userId }) => {
@@ -34,7 +34,6 @@ const ShoppingTable = ({ userId }) => {
   const [selectedShoppingForInvoice, setSelectedShoppingForInvoice] = useState(null);
   const [invoiceUrl, setInvoiceUrl] = useState("");
 
-  // Nuevos estados para el manejo de archivos
   const [isFilesModalOpen, setIsFilesModalOpen] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedFileToView, setSelectedFileToView] = useState(null);
@@ -43,10 +42,16 @@ const ShoppingTable = ({ userId }) => {
 
   const fetchShoppings = async () => {
     try {
+      console.log("userId usado:", localStorage.getItem("userId")); // Depuración
       const fetchedShoppings = await getShoppingsByUserId(localStorage.getItem("userId"));
+      console.log("Datos obtenidos de getShoppingsByUserId:", fetchedShoppings);
+      if (!Array.isArray(fetchedShoppings)) {
+        throw new Error("La respuesta no es un arreglo de compras");
+      }
       const sortedShoppings = fetchedShoppings.sort(
           (a, b) => new Date(b.request_date) - new Date(a.request_date)
       );
+      console.log("Compras ordenadas:", sortedShoppings);
       setShoppings(sortedShoppings);
       setFilteredShoppings(sortedShoppings);
 
@@ -74,6 +79,7 @@ const ShoppingTable = ({ userId }) => {
       setStatusOptions(combinedStatuses);
     } catch (error) {
       setError(error.message);
+      console.error("Error en fetchShoppings:", error);
     } finally {
       setLoading(false);
     }
@@ -226,9 +232,18 @@ const ShoppingTable = ({ userId }) => {
     );
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Compras");
-    worksheet['!cols'] = [
-      { wpx: 50 }, { wpx: 200 }, { wpx: 300 }, { wpx: 200 }, { wpx: 150 },
-      { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 100 }, { wpx: 100 }, { wpx: 200 }
+    worksheet["!cols"] = [
+      { wpx: 50 },
+      { wpx: 200 },
+      { wpx: 300 },
+      { wpx: 200 },
+      { wpx: 150 },
+      { wpx: 150 },
+      { wpx: 150 },
+      { wpx: 150 },
+      { wpx: 100 },
+      { wpx: 100 },
+      { wpx: 200 },
     ];
     XLSX.writeFile(workbook, "compras_usuario.xlsx");
   };
@@ -292,8 +307,8 @@ const ShoppingTable = ({ userId }) => {
     }
   };
 
-  // Nuevas funciones para manejo de archivos
   const handleOpenFilesModal = (files, shoppingId) => {
+    console.log("Archivos pasados a handleOpenFilesModal:", files);
     setSelectedFiles(files || []);
     setSelectedShoppingIdForFiles(shoppingId);
     setIsFilesModalOpen(true);
@@ -317,32 +332,62 @@ const ShoppingTable = ({ userId }) => {
   const getFileIcon = (fileType) => {
     if (fileType.includes("pdf")) {
       return (
-          <svg className="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/>
+          <svg
+              className="w-6 h-6 text-red-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z" />
           </svg>
       );
     } else if (fileType.includes("image")) {
       return (
-          <svg className="w-6 h-6 text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 10l-4-4-4 4h8z"/>
+          <svg
+              className="w-6 h-6 text-blue-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+          >
+            <path d="M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 10l-4-4-4 4h8z" />
           </svg>
       );
     } else if (fileType.includes("spreadsheetml") || fileType.includes("excel")) {
       return (
-          <svg className="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM9 12l2 2-2 2h3v2H7v-2l2-2-2-2v-2h5v2H9z"/>
+          <svg
+              className="w-6 h-6 text-green-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM9 12l2 2-2 2h3v2H7v-2l2-2-2-2v-2h5v2H9z" />
           </svg>
       );
     } else if (fileType.includes("wordprocessingml") || fileType.includes("msword")) {
       return (
-          <svg className="w-6 h-6 text-blue-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM7 12h2l2 3 2-6h2v10h-2v-6l-2 3-2-3v6H7v-10z"/>
+          <svg
+              className="w-6 h-6 text-blue-700"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM7 12h2l2 3 2-6h2v10h-2v-6l-2 3-2-3v6H7v-10z" />
           </svg>
       );
     } else {
       return (
-          <svg className="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z"/>
+          <svg
+              className="w-6 h-6 text-gray-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z" />
           </svg>
       );
     }
@@ -375,6 +420,7 @@ const ShoppingTable = ({ userId }) => {
       }
 
       const updatedShopping = await response.json();
+      console.log("Respuesta de subida de archivos:", updatedShopping);
       alert("Archivos subidos exitosamente");
 
       const updatedShoppings = shoppings.map((item) =>
@@ -613,7 +659,9 @@ const ShoppingTable = ({ userId }) => {
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
+                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+                  Detalle de la compra
+                </h2>
                 <CustomComponent shoppingId={selectedShoppingId} />
                 <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
                 <button
@@ -649,7 +697,9 @@ const ShoppingTable = ({ userId }) => {
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+                  Añadir Mensaje
+                </h2>
                 <input
                     type="text"
                     placeholder="Escribe tu mensaje aquí"
@@ -676,7 +726,9 @@ const ShoppingTable = ({ userId }) => {
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir URL de Factura</h2>
+                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+                  Añadir URL de Factura
+                </h2>
                 <input
                     type="text"
                     placeholder="URL de factura"
@@ -694,7 +746,6 @@ const ShoppingTable = ({ userId }) => {
             </div>
         )}
 
-        {/* Modal para mostrar todos los archivos */}
         {isFilesModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/2 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
@@ -704,7 +755,9 @@ const ShoppingTable = ({ userId }) => {
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Archivos Subidos</h2>
+                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">
+                  Archivos Subidos
+                </h2>
                 {selectedFiles.length > 0 ? (
                     <ul className="space-y-2">
                       {selectedFiles.map((file, index) => (
@@ -766,7 +819,6 @@ const ShoppingTable = ({ userId }) => {
             </div>
         )}
 
-        {/* Modal para visualizar un archivo */}
         {isFileViewModalOpen && selectedFileToView && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl relative">
@@ -776,33 +828,32 @@ const ShoppingTable = ({ userId }) => {
                 >
                   <IoClose />
                 </button>
-                {selectedFileToView.file_type.includes("pdf") || selectedFileToView.file_url.toLowerCase().endsWith(".pdf") ? (
+                {selectedFileToView.file_type.includes("pdf") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".pdf") ? (
                     <iframe
                         src={selectedFileToView.file_url}
                         className="w-full h-[600px] border-0"
                         title="Archivo PDF"
                     ></iframe>
-                ) : (
-                    selectedFileToView.file_type.includes("image") ||
-                    selectedFileToView.file_url.toLowerCase().endsWith(".jpg") ||
-                    selectedFileToView.file_url.toLowerCase().endsWith(".jpeg") ||
-                    selectedFileToView.file_url.toLowerCase().endsWith(".png")
-                ) ? (
+                ) : selectedFileToView.file_type.includes("image") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".jpg") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".jpeg") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".png") ? (
                     <img
                         src={selectedFileToView.file_url}
                         alt="Archivo de imagen"
                         className="w-full h-auto max-h-[600px] object-contain"
                     />
-                ) : (
-                    selectedFileToView.file_type.includes("wordprocessingml") ||
-                    selectedFileToView.file_type.includes("msword") ||
-                    selectedFileToView.file_url.toLowerCase().endsWith(".docx") ||
-                    selectedFileToView.file_type.includes("spreadsheetml") ||
-                    selectedFileToView.file_type.includes("excel") ||
-                    selectedFileToView.file_url.toLowerCase().endsWith(".xlsx")
-                ) ? (
+                ) : selectedFileToView.file_type.includes("wordprocessingml") ||
+                selectedFileToView.file_type.includes("msword") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".docx") ||
+                selectedFileToView.file_type.includes("spreadsheetml") ||
+                selectedFileToView.file_type.includes("excel") ||
+                selectedFileToView.file_url.toLowerCase().endsWith(".xlsx") ? (
                     <iframe
-                        src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedFileToView.file_url)}&embedded=true`}
+                        src={`https://docs.google.com/viewer?url=${encodeURIComponent(
+                            selectedFileToView.file_url
+                        )}&embedded=true`}
                         className="w-full h-[600px] border-0"
                         title="Archivo Office"
                     ></iframe>
