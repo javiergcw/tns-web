@@ -1125,6 +1125,41 @@ const FiltersComponent = () => {
     setNewMessageBody("");
   };
 
+  // Nueva función para descargar el PDF
+  const handleDownloadPDF = async (shoppingId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+          `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/download_pdf`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al descargar el PDF");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `orden_de_compra_${shoppingId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      setSuccessMessage("PDF descargado con éxito");
+    } catch (error) {
+      console.error("Error downloading PDF:", error);
+      setSuccessMessage("Error al descargar el PDF");
+    }
+  };
+
   const handleViewInvoice = (invoiceUrl) => {
     window.open(invoiceUrl, "_blank");
   };
@@ -1394,29 +1429,56 @@ const FiltersComponent = () => {
                         </td>
                         <td className="px-6 py-4 text-center border border-gray-300">
                           <div className="flex items-center space-x-2">
-                            {/* Botón para ver la lista de archivos (siempre visible) */}
-                            <button
-                                onClick={() => handleOpenFilesModal(shopping.shopping_files, shopping.id)}
-                                className="text-gray-500 hover:text-gray-700"
-                            >
-                              <svg
-                                  className="w-6 h-6 text-gray-500 dark:text-white"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
+                            {/* Contenedor para los iconos de lista y descarga */}
+                            <div className="flex items-center space-x-2">
+                              {/* Botón para ver la lista de archivos */}
+                              <button
+                                  onClick={() => handleOpenFilesModal(shopping.shopping_files, shopping.id)}
+                                  className="text-gray-500 hover:text-gray-700"
                               >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M10 3v4a1 1 0 0 1-1 1H5m8-2h3m-3 3h3m-4 3v6m4-3H8M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 12v6h8v-6H8Z"
-                                />
-                              </svg>
-                            </button>
+                                <svg
+                                    className="w-6 h-6 text-gray-500 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                  <path
+                                      stroke="currentColor"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      d="M10 3v4a1 1 0 0 1-1 1H5m8-2h3m-3 3h3m-4 3v6m4-3H8M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 12v6h8v-6H8Z"
+                                  />
+                                </svg>
+                              </button>
+
+                              {/* Botón de descarga */}
+                              <button
+                                  onClick={() => handleDownloadPDF(shopping.id)}
+                                  className="text-gray-500 hover:text-gray-700"
+                              >
+                                <svg
+                                    className="w-6 h-6 text-blue-500" // Cambié el color a azul para distinguirlo
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                  <path
+                                      stroke="currentColor"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      d="M5 12V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4m5-13v4a1 1 0 0 1-1 1H5m0 6h9m0 0-2-2m2 2-2 2"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
 
                             {/* Botones para admin, Compras o Developer */}
                             {(role === "admin" || role === "Compras" || role === "Developer") && (
@@ -1456,7 +1518,8 @@ const FiltersComponent = () => {
                                           fill="currentColor"
                                           viewBox="0 0 24 24"
                                       >
-                                        <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                        <path
+                                            d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
                                       </svg>
                                   ) : priorityStates[shopping.id] === 1 ? (
                                       <svg
@@ -1469,7 +1532,8 @@ const FiltersComponent = () => {
                                           fill="currentColor"
                                           viewBox="0 0 24 24"
                                       >
-                                        <path d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
+                                        <path
+                                            d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216 .655.32Z"/>
                                       </svg>
                                   ) : priorityStates[shopping.id] === 2 ? (
                                       <svg
@@ -1482,7 +1546,8 @@ const FiltersComponent = () => {
                                           fill="none"
                                           viewBox="0 0 24 24"
                                       >
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
                                       </svg>
                                   ) : (
                                       <span>Estado desconocido</span>
@@ -1535,7 +1600,8 @@ const FiltersComponent = () => {
 
         {isModalOpen && selectedShopping && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
-              <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative">
+              <div
+                  className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative">
                 <button
                     className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
                     onClick={handleCloseModal}
@@ -1543,7 +1609,7 @@ const FiltersComponent = () => {
                   X
                 </button>
                 <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
-                <CustomComponent shoppingId={selectedShoppingId} />
+                <CustomComponent shoppingId={selectedShoppingId}/>
                 <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
                 {(role === "admin" || role === "Developer" || role === "Compras") && (
                     <button
@@ -1556,7 +1622,7 @@ const FiltersComponent = () => {
                 <div className="mt-6 flex text-black space-x-4 overflow-x-auto py-2 px-2">
                   {messages.slice().reverse().map((message) => (
                       <div key={message.id} className="relative flex-shrink-0 w-auto">
-                        <MessageCard message={message} />
+                        <MessageCard message={message}/>
                         {(role === "admin" || role === "Developer") && (
                             <FontAwesomeIcon
                                 icon={faTrash}
