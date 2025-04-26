@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import ReactDOM from "react-dom";
 import { getShoppingsByUserId } from "@/app/services/shoppingService";
 import { getMessagesByShoppingId, createMessage, deleteMessage } from "@/app/services/messagesService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,8 @@ import MessageCard from "@/app/components/messages/messagesCard";
 import { getProfileById } from "@/app/services/profileService";
 import * as XLSX from "xlsx";
 import { IoClose } from "react-icons/io5";
+import { generatePDF } from "@/app/utils/pdfGenerator";
+import { OrderPDF } from "@/app/components/OrderPDF";
 
 const ShoppingTable = ({ userId }) => {
   const [shoppings, setShoppings] = useState([]);
@@ -39,6 +42,9 @@ const ShoppingTable = ({ userId }) => {
   const [selectedFileToView, setSelectedFileToView] = useState(null);
   const [isFileViewModalOpen, setIsFileViewModalOpen] = useState(false);
   const [selectedShoppingIdForFiles, setSelectedShoppingIdForFiles] = useState(null);
+
+  // Nuevo estado para manejar el mensaje de éxito o error
+  const [successMessage, setSuccessMessage] = useState("");
 
   const fetchShoppings = async () => {
     try {
@@ -108,6 +114,16 @@ const ShoppingTable = ({ userId }) => {
   useEffect(() => {
     filterShoppings();
   }, [itemFilter, statusFilter, shoppings]);
+
+  // Efecto para limpiar el mensaje de éxito o error después de 3 segundos
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   const filterShoppings = () => {
     let filtered = shoppings;
@@ -474,6 +490,81 @@ const ShoppingTable = ({ userId }) => {
     }
   };
 
+  // Función para descargar el PDF
+  const handleGeneratePDF = async (shoppingId) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No se encontró el token de autenticación");
+      }
+  
+      const response = await fetch(
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos del PDF");
+      }
+  
+      const data = await response.json();
+  
+      // Transformar la respuesta de show para coincidir con OrderPDF
+      const transformedData = {
+        id: data.id,
+        encargado: data.user?.profile?.name || "Sin nombre",
+        area: data.area?.name || "N/A",
+        numero_orden: data.id ? String(data.id).padStart(3, "0") : "N/A",
+        fecha: new Date().toLocaleDateString("es-ES", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }).replace("April", "Abril"),
+        subtotal: data.subtotal || 0,
+        iva: data.iva || 0,
+        retefuente: data.retefuente || 0, // Aseguramos que retefuente esté incluido
+        total: data.total || 0,
+        cuenta_gastos: data.account_type?.name || "N/A",
+        titulo: data.title || "Sin título",
+        description: data.description || "N/A",
+        unidad: data.unidad || "N/A",
+        productos: data.products
+          ? data.products.map((product) => ({
+              nombre: product.name,
+              descripcion: product.description || "N/A",
+              precio: product.price,
+              cantidad: product.quantity || 1,
+              unidad: product.unidad || data.unidad || "N/A",
+            }))
+          : [],
+      };
+  
+      const container = document.createElement("div");
+      container.style.position = "fixed";
+      container.style.top = "-9999px";
+      document.body.appendChild(container);
+  
+      const root = ReactDOM.createRoot(container);
+  
+      await new Promise((resolve) => {
+        root.render(<OrderPDF order={transformedData} onReady={resolve} />);
+      });
+  
+      await generatePDF("pdf-content", `orden_${transformedData.numero_orden}.pdf`);
+      container.remove();
+      setSuccessMessage("PDF generado con éxito");
+    } catch (error) {
+      console.error("Error generando PDF:", error);
+      setSuccessMessage("Error al generar el PDF");
+    }
+  };
+
+  // Columnas de la tabla
   const columns = [
     "ID",
     "TITULO",
@@ -550,6 +641,29 @@ const ShoppingTable = ({ userId }) => {
                     />
                   </svg>
                 </button>
+                 {/* Botón de descarga */}
+                 <button
+                    onClick={() => handleGeneratePDF(shopping.id)}
+                    className="text-gray-500 hover:text-gray-700"
+                >
+                  <svg
+                      className="w-6 h-6 text-blue-500"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                  >
+                    <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 12V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4m5-13v4a1 1 0 0 1-1 1H5m0 6h9m0 0-2-2m2 2-2 2"
+                    />
+                  </svg>
+                </button>
                 {(role === "admin" || role === "Compras" || role === "Developer") && (
                     (!shopping.shopping_files || shopping.shopping_files.length === 0) && (
                         <label className="cursor-pointer">
@@ -589,6 +703,18 @@ const ShoppingTable = ({ userId }) => {
   return (
       <div className="container mx-auto p-4">
         <Text texto="Compras" color="blue-secondary" type="header" />
+        {/* Mostrar el mensaje de éxito o error */}
+        {successMessage && (
+          <div
+            className={`p-2 mb-4 text-center rounded ${
+              successMessage.includes("Error")
+                ? "bg-red-100 text-red-700"
+                : "bg-green-100 text-green-700"
+            }`}
+          >
+            {successMessage}
+          </div>
+        )}
         <div className="mb-4">
           <h2 className="text-lg text-black font-semibold mb-4">Nombre del título</h2>
           <div className="flex flex-col sm:flex-row gap-2">

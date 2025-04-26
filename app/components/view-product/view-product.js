@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getAllShoppings, deleteShoppingById, uploadInvoice } from "@/app/services/shoppingService";
 import { getStatuses } from "@/app/services/statusService";
@@ -14,6 +15,8 @@ import { getAllAreas } from "@/app/services/areaService";
 import { getAllAccountTypes } from "@/app/services/accountTypeService";
 import * as XLSX from 'xlsx';
 import { IoClose } from "react-icons/io5";
+import { generatePDF } from "@/app/utils/pdfGenerator";
+import { OrderPDF } from "@/app/components/OrderPDF";
 
 const fetchData = async () => {
   try {
@@ -1126,37 +1129,75 @@ const FiltersComponent = () => {
   };
 
   // Nueva función para descargar el PDF
-  const handleDownloadPDF = async (shoppingId) => {
+  const handleGeneratePDF = async (shoppingId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-          `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}/download_pdf`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error al descargar el PDF");
+      if (!token) {
+        throw new Error("No se encontró el token de autenticación");
       }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `orden_de_compra_${shoppingId}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-
-      setSuccessMessage("PDF descargado con éxito");
+  
+      const response = await fetch(
+        `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${shoppingId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos del PDF");
+      }
+  
+      const data = await response.json();
+  
+      // Transformar la respuesta de show para coincidir con OrderPDF
+      const transformedData = {
+        id: data.id,
+        encargado: data.user?.profile?.name || "Sin nombre",
+        area: data.area?.name || "N/A",
+        numero_orden: data.id ? String(data.id).padStart(3, "0") : "N/A",
+        fecha: new Date().toLocaleDateString("es-ES", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }).replace("April", "Abril"),
+        subtotal: data.subtotal || 0,
+        iva: data.iva || 0,
+        total: data.total || 0,
+        cuenta_gastos: data.account_type?.name || "N/A",
+        titulo: data.title || "Sin título",
+        description: data.description || "N/A",
+        unidad: data.unidad || "N/A",
+        productos: data.products
+          ? data.products.map((product) => ({
+              nombre: product.name,
+              descripcion: product.description || "N/A",
+              precio: product.price,
+              cantidad: product.quantity || 1,
+              unidad: product.unidad || data.unidad || "N/A",
+            }))
+          : [],
+      };
+  
+      const container = document.createElement("div");
+      container.style.position = "fixed";
+      container.style.top = "-9999px";
+      document.body.appendChild(container);
+  
+      const root = ReactDOM.createRoot(container);
+  
+      await new Promise((resolve) => {
+        root.render(<OrderPDF order={transformedData} onReady={resolve} />);
+      });
+  
+      await generatePDF("pdf-content", `orden_${transformedData.numero_orden}.pdf`);
+      container.remove();
+      setSuccessMessage("PDF generado con éxito");
     } catch (error) {
-      console.error("Error downloading PDF:", error);
-      setSuccessMessage("Error al descargar el PDF");
+      console.error("Error generando PDF:", error);
+      setSuccessMessage("Error al generar el PDF");
     }
   };
 
@@ -1457,7 +1498,7 @@ const FiltersComponent = () => {
 
                               {/* Botón de descarga */}
                               <button
-                                  onClick={() => handleDownloadPDF(shopping.id)}
+                                  onClick={() => handleGeneratePDF(shopping.id)}
                                   className="text-gray-500 hover:text-gray-700"
                               >
                                 <svg
