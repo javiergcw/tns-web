@@ -145,6 +145,10 @@ const data = [
   {
     name: "N°36 Modelo ONU Manizales ",
     link: "https://drive.google.com/file/d/1bl1wvGRY3iGW-sU4y77hprxiZy6ABXBj/view?usp=sharing",
+  },
+  {
+    name: "N°37 Día del Niño 2025 ",
+    link: "https://drive.google.com/file/d/17_BNadu1PXoxCltEnpJxOjodbl-AJDqt/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
