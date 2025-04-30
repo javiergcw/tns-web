@@ -111,7 +111,7 @@ export const OrderPDF = ({ order, onReady }) => {
                 </td>
                 <td className="p-3 border border-blue-200 text-gray-500">1</td>
                 <td className="p-3 border border-blue-200 text-gray-500">
-                  ${parseFloat(order.total || 0).toFixed(2)}
+                  ${parseFloat(order.subtotal || 0).toFixed(2)}
                 </td>
                 <td className="p-3 border border-blue-200 text-gray-500">
                   ${parseFloat(order.subtotal || 0).toFixed(2)}
