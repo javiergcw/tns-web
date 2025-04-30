@@ -64,9 +64,6 @@ export const OrderPDF = ({ order, onReady }) => {
                 Descripción
               </th>
               <th className="p-3 border border-blue-200 text-left font-semibold">
-                Unidad
-              </th>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
                 Cantidad
               </th>
               <th className="p-3 border border-blue-200 text-left font-semibold">
@@ -91,9 +88,6 @@ export const OrderPDF = ({ order, onReady }) => {
                     {prod.descripcion || "N/A"}
                   </td>
                   <td className="p-3 border border-blue-200 text-gray-500">
-                    {prod.unidad || order.unidad || "N/A"}
-                  </td>
-                  <td className="p-3 border border-blue-200 text-gray-500">
                     {prod.cantidad || 1}
                   </td>
                   <td className="p-3 border border-blue-200 text-gray-500">
@@ -115,12 +109,9 @@ export const OrderPDF = ({ order, onReady }) => {
                 <td className="p-3 border border-blue-200 text-gray-500">
                   {order.description || "N/A"}
                 </td>
-                <td className="p-3 border border-blue-200 text-gray-500">
-                  {order.unidad || "N/A"}
-                </td>
                 <td className="p-3 border border-blue-200 text-gray-500">1</td>
                 <td className="p-3 border border-blue-200 text-gray-500">
-                  ${parseFloat(order.subtotal || 0).toFixed(2)}
+                  ${parseFloat(order.total || 0).toFixed(2)}
                 </td>
                 <td className="p-3 border border-blue-200 text-gray-500">
                   ${parseFloat(order.subtotal || 0).toFixed(2)}
