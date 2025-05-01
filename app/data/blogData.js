@@ -2,6 +2,110 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "2025-04-30",
+        imageUrl: ImagesPath.blog31,
+        title: "Entre Comidas y Decisiones Construyendo Habitos que Dejan Huella",
+        body: `
+    <p>En nuestra Escuela de Padres de abril, tuvimos el privilegio de recibir a la nutricionista dietista Ángela Sampedro, especialista en neuropsicología pedagógica, quien impartió la charla “Entre comidas y decisiones: construyendo hábitos que dejan huella”. Esta actividad nos invitó a reflexionar sobre el rol clave de los adultos en la formación de hábitos alimentarios saludables en nuestros hijos.</p>
+    <br>
+    <p>La alimentación no es solo una necesidad fisiológica, sino una poderosa herramienta educativa que moldea la salud física, mental y emocional de los adolescentes.</p>
+    <br>
+    <div>
+    </div>
+    <br>
+    <p class="text-xl"><b>Alimentarse bien es pensar mejor</b></p>
+    <br>
+    <p>Durante la adolescencia, el cerebro experimenta una alta plasticidad, siendo moldeable y ágil para aprender, pero también vulnerable. El córtex prefrontal, encargado del juicio crítico, la planificación y el control de impulsos, se desarrolla hasta los 25 o 30 años. Por ello, las decisiones de los jóvenes suelen ser impulsivas y buscan gratificación inmediata.</p>
+    <br>
+    <p>Una dieta equilibrada, rica en vitaminas y minerales, favorece la producción de neurotransmisores esenciales, mejorando la concentración, la estabilidad emocional y el rendimiento académico, con beneficios que perduran a largo plazo.</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-b.png" alt="alimentación saludable" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>¿Qué podemos hacer como adultos?</b></p>
+    <br>
+    <p>Como adultos, a menudo respondemos a las peticiones de comida de nuestros hijos con opciones rápidas y accesibles, sin considerar su impacto a largo plazo. El verdadero desafío no es prohibir alimentos, sino educar para tomar decisiones conscientes, modelando con nuestro ejemplo y acciones consistentes.</p>
+    <br>
+    <p>Preguntémonos: ¿cuándo fue la última vez que nuestros hijos nos pidieron comida? ¿Qué les dimos? Enseñarles a elegir más allá de la tentación inmediata es clave para su desarrollo.</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-c.png" alt="educación alimentaria" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Cinco claves para mejorar los hábitos alimenticios</b></p>
+    <br>
+    <p><b>1. Regularidad y estructura en los horarios:</b> Comer a horas fijas ayuda al cerebro a establecer límites y fomenta conductas más eficientes, evitando el picoteo constante.</p>
+    <p><b>2. Composición equilibrada del plato:</b> Basados en el Plato Saludable de Harvard, promovemos que la mitad del plato sean frutas y verduras, un cuarto cereales integrales y un cuarto proteínas, para un aporte balanceado de nutrientes.</p>
+    <p><b>3. Reducción de ultraprocesados y azúcares:</b> Enseñar la diferencia entre alimentos procesados y ultraprocesados ayuda a tomar decisiones informadas, valorando sabores y texturas naturales.</p>
+    <p><b>4. Aumentar fibra y agua:</b> Consumir frutas, verduras, cereales integrales y agua mejora la digestión, hidratación y el metabolismo.</p>
+    <p><b>5. Alimentación consciente:</b> Comer en familia, sin pantallas, y preparar comidas juntos fortalece vínculos y empodera a los adolescentes en su relación con la comida.</p>
+    <br>
+    <p class="text-xl"><b>Escuela, familia y coherencia</b></p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-d.png" alt="comida consciente" style="max-width: 70%; height: auto;">
+    </div>
+    
+    
+    <br>
+    <p>En nuestro colegio, fomentamos hábitos saludables a través de nuestra política de vida saludable, el programa Cosmolab, proyectos en la huerta y opciones nutritivas en las tiendas escolares. Sin embargo, este esfuerzo requiere el apoyo desde casa.</p>
+    <br>
+    <p>Revisar lo que compramos, cocinamos y enviamos en las loncheras es fundamental para consolidar un trabajo en equipo entre familia y escuela. Entre comidas y decisiones, formamos el carácter y el bienestar de nuestros jóvenes.</p>
+    <br>
+    <p>-------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <p class="text-xl">Between Meals and Decisions: Building Habits That Leave a Mark</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-a.jpg" alt="eating habits" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>At our April Parents’ School, we had the privilege of welcoming nutritionist-dietitian Ángela Sampedro, a specialist in pedagogical neuropsychology, who delivered the talk “Between Meals and Decisions: Building Habits That Leave a Mark.” This session invited us to reflect on the critical role adults play in shaping healthy eating habits in our children.</p>
+    <br>
+    <p>Nutrition is more than a physiological need—it’s a powerful educational tool that shapes the physical, mental, and emotional health of teenagers.</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-b.png" alt="healthy eating" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Eating well is thinking better</b></p>
+    <br>
+    <p>During adolescence, the brain undergoes a period of high plasticity, being moldable and quick to learn but also vulnerable. The prefrontal cortex, responsible for critical thinking, planning, and impulse control, continues developing until age 25 or 30. This explains why young people’s decisions are often impulsive and seek instant gratification.</p>
+    <br>
+    <p>A balanced diet rich in vitamins and minerals supports the production of essential neurotransmitters, enhancing concentration, emotional stability, and academic performance, with long-term health benefits.</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-c.png" alt="nutrition education" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>What can we do as adults?</b></p>
+    <br>
+    <p>As adults, we often respond to our children’s food requests with quick, convenient options, overlooking their long-term health impact. The real challenge is not restricting foods but educating for conscious choices, modeling through our example and consistent actions.</p>
+    <br>
+    <p>Let’s ask ourselves: When did our children last ask for food? What did we give them? Teaching them to choose beyond momentary temptations is key to their development.</p>
+    <br>
+    <div>
+         <img src="/images/blogs/blog-31-d.png" alt="mindful eating" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Five keys to improving eating habits</b></p>
+    <br>
+    <p><b>1. Regularity and structure in mealtimes:</b> Eating at set times helps the brain establish boundaries and promotes efficient behavior, preventing constant snacking.</p>
+    <p><b>2. Balanced plate composition:</b> Inspired by Harvard’s Healthy Eating Plate, we promote meals where half the plate is fruits and vegetables, one quarter whole grains, and one quarter protein, ensuring balanced energy and nutrients.</p>
+    <p><b>3. Reduction of ultra-processed foods and sugars:</b> Teaching the difference between processed and ultra-processed foods fosters informed choices, appreciating natural flavors and textures.</p>
+    <p><b>4. Increased fiber and water intake:</b> Consuming fruits, vegetables, whole grains, and water improves digestion, hydration, and metabolic function.</p>
+    <p><b>5. Mindful eating:</b> Sharing meals without screens and involving teens in meal preparation strengthens bonds and empowers them in their relationship with food.</p>
+    <br>
+    <p class="text-xl"><b>School, family, and coherence</b></p>
+    <br>
+    <p>At our school, we foster healthy habits through our healthy lifestyle policy, Cosmolab program, school garden projects, and nutritious offerings in our school stores. However, this effort requires support from home.</p>
+    <br>
+    <p>Reviewing what we buy, cook, and pack in lunchboxes is essential to solidify teamwork between family and school. Between meals and decisions, we shape the character and well-being of our youth.</p>
+    `,
+        banner: true,
+    },
+    {
         date: "2025-03-31",
         imageUrl: ImagesPath.blog30,
         title: "Lombricultura Una Solucion Natural para el Cuidado del Medio Ambiente",

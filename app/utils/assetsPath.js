@@ -113,6 +113,7 @@ export const ImagesPath = {
   blog28: "/images/blogs_body/Art-Sporti_ene.jpg",
   blog29: "/images/blogs/blog-29-a.png",
   blog30: "/images/blogs/blog-30-a.png",
+  blog31: "/images/blogs/blog-31-a.jpg",
 
   YSVQujq: "https://i.imgur.com/YSVQujq.png",
   iWdkbXY: "https://i.imgur.com/iWdkbXY.png",
