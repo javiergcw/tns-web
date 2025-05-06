@@ -1,6 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 
+// Función para formatear los montos con separador de miles
+const formatCurrency = (value) => {
+  return isNaN(value)
+    ? "0"
+    : parseFloat(value).toLocaleString("es-CO", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+};
+
 export const OrderPDF = ({ order, onReady }) => {
   useEffect(() => {
     if (onReady) onReady();
@@ -22,8 +32,8 @@ export const OrderPDF = ({ order, onReady }) => {
       />
 
       {/* Título */}
-      <div className="text-center mt-6 mb-4">
-        <h1 className="text-2xl font-bold text-gray-500 uppercase mb-12">
+      <div className="mt-6 mb-4 text-center">
+        <h1 className="mb-12 text-2xl font-bold text-gray-500 uppercase">
           Orden de Compra
         </h1>
       </div>
@@ -54,22 +64,22 @@ export const OrderPDF = ({ order, onReady }) => {
 
       {/* Tabla de Productos */}
       <div className="px-8 mb-6">
-        <table className="w-full border-collapse text-xs">
-          <thead className="bg-white text-gray-500">
+        <table className="w-full text-xs border-collapse">
+          <thead className="text-gray-500 bg-white">
             <tr>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
+              <th className="p-3 font-semibold text-left border border-blue-200">
                 Concepto
               </th>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
+              <th className="p-3 font-semibold text-left border border-blue-200">
                 Descripción
               </th>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
+              <th className="p-3 font-semibold text-left border border-blue-200">
                 Cantidad
               </th>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
+              <th className="p-3 font-semibold text-left border border-blue-200">
                 Valor unitario
               </th>
-              <th className="p-3 border border-blue-200 text-left font-semibold">
+              <th className="p-3 font-semibold text-left border border-blue-200">
                 Total (sin IVA)
               </th>
             </tr>
@@ -81,40 +91,37 @@ export const OrderPDF = ({ order, onReady }) => {
                   key={idx}
                   className={idx % 2 === 0 ? "bg-white" : "bg-blue-50"}
                 >
-                  <td className="p-3 border border-blue-200 text-gray-500">
+                  <td className="p-3 text-gray-500 border border-blue-200">
                     {prod.nombre || "N/A"}
                   </td>
-                  <td className="p-3 border border-blue-200 text-gray-500">
+                  <td className="p-3 text-gray-500 border border-blue-200">
                     {prod.descripcion || "N/A"}
                   </td>
-                  <td className="p-3 border border-blue-200 text-gray-500">
+                  <td className="p-3 text-gray-500 border border-blue-200">
                     {prod.cantidad || 1}
                   </td>
-                  <td className="p-3 border border-blue-200 text-gray-500">
-                    ${parseFloat(prod.precio || 0).toFixed(2)}
+                  <td className="p-3 text-gray-500 border border-blue-200">
+                    ${formatCurrency(prod.precio || 0)}
                   </td>
-                  <td className="p-3 border border-blue-200 text-gray-500">
-                    $
-                    {parseFloat((prod.precio || 0) * (prod.cantidad || 1)).toFixed(
-                      2
-                    )}
+                  <td className="p-3 text-gray-500 border border-blue-200">
+                    ${formatCurrency((prod.precio || 0) * (prod.cantidad || 1))}
                   </td>
                 </tr>
               ))
             ) : (
               <tr className="bg-white">
-                <td className="p-3 border border-blue-200 text-gray-500">
+                <td className="p-3 text-gray-500 border border-blue-200">
                   {order.titulo || "N/A"}
                 </td>
-                <td className="p-3 border border-blue-200 text-gray-500">
+                <td className="p-3 text-gray-500 border border-blue-200">
                   {order.description || "N/A"}
                 </td>
-                <td className="p-3 border border-blue-200 text-gray-500">1</td>
-                <td className="p-3 border border-blue-200 text-gray-500">
-                  ${parseFloat(order.subtotal || 0).toFixed(2)}
+                <td className="p-3 text-gray-500 border border-blue-200">1</td>
+                <td className="p-3 text-gray-500 border border-blue-200">
+                  ${formatCurrency(order.subtotal || 0)}
                 </td>
-                <td className="p-3 border border-blue-200 text-gray-500">
-                  ${parseFloat(order.subtotal || 0).toFixed(2)}
+                <td className="p-3 text-gray-500 border border-blue-200">
+                  ${formatCurrency(order.subtotal || 0)}
                 </td>
               </tr>
             )}
@@ -122,8 +129,8 @@ export const OrderPDF = ({ order, onReady }) => {
         </table>
       </div>
 
-       {/* Totales y Cuenta */}
-       <div className="px-8 mb-32">
+      {/* Totales y Cuenta */}
+      <div className="px-8 mb-32">
         <p className="mb-3 font-semibold text-gray-500">
           ¿A qué cuenta de gastos va? {order.cuenta_gastos || "N/A"}
         </p>
@@ -131,51 +138,39 @@ export const OrderPDF = ({ order, onReady }) => {
           <p className="font-semibold">
             SUBTOTAL:{" "}
             <span className="text-blue-800">
-              $
-              {isNaN(parseFloat(order.subtotal))
-                ? "0.00"
-                : parseFloat(order.subtotal).toFixed(2)}
+              ${formatCurrency(order.subtotal)}
             </span>
           </p>
           <p className="font-semibold">
             IVA:{" "}
             <span className="text-blue-800">
-              $
-              {isNaN(parseFloat(order.iva))
-                ? "0.00"
-                : parseFloat(order.iva).toFixed(2)}
+              ${formatCurrency(order.iva)}
             </span>
           </p>
           <p className="font-semibold">
             RETEFUENTE:{" "}
             <span className="text-blue-800">
-              $
-              {isNaN(parseFloat(order.retefuente))
-                ? "0.00"
-                : parseFloat(order.retefuente).toFixed(2)}
+              ${formatCurrency(order.retefuente)}
             </span>
           </p>
           <p className="font-semibold">
             TOTAL:{" "}
             <span className="text-blue-800">
-              $
-              {isNaN(parseFloat(order.total))
-                ? "0.00"
-                : parseFloat(order.total).toFixed(2)}
+              ${formatCurrency(order.total)}
             </span>
           </p>
         </div>
       </div>
 
       {/* Firmas */}
-      <div className="grid grid-cols-2 gap-4 text-center px-8 mb-12">
+      <div className="grid grid-cols-2 gap-4 px-8 mb-12 text-center">
         <div>
-          <p className="border-t border-gray-400 mb-2"></p>
+          <p className="mb-2 border-t border-gray-400"></p>
           <p className="text-xs text-gray-600">Ordenado por</p>
           <p>{order.encargado || "N/A"}</p>
         </div>
         <div>
-          <p className="border-t border-gray-400 mb-2"></p>
+          <p className="mb-2 border-t border-gray-400"></p>
           <p className="text-xs text-gray-600">Autorizado por</p>
           <p>Felipe Chavez</p>
         </div>
