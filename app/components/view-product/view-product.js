@@ -1218,21 +1218,21 @@ const FiltersComponent = () => {
   return (
       <div className="app-container">
         <h1>{(role === "admin" || role === "Developer") ? "Compras ADMIN" : "Compras"}</h1>
-        <div className="w-full bg-white p-4 rounded-lg shadow-md mb-6">
-          <h2 className="text-lg font-semibold mb-4 text-black">Nombre de item</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-black">
+        <div className="w-full p-4 mb-6 bg-white rounded-lg shadow-md">
+          <h2 className="mb-4 text-lg font-semibold text-black">Nombre de item</h2>
+          <div className="grid grid-cols-1 gap-4 text-black md:grid-cols-4">
             <input
                 type="text"
                 placeholder="Item"
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
-                className="border border-gray-300 rounded p-2 w-full text-black"
+                className="w-full p-2 text-black border border-gray-300 rounded"
             />
             <select
                 value={areaManager}
                 onChange={(e) => setAreaManager(e.target.value)}
                 ref={areaManagerRef}
-                className="border border-gray-300 rounded p-2 w-full text-black"
+                className="w-full p-2 text-black border border-gray-300 rounded"
             >
               <option value="">Todos los Líderes</option>
               {leaderOptions.map((leader) => (
@@ -1245,7 +1245,7 @@ const FiltersComponent = () => {
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 ref={statusFilterRef}
-                className="border border-gray-300 rounded p-2 w-full text-black"
+                className="w-full p-2 text-black border border-gray-300 rounded"
             >
               <option value="">Todos los Estados</option>
               {statusOptions
@@ -1267,10 +1267,10 @@ const FiltersComponent = () => {
               }
             </select>
             <div className="flex space-x-4">
-              <button onClick={handleFilterReset} className="bg-red-500 text-white p-2 rounded">
+              <button onClick={handleFilterReset} className="p-2 text-white bg-red-500 rounded">
                 <FontAwesomeIcon icon={faTrash} />
               </button>
-              <button onClick={handleDownloadExcel} className="bg-blue-500 text-white p-2 rounded">
+              <button onClick={handleDownloadExcel} className="p-2 text-white bg-blue-500 rounded">
                 Exportar Tabla
               </button>
               {(role === "admin" || role === "Compras") && (
@@ -1304,7 +1304,7 @@ const FiltersComponent = () => {
             </div>
           </div>
         </div>
-        <div className="w-full overflow-x-auto max-w-full">
+        <div className="w-full max-w-full overflow-x-auto">
           <div className="w-full overflow-y-auto max-h-[600px]">
             <table className="shopping-table min-w-[1200px] text-base text-left text-black border border-gray-300">
               <thead className="text-base text-white uppercase bg-blue-500">
@@ -1399,7 +1399,7 @@ const FiltersComponent = () => {
                                     <select
                                         value={newStatusId}
                                         onChange={handleStatusChange}
-                                        className="border border-gray-300 rounded p-1"
+                                        className="p-1 border border-gray-300 rounded"
                                     >
                                       <option value="">Selecciona un estado</option>
                                       {statusOptions
@@ -1416,7 +1416,7 @@ const FiltersComponent = () => {
                                           ))}
                                     </select>
                                     <button
-                                        className="bg-green-500 text-white p-2 rounded"
+                                        className="p-2 text-white bg-green-500 rounded"
                                         onClick={handleSaveClick}
                                     >
                                       Confirmar
@@ -1427,7 +1427,7 @@ const FiltersComponent = () => {
                                     <span>{shopping.status.name}</span>
                                     <FontAwesomeIcon
                                         icon={faEdit}
-                                        className="text-green-500 hover:text-green-700 cursor-pointer"
+                                        className="text-green-500 cursor-pointer hover:text-green-700"
                                         onClick={() => handleEditClick(shopping.id)}
                                     />
                                   </div>
@@ -1551,7 +1551,7 @@ const FiltersComponent = () => {
                                   {priorityStates[shopping.id] === 0 ? (
                                       <svg
                                           onClick={() => handleTogglePriority(shopping.id)}
-                                          className="w-6 h-6 cursor-pointer text-gray-500"
+                                          className="w-6 h-6 text-gray-500 cursor-pointer"
                                           aria-hidden="true"
                                           xmlns="http://www.w3.org/2000/svg"
                                           width="24"
@@ -1565,7 +1565,7 @@ const FiltersComponent = () => {
                                   ) : priorityStates[shopping.id] === 1 ? (
                                       <svg
                                           onClick={() => handleTogglePriority(shopping.id)}
-                                          className="w-6 h-6 cursor-pointer text-red-500"
+                                          className="w-6 h-6 text-red-500 cursor-pointer"
                                           aria-hidden="true"
                                           xmlns="http://www.w3.org/2000/svg"
                                           width="24"
@@ -1579,7 +1579,7 @@ const FiltersComponent = () => {
                                   ) : priorityStates[shopping.id] === 2 ? (
                                       <svg
                                           onClick={() => handleTogglePriority(shopping.id)}
-                                          className="w-6 h-6 cursor-pointer text-green-500"
+                                          className="w-6 h-6 text-green-500 cursor-pointer"
                                           aria-hidden="true"
                                           xmlns="http://www.w3.org/2000/svg"
                                           width="24"
@@ -1598,27 +1598,27 @@ const FiltersComponent = () => {
                             {/* Otras acciones */}
                             <FontAwesomeIcon
                                 icon={faEye}
-                                className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                                className="text-gray-500 cursor-pointer hover:text-gray-700"
                                 onClick={() => handleViewDetailsClick(shopping.id)}
                             />
                             {(role === "admin" || role === "Developer" || role === "Compras") && (
                                 <FontAwesomeIcon
                                     icon={faCommentDots}
-                                    className="text-green-500 hover:text-green-700 cursor-pointer"
+                                    className="text-green-500 cursor-pointer hover:text-green-700"
                                     onClick={() => handleOpenMessageModal(shopping.id)}
                                 />
                             )}
                             {(role === "admin" || role === "Developer") && (
                                 <FontAwesomeIcon
                                     icon={faTrash}
-                                    className="text-red-500 hover:text-red-700 cursor-pointer"
+                                    className="text-red-500 cursor-pointer hover:text-red-700"
                                     onClick={() => openDeleteModal(shopping.id)}
                                 />
                             )}
                             {(role === "admin" || role === "Developer" || role === "Compras") && (
                                 <FontAwesomeIcon
                                     icon={faEdit}
-                                    className="text-green-500 hover:text-green-700 cursor-pointer"
+                                    className="text-green-500 cursor-pointer hover:text-green-700"
                                     onClick={() => handleOpenEditModal(shopping.id)}
                                 />
                             )}
@@ -1634,54 +1634,54 @@ const FiltersComponent = () => {
 
         {/* Mostrar mensaje de éxito */}
         {successMessage && (
-            <div className="fixed top-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg z-50">
+            <div className="fixed z-50 p-3 text-white bg-green-500 rounded shadow-lg top-4 right-4">
               {successMessage}
             </div>
         )}
 
         {isModalOpen && selectedShopping && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-75 lg:p-0">
               <div
                   className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-3/4 max-w-5xl h-auto max-h-[90vh] overflow-y-auto relative">
                 <button
-                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    className="absolute text-xl text-gray-700 top-2 right-2 lg:top-4 lg:right-4 hover:text-gray-900 lg:text-2xl"
                     onClick={handleCloseModal}
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Detalle de la compra</h2>
+                <h2 className="mb-4 text-xl font-bold text-center text-black lg:text-2xl">Detalle de la compra</h2>
                 <CustomComponent shoppingId={selectedShoppingId}/>
-                <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Mensajes</h3>
+                <h3 className="mt-6 mb-4 text-lg font-semibold text-black lg:text-xl">Mensajes</h3>
                 {(role === "admin" || role === "Developer" || role === "Compras") && (
                     <button
-                        className="bg-blue-500 text-white p-2 rounded mb-4"
+                        className="p-2 mb-4 text-white bg-blue-500 rounded"
                         onClick={() => handleOpenMessageModal(selectedShoppingId)}
                     >
                       Añadir Mensaje
                     </button>
                 )}
-                <div className="mt-6 flex text-black space-x-4 overflow-x-auto py-2 px-2">
+                <div className="flex px-2 py-2 mt-6 space-x-4 overflow-x-auto text-black">
                   {messages.slice().reverse().map((message) => (
                       <div key={message.id} className="relative flex-shrink-0 w-auto">
                         <MessageCard message={message}/>
                         {(role === "admin" || role === "Developer") && (
                             <FontAwesomeIcon
                                 icon={faTrash}
-                                className="text-red-500 hover:text-red-700 cursor-pointer absolute top-2 right-2"
+                                className="absolute text-red-500 cursor-pointer hover:text-red-700 top-2 right-2"
                                 onClick={() => handleDeleteMessage(message.id)}
                             />
                         )}
                       </div>
                   ))}
                 </div>
-                <h3 className="text-lg text-black mt-6 lg:text-xl font-semibold mb-4">Factura</h3>
+                <h3 className="mt-6 mb-4 text-lg font-semibold text-black lg:text-xl">Factura</h3>
                 <div className="flex items-center space-x-2">
                   {selectedShopping.facturacion ? (
                       <a
                           href={selectedShopping.facturacion}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-red-500 hover:text-red-700 cursor-pointer"
+                          className="text-red-500 cursor-pointer hover:text-red-700"
                       >
                         <FontAwesomeIcon icon={faFilePdf} />
                       </a>
@@ -1692,12 +1692,12 @@ const FiltersComponent = () => {
                       <>
                         <FontAwesomeIcon
                             icon={faEdit}
-                            className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            className="text-blue-500 cursor-pointer hover:text-blue-700"
                             onClick={() => handleOpenInvoiceModal(selectedShopping.id)}
                         />
                         <FontAwesomeIcon
                             icon={faTrash}
-                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                            className="text-red-500 cursor-pointer hover:text-red-700"
                             onClick={() => handleDeleteInvoice(selectedShopping.id)}
                         />
                       </>
@@ -1708,9 +1708,9 @@ const FiltersComponent = () => {
         )}
         {isPdfModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl relative">
+              <div className="relative w-full max-w-4xl p-5 bg-white rounded-lg shadow-lg">
                 <button
-                    className="absolute top-1 right-1 text-black hover:text-gray-900 text-xl font-bold"
+                    className="absolute text-xl font-bold text-black top-1 right-1 hover:text-gray-900"
                     onClick={closePdfModal}
                 >
                   <IoClose />
@@ -1720,64 +1720,64 @@ const FiltersComponent = () => {
             </div>
         )}
         {isInvoiceModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-75 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
                 <button
-                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    className="absolute text-xl text-gray-700 top-2 right-2 lg:top-4 lg:right-4 hover:text-gray-900 lg:text-2xl"
                     onClick={() => setIsInvoiceModalOpen(false)}
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Subir URL de Factura</h2>
+                <h2 className="mb-4 text-xl font-bold text-center text-black lg:text-2xl">Subir URL de Factura</h2>
                 <input
                     type="text"
                     placeholder="Ingresa la URL de la factura"
                     value={invoiceUrl}
                     onChange={(e) => setInvoiceUrl(e.target.value)}
-                    className="w-full text-black p-2 border border-gray-300 rounded mb-4"
+                    className="w-full p-2 mb-4 text-black border border-gray-300 rounded"
                 />
-                <button className="bg-blue-500 text-white p-2 rounded w-full" onClick={handleSaveInvoiceUrl}>
+                <button className="w-full p-2 text-white bg-blue-500 rounded" onClick={handleSaveInvoiceUrl}>
                   Guardar Factura
                 </button>
               </div>
             </div>
         )}
         {isMessageModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-75 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/3 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
                 <button
-                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    className="absolute text-xl text-gray-700 top-2 right-2 lg:top-4 lg:right-4 hover:text-gray-900 lg:text-2xl"
                     onClick={handleCloseMessageModal}
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Añadir Mensaje</h2>
+                <h2 className="mb-4 text-xl font-bold text-center text-black lg:text-2xl">Añadir Mensaje</h2>
                 <input
                     type="text"
                     placeholder="Escribe tu mensaje aquí"
                     value={newMessageBody}
                     onChange={(e) => setNewMessageBody(e.target.value)}
-                    className="w-full text-black p-2 border border-gray-300 rounded mb-4"
+                    className="w-full p-2 mb-4 text-black border border-gray-300 rounded"
                 />
-                <button className="bg-blue-500 text-white p-2 rounded w-full" onClick={handleAddMessage}>
+                <button className="w-full p-2 text-white bg-blue-500 rounded" onClick={handleAddMessage}>
                   Guardar Mensaje
                 </button>
               </div>
             </div>
         )}
         {isEditModalOpen && selectedShoppingData && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] overflow-y-auto">
                 <button
-                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    className="absolute text-xl text-gray-700 top-2 right-2 lg:top-4 lg:right-4 hover:text-gray-900 lg:text-2xl"
                     onClick={() => setIsEditModalOpen(false)}
                 >
                   X
                 </button>
-                <h2 className="text-2xl font-bold mb-4 text-black">Editar Compra</h2>
+                <h2 className="mb-4 text-2xl font-bold text-black">Editar Compra</h2>
                 <form onSubmit={handleEditSave}>
                   <div className="mb-4">
-                    <label className="block text-black font-medium">
+                    <label className="block font-medium text-black">
                       Título: <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -1786,14 +1786,14 @@ const FiltersComponent = () => {
                         onChange={(e) =>
                             setSelectedShoppingData({ ...selectedShoppingData, title: e.target.value })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                         required
                         onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                         onInput={(e) => e.target.setCustomValidity("")}
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-black font-medium">
+                    <label className="block font-medium text-black">
                       Descripción: <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -1802,14 +1802,14 @@ const FiltersComponent = () => {
                         onChange={(e) =>
                             setSelectedShoppingData({ ...selectedShoppingData, description: e.target.value })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                         required
                         onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                         onInput={(e) => e.target.setCustomValidity("")}
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-black font-medium">
+                    <label className="block font-medium text-black">
                       Área: <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -1820,7 +1820,7 @@ const FiltersComponent = () => {
                               area: areas.find((area) => area.id === parseInt(e.target.value)),
                             })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                         required
                         onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                         onInput={(e) => e.target.setCustomValidity("")}
@@ -1834,7 +1834,7 @@ const FiltersComponent = () => {
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label className="block text-black font-medium">
+                    <label className="block font-medium text-black">
                       Tipo de Cuenta: <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -1845,7 +1845,7 @@ const FiltersComponent = () => {
                               account_type: accountTypes.find((type) => type.id === parseInt(e.target.value)),
                             })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                         required
                         onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                         onInput={(e) => e.target.setCustomValidity("")}
@@ -1859,7 +1859,7 @@ const FiltersComponent = () => {
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label className="block text-black font-medium">
+                    <label className="block font-medium text-black">
                       Líder de Presupuesto: <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -1875,7 +1875,7 @@ const FiltersComponent = () => {
                                 : null,
                           });
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                        className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                         required
                         onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                         onInput={(e) => e.target.setCustomValidity("")}
@@ -1902,7 +1902,7 @@ const FiltersComponent = () => {
                                 subtotal: parseFloat(e.target.value),
                               })
                           }
-                          className="border p-2 rounded w-full text-black"
+                          className="w-full p-2 text-black border rounded"
                           required
                           onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                           onInput={(e) => e.target.setCustomValidity("")}
@@ -1921,7 +1921,7 @@ const FiltersComponent = () => {
                                 total: parseFloat(e.target.value),
                               })
                           }
-                          className="border p-2 rounded w-full text-black"
+                          className="w-full p-2 text-black border rounded"
                           required
                           onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                           onInput={(e) => e.target.setCustomValidity("")}
@@ -1940,7 +1940,7 @@ const FiltersComponent = () => {
                                 iva: parseFloat(e.target.value),
                               })
                           }
-                          className="border p-2 rounded w-full text-black"
+                          className="w-full p-2 text-black border rounded"
                           required
                           onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                           onInput={(e) => e.target.setCustomValidity("")}
@@ -1959,7 +1959,7 @@ const FiltersComponent = () => {
                                 unidad: parseFloat(e.target.value),
                               })
                           }
-                          className="border p-2 rounded w-full text-black"
+                          className="w-full p-2 text-black border rounded"
                           required
                           onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                           onInput={(e) => e.target.setCustomValidity("")}
@@ -1968,7 +1968,7 @@ const FiltersComponent = () => {
                   </div>
                   <div className="mt-6 mb-4">
                     <label className="flex items-center space-x-4">
-                      <span className="text-black font-medium">¿Es innovador?</span>
+                      <span className="font-medium text-black">¿Es innovador?</span>
                       <input
                           type="checkbox"
                           checked={selectedShoppingData.innovated || false}
@@ -1978,12 +1978,12 @@ const FiltersComponent = () => {
                                 innovated: e.target.checked,
                               })
                           }
-                          className="form-checkbox h-5 w-5 text-blue-600"
+                          className="w-5 h-5 text-blue-600 form-checkbox"
                       />
-                      <span className="ml-2 text-black font-medium">Innovado</span>
+                      <span className="ml-2 font-medium text-black">Innovado</span>
                     </label>
                   </div>
-                  <h3 className="text-lg font-semibold mb-4 text-black">Productos en la Orden</h3>
+                  <h3 className="mb-4 text-lg font-semibold text-black">Productos en la Orden</h3>
                   {selectedShoppingData.products.map((product, index) => (
                       <div key={product.id} className="grid grid-cols-3 gap-4 mb-4 text-black">
                         <div>
@@ -2001,7 +2001,7 @@ const FiltersComponent = () => {
                                   products: updatedProducts,
                                 });
                               }}
-                              className="border p-2 rounded w-full text-black"
+                              className="w-full p-2 text-black border rounded"
                               required
                               onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                               onInput={(e) => e.target.setCustomValidity("")}
@@ -2022,7 +2022,7 @@ const FiltersComponent = () => {
                                   products: updatedProducts,
                                 });
                               }}
-                              className="border p-2 rounded w-full text-black"
+                              className="w-full p-2 text-black border rounded"
                               required
                               onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                               onInput={(e) => e.target.setCustomValidity("")}
@@ -2043,7 +2043,7 @@ const FiltersComponent = () => {
                                   products: updatedProducts,
                                 });
                               }}
-                              className="border p-2 rounded w-full text-black"
+                              className="w-full p-2 text-black border rounded"
                               required
                               onInvalid={(e) => e.target.setCustomValidity("Rellena este campo")}
                               onInput={(e) => e.target.setCustomValidity("")}
@@ -2051,15 +2051,15 @@ const FiltersComponent = () => {
                         </div>
                       </div>
                   ))}
-                  <div className="flex justify-end space-x-2 mt-4">
+                  <div className="flex justify-end mt-4 space-x-2">
                     <button
                         type="button"
-                        className="bg-red-500 text-white px-4 py-2 rounded"
+                        className="px-4 py-2 text-white bg-red-500 rounded"
                         onClick={() => setIsEditModalOpen(false)}
                     >
                       Cancelar
                     </button>
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                    <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded">
                       Guardar Cambios
                     </button>
                   </div>
@@ -2069,8 +2069,8 @@ const FiltersComponent = () => {
         )}
         {isDeleteModalOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-6 rounded shadow-lg">
-                <h2 className="text-lg font-semibold mb-4 text-black">Confirmar eliminación</h2>
+              <div className="p-6 bg-white rounded shadow-lg">
+                <h2 className="mb-4 text-lg font-semibold text-black">Confirmar eliminación</h2>
                 <p>
                   ¿Estás seguro de que quieres eliminar{" "}
                   {selectedShoppings.length > 0
@@ -2080,12 +2080,12 @@ const FiltersComponent = () => {
                 </p>
                 <div className="flex justify-end mt-4 text-black">
                   <button
-                      className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                      className="px-4 py-2 mr-2 text-white bg-gray-500 rounded"
                       onClick={closeDeleteModal}
                   >
                     Cancelar
                   </button>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={handleDelete}>
+                  <button className="px-4 py-2 text-white bg-red-500 rounded" onClick={handleDelete}>
                     Eliminar
                   </button>
                 </div>
@@ -2094,15 +2094,15 @@ const FiltersComponent = () => {
         )}
         {/* Modal para mostrar todos los archivos */}
         {isFilesModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 p-4 lg:p-0">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-75 lg:p-0">
               <div className="bg-white rounded-lg p-4 shadow-lg w-full lg:w-1/2 max-w-lg h-auto max-h-[90vh] overflow-y-auto relative">
                 <button
-                    className="absolute top-2 right-2 lg:top-4 lg:right-4 text-gray-700 hover:text-gray-900 text-xl lg:text-2xl"
+                    className="absolute text-xl text-gray-700 top-2 right-2 lg:top-4 lg:right-4 hover:text-gray-900 lg:text-2xl"
                     onClick={closeFilesModal}
                 >
                   X
                 </button>
-                <h2 className="text-xl text-black lg:text-2xl font-bold mb-4 text-center">Archivos Subidos</h2>
+                <h2 className="mb-4 text-xl font-bold text-center text-black lg:text-2xl">Archivos Subidos</h2>
                 {selectedFiles.length > 0 ? (
                     <ul className="space-y-2">
                       {selectedFiles.map((file, index) => (
@@ -2113,7 +2113,7 @@ const FiltersComponent = () => {
                             <div className="flex items-center space-x-2">
                               {getFileIcon(file.file_type)}
                               <span
-                                  className="text-blue-500 hover:underline cursor-pointer"
+                                  className="text-blue-500 cursor-pointer hover:underline"
                                   onClick={() => handleViewFile(file)}
                               >
                   {`Archivo ${index + 1}`}
@@ -2145,11 +2145,11 @@ const FiltersComponent = () => {
                       ))}
                     </ul>
                 ) : (
-                    <p className="text-gray-500 text-center">No hay archivos subidos.</p>
+                    <p className="text-center text-gray-500">No hay archivos subidos.</p>
                 )}
                 {(role === "admin" || role === "Compras" || role === "Developer") && (
-                    <div className="mt-4 flex justify-center">
-                      <label className="cursor-pointer bg-blue-500 text-white p-2 rounded">
+                    <div className="flex justify-center mt-4">
+                      <label className="p-2 text-white bg-blue-500 rounded cursor-pointer">
                         Agregar otro archivo
                         <input
                             type="file"
@@ -2167,9 +2167,9 @@ const FiltersComponent = () => {
         {/* Modal para visualizar un archivo */}
         {isFileViewModalOpen && selectedFileToView && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-4xl relative">
+              <div className="relative w-full max-w-4xl p-5 bg-white rounded-lg shadow-lg">
                 <button
-                    className="absolute top-1 right-1 text-black hover:text-gray-900 text-xl font-bold"
+                    className="absolute text-xl font-bold text-black top-1 right-1 hover:text-gray-900"
                     onClick={closeFileViewModal}
                 >
                   <IoClose />
@@ -2211,7 +2211,7 @@ const FiltersComponent = () => {
                           href={selectedFileToView.file_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-blue-500 text-white p-2 rounded"
+                          className="p-2 text-white bg-blue-500 rounded"
                       >
                         Descargar o Abrir Archivo
                       </a>
@@ -2223,5 +2223,6 @@ const FiltersComponent = () => {
       </div>
   );
 };
+
 
 export default FiltersComponent;
