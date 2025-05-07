@@ -149,6 +149,10 @@ const data = [
   {
     name: "N°37 Día del Niño 2025 ",
     link: "https://drive.google.com/file/d/17_BNadu1PXoxCltEnpJxOjodbl-AJDqt/view?usp=sharing",
+  },
+  {
+    name: "N°38 Salida pedagógica 9A y 9B ",
+    link: "https://drive.google.com/file/d/1ZaFkJEmWL4zBQQfbntgTm-fdSJzzfMea/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
@@ -268,24 +272,24 @@ const CircularList = () => {
   }, [searchTerm, sortDirection, circularData]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-10 w-full">
-      <div className="flex justify-center items-center mb-5 h-10">
+    <div className="flex flex-col items-center justify-center w-full p-10">
+      <div className="flex items-center justify-center h-10 mb-5">
         <input
           type="text"
           placeholder="Buscar circular..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="p-2 rounded-l-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 border-2 border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <button
           onClick={clearFilters}
-          className="h-10 bg-blue-500 text-white p-2 rounded-r-full hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="h-10 p-2 text-white transition duration-200 bg-blue-500 rounded-r-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Limpiar filtros
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center  w-full transition-opacity duration-500 ease-in-out">
+      <div className="flex flex-col items-center justify-center w-full transition-opacity duration-500 ease-in-out">
         {filteredData.map((circular, index) => (
           <a
             key={index}
