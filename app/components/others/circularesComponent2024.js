@@ -153,6 +153,10 @@ const data = [
   {
     name: "N°38 Salida pedagógica 9A y 9B ",
     link: "https://drive.google.com/file/d/1ZaFkJEmWL4zBQQfbntgTm-fdSJzzfMea/view?usp=sharing",
+  },
+  {
+    name: "N°39 CEREMONÍA DE GRADUACIÓN TRANSICIÓN Y QUINTO ",
+    link: "https://drive.google.com/file/d/1bM0F7f8n4jXww_5tH8KZ208pthQVtNtz/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },

@@ -71,9 +71,6 @@ export const OrderPDF = ({ order, onReady }) => {
                 Concepto
               </th>
               <th className="p-3 font-semibold text-left border border-blue-200">
-                Descripción
-              </th>
-              <th className="p-3 font-semibold text-left border border-blue-200">
                 Cantidad
               </th>
               <th className="p-3 font-semibold text-left border border-blue-200">
@@ -95,9 +92,6 @@ export const OrderPDF = ({ order, onReady }) => {
                     {prod.nombre || "N/A"}
                   </td>
                   <td className="p-3 text-gray-500 border border-blue-200">
-                    {prod.descripcion || "N/A"}
-                  </td>
-                  <td className="p-3 text-gray-500 border border-blue-200">
                     {prod.cantidad || 1}
                   </td>
                   <td className="p-3 text-gray-500 border border-blue-200">
@@ -113,9 +107,7 @@ export const OrderPDF = ({ order, onReady }) => {
                 <td className="p-3 text-gray-500 border border-blue-200">
                   {order.titulo || "N/A"}
                 </td>
-                <td className="p-3 text-gray-500 border border-blue-200">
-                  {order.description || "N/A"}
-                </td>
+                
                 <td className="p-3 text-gray-500 border border-blue-200">1</td>
                 <td className="p-3 text-gray-500 border border-blue-200">
                   ${formatCurrency(order.subtotal || 0)}

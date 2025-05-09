@@ -307,42 +307,42 @@ const CreateShoppingForm = () => {
   };
 
   return (
-      <div className="text-black flex flex-col-reverse md:flex-row space-y-0 md:space-y-0 md:space-x-4">
-        <form className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6" onSubmit={handleSubmit}>
-          <h2 className="text-xl font-bold mb-4">Crear Nueva Orden</h2>
+      <div className="flex flex-col-reverse space-y-0 text-black md:flex-row md:space-y-0 md:space-x-4">
+        <form className="w-full px-8 py-6 bg-white rounded-lg shadow-md md:w-1/2" onSubmit={handleSubmit}>
+          <h2 className="mb-4 text-xl font-bold">Crear Nueva Orden</h2>
 
-          {error.general && <div className="text-red-500 mb-4">{error.general}</div>}
+          {error.general && <div className="mb-4 text-red-500">{error.general}</div>}
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Título: <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">Título y Descripción: <span className="text-red-500">*</span></label>
             <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading} // Deshabilitar mientras carga
             />
             {error.title && <p className="text-red-500">{error.title}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Descripción: <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">¿A quién se paga?: <span className="text-red-500">*</span></label>
             <input
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {error.description && <p className="text-red-500">{error.description}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Estado: <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">Estado: <span className="text-red-500">*</span></label>
             <select
                 value={status_id}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             >
               <option value="">Seleccione un estado</option>
@@ -362,8 +362,8 @@ const CreateShoppingForm = () => {
           </div>
 
           {/* Campo Área */}
-          <div className="mb-4 relative">
-            <label className="block text-black font-medium">Área: <span className="text-red-500">*</span></label>
+          <div className="relative mb-4">
+            <label className="block font-medium text-black">Área: <span className="text-red-500">*</span></label>
             <input
                 type="text"
                 value={areaSearch}
@@ -373,11 +373,11 @@ const CreateShoppingForm = () => {
                 }}
                 onFocus={() => setShowAreaDropdown(true)}
                 placeholder="Busca un área..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {showAreaDropdown && (
-                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                <ul className="absolute z-10 w-full mt-1 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-60">
                   {filteredAreas.length > 0 ? (
                       filteredAreas.map((area) => (
                           <li
@@ -387,7 +387,7 @@ const CreateShoppingForm = () => {
                                 setAreaSearch(area.name);
                                 setShowAreaDropdown(false);
                               }}
-                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                              className="px-3 py-2 cursor-pointer hover:bg-gray-100"
                           >
                             {area.name}
                           </li>
@@ -401,8 +401,8 @@ const CreateShoppingForm = () => {
           </div>
 
           {/* Campo Tipo de Cuenta */}
-          <div className="mb-4 relative">
-            <label className="block text-black font-medium">Tipo de Cuenta: <span className="text-red-500">*</span></label>
+          <div className="relative mb-4">
+            <label className="block font-medium text-black">Tipo de Cuenta: <span className="text-red-500">*</span></label>
             <input
                 type="text"
                 value={accountTypeSearch}
@@ -412,11 +412,11 @@ const CreateShoppingForm = () => {
                 }}
                 onFocus={() => setShowAccountTypeDropdown(true)}
                 placeholder="Busca un tipo de cuenta..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {showAccountTypeDropdown && (
-                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                <ul className="absolute z-10 w-full mt-1 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-60">
                   {filteredAccountTypes.length > 0 ? (
                       filteredAccountTypes.map((type) => (
                           <li
@@ -426,7 +426,7 @@ const CreateShoppingForm = () => {
                                 setAccountTypeSearch(type.name);
                                 setShowAccountTypeDropdown(false);
                               }}
-                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                              className="px-3 py-2 cursor-pointer hover:bg-gray-100"
                           >
                             {type.name}
                           </li>
@@ -440,8 +440,8 @@ const CreateShoppingForm = () => {
           </div>
 
           {/* Campo Líder de Presupuesto */}
-          <div className="mb-4 relative">
-            <label className="block text-black font-medium">Líder de Presupuesto: <span className="text-red-500">*</span></label>
+          <div className="relative mb-4">
+            <label className="block font-medium text-black">Líder de Presupuesto: <span className="text-red-500">*</span></label>
             <input
                 type="text"
                 value={userSearch}
@@ -451,11 +451,11 @@ const CreateShoppingForm = () => {
                 }}
                 onFocus={() => setShowUserDropdown(true)}
                 placeholder="Busca un líder..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {showUserDropdown && (
-                <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-y-auto">
+                <ul className="absolute z-10 w-full mt-1 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-60">
                   {filteredUsers.length > 0 ? (
                       filteredUsers.map((profile) => (
                           <li
@@ -465,7 +465,7 @@ const CreateShoppingForm = () => {
                                 setUserSearch(profile.name);
                                 setShowUserDropdown(false);
                               }}
-                              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                              className="px-3 py-2 cursor-pointer hover:bg-gray-100"
                           >
                             {profile.name}
                           </li>
@@ -479,72 +479,72 @@ const CreateShoppingForm = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">IVA (%): <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">IVA (%): <span className="text-red-500">*</span></label>
             <input
                 type="number"
                 value={iva}
                 onChange={(e) => setIva(e.target.value)}
                 onWheel={(e) => e.target.blur()}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {error.iva && <p className="text-red-500">{error.iva}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Rete Fuente (%):</label>
+            <label className="block font-medium text-black">Rete Fuente (%):</label>
             <input
                 type="number"
                 value={retefuente}
                 onChange={(e) => setRetefuente(e.target.value)}
                 onWheel={(e) => e.target.blur()}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Subtotal: <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">Subtotal: <span className="text-red-500">*</span></label>
             <input
                 type="number"
                 value={subtotal}
                 onChange={(e) => setSubTotal(e.target.value)}
                 onWheel={(e) => e.target.blur()}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {error.subtotal && <p className="text-red-500">{error.subtotal}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Total: <span className="text-red-500">*</span></label>
+            <label className="block font-medium text-black">Total: <span className="text-red-500">*</span></label>
             <input
                 type="number"
                 value={total}
                 onChange={(e) => setTotal(e.target.value)}
                 onWheel={(e) => e.target.blur()}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {error.total && <p className="text-red-500">{error.total}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-black font-medium">Subir Archivos:</label>
+            <label className="block font-medium text-black">Subir Archivos:</label>
             <input
                 type="file"
                 accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx"
                 onChange={handleFileUpload}
                 multiple
                 ref={fileInputRef}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
                 disabled={loading}
             />
             {uploadedFiles.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="text-black font-medium">Archivos Subidos:</h4>
+                  <h4 className="font-medium text-black">Archivos Subidos:</h4>
                   {uploadedFiles.map((file, index) => (
-                      <div key={index} className="bg-gray-100 p-2 rounded-md mt-2 flex justify-between items-center">
+                      <div key={index} className="flex items-center justify-between p-2 mt-2 bg-gray-100 rounded-md">
                         <p className="text-black">{file.name}</p>
                         <button
                             type="button"
@@ -561,30 +561,30 @@ const CreateShoppingForm = () => {
           </div>
 
           <br />
-          <h3 className="text-lg font-semibold mb-4">Producto en la Orden</h3>
+          <h3 className="mb-4 text-lg font-semibold">Producto en la Orden</h3>
           {products.length === 0 ? (
               <p className="text-red-500">No hay producto. Añade un producto primero si lo deseas.</p>
           ) : (
               <div className="overflow-x-auto">
                 <div className="flex space-x-4">
                   {products.map((product) => (
-                      <div key={product.uniqueId} className="bg-white rounded-lg shadow-md p-4 flex-shrink-0" style={{ minWidth: "250px" }}>
+                      <div key={product.uniqueId} className="flex-shrink-0 p-4 bg-white rounded-lg shadow-md" style={{ minWidth: "250px" }}>
                         <div className="flex items-center">
                           {product.image && (
                               <img
                                   src={product.image}
                                   alt={product.name}
-                                  className="w-16 h-16 object-cover rounded-lg mr-4"
+                                  className="object-cover w-16 h-16 mr-4 rounded-lg"
                               />
                           )}
                           <div>
-                            <h4 className="text-black font-semibold">{product.name}</h4>
+                            <h4 className="font-semibold text-black">{product.name}</h4>
                             <p className="text-gray-600">Unidad: {product.unidad}</p>
                           </div>
                         </div>
                         <button
                             type="button"
-                            className="text-red-500 hover:text-red-700 mt-2"
+                            className="mt-2 text-red-500 hover:text-red-700"
                             onClick={() => handleRemoveProduct(product.uniqueId)}
                             disabled={loading}
                         >
@@ -607,11 +607,11 @@ const CreateShoppingForm = () => {
 
           {/* Mostrar tiempo de creación si está disponible */}
           {creationTime && (
-              <p className="text-gray-600 mt-2">Última orden creada</p>
+              <p className="mt-2 text-gray-600">Última orden creada</p>
           )}
         </form>
 
-        <div className="w-full md:w-1/2 bg-white shadow-md rounded-lg px-8 py-6">
+        <div className="w-full px-8 py-6 bg-white rounded-lg shadow-md md:w-1/2">
           <CreateProductForm onProductCreate={handleProductCreate} />
         </div>
 
@@ -619,21 +619,21 @@ const CreateShoppingForm = () => {
             isOpen={isModalOpen}
             onRequestClose={handleModalCancel}
             contentLabel="Confirmación de compra sin productos"
-            className="bg-white p-4 rounded-lg shadow-lg max-w-md mx-auto mt-16"
+            className="max-w-md p-4 mx-auto mt-16 bg-white rounded-lg shadow-lg"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
         >
-          <h2 className="text-xl font-semibold mb-4 text-black">¿Crear compra sin productos?</h2>
+          <h2 className="mb-4 text-xl font-semibold text-black">¿Crear compra sin productos?</h2>
           <p className="mb-4">No has añadido ningún producto. ¿Estás seguro de que deseas continuar?</p>
           <div className="flex justify-end space-x-4">
             <button
-                className="bg-red-500 text-white px-4 py-2 rounded-md"
+                className="px-4 py-2 text-white bg-red-500 rounded-md"
                 onClick={handleModalCancel}
                 disabled={loading}
             >
               Cancelar
             </button>
             <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                className="px-4 py-2 text-white bg-blue-500 rounded-md"
                 onClick={handleModalConfirm}
                 disabled={loading}
             >

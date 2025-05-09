@@ -1319,13 +1319,13 @@ const FiltersComponent = () => {
                     className="px-6 py-3 text-center border border-gray-300 cursor-pointer"
                     onClick={() => handleSort("title")}
                 >
-                  TITULO {sortConfig.key === "title" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
+                  TITULO Y DESCRIPCIÓN{sortConfig.key === "title" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
                 </th>
                 <th
                     className="px-6 py-3 text-center border border-gray-300 cursor-pointer"
                     onClick={() => handleSort("description")}
                 >
-                  DESCRIPCIÓN {sortConfig.key === "description" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
+                  ¿A quién se paga? {sortConfig.key === "description" && (sortConfig.direction === "ascending" ? "↑" : "↓")}
                 </th>
                 <th
                     className="px-6 py-3 text-center border border-gray-300 cursor-pointer"

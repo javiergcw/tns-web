@@ -77,66 +77,66 @@ const CreateProductForm = ({ onProductCreate }) => {
 
   return (
       <div className="text-black">
-        <h2 className="text-xl font-bold mb-4">Crear Nuevo Producto</h2>
+        <h2 className="mb-4 text-xl font-bold">Crear Nuevo Producto</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Nombre del Producto */}
           <div className="mb-4">
-            <label className="block text-black font-medium">
+            <label className="block font-medium text-black">
               Nombre del Producto: <span className="text-red-500">*</span>
             </label>
             <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
             />
             {error.name && <p className="text-red-500">{error.name}</p>}
           </div>
 
           {/* Descripción */}
           <div className="mb-4">
-            <label className="block text-black font-medium">
+            <label className="block font-medium text-black">
               Descripción: <span className="text-red-500">*</span>
             </label>
             <input
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
             />
             {error.description && <p className="text-red-500">{error.description}</p>}
           </div>
 
           {/* Precio */}
           <div className="mb-4">
-            <label className="block text-black font-medium">
+            <label className="block font-medium text-black">
               Precio: <span className="text-red-500">*</span>
             </label>
             <input
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
             />
             {error.price && <p className="text-red-500">{error.price}</p>}
           </div>
 
           {/* URL */}
           <div className="mb-4">
-            <label className="block text-black font-medium">URL:</label>
+            <label className="block font-medium text-black">URL:</label>
             <input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-md"
             />
             {error.url && <p className="text-red-500">{error.url}</p>}
           </div>
 
           {/* Innovación */}
           <div className="mb-4">
-            <label className="block text-black font-medium">Innovación:</label>
+            <label className="block font-medium text-black">Innovación:</label>
             <input
                 type="checkbox"
                 checked={innovated}
@@ -148,11 +148,11 @@ const CreateProductForm = ({ onProductCreate }) => {
 
           {/* Unidad como contador editable */}
           <div className="mb-4">
-            <label className="block text-black font-medium">Unidad:</label>
+            <label className="block font-medium text-black">Unidad:</label>
             <div className="flex items-center space-x-2">
               <button
                   type="button"
-                  className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+                  className="px-3 py-1 text-black bg-gray-300 rounded hover:bg-gray-400"
                   onClick={handleDecrement}
               >
                 -
@@ -161,12 +161,12 @@ const CreateProductForm = ({ onProductCreate }) => {
                   type="text"
                   value={unidad}
                   onChange={(e) => handleUnitChange(e.target.value)}
-                  className="w-16 px-3 py-2 border border-gray-300 rounded-md text-center text-black"
+                  className="w-16 px-3 py-2 text-center text-black border border-gray-300 rounded-md"
                   placeholder="1"
               />
               <button
                   type="button"
-                  className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded"
+                  className="px-3 py-1 text-black bg-gray-300 rounded hover:bg-gray-400"
                   onClick={handleIncrement}
               >
                 +
@@ -177,7 +177,7 @@ const CreateProductForm = ({ onProductCreate }) => {
 
           <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
           >
             Añadir Producto
           </button>
