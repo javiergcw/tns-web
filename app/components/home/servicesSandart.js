@@ -14,7 +14,7 @@ const ServicesStandart = () => {
         title="Proyecto educativo"
         text="Conoce nuestro proyecto educativo"
         imageUrl={ImagesPath.rocket}
-        href="https://drive.google.com/file/d/1kJfbDVMG2Bl36uECJL-gY87miejbMPI-/view?usp=sharing"
+        href="https://drive.google.com/file/d/1O_f1s9jdCwhFjk9U1Ml49dp5PeKnAq3U/view?usp=sharing"
       />
       <ContainerService
         title="Reglamento interno de trabajo"
@@ -39,7 +39,7 @@ const ServicesStandart = () => {
         title="Manual de convivencia"
         text="Lee nuestro manual de convivencia"
         imageUrl={ImagesPath.people}
-        href="https://drive.google.com/file/d/1dfQFNVT9u-3l3-Qm36qkYiefvnLr4t00/view"
+        href="https://drive.google.com/file/d/1dmLqKdiEE8tmJEptvDd4OwmxtsNhKftj/view?usp=sharing"
       />
       <ContainerService
         title="Costos"
