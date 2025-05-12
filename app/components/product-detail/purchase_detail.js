@@ -10,10 +10,15 @@ const CustomComponent = ({ shoppingId }) => {
         const fetchShopping = async () => {
             try {
                 const shoppingData = await getShoppingById(shoppingId);
-                console.log(shoppingData);
+                console.log('shoppingData:', JSON.stringify(shoppingData, null, 2));
+                console.log('Has logs?', shoppingData.hasOwnProperty('logs'), 'Logs:', shoppingData.logs);
                 setPurchaseStatus(shoppingData);
             } catch (err) {
-                console.error(err);
+                console.error('Error fetching shopping:', {
+                    message: err.message,
+                    response: err.response?.data,
+                    status: err.response?.status
+                });
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -33,6 +38,18 @@ const CustomComponent = ({ shoppingId }) => {
 
     const items = purchaseStatus ? purchaseStatus.products : [];
 
+    // Función para formatear fechas
+    const formatDate = (dateString) => {
+        return dateString
+            ? new Date(dateString).toLocaleDateString('es-CO', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+            : 'N/A';
+    };
+
+    // Función para formatear moneda
     const formatCurrency = (value) => {
         const numericValue = parseFloat(value);
         return !isNaN(numericValue)
@@ -42,8 +59,34 @@ const CustomComponent = ({ shoppingId }) => {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             }).format(numericValue)
-            : "N/A";
+            : 'N/A';
     };
+
+    // Función auxiliar para obtener la información del log de creación
+    const getCreationLogInfo = () => {
+        console.log('purchaseStatus:', JSON.stringify(purchaseStatus, null, 2));
+        if (!purchaseStatus?.logs || !Array.isArray(purchaseStatus.logs)) {
+            console.log('No logs found or logs is not an array:', purchaseStatus?.logs);
+            return { name: 'N/A', date: 'N/A' };
+        }
+
+        const creationLog = purchaseStatus.logs.find(log => log.status?.trim().toLowerCase() === 'creado');
+        console.log('creationLog:', creationLog);
+
+        if (!creationLog) {
+            console.log('No creation log found in:', purchaseStatus.logs);
+            return { name: 'N/A', date: 'N/A' };
+        }
+
+        const name = creationLog.user?.profile?.name || 'N/A';
+        const date = formatDate(creationLog.created_at_date);
+
+        console.log('Creation log info:', { name, date, rawDate: creationLog.created_at_date });
+        return { name, date };
+    };
+
+    // Obtener la información del log
+    const { name: creatorName, date: creatorDate } = getCreationLogInfo();
 
     return (
         <div className="flex flex-col lg:flex-row p-4 bg-gray-100">
@@ -109,6 +152,12 @@ const CustomComponent = ({ shoppingId }) => {
 
             {/* Listado de productos */}
             <div className="flex flex-col items-start px-4 py-4 bg-gray-100 w-full lg:w-2/6 overflow-y-auto" style={{ maxHeight: '700px' }}>
+                <div className="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center w-full">
+                    <span className="text-2xl lg:text-3xl">✍️</span>
+                    <p className="text-gray-700 font-bold">Creado por</p>
+                    <p className="text-gray-700">{creatorName}</p>
+                    <p className="text-gray-700">{creatorDate}</p>
+                </div>
                 {items.map((item, index) => (
                     <div key={index} className="bg-white rounded-lg p-4 shadow-lg mb-4 w-full h-auto flex-shrink-0">
                         <h3 className="text-black lg:text-xl font-bold mb-2">{item.name}</h3>

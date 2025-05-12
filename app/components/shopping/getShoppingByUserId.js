@@ -567,8 +567,8 @@ const ShoppingTable = ({ userId }) => {
   // Columnas de la tabla
   const columns = [
     "ID",
-    "TITULO",
-    "DESCRIPCIÓN",
+    "TITULO Y DESCRIPCIÓN",
+    "¿A QUIEN SE PAGA?",
     "LÍDER DE ÁREA",
     "TIPO DE CUENTA",
     "ESTADO",

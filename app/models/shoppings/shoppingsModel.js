@@ -62,6 +62,15 @@ class ShoppingFileDTO {
   }
 }
 
+class LogDTO {
+  constructor({ status, created_at_date, edited_at_date, user }) {
+    this.status = status;
+    this.created_at_date = created_at_date;
+    this.edited_at_date = edited_at_date;
+    this.user = user ? new UserDTO(user) : null;
+  }
+}
+
 class ShoppingDTO {
   constructor({
     id,
@@ -87,6 +96,7 @@ class ShoppingDTO {
     total,
     subtotal,
     shopping_files,
+    logs,
   }) {
     this.id = id;
     this.created_at = created_at;
@@ -121,6 +131,8 @@ class ShoppingDTO {
     this.shopping_files = Array.isArray(shopping_files)
         ? shopping_files.map((file) => new ShoppingFileDTO(file))
         : [];
+
+    this.logs = Array.isArray(logs) ? logs.map((log) => new LogDTO(log)) : [];
   }
 }
 
