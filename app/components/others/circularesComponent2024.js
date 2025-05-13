@@ -157,6 +157,14 @@ const data = [
   {
     name: "N°39 CEREMONÍA DE GRADUACIÓN TRANSICIÓN Y QUINTO ",
     link: "https://drive.google.com/file/d/1bM0F7f8n4jXww_5tH8KZ208pthQVtNtz/view?usp=sharing",
+  },
+  {
+    name: "N°40 CEREMONIA DE GRADUACIÓN ",
+    link: "https://drive.google.com/file/d/1h67BH-0gOz29wptHK1C-0JjQ9lXZSOSp/view?usp=sharing",
+  },
+  {
+    name: "N°41 COSTOS EDUCATIVOS 2025-2026 ",
+    link: "https://drive.google.com/file/d/1rPWIeVxbc00ihoL-S_t85A9LvDuwoY_s/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
