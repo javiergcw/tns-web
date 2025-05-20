@@ -165,6 +165,14 @@ const data = [
   {
     name: "N°41 COSTOS EDUCATIVOS 2025-2026 ",
     link: "https://drive.google.com/file/d/1rPWIeVxbc00ihoL-S_t85A9LvDuwoY_s/view?usp=sharing",
+  },
+  {
+    name: "N°42 Feria del Emprendimiento ",
+    link: "https://drive.google.com/file/d/1WI3qri-bKQ0OHCYrz6fTbW0gXQVv7ajN/view?usp=sharing",
+  },
+  {
+    name: "N°43 Escuela de Padres - Mayo ",
+    link: "https://drive.google.com/file/d/149WZCGISk-Pz4sFZui-fRPAETU_NHWlO/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
