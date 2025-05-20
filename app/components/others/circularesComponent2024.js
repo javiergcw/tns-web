@@ -173,6 +173,14 @@ const data = [
   {
     name: "N°43 Escuela de Padres - Mayo ",
     link: "https://drive.google.com/file/d/149WZCGISk-Pz4sFZui-fRPAETU_NHWlO/view?usp=sharing",
+  },
+  {
+    name: "N°44 Salida pedagógica grado Kínder A ",
+    link: "https://drive.google.com/file/d/1zXk_IOFbZKXHAXyBwZmjPqSFTyDML4f5/view?usp=sharing",
+  },
+  {
+    name: "N°45 Salida pedagógica grados Transiciòn A-B ",
+    link: "https://drive.google.com/file/d/1iyPL30o_cd3RhqFJlRcf2qr12J_ELInn/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
