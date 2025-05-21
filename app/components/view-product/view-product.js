@@ -1213,7 +1213,9 @@ const FiltersComponent = () => {
     return <p>Error: {error}</p>;
   }
 
-  const selectedShopping = filteredData.find((shopping) => shopping.id === selectedShoppingId);
+  const selectedShopping = selectedShoppingId
+      ? data.find((shopping) => shopping.id === selectedShoppingId)
+      : null;
 
   return (
       <div className="app-container">
