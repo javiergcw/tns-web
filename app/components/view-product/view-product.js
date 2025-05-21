@@ -144,65 +144,11 @@ const FiltersComponent = () => {
   useEffect(() => {
     const shoppingId = searchParams.get("shoppingId");
     if (shoppingId) {
-      const parsedShoppingId = parseInt(shoppingId);
-      // Verificar si la compra existe en filteredData
-      const shoppingExists = filteredData.find((shopping) => shopping.id === parsedShoppingId);
-
-      if (shoppingExists) {
-        // Si la compra está en filteredData, abrir el modal directamente
-        handleViewDetailsClick(parsedShoppingId);
-      } else {
-        // Si no está, obtener la compra específica desde la API
-        const fetchShoppingById = async () => {
-          try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-              console.error("No se encontró el token de autenticación");
-              setSuccessMessage("Error: No se pudo cargar la compra. Token no encontrado.");
-              return;
-            }
-            const response = await fetch(
-                `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${parsedShoppingId}`,
-                {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                  },
-                }
-            );
-
-            if (!response.ok) {
-              console.error("Error al obtener la compra:", response.statusText);
-              setSuccessMessage("Error: No se pudo cargar la compra.");
-              return;
-            }
-
-            const shoppingData = await response.json();
-            // Actualizar data y filteredData para incluir la compra obtenida
-            setData((prevData) => {
-              const updatedData = [...prevData.filter((item) => item.id !== parsedShoppingId), shoppingData];
-              return sortData(updatedData);
-            });
-            setFilteredData((prevFilteredData) => {
-              const updatedFilteredData = [...prevFilteredData.filter((item) => item.id !== parsedShoppingId), shoppingData];
-              return sortData(updatedFilteredData);
-            });
-
-            // Abrir el modal con la compra obtenida
-            handleViewDetailsClick(parsedShoppingId);
-          } catch (error) {
-            console.error("Error al obtener la compra por ID:", error);
-            setSuccessMessage("Error: No se pudo cargar la compra.");
-          }
-        };
-
-        fetchShoppingById();
-      }
+      handleViewDetailsClick(parseInt(shoppingId));
     } else {
       console.log("No se encontró shoppingId en la URL");
     }
-  }, [searchParams, filteredData, handleViewDetailsClick, setSuccessMessage, sortData]);
+  }, [searchParams]);
 
   // Obtener el ID del usuario autenticado desde localStorage, esto es para la funcionalidad de la bandera permitida para ciertos usuarios
   const userId = parseInt(localStorage.getItem("userId"), 10) || 0; // Default a 0 si no existe
@@ -229,19 +175,18 @@ const FiltersComponent = () => {
       if (a.is_priority && !b.is_priority) return -1;
       if (!a.is_priority && b.is_priority) return 1;
 
-      // Si ambos tienen el mismo is_priority, aplicar el ordenamiento por sortConfig
+      // Si ambos tienen el mismo is_priority, aplicar el ordenamiento de sortConfig
       let valueA, valueB;
-      const key = sortConfig.current.key;
-      if (key.includes(".")) {
-        const keys = key.split(".");
-        valueA = keys.reduce((obj, k) => (obj ? obj[k] : ""), a) || "";
-        valueB = keys.reduce((obj, k) => (obj ? obj[k] : ""), b) || "";
+      if (sortConfig.current.key.includes(".")) {
+        const keys = sortConfig.current.key.split(".");
+        valueA = keys.reduce((obj, key) => obj?.[key], a) || "";
+        valueB = keys.reduce((obj, key) => obj?.[key], b) || "";
       } else {
-        valueA = a[key] || "";
-        valueB = b[key] || "";
+        valueA = a[sortConfig.current.key] || "";
+        valueB = b[sortConfig.current.key] || "";
       }
 
-      if (key === "request_date" || key === "date_approval") {
+      if (sortConfig.current.key === "request_date" || sortConfig.current.key === "date_approval") {
         const dateA = new Date(valueA);
         const dateB = new Date(valueB);
         return sortConfig.current.direction === "ascending" ? dateA - dateB : dateB - dateA;
