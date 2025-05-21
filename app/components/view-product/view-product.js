@@ -144,11 +144,65 @@ const FiltersComponent = () => {
   useEffect(() => {
     const shoppingId = searchParams.get("shoppingId");
     if (shoppingId) {
-      handleViewDetailsClick(parseInt(shoppingId));
+      const parsedShoppingId = parseInt(shoppingId);
+      // Verificar si la compra existe en filteredData
+      const shoppingExists = filteredData.find((shopping) => shopping.id === parsedShoppingId);
+
+      if (shoppingExists) {
+        // Si la compra está en filteredData, abrir el modal directamente
+        handleViewDetailsClick(parsedShoppingId);
+      } else {
+        // Si no está, obtener la compra específica desde la API
+        const fetchShoppingById = async () => {
+          try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              console.error("No se encontró el token de autenticación");
+              setSuccessMessage("Error: No se pudo cargar la compra. Token no encontrado.");
+              return;
+            }
+            const response = await fetch(
+                `https://flow-api-9a1502cb3d68.herokuapp.com/api/v1/shoppings/${parsedShoppingId}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+            );
+
+            if (!response.ok) {
+              console.error("Error al obtener la compra:", response.statusText);
+              setSuccessMessage("Error: No se pudo cargar la compra.");
+              return;
+            }
+
+            const shoppingData = await response.json();
+            // Actualizar data y filteredData para incluir la compra obtenida
+            setData((prevData) => {
+              const updatedData = [...prevData.filter((item) => item.id !== parsedShoppingId), shoppingData];
+              return sortData(updatedData);
+            });
+            setFilteredData((prevFilteredData) => {
+              const updatedFilteredData = [...prevFilteredData.filter((item) => item.id !== parsedShoppingId), shoppingData];
+              return sortData(updatedFilteredData);
+            });
+
+            // Abrir el modal con la compra obtenida
+            handleViewDetailsClick(parsedShoppingId);
+          } catch (error) {
+            console.error("Error al obtener la compra por ID:", error);
+            setSuccessMessage("Error: No se pudo cargar la compra.");
+          }
+        };
+
+        fetchShoppingById();
+      }
     } else {
       console.log("No se encontró shoppingId en la URL");
     }
-  }, [searchParams]);
+  }, [searchParams, filteredData, handleViewDetailsClick, setSuccessMessage, sortData]);
 
   // Obtener el ID del usuario autenticado desde localStorage, esto es para la funcionalidad de la bandera permitida para ciertos usuarios
   const userId = parseInt(localStorage.getItem("userId"), 10) || 0; // Default a 0 si no existe
