@@ -229,18 +229,19 @@ const FiltersComponent = () => {
       if (a.is_priority && !b.is_priority) return -1;
       if (!a.is_priority && b.is_priority) return 1;
 
-      // Si ambos tienen el mismo is_priority, aplicar el ordenamiento de sortConfig
+      // Si ambos tienen el mismo is_priority, aplicar el ordenamiento por sortConfig
       let valueA, valueB;
-      if (sortConfig.current.key.includes(".")) {
-        const keys = sortConfig.current.key.split(".");
-        valueA = keys.reduce((obj, key) => obj?.[key], a) || "";
-        valueB = keys.reduce((obj, key) => obj?.[key], b) || "";
+      const key = sortConfig.current.key;
+      if (key.includes(".")) {
+        const keys = key.split(".");
+        valueA = keys.reduce((obj, k) => (obj ? obj[k] : ""), a) || "";
+        valueB = keys.reduce((obj, k) => (obj ? obj[k] : ""), b) || "";
       } else {
-        valueA = a[sortConfig.current.key] || "";
-        valueB = b[sortConfig.current.key] || "";
+        valueA = a[key] || "";
+        valueB = b[key] || "";
       }
 
-      if (sortConfig.current.key === "request_date" || sortConfig.current.key === "date_approval") {
+      if (key === "request_date" || key === "date_approval") {
         const dateA = new Date(valueA);
         const dateB = new Date(valueB);
         return sortConfig.current.direction === "ascending" ? dateA - dateB : dateB - dateA;
