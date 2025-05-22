@@ -188,7 +188,7 @@ const Navbar = () => {
               </a>
               <div style={dividerStyle} className="mx-2"></div>
               <a
-                href="https://drive.google.com/file/d/16rKV402b2ENKiaGBD-VpSkMr38b1Q3b9/view"
+                href="https://drive.google.com/file/d/1wa-S_MJV6JQLSQppLcfMHHxbJMFaR0x1/view?usp=sharing"
                 className="text-blueButton py-1"
                 target="_blank"
               >
