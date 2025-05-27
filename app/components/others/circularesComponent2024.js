@@ -185,6 +185,10 @@ const data = [
   {
     name: "N°46 Reserva de cupo ",
     link: "https://drive.google.com/file/d/1aazPPVR-HXknDoAjlAYSCEFkvWT37hrb/view?usp=sharing",
+  },
+  {
+    name: "N°47 Despedida de Décimo a Once ",
+    link: "https://drive.google.com/file/d/1U5BCk7hkiyUfRfZNTT8Z97ebshaxAtrI/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
