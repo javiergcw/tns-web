@@ -181,6 +181,10 @@ const data = [
   {
     name: "N°45 Salida pedagógica grados Transiciòn A-B ",
     link: "https://drive.google.com/file/d/1iyPL30o_cd3RhqFJlRcf2qr12J_ELInn/view?usp=sharing",
+  },
+  {
+    name: "N°46 Reserva de cupo ",
+    link: "https://drive.google.com/file/d/1aazPPVR-HXknDoAjlAYSCEFkvWT37hrb/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
