@@ -2,6 +2,150 @@ import { ImagesPath } from "../utils/assetsPath";
 
 const blogList = [
     {
+        date: "2025-05-30",
+        imageUrl: ImagesPath.blog32,
+        title: "Participar Debatir y Transformar La Experiencia Modelo ONU en The New School",
+        body: `
+    <p>Buscando que nuestros jóvenes desarrollen habilidades analíticas y discursivas, procuramos sembrar en ellos, y desde nuestra filosofía institucional, la idea de que sean personas con una mirada consciente y crítica del mundo. En un contexto global marcado por la incertidumbre, el diálogo intercultural y la toma de decisiones éticas, el Modelo de Naciones Unidas (Modelo ONU) se presenta como una experiencia formativa que trasciende el aula para analizar de una manera más inmersiva la actualidad sociopolítica global.</p>
+    <br>
+    <br>
+    <p class="text-xl"><b>¿Qué es el Modelo ONU y en qué consiste?</b></p>
+    <br>
+    <p>El Modelo de Naciones Unidas es una simulación académica en la que los estudiantes representan a diplomáticos de distintos países en cumbres o comités similares a los de la Organización de las Naciones Unidas. En estos espacios, los participantes investigan, debaten y proponen soluciones a problemas de interés mundial, siguiendo protocolos reales de diplomacia y negociación internacional.</p>
+    <br>
+    <p>Cada estudiante asume el rol de un delegado y representa los intereses de un país ante problemáticas como el cambio climático, los derechos humanos, la seguridad internacional o la igualdad de género. Los encuentros, además de fomentar el análisis crítico, exigen habilidades de oratoria, escritura formal, trabajo en equipo y empatía intercultural.</p>
+    <br>
+    <p>Santiago Hoyos Giraldo, nuestro docente de Ciencias Sociales y Economía Política, es quien lidera el programa TNSMUN (Modelo ONU de The New School) desde que comenzó a implementarse el programa en el 2020.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-b.png" alt="TNSMUN programa" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Una iniciativa global, una participación local</b></p>
+    <br>
+    <p>El Modelo ONU es una práctica extendida a nivel mundial. Miles de colegios y universidades de diferentes países organizan y participan cada año en estas simulaciones. En Colombia, numerosas instituciones educativas han asumido este modelo como parte de su propuesta formativa, reconociendo su valor pedagógico y su impacto positivo en la formación ciudadana de los estudiantes.</p>
+    <br>
+    <p>En The New School, valoramos profundamente estas experiencias porque se alinean con nuestro Proyecto Educativo Institucional, que promueve el pensamiento crítico, la conciencia global y la acción responsable. A través del Modelo ONU, nuestros estudiantes no solo estudian temas globales, sino que aprenden también a comprometerse con ellos y a sustentar con argumentos sus posturas.</p>
+    <br>
+    <p class="text-xl"><b>¿Por qué es importante la participación de los jóvenes?</b></p>
+    <br>
+    <p>La participación de nuestros jóvenes en espacios como el Modelo ONU es fundamental para cultivar en ellos una ciudadanía activa y crítica desde su adolescencia. En un mundo en el que los grandes desafíos, como el calentamiento global, los conflictos armados, las migraciones o la desigualdad social, exigen soluciones colaborativas, es necesario que los futuros líderes tengan la capacidad de analizar contextos complejos, escuchar otras voces y construir consensos.</p>
+    <br>
+    <p>Además, el Modelo ONU fortalece la autoestima, la argumentación, la empatía y la responsabilidad. Participar de estos encuentros es asumir un rol protagónico en la construcción de un mundo más justo, incluyente y sostenible.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-c.png" alt="participación joven" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Encuentros interinstitucionales y participación de nuestros estudiantes</b></p>
+    <br>
+    <p>Desde que implementamos El Modelo ONU como metodología didáctica y pedagógica en 2020, nuestros estudiantes han participado en varios encuentros a nivel local y nacional.</p>
+    <br>
+    <p>La primera participación interinstitucional fue en el XI VESMUN, en marzo de 2023, realizada en el Colegio Vermont, donde nuestro estudiante, y ahora egresado, Santiago Aparicio García, obtuvo un reconocimiento como Mejor Discurso de Apertura.</p>
+    <br>
+    <p>En mayo de aquel año, también fuimos parte de CCHMUN 2023, en el Colegio Campestre Horizontes, de Rionegro. Allí, nuestros delegados se destacaron por su preparación y compromiso, recibiendo menciones especiales como el Reconocimiento al Pacifismo, y Presidente de Mesa Destacado, el cual fue otorgado también a Santiago Aparicio García.</p>
+    <br>
+    <p>En el 2025, participamos en el Modelo ONU del Colegio Montessori, consolidando así las alianzas con instituciones que comparten nuestra visión educativa. Fue una oportunidad única para que nuestros estudiantes compartieran con pares representantes de otros contextos, fortalecieran la empatía cultural y ampliaran su visión del mundo.</p>
+    <br>
+    <p>Gabriela Arbeláez, Gabriela Caicedo, Manuel Campos, María José Sierra y Lorenzo Vásquez fueron quienes representaron nuestro colegio en esta oportunidad, exponiendo sus posturas frente a temas de impacto global, como la inestabilidad política y grupos extremistas en el Medio Oriente, cultivos ilegales, inteligencia artificial y costo de vida. Estos dos últimos estudiantes fueron reconocidos como Mejor Delegado Novato.</p>
+    <br>
+    <p>Por último, durante el mes de mayo de este 2025, tuvimos una impecable representación por parte de nuestros estudiantes en el MONUAM, Modelo ONU llevado a cabo en la Universidad Autónoma de Manizales. Mateo Pardo, María José Sierra, Manuel Campos, Gabriela Arbeláez y Daniela Osorio fueron nuestros representantes en esta edición, donde esta última, logró el reconocimiento a Mejor Discurso de Apertura. Entre las menciones de honor por la representación que nuestros estudiantes lograron como delegados de diferentes países, está la mención con la que se reconoció a The New School por su participación en este MONUAM 2025.</p>
+    <br>
+    <p>Es oportuno dedicar también un espacio de reconocimiento para el docente Santiago Hoyos, líder del Modelo de Naciones Unidas de The New School (TNSMUN) quien ha guiado a los estudiantes durante semanas de preparación para investigar, redactar documentos oficiales y ensayar discursos, contribuyendo a que cada participación sea destacada no solo por la solidez argumentativa, sino también por su respeto, liderazgo y espíritu colaborativo.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-d.png" alt="encuentros interinstitucionales" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Una experiencia transformadora</b></p>
+    <br>
+    <p>En el mundo confluyen muchas realidades, la multiculturalidad y los fenómenos sociales moldean cada una de esas realidades. Los estudiantes de The New School comprenden esas realidades desde el modelo educativo que les brindamos, por eso han sabido representarnos con excelencia en las cumbres de Modelo ONU a nivel local y regional.</p>
+    <br>
+    <p>Nos llena de orgullo ver materializada en seres tan capaces nuestra idea de formar ciudadanos conscientes, con sentido crítico y visión del mundo. El Modelo ONU es más que una competencia académica: es una escuela de humanidad, diálogo y compromiso social. En cada palabra dicha, en cada resolución escrita y en cada consenso alcanzado, nuestros estudiantes ejercen lo que significa ser verdaderos agentes de cambio.</p>
+    <br>
+    <p>Nos enorgullece sobre todo ver el proceso de transformación interna de los estudiantes, como pasan de ser espectadores a protagonistas, cómo entre sus temas de adolescencia y colegio incluyen temas de mundo que ahora son capaces de abordar para ubicar un punto de vista en el amplio espectro de los ismos y una sensibilidad en el mundo de la consciencia.</p>
+    <br>
+    <p>A partir de ese camino de transformación interna se forjan los caminos de transformación social.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-e.png" alt="transformación social" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>-------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <p class="text-xl">Participate, Debate, and Transform: The Model UN Experience at The New School</p>
+    <br>
+    <p>To help our young students develop analytical and communication skills, we strive—through our institutional philosophy—to instill in them a conscious and critical worldview. In a global context marked by uncertainty, intercultural dialogue, and ethical decision-making, the Model United Nations (Model UN) offers a formative experience that goes beyond the classroom, allowing students to immerse themselves more deeply in the analysis of global sociopolitical issues.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-a.png" alt="Model UN" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>What is Model UN and what does it involve?</b></p>
+    <br>
+    <p>Model United Nations is an academic simulation in which students represent diplomats from different countries in summits or committees modeled after those of the United Nations. In these spaces, participants research, debate, and propose solutions to issues of global concern, following real-world diplomatic and negotiation protocols.</p>
+    <br>
+    <p>Each student takes on the role of a delegate, representing the interests of a country in response to challenges such as climate change, human rights, international security, or gender equality. These conferences not only promote critical thinking but also demand skills in public speaking, formal writing, teamwork, and intercultural empathy.</p>
+    <br>
+    <p>Santiago Hoyos Giraldo, our Social Studies and Political Economy teacher, has been leading the TNSMUN (The New School Model UN) program since its launch in 2020.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-b.png" alt="TNSMUN program" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>A Global Initiative, Local Participation</b></p>
+    <br>
+    <p>Model UN is a globally practiced initiative. Thousands of schools and universities from various countries organize and participate in these simulations each year. In Colombia, many educational institutions have incorporated this model into their curricula, recognizing its pedagogical value and its positive impact on students' civic development.</p>
+    <br>
+    <p>At The New School, we deeply value these experiences because they align with our Institutional Educational Project, which promotes critical thinking, global awareness, and responsible action. Through Model UN, our students not only study global issues, but also learn to engage with them meaningfully and support their views with well-founded arguments.</p>
+    <br>
+    <p class="text-xl"><b>Why is youth participation important?</b></p>
+    <br>
+    <p>The involvement of our youth in spaces like Model UN is essential to cultivating active and critical citizenship from adolescence. In a world facing major challenges, including global warming, armed conflict, migration, and social inequality, it is crucial for future leaders to be able to analyze complex contexts, listen to diverse perspectives, and build consensus.</p>
+    <br>
+    <p>Moreover, Model UN strengthens self-esteem, argumentation, empathy, and a sense of responsibility. Participating in these conferences means taking on a leading role in building a more just, inclusive, and sustainable world.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-c.png" alt="youth participation" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Inter-Institutional Conferences and Our Students’ Participation</b></p>
+    <br>
+    <p>Since implementing Model UN as a pedagogical and didactic methodology in 2020, our students have taken part in several local and national conferences.</p>
+    <br>
+    <p>Their first inter-institutional participation was at the XI VESMUN in March 2023, hosted by Colegio Vermont. There, our student—and now alumnus—Santiago Aparicio García received the award for Best Opening Speech.</p>
+    <br>
+    <p>In May of that same year, we also participated in CCHMUN 2023 at Colegio Campestre Horizontes in Rionegro. Our delegates stood out for their preparation and commitment, receiving special mentions such as the Award for Pacifism and Outstanding Committee Chair, the latter also awarded to Santiago Aparicio García.</p>
+    <br>
+    <p>In 2025, we participated in the Model UN at Colegio Montessori, further strengthening alliances with institutions that share our educational vision. This was a unique opportunity for our students to interact with peers from other contexts, foster cultural empathy, and broaden their worldview.</p>
+    <br>
+    <p>Gabriela Arbeláez, Gabriela Caicedo, Manuel Campos, María José Sierra, and Lorenzo Vásquez represented our school on this occasion, presenting their positions on pressing global issues such as political instability and extremist groups in the Middle East, illegal crops, artificial intelligence, and the cost of living. The last two students were recognized as Best Novice Delegates.</p>
+    <br>
+    <p>Most recently, in May 2025, our students delivered an outstanding performance at MONUAM, the Model UN hosted by the Universidad Autónoma de Manizales. Mateo Pardo, María José Sierra, Manuel Campos, Gabriela Arbeláez, and Daniela Osorio were our representatives in this edition. Daniela received the award for Best Opening Speech. Among the honors for our students’ performances as country delegates, The New School also received a special mention for its participation in MONUAM 2025.</p>
+    <br>
+    <p>We must also take a moment to recognize our teacher Santiago Hoyos, leader of The New School’s Model United Nations (TNSMUN) program. He has guided our students through weeks of preparation involving research, writing official documents, and practicing speeches—contributing to every delegation being distinguished not only for its argumentative strength but also for its respect, leadership, and collaborative spirit.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-d.png" alt="inter-institutional conferences" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>A Transformative Experience</b></p>
+    <br>
+    <p>The world is shaped by a multitude of realities, where multiculturalism and social phenomena define the landscape. At The New School, our students understand these realities through the educational model we offer. That’s why they have so excellently represented us at both local and regional Model UN summits.</p>
+    <br>
+    <p>We are proud to see our vision of educating conscious, critically minded global citizens realized in such capable young people. Model UN is more than an academic competition—it is a school of humanity, dialogue, and social commitment. In every word spoken, in every resolution written, and in every consensus reached, our students embody what it means to be true agents of change.</p>
+    <br>
+    <p>Above all, we are proud to witness the students’ inner transformation—how they evolve from spectators into protagonists, and how global issues become part of their conversations alongside everyday teenage concerns. They learn to position themselves within the complex landscape of ideologies and to engage with the world from a place of greater awareness.</p>
+    <br>
+    <p>It is through this inner transformation that the pathways to social transformation are forged.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-32-e.png" alt="social transformation" style="max-width: 70%; height: auto;">
+    </div>
+    `,
+        banner: true,
+    },
+    {
         date: "2025-04-30",
         imageUrl: ImagesPath.blog31,
         title: "Entre Comidas y Decisiones Construyendo Habitos que Dejan Huella",
