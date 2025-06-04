@@ -1,10 +1,12 @@
 import { ImagesPath } from "../utils/assetsPath";
 
-const blogList = [
+import slugify from 'slugify';
+
+const blogsDataOriginal = [
     {
         date: "2025-05-30",
         imageUrl: ImagesPath.blog32,
-        title: "Participar Debatir y Transformar La Experiencia Modelo ONU en The New School",
+        title: "Participar, debatir y transformar: la experiencia Modelo ONU en The New School",
         body: `
     <p>Buscando que nuestros jóvenes desarrollen habilidades analíticas y discursivas, procuramos sembrar en ellos, y desde nuestra filosofía institucional, la idea de que sean personas con una mirada consciente y crítica del mundo. En un contexto global marcado por la incertidumbre, el diálogo intercultural y la toma de decisiones éticas, el Modelo de Naciones Unidas (Modelo ONU) se presenta como una experiencia formativa que trasciende el aula para analizar de una manera más inmersiva la actualidad sociopolítica global.</p>
     <br>
@@ -1363,5 +1365,17 @@ Página recomendada: https://cuentosparacrecer.org/
     },
 
 ];
+const blogList = blogsDataOriginal.map(post => {
+    const slug = slugify(post.title, {
+        lower: true,
+        strict: true,
+        remove: /[*+~.()'"!:@,¿?]/g,
+        locale: 'es'
+    });
+    return {
+        ...post,
+        slug: slug
+    };
+});
 
 export default blogList;
