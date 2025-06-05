@@ -189,6 +189,10 @@ const data = [
   {
     name: "N°47 Despedida de Décimo a Once ",
     link: "https://drive.google.com/file/d/1U5BCk7hkiyUfRfZNTT8Z97ebshaxAtrI/view?usp=sharing",
+  },
+  {
+    name: "N°48 Salidas pedagógicas Párvulos, Prekínder y Kinder B ",
+    link: "https://drive.google.com/file/d/1LnkEznlxmU0t9Ls0QgS58AuyOy3eV85j/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
