@@ -138,4 +138,7 @@ export const ImagesPath = {
 export const VideoPath = {
   inscription: "/videos/inscription.mp4",
   inscription2: "/videos/inscription2.mp4",
+  slide1: "/videos/tns-slide-1.mp4",
+  slide2: "/videos/tns-slide-2.mp4",
+  slide3: "/videos/tns-slide-3.mp4",
 };

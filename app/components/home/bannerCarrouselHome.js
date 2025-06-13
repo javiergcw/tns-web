@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -22,7 +22,7 @@ function NextArrow(props) {
                 color: "white",
                 borderRadius: "50%",
                 padding: "10px",
-                width: "40px", // Ajuste para un tamaño más adecuado en diferentes pantallas
+                width: "40px",
                 height: "40px",
                 display: "flex",
                 justifyContent: "center",
@@ -50,7 +50,7 @@ function PrevArrow(props) {
                 color: "white",
                 borderRadius: "50%",
                 padding: "10px",
-                width: "40px", // Ajuste para un tamaño más adecuado en diferentes pantallas
+                width: "40px",
                 height: "40px",
                 display: "flex",
                 justifyContent: "center",
@@ -61,11 +61,11 @@ function PrevArrow(props) {
     );
 }
 
-export default function BannerCarousel({ imagePaths }) {
+export default function BannerCarousel({ videoPaths }) {
     const [activeSlide, setActiveSlide] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
-    const [gifKey, setGifKey] = useState(Date.now());
-
+    const sliderRef = useRef(null);
+    const videoRefs = useRef([]);
 
     const settings = {
         dots: true,
@@ -73,23 +73,25 @@ export default function BannerCarousel({ imagePaths }) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4500,
+        autoplay: false,
         fade: true,
-        beforeChange: (current, next) => {
-            setActiveSlide(next);
-            // Reinicia la animación del GIF al cambiar de slide
-            if (imagePaths[next].endsWith('.gif')) {
-                setGifKey(Date.now());
-            }
-        },
-        cssEase: "linear",
         nextArrow: <NextArrow isHovering={isHovering} />,
         prevArrow: <PrevArrow isHovering={isHovering} />,
-        beforeChange: (current, next) => setActiveSlide(next),
+        beforeChange: (current, next) => {
+            console.log(`Cambiando de slide ${current} a ${next}`); // Depuración
+            setActiveSlide(next);
+        },
+        afterChange: (current) => {
+            // Forzar la reproducción del video activo
+            if (videoRefs.current[current]) {
+                videoRefs.current[current].play().catch((error) => {
+                    console.error("Error al reproducir video:", error);
+                });
+            }
+        },
         responsive: [
             {
-                breakpoint: 1024, // Para dispositivos con pantalla hasta 1024px
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -98,20 +100,20 @@ export default function BannerCarousel({ imagePaths }) {
                 }
             },
             {
-                breakpoint: 600, // Para dispositivos con pantalla hasta 600px
+                breakpoint: 600,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    nextArrow: null, // Oculta las flechas en pantallas pequeñas
+                    nextArrow: null,
                     prevArrow: null
                 }
             },
             {
-                breakpoint: 480, // Para dispositivos con pantalla hasta 480px
+                breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    nextArrow: null, // Oculta las flechas en pantallas muy pequeñas
+                    nextArrow: null,
                     prevArrow: null
                 }
             }
@@ -149,18 +151,41 @@ export default function BannerCarousel({ imagePaths }) {
         },
     };
 
+    const handleVideoEnded = () => {
+        console.log("Video terminado, pasando al siguiente slide"); // Depuración
+        if (sliderRef.current) {
+            sliderRef.current.slickNext();
+        }
+    };
+
+    // Inicializar videoRefs con un arreglo del tamaño de videoPaths
+    useEffect(() => {
+        videoRefs.current = videoRefs.current.slice(0, videoPaths.length);
+    }, [videoPaths]);
+
     return (
         <div
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             className="w-full relative"
         >
-            <Slider {...settings}>
-                {imagePaths.map((path, index) => (
+            <Slider ref={sliderRef} {...settings}>
+                {videoPaths.map((path, index) => (
                     <div key={index} className="h-auto overflow-hidden relative">
-                        <img src={`${path}?${gifKey}`}
-                            style={{ width: '100%', height: 'auto', transition: 'transform 0.5s ease-out' }}
-                            alt={`Banner ${index + 1}`} />
+                        <video
+                            ref={(el) => (videoRefs.current[index] = el)} // Asignar referencia al video
+                            src={path}
+                            autoPlay={activeSlide === index}
+                            muted
+                            playsInline
+                            preload="auto" // Precargar video
+                            onEnded={handleVideoEnded}
+                            style={{ width: '100%', height: 'auto' }}
+                            alt={`Video ${index + 1}`}
+                        >
+                            <source src={path} type="video/mp4" />
+                            <img src="/images/fallback.jpg" alt="Fallback" /> {/* Imagen de respaldo */}
+                        </video>
                     </div>
                 ))}
             </Slider>

@@ -1,7 +1,6 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
- // Importa el nuevo modal
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
@@ -15,18 +14,18 @@ import MainLayout from "./components/layout/mainLayout";
 import ModalImage from "./components/home/ModalImage";
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(true); // Modal visible al inicio
+  const [showModal, setShowModal] = useState(true); // Corregido el typo 'showisztModal'
 
-  const imageUrl = "/images/pendon_preescolar.png"; // Ruta de la imagen que deseas mostrar
+  const imageUrl = "/images/pendon_preescolar.png";
 
   useEffect(() => {
-    setShowModal(true); // Muestra el modal al montar el componente
+    setShowModal(true);
   }, []);
 
-  const imagePaths = [
-    ImagesPath.banner9,
-    ImagesPath.banner10,
-    ImagesPath.banner11,
+  const videoPaths = [
+    "/videos/tns-slide-1.mp4",
+    "/videos/tns-slide-2.mp4",
+    "/videos/tns-slide-3.mp4",
   ];
 
   const servicesList = [
@@ -50,15 +49,15 @@ export default function Home() {
   ];
 
   return (
-    <Provider store={store}>
-      <MainLayout>
-        {/* {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />} */}
-        <BannerCarousel imagePaths={imagePaths} />
-        <ServicesHome images={servicesList} />
-        <BlogsSection blogs={blogList} />
-        <CalendarScheduleHome />
-        <ServicesStandart />
-      </MainLayout>
-    </Provider>
+      <Provider store={store}>
+        <MainLayout>
+          {/* {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />} */}
+          <BannerCarousel videoPaths={videoPaths} />
+          <ServicesHome images={servicesList} />
+          <BlogsSection blogs={blogList} />
+          <CalendarScheduleHome />
+          <ServicesStandart />
+        </MainLayout>
+      </Provider>
   );
 }
