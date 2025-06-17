@@ -193,6 +193,14 @@ const data = [
   {
     name: "N°48 Salidas pedagógicas Párvulos, Prekínder y Kinder B ",
     link: "https://drive.google.com/file/d/1LnkEznlxmU0t9Ls0QgS58AuyOy3eV85j/view?usp=sharing",
+  },
+  {
+    name: "N°49 Salida Pedagógica grados 7° ",
+    link: "https://drive.google.com/file/d/1YQkHOZ1AV7smUWv_QpHL1CIvHbUQmVmG/view?usp=sharing",
+  },
+  {
+    name: "N°50 Salida Makers Cosmolab ",
+    link: "https://drive.google.com/file/d/1yHFLSk4jfEGCEBwSk5aS1PQJwkKj6Ugj/view?usp=sharing",
   }
 
   // { name: 'Circular N1 Bienvenida año escolar 2023', link: 'https://drive.google.com/file/d/146xvVl6G6YAqT8CWKsQWz4BvrCQh-Hab/view?usp=sharing' },
