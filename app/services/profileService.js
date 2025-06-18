@@ -1,17 +1,20 @@
-import { get,patch } from "./apiRequest";
+import { get, patch } from "./apiRequest";
 import { ENDPOINTS } from "@/app/utils/apiConfig";
 import Profile from '../models/profile/profileModel';
 
 const getAllProfiles = async () => {
   try {
     const response = await get(ENDPOINTS.getAllProfiles);
-    console.log('Respuesta del servidor:', response);  // Añade esta línea para depuración
+    console.log('Respuesta del servidor:', response);
 
     if (!Array.isArray(response)) {
       throw new Error('Formato de respuesta inválido');
     }
 
-    return response.map(profile => new Profile(profile));
+    return response.map(profile => new Profile({
+      ...profile,
+      total_earned: profile.total_earned || 0, // Aseguramos que total_earned esté presente
+    }));
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -21,8 +24,11 @@ const getAllProfiles = async () => {
 const getProfileById = async (id) => {
   try {
     const response = await get(ENDPOINTS.getProfileById(id));
-    //console.log('Respuesta del servidor en getProfileById:', response);  // Añade esta línea para depuración
-    return new Profile(response);  // Ajusta esta línea según la estructura real de tu respuesta
+    console.log('Respuesta del servidor en getProfileById:', response);
+    return new Profile({
+      ...response,
+      total_earned: response.total_earned || 0, // Aseguramos que total_earned esté presente
+    });
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -32,9 +38,11 @@ const getProfileById = async (id) => {
 const updateProfile = async (id, profileData) => {
   try {
     const response = await patch(ENDPOINTS.updateProfile(id), { profile: profileData });
-    console.log('Respuesta del servidor en updateProfile:', response);  // Añade esta línea para depuración
-
-    return new Profile(response.profile);
+    console.log('Respuesta del servidor en updateProfile:', response);
+    return new Profile({
+      ...response.profile,
+      total_earned: response.profile.total_earned || 0, // Aseguramos que total_earned esté presente
+    });
   } catch (error) {
     console.error('Error:', error);
     throw error;

@@ -31,9 +31,9 @@ const ServicesStandart = () => {
 
       <ContainerService
         title="Utiles escolares"
-        text="Vigente para los años 2024-2025"
+        text="Vigente para los años 2025-2026"
         imageUrl={ImagesPath.backpack}
-        href="https://drive.google.com/file/d/1KdEQ_5PdHeI8eGMF5_WBZ8O6Igr5x-jm/view?usp=sharing"
+        href="https://drive.google.com/file/d/1Q7kJldPJxyfP2nsnH1CPgRI33JwPGD__/view?usp=sharing"
       />
       <ContainerService
         title="Manual de convivencia"

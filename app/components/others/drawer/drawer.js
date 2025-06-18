@@ -10,6 +10,7 @@ import {
   MdAddBox,
   MdShoppingCart,
   MdAssignmentInd,
+  MdDescription, // Nuevo icono para Certificado
 } from "react-icons/md";
 import { FiAlertTriangle } from "react-icons/fi";
 import Text from "@/app/components/others/text/text";
@@ -182,6 +183,11 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       name: "Admisiones",
       icon: <MdAssignmentInd style={{ color: greenDrawer }} />,
     },
+    {
+      link: "/certificates",
+      name: "Certificado",
+      icon: <MdDescription style={{ color: greenDrawer }} />, // Nuevo elemento para Certificado
+    },
   ];
 
   let accessibleMenuItems = [];
@@ -191,17 +197,17 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Lider de presupuesto":
       accessibleMenuItems = allMenuItems.filter((item) =>
-          ["/dashboardManager", "/profile", "/shoppings"].includes(item.link)
+          ["/dashboardManager", "/profile", "/shoppings", "/certificates"].includes(item.link)
       );
       break;
     case "Secretariado":
       accessibleMenuItems = allMenuItems.filter((item) =>
-          ["/admissions-view", "/profile"].includes(item.link)
+          ["/admissions-view", "/profile", "/certificates"].includes(item.link)
       );
       break;
     case "Compras":
       accessibleMenuItems = allMenuItems.filter((item) =>
-          ["/create-product", "/view-product", "/dashboardManager", "/profile"].includes(item.link)
+          ["/create-product", "/view-product", "/dashboardManager", "/profile", "/certificates"].includes(item.link)
       );
       break;
     case "Developer":
@@ -209,11 +215,13 @@ const Drawer = ({ isOpen, onToggle, profile }) => {
       break;
     case "Sin rol":
       accessibleMenuItems = allMenuItems.filter((item) =>
-          ["/dashboardManager", "/profile"].includes(item.link)
+          ["/dashboardManager", "/profile", "/certificates"].includes(item.link)
       );
       break;
     default:
-      accessibleMenuItems = allMenuItems.filter((item) => item.link === "/profile");
+      accessibleMenuItems = allMenuItems.filter((item) =>
+          ["/profile", "/certificates"].includes(item.link)
+      );
       break;
   }
 
