@@ -14,6 +14,24 @@ export default function Certificado() {
     const [loading, setLoading] = useState(true);
     const pdfRef = useRef();
 
+    // Mapa de roles a componentes de certificado
+    const getCertificateComponent = (roleName) => {
+        const administrativeRoles = [
+            "admin",
+            "Compras",
+            "Developer",
+            "Lider de presupuesto",
+            "Gestión Humana",
+            "Administrativo",
+        ];
+        if (roleName === "Docente") {
+            return TeacherCertificatePDF;
+        } else if (administrativeRoles.includes(roleName)) {
+            return CertificatePDF;
+        }
+        return null; // Para roles no permitidos
+    };
+
     // Verificar autenticación y obtener el perfil
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -28,7 +46,8 @@ export default function Certificado() {
             try {
                 const profileData = await getProfileById(profileId);
                 setProfile(profileData);
-                setRole(profileData.rol ? profileData.rol.name : "Sin rol");
+                const roleName = profileData.rol?.name || "Sin rol";
+                setRole(roleName);
             } catch (error) {
                 console.error("Error fetching profile:", error);
                 window.location.href = "https://thenewschool.edu.co/login";
@@ -80,7 +99,16 @@ export default function Certificado() {
     }
 
     // Determinar qué certificado renderizar según el rol
-    const CertificateComponent = role === "Docente" ? TeacherCertificatePDF : CertificatePDF;
+    const CertificateComponent = getCertificateComponent(role);
+    const validRoles = [
+        "Docente",
+        "admin",
+        "Compras",
+        "Developer",
+        "Lider de presupuesto",
+        "Gestión Humana",
+        "Administrativo",
+    ];
 
     return (
         <DrawerLayout role={role}>
@@ -91,7 +119,7 @@ export default function Certificado() {
                 >
                     Certificado Laboral
                 </h1>
-                {role === "Docente" || role === "Administrativo" ? (
+                {validRoles.includes(role) ? (
                     <>
                         <button
                             onClick={handleDownload}
@@ -102,10 +130,12 @@ export default function Certificado() {
                         {/* Renderizar el PDF en un contenedor oculto */}
                         <div style={{ position: "absolute", top: "-9999px", left: "-9999px" }}>
                             <div ref={pdfRef}>
-                                <CertificateComponent
-                                    profile={profile}
-                                    onReady={() => console.log("CertificatePDF listo")}
-                                />
+                                {CertificateComponent && (
+                                    <CertificateComponent
+                                        profile={profile}
+                                        onReady={() => console.log("CertificatePDF listo")}
+                                    />
+                                )}
                             </div>
                         </div>
                     </>
