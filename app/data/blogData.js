@@ -4,6 +4,142 @@ import slugify from 'slugify';
 
 const blogsDataOriginal = [
     {
+        date: "2025-06-30",
+        imageUrl: ImagesPath.blog33,
+        title: "El Nuevo Colegio: Formando en Consciencia Por y Para la Vida",
+        body: `
+    <p>En The New School creemos que la educación va mucho más allá de memorizar datos o aprender fórmulas. Aquí, cada jornada escolar se convierte en una oportunidad para que nuestros estudiantes se descubran por sí mismos, aprendan a convivir, respeten la diversidad y se preparen para transformar su entorno. Todo esto es posible gracias a nuestro modelo educativo de “Formación en Consciencia”, una propuesta que ha cambiado la vida de miles de niños, niñas y jóvenes a lo largo de nuestra trayectoria.</p>
+    <br>
+    <br>
+    <p>Desde hace 30 años, El Nuevo Colegio nació de un sueño: formar personas felices, solidarias y conscientes de su papel en la sociedad. Un grupo de educadores y visionarios se propuso crear un espacio donde aprender sea un placer, donde el conocimiento se construya desde la curiosidad, el respeto y la reflexión, y donde se valore la diferencia como una riqueza y no como un obstáculo.</p>
+    <br>
+    <p>Este sueño se materializa en un modelo pedagógico que combina el enfoque humanista y científico, con estrategias modernas que ponen al estudiante en el centro de su proceso de aprendizaje. Aquí, los niños y jóvenes no solo adquieren saberes académicos, sino que aprenden a pensar de forma crítica, a investigar, a cuestionar, a convivir y, sobre todo, a conocerse y valorarse.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-b.png" alt="Ambiente de aprendizaje en The New School" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>¿Qué significa formar en consciencia?</b></p>
+    <br>
+    <p>Formar en consciencia es mucho más que impartir clases. Significa acompañar a cada estudiante para que sea capaz de reconocer sus emociones, sus acciones y su impacto en los demás. En palabras sencillas, buscamos que cada niño y joven pueda responderse a sí mismo preguntas cómo: ¿por qué actúo de esta manera? ¿Cómo puedo mejorar? ¿Cómo mis decisiones contribuyen al bienestar propio y colectivo?</p>
+    <br>
+    <p>Nuestro Proyecto Educativo Institucional o PEI, es la hoja de ruta que garantiza que toda la comunidad educativa —estudiantes, familias, docentes y colaboradores— trabajemos juntos en ese propósito. Desde la reflexión diaria, la construcción de ambientes de aprendizaje seguros y acogedores, y el diseño de experiencias significativas, le apostamos a una formación integral que trascienda las aulas.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-c.png" alt="Estudiantes participando en actividades reflexivas" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Dimensiones que transforman vidas</b></p>
+    <br>
+    <p>En El Nuevo Colegio entendemos al ser humano de manera integral, por eso trabajamos el desarrollo de todas sus dimensiones:</p>
+    <br>
+    <p>· <b>Dimensión corporal:</b> los estudiantes aprenden a tomar decisiones con responsabilidad, respetando su dignidad, la de los demás y la naturaleza.</p>
+    <p>· <b>Dimensión cognitiva:</b> fomentamos la pasión por el conocimiento, el pensamiento crítico, la investigación y la creatividad, para que cada uno sea protagonista de su aprendizaje.</p>
+    <p>· <b>Dimensión socio-afectiva:</b> aquí se cultiva la empatía, el respeto y la construcción de relaciones sanas y solidarias.</p>
+    <p>· <b>Dimensión comunicativa:</b> los estudiantes fortalecen su capacidad para expresarse, dialogar y comprender a los otros desde la diferencia.</p>
+    <p>· <b>Dimensión estética-sensible:</b> se desarrolla la creatividad, el amor por la naturaleza y la capacidad de apreciar la belleza del mundo.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-d.png" alt="Estudiantes desarrollando proyectos creativos" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Una escuela para todos</b></p>
+    <br>
+    <p>Nuestra propuesta es incluyente, atiende la diversidad y promueve la equidad. Creemos que cada estudiante es único, con talentos, ritmos y estilos propios, y adaptamos nuestras metodologías para acompañarlos de la mejor manera. Desde la lúdica, el aprendizaje basado en proyectos, la investigación escolar y el fortalecimiento de las competencias para la vida, cada niño y joven encuentra aquí un espacio para ser él mismo y crecer integralmente.</p>
+    <br>
+    <p>Además, somos un colegio bilingüe que abre las puertas al mundo, conscientes de la importancia del inglés como herramienta para acercarse a otras culturas e idiomas como el francés y el italiano.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-e.png" alt="Estudiantes en actividades bilingües" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Más allá de las aulas</b></p>
+    <br>
+    <p>Nuestra sede campestre, en la Vía Las Palmas de Medellín, se convierte en un escenario ideal para aprender en contacto con la naturaleza, promover la sostenibilidad y fomentar el cuidado del planeta. Los proyectos ecológicos, la convivencia en la diversidad y la formación en valores son parte esencial de la vida cotidiana en El Nuevo Colegio.</p>
+    <br>
+    <p>En cada rincón de nuestra institución se respira la esencia de la "Cultura New", que prolonga en el tiempo los valores, el respeto, la creatividad y el compromiso social.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-f.png" alt="Sede campestre de The New School" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Transformamos estudiantes, transformamos sociedad</b></p>
+    <br>
+    <p>Creemos firmemente que una educación consciente forma ciudadanos capaces de construir una sociedad más justa, solidaria y pacífica. Aquí formamos seres humanos que piensan, sienten, se relacionan y actúan con responsabilidad, empatía y sentido crítico.</p>
+    <br>
+    <p>The New School es mucho más que una institución educativa: es un proyecto de vida donde cada día se siembran las semillas de un futuro mejor. Una comunidad que transforma vidas, una escuela que enseña a vivir… Por y Para la Vida.</p>
+    <br>
+    <p>-------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <p class="text-xl">The New School: Educating in Awareness To and For Life</p>
+    <br>
+    <p>At The New School, we believe education goes far beyond memorizing facts or learning formulas. Here, every school day becomes an opportunity for our students to discover themselves, learn to coexist, respect diversity, and prepare to transform their surroundings. All of this is made possible through our educational model: Educating in Awareness To and For Life, a philosophy that has changed the lives of hundreds of children and young people throughout our journey.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-a.png" alt="Students at The New School in a learning environment" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Thirty years ago, The New School was born from a dream: to shape happy, compassionate individuals who are aware of their role in society. A group of visionary educators set out to create a space where learning is a pleasure, where knowledge is built through curiosity, respect, and reflection, and where differences are valued as strengths, not obstacles.</p>
+    <br>
+    <p>This dream came to life through a pedagogical model that combines a humanistic and scientific approach with modern strategies that place students at the center of their own learning process. Here, children and young people not only acquire academic knowledge, but also learn to think critically, to research, to question, to coexist, and, above all, to know and value themselves.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-b.png" alt="Learning environment at The New School" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>What does it mean to educate in awareness?</b></p>
+    <br>
+    <p>Educating in awareness is much more than teaching classes. It means accompanying each student so they can recognize their emotions, their actions, and their impact on others. Simply put, we want every child and young person to be able to answer questions like: Why do I act this way? How can I improve? How do my decisions contribute to my well-being and that of others?</p>
+    <br>
+    <p>Our Institutional Educational Project, known as the PEI, is the roadmap that ensures our entire educational community—students, families, teachers, and staff—work together toward this goal. Through daily reflection, the creation of safe and welcoming learning environments, and the design of meaningful experiences, we are committed to comprehensive education that goes beyond the classroom.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-c.png" alt="Students engaging in reflective activities" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Dimensions that transform lives</b></p>
+    <br>
+    <p>At The New School, we view human beings as whole individuals, which is why we nurture the development of all their dimensions:</p>
+    <br>
+    <p>· <b>Physical Dimension:</b> Students learn to make responsible decisions, respecting their own dignity, that of others, and the environment.</p>
+    <p>· <b>Cognitive Dimension:</b> We cultivate a passion for knowledge, critical thinking, research, and creativity, empowering students to become the protagonists of their learning.</p>
+    <p>· <b>Social and Emotional Dimension:</b> We promote empathy, respect, and the building of healthy, supportive relationships.</p>
+    <p>· <b>Communicative Dimension:</b> Students strengthen their ability to express themselves, engage in dialogue, and understand others, embracing differences.</p>
+    <p>· <b>Aesthetic and Sensory Dimension:</b> We foster creativity, love for nature, and the ability to appreciate the beauty of the world.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-d.png" alt="Students working on creative projects" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>A school for everyone</b></p>
+    <br>
+    <p>Our approach is inclusive, embraces diversity, and promotes equity. We believe every student is unique, with their own talents, rhythms, and learning styles, and we adapt our methodologies to support them in the best way possible. Through play-based learning, project-based education, school research, and the development of life skills, every child and young person finds a space here to be themselves and grow in a holistic way.</p>
+    <br>
+    <p>Additionally, we are a bilingual school that opens doors to the world, aware of the importance of mastering English and exploring other cultures and languages such as French and Italian.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-e.png" alt="Students in bilingual activities" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Beyond the classroom</b></p>
+    <br>
+    <p>Our countryside campus, located along Las Palmas Road in Medellín, provides an ideal setting to learn in contact with nature, promote sustainability, and encourage environmental care. Ecological projects, coexistence in diversity, and values-based education are an essential part of daily life at The New School.</p>
+    <br>
+    <p>In every corner of our institution, you can feel the essence of the New Culture, which carries forward the values of respect, creativity, and social responsibility.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-33-f.png" alt="The New School’s countryside campus" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p class="text-xl"><b>Transforming students, transforming society</b></p>
+    <br>
+    <p>We firmly believe that conscious education shapes citizens capable of building a more just, supportive, and peaceful society. Here, we nurture individuals who think, feel, connect, and act with responsibility, empathy, and critical awareness.</p>
+    <br>
+    <p>The New School is much more than an educational institution: it is a life project where every day, we plant the seeds for a better future. A community that transforms lives. A school that teaches how to live... To and For Life.</p>
+    `,
+        banner: true,
+    },
+    {
         date: "2025-05-30",
         imageUrl: ImagesPath.blog32,
         title: "Participar, debatir y transformar: la experiencia Modelo ONU en The New School",
