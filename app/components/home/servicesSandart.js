@@ -24,9 +24,9 @@ const ServicesStandart = () => {
       />
       <ContainerService
         title="Resolucion de costos educativos"
-        text="Vigente para los años 2024-2025"
+        text="Vigente para los años 2025-2026"
         imageUrl={ImagesPath.money}
-        href="https://drive.google.com/file/d/1oha_AkRS85DfrONBL8VWhHQ8NYL2bCrC/view"
+        href="https://drive.google.com/file/d/1l96twazMz181JDEsVPRXoUvUtPGc25cY/view?usp=sharing"
       />
 
       <ContainerService
@@ -43,9 +43,9 @@ const ServicesStandart = () => {
       />
       <ContainerService
         title="Costos"
-        text="Vigente para los años 2024-2025"
+        text="Vigente para los años 2025-2026"
         imageUrl={ImagesPath.money}
-        href="https://drive.google.com/file/d/1qnQYq5PiKRpvgOoqkjtJm8VDZA7VIK7d/view?usp=sharing"
+        href="https://drive.google.com/file/d/10VAnKRM6O3o6yQKS_zuGNvlN7brpcFV7/view?usp=sharing"
       />
       <SocialMedia />
     </div>
