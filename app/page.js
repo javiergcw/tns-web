@@ -42,6 +42,12 @@ export default function Home() {
       alt: "Podcast",
     },
     {
+      href: "/my_journey",
+      src: ImagesPath.myjourney,
+      alt: "My Journey",
+      className: "w-[130px] h-auto",
+    },
+    {
       href: "https://thenewschool.edu.co/login",
       src: ImagesPath.shopping,
       alt: "Shopping",

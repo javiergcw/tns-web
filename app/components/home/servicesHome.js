@@ -10,7 +10,7 @@ const ServicesHome = ({ images }) => {
                 <div key={index} className="group relative m-2 sm:m-4 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/6">
                     <div className="flex justify-center items-center w-full px-2 sm:px-4 md:px-6">
                         {/* Asegúrate de que la etiqueta <a> también sea un contenedor flex para mantener la imagen centrada */}
-                        <a href={image.href} className="flex justify-center items-center w-full">
+                        <a href={image.href} className="">
                             <img src={image.src} alt={image.alt} className="h-auto max-w-full mx-auto" />
                         </a>
                     </div>

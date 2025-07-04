@@ -194,8 +194,7 @@ const Navbar = () => {
               <a
                 href="https://thenewschooledu-my.sharepoint.com/:f:/g/personal/orientacionescolar_thenewschool_edu_co/EiHbxhAC_bZNneZN_rLxyMsBVglfux-071AVHQ1GtEpynQ?e=PYj5n9"
                 className="block py-2 px-3 text-blueButton rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                INSPIRING PARENTS TNS
+              >INSPIRING PARENTS TNS
               </a>
             </li>
           </ul>

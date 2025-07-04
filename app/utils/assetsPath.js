@@ -9,6 +9,7 @@ export const ImagesPath = {
   beam: "/images/services/beam.png",
   podcast: "/images/services/podcast.png",
   shopping: "/images/services/shopping.png",
+  myjourney: "/images/services/logo_my_journey.png",
 
 
   //Banner carousel
@@ -134,6 +135,9 @@ export const ImagesPath = {
   group1: "/images/services/beam/Group-1-1.png",
   group5: "/images/services/other/Group-5.png",
   group6: "/images/services/other/Group-6.png",
+  //my journey
+  presentacion1: "/images/journey/presentacion1.jpeg",
+  presentacion2: "/images/journey/presentacion2.jpeg",
 };
 
 export const VideoPath = {
