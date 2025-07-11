@@ -9,8 +9,9 @@ export default function MyJourney() {
             name: 'August',
             key: 'august',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR AUGUST MINDFULNESS]' },
             ],
         },
@@ -18,8 +19,9 @@ export default function MyJourney() {
             name: 'September',
             key: 'september',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR SEPTEMBER MINDFULNESS]' },
             ],
         },
@@ -27,8 +29,9 @@ export default function MyJourney() {
             name: 'October',
             key: 'october',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR OCTOBER MINDFULNESS]' },
             ],
         },
@@ -36,8 +39,9 @@ export default function MyJourney() {
             name: 'November',
             key: 'november',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR NOVEMBER MINDFULNESS]' },
             ],
         },
@@ -45,8 +49,9 @@ export default function MyJourney() {
             name: 'December',
             key: 'december',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR DECEMBER MINDFULNESS]' },
             ],
         },
@@ -54,8 +59,9 @@ export default function MyJourney() {
             name: 'January',
             key: 'january',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR JANUARY MINDFULNESS]' },
             ],
         },
@@ -63,8 +69,9 @@ export default function MyJourney() {
             name: 'February',
             key: 'february',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR FEBRUARY MINDFULNESS]' },
             ],
         },
@@ -72,8 +79,9 @@ export default function MyJourney() {
             name: 'March',
             key: 'march',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR MARCH MINDFULNESS]' },
             ],
         },
@@ -81,8 +89,9 @@ export default function MyJourney() {
             name: 'April',
             key: 'april',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR APRIL MINDFULNESS]' },
             ],
         },
@@ -90,8 +99,9 @@ export default function MyJourney() {
             name: 'May',
             key: 'may',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR MAY MINDFULNESS]' },
             ],
         },
@@ -99,8 +109,9 @@ export default function MyJourney() {
             name: 'June',
             key: 'june',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR JUNE MINDFULNESS]' },
             ],
         },
@@ -108,11 +119,21 @@ export default function MyJourney() {
             name: 'July',
             key: 'july',
             links: [
-                { name: 'Questions / Stories', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY QUESTIONS]' },
-                { name: 'Tablero del Sabio', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY TABLERO]' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY MONTHLY HISTORY]' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY SAGE’S BOARD]' },
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY QUESTIONS]' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: '[INSERT ONEDRIVE LINK FOR JULY MINDFULNESS]' },
             ],
         },
+    ];
+
+    // Lista de íconos para la nueva sección
+    const journeyIcons = [
+        { image: '/images/journey/journey_mapa.png', href: '[INSERT ONEDRIVE LINK FOR JOURNEY MAPA]' },
+        { image: '/images/journey/journey_camino.png', href: '[INSERT ONEDRIVE LINK FOR JOURNEY CAMINO]' },
+        { image: '/images/journey/journey_sol.png', href: '[INSERT ONEDRIVE LINK FOR JOURNEY SOL]' },
+        { image: '/images/journey/journey_escudo.png', href: '[INSERT ONEDRIVE LINK FOR JOURNEY ESCUDO]' },
+        { image: '/images/journey/journey_inner.png', href: '[INSERT ONEDRIVE LINK FOR JOURNEY INNER]' },
     ];
 
     return (
@@ -198,10 +219,30 @@ export default function MyJourney() {
                 </div>
             </div>
 
+            {/* Nueva sección de íconos */}
+            <div className="contenedor flex justify-center items-center pt-4 pb-4 mb-5">
+                <div className="max-w-6xl mx-auto">
+                    <h2 className="text-2xl font-bold text-grayTerciary mb-8 text-center">
+                        Journey Resources
+                    </h2>
+                    <div className="flex justify-center space-x-12">
+                        {journeyIcons.map((icon, index) => (
+                            <a key={index} href={icon.href} className="hover:opacity-75">
+                                <img
+                                    className="w-40 h-40 rounded-md object-cover"
+                                    src={icon.image}
+                                    alt={`Journey Icon ${index + 1}`}
+                                />
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* Sección de meses */}
             <div className="contenedor flex justify-center items-center pt-4 pb-4">
                 <div className="max-w-6xl mx-auto">
-                    <h2 className="text-2xl font-bold text-grayTerciary mb-8 text-center">
+                    <h2 className="text-2xl font-bold text-grayTerciary mb-12 text-center">
                         Monthly Journey
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
