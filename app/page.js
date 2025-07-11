@@ -45,7 +45,7 @@ export default function Home() {
       href: "/my_journey",
       src: ImagesPath.myjourney,
       alt: "My Journey",
-      className: "w-[130px] h-auto",
+      className: "w-[140px] h-auto",
     },
     {
       href: "https://thenewschool.edu.co/login",
