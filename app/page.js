@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import BannerCarousel from "./components/home/bannerCarrouselHome";
 import ServicesHome from "./components/home/servicesHome";
 import CalendarScheduleHome from "./components/home/calendarScheduleHome";
@@ -11,15 +12,14 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { ImagesPath } from "./utils/assetsPath";
 import MainLayout from "./components/layout/mainLayout";
-import ModalImage from "./components/home/ModalImage";
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(true); // Corregido el typo 'showisztModal'
+  const [showModal, setShowModal] = useState(true);
 
-  const imageUrl = "/images/pendon_preescolar.png";
+  const imageUrl = "/images/journey/vacaciones.jpeg"; // Ruta de la imagen
 
   useEffect(() => {
-    setShowModal(true);
+    setShowModal(true); // Mostrar el modal al cargar la página
   }, []);
 
   const videoPaths = [
@@ -57,7 +57,59 @@ export default function Home() {
   return (
       <Provider store={store}>
         <MainLayout>
-          {/* {showModal && <ModalImage setShowModal={setShowModal} imageUrl={imageUrl} />} */}
+          {showModal && (
+              <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 1000,
+                  }}
+                  onClick={() => setShowModal(false)} // Cierra el modal al hacer clic fuera
+              >
+                <div
+                    style={{
+                      position: "relative",
+                      maxWidth: "90%",
+                      maxHeight: "90%",
+                      background: "white",
+                      padding: "20px",
+                      borderRadius: "8px",
+                    }}
+                    onClick={(e) => e.stopPropagation()} // Evita que el clic dentro del modal lo cierre
+                >
+                  <Image
+                      src={imageUrl}
+                      alt="Pop-up de vacaciones"
+                      width={600} // Ajusta según el tamaño de la imagen
+                      height={400} // Ajusta según el tamaño de la imagen
+                      style={{ objectFit: "contain" }}
+                  />
+                  <button
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        background: "red",
+                        color: "white",
+                        border: "none",
+                        padding: "5px 10px",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setShowModal(false)}
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+          )}
           <BannerCarousel videoPaths={videoPaths} />
           <ServicesHome images={servicesList} />
           <BlogsSection blogs={blogList} />
