@@ -130,7 +130,7 @@ export default function MyJourney() {
     const journeyIcons = [
         { image: '/images/journey/journey_mapa.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXJkzXlgqZdKnwNBvwAVVYwBcFHIRSpVVJYalaNxMdoHFQ?e=9Gm4TJ' },
         { image: '/images/journey/journey_camino.png', href: 'https://drive.google.com/file/d/1e1BpQ59uv8kUB57VHdM7BXjDyh8p5HQu/view?usp=sharing' },
-        { image: '/images/journey/journey_sol.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EdwhKJMUyURKrsDssxAfLrwBsc7cEqZDxqjYREv99iDUhQ?e=KmbuoH' },
+        { image: '/images/journey/journey_sol.png', href: 'https://drive.google.com/file/d/1rXU1akaxVpleaEPHRkLjLURpb2huiuGU/view?usp=sharing' },
         { image: '/images/journey/journey_escudo.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWQikKoPKv1LrACATPpSSkwBEiQSyQXZP0fh9BE8KW_Kdg?e=irj64r' },
         { image: '/images/journey/journey_inner.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXghdaD85chOmW8i7YdtVI4Bam3NEUnupKV13zh236Ow2A?e=Q9WsC0' },
     ];
@@ -178,19 +178,11 @@ export default function MyJourney() {
                             </li>
                             <li className="mb-2">
                                 Use the monthly divider as follows:
-                                <ol className="list-decimal list-inside ml-4">
-                                    <li className="mb-1">
-                                        Explore the dragon caves by reading the questions in each of them and answering them.
-                                    </li>
-                                    <li className="mb-1">
-                                        Discover the symbols in the wizard’s stories by reading the tale on the back of the divider and creating a drawing that represents my interpretation of the story.
-                                    </li>
-                                    <li className="mb-1">
-                                        Investigate the sage’s board. Here, I find scientific elements that help me reflect on the dragon’s questions.
-                                    </li>
-                                    <li className="mb-1">
-                                        Practice mindfulness exercises.
-                                    </li>
+                                <ol className="list-none list-inside ml-4">
+                                    <li className="mb-1">3.1. Explore the dragon caves by reading the questions in each of them and answering them.</li>
+                                    <li className="mb-1">3.2. Discover the symbols in the wizard’s stories by reading the tale on the back of the divider and creating a drawing that represents my interpretation of the story.</li>
+                                    <li className="mb-1">3.3. Investigate the sage’s board. Here, I find scientific elements that help me reflect on the dragon’s questions.</li>
+                                    <li className="mb-1">3.4. Practice mindfulness exercises.</li>
                                 </ol>
                             </li>
                             <li className="mb-2">
@@ -254,7 +246,7 @@ export default function MyJourney() {
                                     {month.links.map((link, linkIndex) => (
                                         <div key={linkIndex} className="flex items-center space-x-4">
                                             <img
-                                                className="w-16 h-16 rounded-md object-cover"
+                                                className="w-16 h-16 rounded-md object-contain"
                                                 src={link.image}
                                                 alt={link.name}
                                             />
