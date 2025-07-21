@@ -9,9 +9,9 @@ export default function MyJourney() {
             name: 'August',
             key: 'august',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ed1SP2uDrQRDtnHyvUUgxFUBRtZq9sWhP3GlMN8xYM3N9g?e=WqZmf3' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EeKDShfH8ydBmRJhKJUxUdUBVvfAj-VF0Qh3mkaxCxJrhA?e=kBkJGd' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Eb1GXXHrLhVNhRjlRTMlrboBP2houtAQE1jhFtZ10ilnGA?e=tEJcOB' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ed1SP2uDrQRDtnHyvUUgxFUBRtZq9sWhP3GlMN8xYM3N9g?e=WqZmf3' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESpBfbNDk-VDmSVHnT0kwpUBD7CYUrEyQ93f6u4tu1qnQw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=CqzSEI' },
             ],
         },
@@ -19,19 +19,19 @@ export default function MyJourney() {
             name: 'September',
             key: 'september',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW-VeWcC-QBOmKQVmiEf-04B2zRaYm7to0BjWWnrzBZFNQ?e=bsBLky' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbqF7du31xRPjAhyh7TzZhABv5p7Tim9xcFs-GB9JW9Qng?e=s74Jd9' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESYunFSSYntPid8v4xzzzlsB4Kw5NjXasQcRzG4a47-KfQ?e=A4oIum' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW-VeWcC-QBOmKQVmiEf-04B2zRaYm7to0BjWWnrzBZFNQ?e=bsBLky' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUd1wnl-jK1Kk2pPqChQ4iABiDBQfHawE6pFSMx7m8pJRQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pnxi7R' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUd1wnl-jK1Kk2pPqChQ4iABiDBQfHawE6pFSMx7m8pJRQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZiZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pnxi7R' },
             ],
         },
         {
             name: 'October',
             key: 'october',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQ9PUol1rqlEuGP67acfLiABf977QY_cE1xpjRLtDhFXXA?e=rQRWP0' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVGTp58qi8VHthANRE95JVwBaGVMTJxQ7QSwRW_GCPcNaA?e=pmdf6O' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESWSyS1q63lJgLl0Dh6pP2EBY277Lbo6QwFBaRwELVodeg?e=r5haKa' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQ9PUol1rqlEuGP67acfLiABf977QY_cE1xpjRLtDhFXXA?e=rQRWP0' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EY57lAOQ4XZKmLBEbfie9K0BqqEaZwoQvzMbanN-3lC-Zg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=ioL5uD' },
             ],
         },
@@ -39,9 +39,9 @@ export default function MyJourney() {
             name: 'November',
             key: 'november',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUhkUD_MTahFkA_4tOfcad4Bz8RDiaBoJLdw5Rl7DDHw1w?e=4xtPT4' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYJqD-DiT99MssnqT8XgoYgBrYzicmiTdIlDwuQlSXmoQw?e=QkKZEA' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYuQqXWTGKRIt1F15k6DX7kB68H53oJqf_KqRsvo4reK-g?e=8683vB' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUhkUD_MTahFkA_4tOfcad4Bz8RDiaBoJLdw5Rl7DDHw1w?e=4xtPT4' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETasPGgzpihGtgdTRITvJrQBtMcOvRF_taAPnZDMPv1SBw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=gnfq5H' },
             ],
         },
@@ -49,9 +49,9 @@ export default function MyJourney() {
             name: 'December',
             key: 'december',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVGUprKAOGxBqHB208_pBU0BRV0AZ1_9TodJd-tho1YGLg?e=mbWmCQ' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ed9mQ7gkCKlFq5xs4vWDdWMBJ-4O6QL4Gk0xd0QgD7v6RA?e=IbtriZ' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQdSfDcDhX9KuG3ErWvbwVYBNYJTZkUDG6J-_ZXNU6gJxA?e=lDucd7' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVGUprKAOGxBqHB208_pBU0BRV0AZ1_9TodJd-tho1YGLg?e=mbWmCQ' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ERjmroOKc09Fl6DhauMtWm4BY0QMEhfnxnB-wzL46grgPA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=qPolIf' },
             ],
         },
@@ -59,9 +59,9 @@ export default function MyJourney() {
             name: 'January',
             key: 'january',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWTxktQwZ1hOrdFGfjMMwPEBXikXusdYe3oLSxHGtQKlXg?e=osAqlk' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EeonGKkTKj9OqNf0FpmAclMBcbAjzHERgE9EkGtYu3r8Jw?e=eQ6Mp8' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXe3I1gd_9lDhrbOFR6nbnwBcE6ugurmojrFRQk1-Z6jDg?e=ueljgp' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWTxktQwZ1hOrdFGfjMMwPEBXikXusdYe3oLSxHGtQKlXg?e=osAqlk' },
                 { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbGPzRzVGj9AkMP71XhhLuQBir3ZZJpdSNP-0o6ZgQLVJg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=GVfzv6' },
             ],
         },
@@ -69,60 +69,59 @@ export default function MyJourney() {
             name: 'February',
             key: 'february',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYAQfby1VE9JgbJ1aRZ0mwYB29grYcAIY7suWq7URZMYdw?e=5lFDtM' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETdthgAgZuBLrhb2HdoQafsB9Ot43tdSvXnGDUqKO6q9PA?e=c8k31s' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ERHffwi_A_9EtCtsV_PHwHUBdSJKorvbz47fOnjh_9ud3A?e=G8k7gE' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYAQfby1VE9JgbJ1aRZ0mwYB29grYcAIY7suWq7URZMYdw?e=5lFDtM' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EU_bvVadWMxNorZF1L5YlXQB78Rl2WUp-607q_7ME7xYFA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=McrijK' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EU_bvVadWMxNorZF1L5YlXQB78Rl2WUp-607q_7ME7xYFA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxAcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=McrijK' },
             ],
         },
         {
             name: 'March',
             key: 'march',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ec20O4xVD1BHr_zSmGpGTuABBsT6QbTbqIWumhQqVY-fmQ?e=AhFA75' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWpsj9iK_jlMkNiW8kGrldwBJ7r2Ctp_dpBRyv87-MMWwA?e=nkaSik' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EfLcV5HITDRKuIbOkl59uQMBY4AwaG27GreiwxEoXLiQ_w?e=9Zr0Ec' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ec20O4xVD1BHr_zSmGpGTuABBsT6QbTbqIWumhQqVY-fmQ?e=AhFA75' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXOZJZC7LlhPhdWRPiR-wsEBgU3TY6s9WMc5E8gpqL5Y-A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=UExfrc' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXOZJZC7LlhPhdWRPiR-wsEBgU3TY6s9WMc5E8gpqL5Y-A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxAcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=UExfrc' },
             ],
         },
         {
             name: 'April',
             key: 'april',
             links: [
-                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EdwhKJMUyURKrsDssxAfLrwBsc7cEqZDxqjYREv99iDUhQ?e=KmbuoH' },
-                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWrWT2FAhI1GuUcB11ZD-1QBUZsVNeqmPT8ESU54XhX9tA?e=a3GCVh' },
                 { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESVqULgwCltBnYLsUe23TLMBwJcjQjHiOvEHF71U5gJA6A?e=Dr1q5Q' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESkxqcVGYgxAmDJ0GP-mKj8B553Q0xpp0t6P4fCu3V2MsQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=wSKb6D' },
+                { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbCpvAyHIEpNnNkd9fgJyjkBFU4hIpR__xJRuRiXy8dfZg?e=QunA9X' },
+                { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWrWT2FAhI1GuUcB11ZD-1QBUZsVNeqmPT8ESU54XhX9tA?e=a3GCVh' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESkxqcVGYgxAmDJ0GP-mKj8B553Q0xpp0t6P4fCu3V2MsQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxAcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=wSKb6D' },
             ],
         },
         {
             name: 'May',
             key: 'may',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ERXLEmFwVTlLsJEncNU0Y7kB19b2HCejUR2-r3qSUxdGgA?e=iWJq8s' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW3IPXwPH-1EnpB8fp7A9nsBhlRrPUVh6WdLlv7r1ZE_Zw?e=8obdgZ' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVp98a_G5zZNj1pG9nUQXoEBmFA08ZnaVXAKzcJwsLTrGw?e=4YYaGm' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ERXLEmFwVTlLsJEncNU0Y7kB19b2HCejUR2-r3qSUxdGgA?e=iWJq8s' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EaTXDF3n6jRJpra_ZQfHKlsBArerexaYP4SgsAF8sGa4Uw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=cykRbK' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/EaTXDF3n6jRJpra_ZQfHKlsBArerexaYP4SgsAF8sGa4Uw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxAcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxAcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=cykRbK' },
             ],
         },
         {
             name: 'June',
             key: 'june',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUfxLFao9cBNqIhNszn1sccBNyaKSPvGBIDrunZIFV-ILQ?e=0gahoj' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVDZ337R-5pLnounJEoBTLUBF4gryKuKYKaMGIoznhKNSw?e=FER4ZL' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbLV944U_YpAtlh0MIwLNxIBVNVZ3kkWTju3WOfwH18L0w?e=dPrcjd' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUfxLFao9cBNqIhNszn1sccBNyaKSPvGBIDrunZIFV-ILQ?e=0gahoj' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ET1aB43ZuHBLn1Tq8_U_XCIBw47k8vW5JaIb3AzFRyh2tg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=wHpXKQ' },
+                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ET1aB43ZuHBLn1Tq8_U_XCIBw47k8vW5JaIb3AzFRyh2tg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxAcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxAcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=wHpXKQ' },
             ],
         },
         {
             name: 'July',
             key: 'july',
             links: [
+                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETUXEFNxzFNEpy6BfOec7dMB0lyFFAgf4BIQHJ-WbJ6QXw?e=A0pnYQ' },
                 { name: 'Monthly History', image: '/images/journey/mago.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EfeAwHSXFwxBvxFqiAA6800BLFSlVihekaujaAVi4_V2sA?e=levZlk' },
                 { name: 'Sage’s Board', image: '/images/journey/motus.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVbF_-WuT6dNhAF4hl3tKRgBnx0zd0RD4pk5d69ONWVo_g?e=zs9YIJ' },
-                { name: 'Questions', image: '/images/journey/dragon.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETUXEFNxzFNEpy6BfOec7dMB0lyFFAgf4BIQHJ-WbJ6QXw?e=A0pnYQ' },
-                { name: 'Mindfulness', image: '/images/journey/arbol.jpeg', href: 'https://thenewschooledu-my.sharepoint.com/:u:/g/personal/gabriel_bustamante_thenewschool_edu_co/ET1aB43ZuHBLn1Tq8_U_XCIBw47k8vW5JaIb3AzFRyh2tg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=wHpXKQ' },
             ],
         },
     ];
@@ -130,9 +129,9 @@ export default function MyJourney() {
     // Lista de íconos para la nueva sección
     const journeyIcons = [
         { image: '/images/journey/journey_mapa.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXJkzXlgqZdKnwNBvwAVVYwBcFHIRSpVVJYalaNxMdoHFQ?e=9Gm4TJ' },
-        { image: '/images/journey/journey_camino.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYMOG8GrDSxKgyr50dGZDj4ByJ26SCulpDurhpliJd3Mnw?e=BoHUjf' },
+        { image: '/images/journey/journey_camino.png', href: 'https://drive.google.com/file/d/1e1BpQ59uv8kUB57VHdM7BXjDyh8p5HQu/view?usp=sharing' },
         { image: '/images/journey/journey_sol.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EdwhKJMUyURKrsDssxAfLrwBsc7cEqZDxqjYREv99iDUhQ?e=KmbuoH' },
-        { image: '/images/journey/journey_escudo.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVsmQtgQ-2dFs1hkhc5RVkkBSVqXvI-9DHPym7AVoVqHBQ?e=caLjod' },
+        { image: '/images/journey/journey_escudo.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EWQikKoPKv1LrACATPpSSkwBEiQSyQXZP0fh9BE8KW_Kdg?e=irj64r' },
         { image: '/images/journey/journey_inner.png', href: 'https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EXghdaD85chOmW8i7YdtVI4Bam3NEUnupKV13zh236Ow2A?e=Q9WsC0' },
     ];
 
@@ -172,7 +171,7 @@ export default function MyJourney() {
                         </h2>
                         <ol className="text-gray-500 text-[13px] list-decimal list-inside">
                             <li className="mb-2">
-                                Open the treasure map inside the envelope called ‘Call to Adventure!’ read the clues; locate the corresponding place for each clue on the map and mark it with the number of the competency assigned to that clue.
+                                Review the treasure map, read the clues and locate the corresponding place for each clue on the map and mark it with the number of the competency assigned to that clue.
                             </li>
                             <li className="mb-2">
                                 Fill the page called “the TNS coat of arms inspires my biographical journey”.
@@ -187,15 +186,15 @@ export default function MyJourney() {
                                         Discover the symbols in the wizard’s stories by reading the tale on the back of the divider and creating a drawing that represents my interpretation of the story.
                                     </li>
                                     <li className="mb-1">
-                                        Investigate the sage’s board by scanning the QR code on the back of the divider, next to the image of Motus, the TNS mascot. Here, I find scientific elements that help me reflect on the dragon’s questions.
+                                        Investigate the sage’s board. Here, I find scientific elements that help me reflect on the dragon’s questions.
                                     </li>
                                     <li className="mb-1">
-                                        Practice mindfulness exercises by accessing the QR code located next to the tree on the front of the divider.
+                                        Practice mindfulness exercises.
                                     </li>
                                 </ol>
                             </li>
                             <li className="mb-2">
-                                Discover treasures and record what I have learned each day of the month, applying it to my life. Additionally, I fill in the remaining rays of the gratitude sun with my own expressions, write my power phrases, and note the symbolic language of my dreams.
+                                In a personal notebook, I write down my answers to the dragon's questions, what I've learned, the symbolic language of my dreams, the things I'm grateful for, and my power phrases.
                             </li>
                             <li className="mb-2">
                                 Engage in and solve the logical and critical thinking activities.
