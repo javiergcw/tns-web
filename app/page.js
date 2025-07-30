@@ -57,59 +57,7 @@ export default function Home() {
   return (
       <Provider store={store}>
         <MainLayout>
-          {showModal && (
-              <div
-                  style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    background: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    zIndex: 1000,
-                  }}
-                  onClick={() => setShowModal(false)} // Cierra el modal al hacer clic fuera
-              >
-                <div
-                    style={{
-                      position: "relative",
-                      maxWidth: "90%",
-                      maxHeight: "90%",
-                      background: "white",
-                      padding: "20px",
-                      borderRadius: "8px",
-                    }}
-                    onClick={(e) => e.stopPropagation()} // Evita que el clic dentro del modal lo cierre
-                >
-                  <Image
-                      src={imageUrl}
-                      alt="Pop-up de vacaciones"
-                      width={600} // Ajusta según el tamaño de la imagen
-                      height={400} // Ajusta según el tamaño de la imagen
-                      style={{ objectFit: "contain" }}
-                  />
-                  <button
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        background: "red",
-                        color: "white",
-                        border: "none",
-                        padding: "5px 10px",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => setShowModal(false)}
-                  >
-                    Cerrar
-                  </button>
-                </div>
-              </div>
-          )}
+
           <BannerCarousel videoPaths={videoPaths} />
           <ServicesHome images={servicesList} />
           <BlogsSection blogs={blogList} />
