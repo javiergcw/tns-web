@@ -76,7 +76,7 @@ const CalendarScheduleHome = () => {
                     buttonTextLabel="See calendar"
                     imgSrc="/images/others/calendar.png"
                     imgAlt="Calendar"
-                    url="https://drive.google.com/file/d/18S9SR1HwOTGpbGw7lvqiIwH-wxKX0kOU/view"
+                    url="https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EReMyYaGYL9FtBRJRRRSM9IBoZiq6Ho1XN-tsMj4bYuTEw?e=UvZ7Bf"
                 />
             </div>
         </div>
