@@ -39,7 +39,7 @@ const ServicesStandart = () => {
         title="Manual de convivencia"
         text="Lee nuestro manual de convivencia"
         imageUrl={ImagesPath.people}
-        href="https://drive.google.com/file/d/1dmLqKdiEE8tmJEptvDd4OwmxtsNhKftj/view?usp=sharing"
+        href="https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZc7ye1H9_BCvV77XVn_1ZABsyafQVQEvO0BdWj_dVzRng?e=OFa5kG"
       />
       <ContainerService
         title="Costos"
