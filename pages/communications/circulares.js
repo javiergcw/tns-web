@@ -4,7 +4,7 @@ import '/app/globals.css'
 
 import HeaderInitial from '@/app/components/others/headerInitial'
 
-import CircularList from '@/app/components/others/circularesComponent2024'
+import CircularList from '@/app/components/others/circularesComponent2025'
 
 import { Provider } from 'react-redux';
 import store from '../../app/store/store'

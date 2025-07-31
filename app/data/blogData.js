@@ -4,6 +4,65 @@ import slugify from 'slugify';
 
 const blogsDataOriginal = [
     {
+        date: "2025-07-31",
+        imageUrl: ImagesPath.blog34,
+        title: "La congruencia como acto de transformacion cotidiana",
+        body: `
+    <p>Hablar de congruencia es, en esencia, hablar de integridad personal. Se trata de ese delicado equilibrio entre lo que pensamos, sentimos, decimos y hacemos. En un mundo en el que prima la inmediatez, donde las exigencias externas muchas veces nos llevan a actuar en piloto automático, la congruencia emerge como una forma de resistencia consciente, una manera de habitar el entorno con autenticidad.</p>
+    <br>
+    <p>Ser congruente implica asumir una responsabilidad profunda con uno mismo: mirarse con honestidad, reconocer las emociones que nos habitan y darles un cauce que esté alineado con nuestros valores. No basta con identificar lo que sentimos, es necesario preguntarnos qué hacemos con eso. La acción es el puente que convierte la conciencia en transformación.</p>
+    <br>
+    <br>
+    <p>Este compromiso con la coherencia interna no solo es un acto individual, sino también un ejercicio de corresponsabilidad colectiva. En los contextos educativos, como lo es nuestra comunidad escolar, cada interacción, cada gesto, tiene un impacto. La manera en que nos tratamos, lo que elegimos ignorar o atender, contribuye a construir o debilitar el ambiente común. Cuando dejamos de ver el entorno como algo ajeno y comenzamos a reconocerlo como una extensión de nuestras decisiones diarias, empieza a tomar forma un verdadero sentido de pertenencia.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-34-b.png" alt="Interacciones en la comunidad escolar" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>La congruencia también nos interpela sobre el propósito. ¿Qué sentido tiene lo que hacemos cada día? ¿Qué lugar ocupa nuestro rol como madres, padres, educadores, estudiantes en el proyecto más amplio de una vida con sentido? Vivir desde el propósito no implica tenerlo todo resuelto, sino estar en búsqueda permanente, cuestionar con apertura y decidir con conciencia. Un entorno coherente y saludable no nace de la perfección, sino del compromiso constante de quienes lo habitan.</p>
+    <br>
+    <p>En tiempos en los que el discurso puede resultar seductor pero vacío, la verdadera transformación se mide por las acciones. La coherencia no se predica: se vive. Y en ese vivir, muchas veces imperfecto, está la oportunidad de generar cambio. Si queremos una comunidad más empática, justa y armónica, la pregunta no es qué debe hacer el colegio, o qué deben hacer los demás, sino: ¿qué estoy dispuesto yo a hacer diferente?</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-34-c.png" alt="Búsqueda de propósito en la vida diaria" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>La congruencia no es una meta lejana ni un estado ideal; es una práctica cotidiana que exige atención, humildad y decisión. Al asumirla, no solo ganamos integridad personal, sino que contribuimos a transformar los espacios que habitamos porque el verdadero cambio, ese que permanece, no comienza afuera, empieza adentro.</p>
+    <br>
+    <p>Este artículo se basa en el marco de uno de los Espacios Reflexivos de los viernes en nuestra institución, donde Viviana Martínez, psicóloga organizacional en The New School, nos ofreció una charla profunda y reveladora sobre la congruencia y la corresponsabilidad, como principios esenciales para la transformación personal y colectiva.</p>
+    <br>
+    <p>-------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <p class="text-xl">Congruence as a Daily Act of Transformation</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-34-a.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>To speak of congruence is, in essence, to speak of personal integrity. It is that delicate balance between what we think, feel, say, and do. In a world where immediacy prevails and external demands often lead us to operate on autopilot, congruence emerges as a conscious act of resistance, a way to inhabit our environment with authenticity.</p>
+    <br>
+    <p>Being congruent means taking deep responsibility for oneself: looking inward with honesty, recognizing the emotions that dwell within us, and giving them an outlet that aligns with our values. It’s not enough to identify what we feel; we must ask ourselves what we do with it. Action is the bridge that turns awareness into transformation.</p>
+    <p>This commitment to inner coherence is not only a personal endeavor but also an exercise in collective responsibility. In educational environments, such as our school community, every interaction, every gesture, leaves an impact. The way we treat one another, what we choose to ignore or address, contributes to building (or weakening) the shared environment. When we stop seeing our surroundings as external and begin to recognize them as an extension of our daily decisions, a true sense of belonging begins to take shape.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-34-b.png" alt="Search for purpose in daily life" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Congruence also challenges us to reflect on purpose. What is the meaning of what we do each day? What role do we play as parents, educators, or students in the broader project of a meaningful life? Living with purpose doesn’t mean having all the answers, but rather remaining in constant search, questioning openly and deciding consciously. A coherent and healthy environment is not born from perfection, but from the ongoing commitment of those who live within it.</p>
+    <br>
+    <p>In times when speech can be seductive but empty, real transformation is measured by action. Coherence is not something to be preached, it is something to be lived. And in that living, often imperfect, lies the opportunity for change. If we want a more empathetic, just, and harmonious community, the question is not what the school should do, or what others should change, but: What am I willing to do differently?</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-34-c.png" alt="Actions that drive community change" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Congruence is not a distant goal or an ideal state; it is a daily practice that requires attention, humility, and resolve. In embracing it, we not only gain personal integrity, we also contribute to transforming the spaces we inhabit. Because real change, the kind that lasts, doesn’t start on the outside: it starts within.</p>
+    <br>
+    <p>This article is grounded in one of our institution’s Friday Reflective Spaces, where Viviana Martínez, organizational psychologist at The New School, offered a deep and inspiring talk on congruence and shared responsibility as essential principles for personal and collective transformation.</p>
+    `,
+        banner: true,
+    },
+    {
         date: "2025-06-30",
         imageUrl: ImagesPath.blog33,
         title: "El Nuevo Colegio: Formando en Consciencia Por y Para la Vida",

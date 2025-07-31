@@ -117,6 +117,7 @@ export const ImagesPath = {
   blog31: "/images/blogs/blog-31-a.jpg",
   blog32: "/images/blogs/blog-32-a.png",
   blog33: "/images/blogs/blog-33-a.png",
+  blog34: "/images/blogs/blog-34-a.png",
 
   YSVQujq: "https://i.imgur.com/YSVQujq.png",
   iWdkbXY: "https://i.imgur.com/iWdkbXY.png",
