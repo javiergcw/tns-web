@@ -3,6 +3,7 @@ import { ImagesPath } from "../utils/assetsPath";
 import slugify from 'slugify';
 
 const blogsDataOriginal = [
+
     {
         date: "2025-07-31",
         imageUrl: ImagesPath.blog34,
