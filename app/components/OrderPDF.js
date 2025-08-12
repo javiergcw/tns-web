@@ -164,7 +164,7 @@ export const OrderPDF = ({ order, onReady }) => {
         <div>
           <p className="mb-2 border-t border-gray-400"></p>
           <p className="text-xs text-gray-600">Autorizado por</p>
-          <p>Felipe Chavez</p>
+          <p>Isabel Yepez</p>
         </div>
       </div>
 
