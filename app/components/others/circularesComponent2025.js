@@ -5,7 +5,11 @@ const data = [
   {
     name: "Circular N°1 Circular de Bienvenida",
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbqH6tFt5uFFrK1tFYl9pfIBMNAvzPcajcloGAjN6cIFng?e=HKuRlA",
-  }
+  },
+  {
+    name: "Circular N°2 Circulación de vehículos dentro del colegio",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edkc_Kjk2mVOglsPOgfKn4YBzvoopiH8sPn-FxFQ_z3wdQ?e=NaPOrE",
+}
 ];
 
 // Función para extraer el número de la circular del nombre
