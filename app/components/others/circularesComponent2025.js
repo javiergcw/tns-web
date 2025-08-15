@@ -9,6 +9,14 @@ const data = [
   {
     name: "Circular N°2 Circulación de vehículos dentro del colegio",
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edkc_Kjk2mVOglsPOgfKn4YBzvoopiH8sPn-FxFQ_z3wdQ?e=NaPOrE",
+},
+{
+    name: "Circular N°3 Back to School Fair",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EamyayQGNlxHlZ5GnMJo4JEBz9QLKCNsTG6foHXbLtb2vQ?e=40aOh0",
+},
+{
+    name: "Circular N°4 Confirmación de lectura y participación de padres de familia",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZgzBHscECBKq3uc1Hc6PB0BHk2Tpbnsf8XmbpgNjjjfXg?e=pJg0Pw",
 }
 ];
 
