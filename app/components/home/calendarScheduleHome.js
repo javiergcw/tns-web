@@ -65,7 +65,7 @@ const CalendarScheduleHome = () => {
                     buttonTextLabel="See schedule"
                     imgSrc="/images/others/schedule.png"
                     imgAlt="Schedule"
-                    url="https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYqTYNv9LIVLjLX36mP1LrQBuWQ_B4CzOPkEFJxPKj3kmg?e=agXaEC"
+                    url="https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ee7-uao-f4NIs0nx_Kckp94BGkv7kdZJ_DPdwKUy9ba_Tw?e=awNEsu"
                 />
             </div>
             <div className="w-px bg-gray-300 mx-6 my-4 md:my-0 self-stretch"></div>
