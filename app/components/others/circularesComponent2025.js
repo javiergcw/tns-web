@@ -17,7 +17,11 @@ const data = [
 {
     name: "Circular N°4 Confirmación de lectura y participación de padres de familia",
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZgzBHscECBKq3uc1Hc6PB0BHk2Tpbnsf8XmbpgNjjjfXg?e=pJg0Pw",
-}
+},
+    {
+        name: "Circular N°5 Intercultural Fest 2025",
+        link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edt-w4EWoENGudXqgABEuncBip3Lpvb8uBNMBbykpLlDnQ?e=bQAbfj",
+    }
 ];
 
 // Función para extraer el número de la circular del nombre
