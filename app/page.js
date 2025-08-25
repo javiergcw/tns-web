@@ -51,6 +51,7 @@ export default function Home() {
       href: "https://thenewschool.edu.co/login",
       src: ImagesPath.shopping,
       alt: "Shopping",
+      className: "w-[130px] h-auto",
     },
   ];
 

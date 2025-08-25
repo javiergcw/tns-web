@@ -8,7 +8,7 @@ export const ImagesPath = {
   services: "/images/services/services.png",
   beam: "/images/services/beam.png",
   podcast: "/images/services/podcast.png",
-  shopping: "/images/services/shopping.png",
+  shopping: "/images/services/shopping2.png",
   myjourney: "/images/services/logo_my_journey.png",
 
 
