@@ -30,6 +30,12 @@ export default function Home() {
 
   const servicesList = [
     {
+      href: "https://forms.office.com/Pages/ResponsePage.aspx?id=GxPUyoHSe0KuXPduWcGPzWxbX51u9cdNlldIgWpMxGJUQVpMNjhDUzNLVzdZUDQ1TTFCUFoyRjNRVy4u&embed=true",
+      src: ImagesPath.admissions,
+      alt: "admissions",
+      className: "w-[130px] h-auto",
+    },
+    {
       href: "http://mail.thenewschool.edu.co/",
       src: ImagesPath.cloud,
       alt: "TNS CLOUD",
