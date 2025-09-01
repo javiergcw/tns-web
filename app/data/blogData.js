@@ -37,6 +37,7 @@ const blogsDataOriginal = [
     <div>
         <img src="/images/blogs/blog-35-a.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
     </div>
+    <br>
     <p>Last Friday, August 29, our educational community celebrated the <strong>Day of Interculturality and Antioqueñidad</strong> day in which students, from preschool to high school, had the opportunity to engage with the traditions, flavors, and cultural expressions of different countries and regions of the world. Our school was transformed into a stage where differences were celebrated as a richness, and encounters were experienced with joy and respect.</p>
     <br>
     <p>The fair was a true journey of flavors, colors, and learning. Through gastronomic, artistic, and cultural exhibitions, our students explored diverse cultures and discovered that each expression carries stories, values, and ways of seeing life that help us better understand our own place in the world.</p>
