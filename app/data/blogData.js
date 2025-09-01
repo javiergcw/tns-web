@@ -5,6 +5,63 @@ import slugify from 'slugify';
 const blogsDataOriginal = [
 
     {
+        date: "2025-09-01",
+        imageUrl: ImagesPath.blog35,
+        title: "La interculturalidad: un viaje de aprendizaje en The New School",
+        body: `
+    <p>El pasado viernes, 29 de agosto, nuestra comunidad educativa celebró el <strong>Día de la Interculturalidad y la Antioqueñidad</strong>, una jornada en la que los estudiantes, desde preescolar hasta bachillerato, tuvieron la oportunidad de acercarse a las tradiciones, sabores y expresiones culturales de diferentes países y regiones del mundo. Nuestro colegio se transformó en un escenario donde las diferencias se celebraron como una riqueza y los encuentros se vivieron con alegría y respeto.</p>
+    <br>
+    <p>La feria fue un verdadero <strong>viaje de sabores, colores y aprendizajes</strong>. A través de muestras gastronómicas, artísticas y culturales, nuestros estudiantes recorrieron diversas culturas y descubrieron que cada manifestación trae consigo historias, valores y formas de ver la vida que nos ayudan a comprender mejor nuestro propio lugar en el mundo.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-b.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>En The New School entendemos la interculturalidad como un espacio de encuentro, una oportunidad para valorar la diversidad, aprender del otro y crecer como comunidad. Desde nuestro Proyecto Educativo Institucional, concebido bajo el modelo de Formación en Consciencia con enfoque humanista-científico, reconocemos que educar también significa abrir la mente y el corazón a distintas miradas, creencias y costumbres, fomentando en nuestros estudiantes el respeto, la solidaridad y la empatía.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-c.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Celebrar la interculturalidad no es un acto aislado, sino un paso fundamental en la construcción de ciudadanos capaces de convivir en un mundo diverso y global. Por eso, cada actividad vivida en esta jornada fortaleció competencias esenciales: la capacidad de diálogo, la valoración de la diferencia y el reconocimiento de la identidad propia, en armonía con la de los demás.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-d.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Esta feria, es uno más de los escenarios de nuestro colegio en los que seguimos formando en nuestros estudiantes la convicción de que <strong>la diversidad nos une y nos enriquece</strong>, y que la educación, más allá de transmitir conocimientos, es también un camino para construir un futuro donde todos y todas tengamos un lugar desde el respeto, la equidad y la fraternidad.</p>
+    <p>-------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <p class="text-xl">Interculturality: A Learning Journey at The New School</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-a.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <p>Last Friday, August 29, our educational community celebrated the <strong>Day of Interculturality and Antioqueñidad</strong> day in which students, from preschool to high school, had the opportunity to engage with the traditions, flavors, and cultural expressions of different countries and regions of the world. Our school was transformed into a stage where differences were celebrated as a richness, and encounters were experienced with joy and respect.</p>
+    <br>
+    <p>The fair was a true journey of flavors, colors, and learning. Through gastronomic, artistic, and cultural exhibitions, our students explored diverse cultures and discovered that each expression carries stories, values, and ways of seeing life that help us better understand our own place in the world.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-b.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>At The New School, we understand interculturality as a space for encounter, an opportunity to value diversity, learn from others, and grow as a community. From our Institutional Educational Project, conceived under the model of <strong>Education in Consciousness with a humanistic-scientific approach</strong>, we recognize that educating also means opening minds and hearts to different perspectives, beliefs, and customs, fostering in our students respect, solidarity, and empathy</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-c.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>Celebrating interculturality is not an isolated act, but rather a fundamental step in forming citizens who are capable of living together in a diverse and global world. For this reason, every activity in this event strengthened essential competencies: the ability for dialogue, the appreciation of differences, and the recognition of one’s own identity in harmony with that of others.</p>
+    <br>
+    <div>
+        <img src="/images/blogs/blog-35-d.png" alt="Reflection on personal congruence" style="max-width: 70%; height: auto;">
+    </div>
+    <br>
+    <p>This fair is one more of the spaces in our school where we continue to instill in our students the conviction that diversity unites and enriches us, and that education, beyond transmitting knowledge, is also a path toward building a future where everyone has a place, founded on respect, equity, and fraternity.</p>
+    `,
+        banner: true,
+    },
+    {
         date: "2025-07-31",
         imageUrl: ImagesPath.blog34,
         title: "La congruencia como acto de transformacion cotidiana",
