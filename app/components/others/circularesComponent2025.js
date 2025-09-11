@@ -18,70 +18,74 @@ const data = [
     name: "Circular N°4 Confirmación de lectura y participación de padres de familia",
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZgzBHscECBKq3uc1Hc6PB0BHk2Tpbnsf8XmbpgNjjjfXg?e=pJg0Pw",
 },
-  {
-        name: "Circular N°6 Prevención frente al riesgo de virus",
-        link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES6xqknr5LxBm1gpDY_nmLQBcMCg3-psXla5egxmc1yUTw?e=LZoeZS",
-  },
+{
+        name: "Circular N°5 Intercultural Fest 2025",
+        link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edt-w4EWoENGudXqgABEuncBip3Lpvb8uBNMBbykpLlDnQ?e=bQAbfj",
+},
+{
+      name: "Circular N°6 Prevención frente al riesgo de virus",
+      link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES6xqknr5LxBm1gpDY_nmLQBcMCg3-psXla5egxmc1yUTw?e=LZoeZS",
+},
 
-  {
-    name: "Circular N°7 Salida pedagógica grados 2",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYGONcM-ta9OpwdvotKN1jEBH5ZuQAEBPtwpYZbdxDn26w?e=iQNbAz",
-  },
+{
+  name: "Circular N°7 Salida pedagógica grados 2",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EYGONcM-ta9OpwdvotKN1jEBH5ZuQAEBPtwpYZbdxDn26w?e=iQNbAz",
+},
 
-  {
-    name: "Circular N°8 Salida pedagógica grados 9",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ET8T__aGUwBCqHFKpcfznL0Bz__QXMn5z6X2maJCMaVyNw?e=p0MYZ4",
-  },
+{
+  name: "Circular N°8 Salida pedagógica grados 9",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ET8T__aGUwBCqHFKpcfznL0Bz__QXMn5z6X2maJCMaVyNw?e=p0MYZ4",
+},
 
-  {
-    name: "Circular N°9 Salida pedagógica grados 5",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EdwJqSDfySNLpnbCmL7CAV0B9qsOJT05ttMf4WuJSIeOug?e=YQW7sr",
-  },
+{
+  name: "Circular N°9 Salida pedagógica grados 5",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EdwJqSDfySNLpnbCmL7CAV0B9qsOJT05ttMf4WuJSIeOug?e=YQW7sr",
+},
 
-  {
-    name: "Circular N°10 Salida pedagógica grados 3",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETwA3G6b4_VBsR5u8AUEgmwBLeVwCbm__kAQguANQ60UCg?e=cfkJNU",
-  },
+{
+  name: "Circular N°10 Salida pedagógica grados 3",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETwA3G6b4_VBsR5u8AUEgmwBLeVwCbm__kAQguANQ60UCg?e=cfkJNU",
+},
 
-  {
-    name: "Circular N°11 Salida pedagógica grados 1",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EY3zn9P5Y0hNpwnv5-ax4qYBvjuKditBiZ6lt6x7tB_JJw?e=dPoVIh",
-  },
+{
+  name: "Circular N°11 Salida pedagógica grados 1",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EY3zn9P5Y0hNpwnv5-ax4qYBvjuKditBiZ6lt6x7tB_JJw?e=dPoVIh",
+},
 
-  {
-    name: "Circular N°12 Salida pedagógica grados 4",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVfcCZwjKGBGi6a3NFcFqN8BELtmOSDViI0AD7Kdkeuwog?e=OHyggF",
-  },
+{
+  name: "Circular N°12 Salida pedagógica grados 4",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVfcCZwjKGBGi6a3NFcFqN8BELtmOSDViI0AD7Kdkeuwog?e=OHyggF",
+},
 
-  {
-    name: "Circular N°13 Salida pedagógica grados 6",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ea8rJ95rkpNFpeomzabK9-sBu18ySkAyduAahIK1S4bPEA?e=25Qlvx",
-  },
+{
+  name: "Circular N°13 Salida pedagógica grados 6",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Ea8rJ95rkpNFpeomzabK9-sBu18ySkAyduAahIK1S4bPEA?e=25Qlvx",
+},
 
-  {
-    name: "Circular N°14 Salida pedagógica grados 7",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQB9E7TNhjNNq67YF45p4akBQl0irLyGNbLr_IhBAGp0pg?e=v8cdwt",
-  },
+{
+  name: "Circular N°14 Salida pedagógica grados 7",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQB9E7TNhjNNq67YF45p4akBQl0irLyGNbLr_IhBAGp0pg?e=v8cdwt",
+},
 
-  {
-    name: "Circular N°15 Salida pedagógica grados 8",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EclMWK8PyxVFkHb9-v14XBQBLSOXgtIy1sRFuLzM78n81A?e=GswbUB",
-  },
+{
+  name: "Circular N°15 Salida pedagógica grados 8",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EclMWK8PyxVFkHb9-v14XBQBLSOXgtIy1sRFuLzM78n81A?e=GswbUB",
+},
 
-  {
-    name: "Circular N°16 Salida pedagógica grados 10",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUSc0muhGbdOjqBRBYCAg7ABXMRkWvHr5NMCtWKcBLGE2w?e=7EVtgQ",
-  },
+{
+  name: "Circular N°16 Salida pedagógica grados 10",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EUSc0muhGbdOjqBRBYCAg7ABXMRkWvHr5NMCtWKcBLGE2w?e=7EVtgQ",
+},
 
-  {
-    name: "Circular N°17 Salida pedagógica grados 11",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbaoFfU1OlROjWhXHfc9h50BpRRrGMOoL7GMgV5PMJ5EIw?e=ZCO5BI",
-  },
+{
+  name: "Circular N°17 Salida pedagógica grados 11",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbaoFfU1OlROjWhXHfc9h50BpRRrGMOoL7GMgV5PMJ5EIw?e=ZCO5BI",
+},
 
-  {
-    name: "Circular N°18 Salida pedagógica grados 3",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETFWKFGjriFAl8FXwJK23uEBIcI4yoUxJabUkFmuA-G95Q?e=1UiNh9",
-  }
+{
+  name: "Circular N°18 Salida pedagógica grados 3",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETFWKFGjriFAl8FXwJK23uEBIcI4yoUxJabUkFmuA-G95Q?e=1UiNh9",
+}
 ];
 
 // Función para extraer el número de la circular del nombre
