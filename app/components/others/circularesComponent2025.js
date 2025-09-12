@@ -6,25 +6,23 @@ const data = [
     name: "Circular N°1 Circular de Bienvenida",
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EbqH6tFt5uFFrK1tFYl9pfIBMNAvzPcajcloGAjN6cIFng?e=HKuRlA",
   },
-  {
-    name: "Circular N°2 Circulación de vehículos dentro del colegio",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edkc_Kjk2mVOglsPOgfKn4YBzvoopiH8sPn-FxFQ_z3wdQ?e=NaPOrE",
+  {name: "Circular N°2 Circulación de vehículos dentro del colegio", link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edkc_Kjk2mVOglsPOgfKn4YBzvoopiH8sPn-FxFQ_z3wdQ?e=NaPOrE",
 },
 {
-    name: "Circular N°3 Back to School Fair",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EamyayQGNlxHlZ5GnMJo4JEBz9QLKCNsTG6foHXbLtb2vQ?e=40aOh0",
+  name: "Circular N°3 Back to School Fair",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EamyayQGNlxHlZ5GnMJo4JEBz9QLKCNsTG6foHXbLtb2vQ?e=40aOh0",
 },
 {
-    name: "Circular N°4 Confirmación de lectura y participación de padres de familia",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZgzBHscECBKq3uc1Hc6PB0BHk2Tpbnsf8XmbpgNjjjfXg?e=pJg0Pw",
+  name: "Circular N°4 Confirmación de lectura y participación de padres de familia",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EZgzBHscECBKq3uc1Hc6PB0BHk2Tpbnsf8XmbpgNjjjfXg?e=pJg0Pw",
 },
 {
-        name: "Circular N°5 Intercultural Fest 2025",
-        link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edt-w4EWoENGudXqgABEuncBip3Lpvb8uBNMBbykpLlDnQ?e=bQAbfj",
+  name: "Circular N°5 Intercultural Fest 2025",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/Edt-w4EWoENGudXqgABEuncBip3Lpvb8uBNMBbykpLlDnQ?e=bQAbfj",
 },
 {
-      name: "Circular N°6 Prevención frente al riesgo de virus",
-      link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES6xqknr5LxBm1gpDY_nmLQBcMCg3-psXla5egxmc1yUTw?e=LZoeZS",
+  name: "Circular N°6 Prevención frente al riesgo de virus",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES6xqknr5LxBm1gpDY_nmLQBcMCg3-psXla5egxmc1yUTw?e=LZoeZS",
 },
 
 {
@@ -85,7 +83,15 @@ const data = [
 {
   name: "Circular N°18 Salida pedagógica grados 3",
   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETFWKFGjriFAl8FXwJK23uEBIcI4yoUxJabUkFmuA-G95Q?e=1UiNh9",
-}
+},
+{
+  name: "Circular N°20 Celebración Aniversario No. 30",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW-TeQZBVpVBjnArdbMq008B3Wbld9eFgjcUmfDvjoMl9w?e=9nbBJO",
+},
+{
+   name: "CircularN°21 Salida EAFITMUN",
+  link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EenQyGKTEO9IiIQ5CKm5uTQBHHTkQuA0Df86-NDjzxVP-g?e=IauAIb",
+},
 ];
 
 // Función para extraer el número de la circular del nombre
