@@ -85,6 +85,10 @@ const data = [
   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ETFWKFGjriFAl8FXwJK23uEBIcI4yoUxJabUkFmuA-G95Q?e=1UiNh9",
 },
 {
+    name: "Circular N°19 Salida pedagógica - Preescolar",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ESZZUpby52FBqLZpm8Va338B3T6x1yTsNAhJYnu9eV2G0A?e=ndqSCU",
+},
+{
   name: "Circular N°20 Celebración Aniversario No. 30",
   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW-TeQZBVpVBjnArdbMq008B3Wbld9eFgjcUmfDvjoMl9w?e=9nbBJO",
 },
