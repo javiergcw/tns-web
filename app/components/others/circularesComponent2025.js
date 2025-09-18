@@ -89,8 +89,12 @@ const data = [
   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EW-TeQZBVpVBjnArdbMq008B3Wbld9eFgjcUmfDvjoMl9w?e=9nbBJO",
 },
 {
-   name: "CircularN°21 Salida EAFITMUN",
+   name: "Circular N°21 Salida EAFITMUN",
   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EenQyGKTEO9IiIQ5CKm5uTQBHHTkQuA0Df86-NDjzxVP-g?e=IauAIb",
+},
+{
+   name: "Circular N°22 Día Virtual",
+   link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQvz4Qiea9hHqNsU4mnsF28Bp8tWoSQWUUbsEgRGO6zwtA?e=fyuH7b",
 },
 ];
 
