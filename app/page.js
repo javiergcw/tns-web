@@ -30,7 +30,7 @@ export default function Home() {
 
   const servicesList = [
     {
-      href: "https://forms.office.com/Pages/ResponsePage.aspx?id=GxPUyoHSe0KuXPduWcGPzWxbX51u9cdNlldIgWpMxGJUQVpMNjhDUzNLVzdZUDQ1TTFCUFoyRjNRVy4u&embed=true",
+      href: "/admissions/form",
       src: ImagesPath.admissions,
       alt: "admissions",
       className: "w-[130px] h-auto",
