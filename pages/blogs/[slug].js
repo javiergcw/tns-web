@@ -18,11 +18,8 @@ const BlogDetail = () => {
     useEffect(() => {
         if (!router.isReady) return;
 
-        const generateSlug = (title) => {
-            return title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-        };
-
-        const blogFound = blogList.find(b => generateSlug(b.title) === slug);
+        // LÍNEA CORRECTA
+        const blogFound = blogList.find(b => b.slug === slug);
         setBlog(blogFound);
     }, [router.isReady, slug]);
 

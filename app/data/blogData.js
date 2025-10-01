@@ -5,6 +5,110 @@ import slugify from 'slugify';
 const blogsDataOriginal = [
 
     {
+        date: "2025-10-01",
+        imageUrl: ImagesPath.blog36,
+        title: "EN THE NEW SCHOOL CELEBRAMOS 30 AÑOS FORMANDO EN CONSCIENCIA",
+        body: `
+        <p>Septiembre es un mes que celebramos año tras año en The New School, pues es un momento del año en el que nos alegramos de celebrar nuestra historia. En 2025, y con gran expectativa, nuestra comunidad educativa recibe este como un mes cargado con un condimento especial: el aniversario número 30 de nuestro colegio.</p>
+        <br>
+        <p>El pasado 25 de septiembre cumplimos 3 décadas de vida institucional, una historia que comenzó en los noventa como el sueño de un grupo de familias y educadores visionarios que deseaban construir un espacio donde aprender fuera un placer, donde el conocimiento se nutriera de la curiosidad y donde la diversidad se valorara como una riqueza. Ese sueño se cristalizó el 25 de septiembre de 1995, cuando abrió sus puertas The New School, con la misión de formar en consciencia por la vida y para la vida.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-b.png" alt="Celebración 30 años en The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Treinta años después, celebramos este camino con el corazón lleno de gratitud. El pasado sábado 27 de septiembre, compartimos un pícnic de aniversario junto a las familias de cada grado, un encuentro alegre y cercano que inició con la presentación musical del coro estudiantil, cuyas voces dieron el tono perfecto para una jornada de unión y memoria.</p>
+        <br>
+        <p>Distribuidos a lo largo de los diferentes espacios del colegio, cada pícnic se convirtió en un punto para el encuentro, la conversación, el compartir, el conocernos y el estar presentes; disfrutando el momento y la juntanza; siendo más conscientes del valor que hay en las pequeñas cosas simples de la vida.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-c.png" alt="Familias compartiendo en el pícnic de aniversario" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Cada torta, cada canción de cumpleaños y cada vela encendida, no solo nos dan la certeza del sentido de pertenencia y cariño que hemos cultivado en nuestras familias TNS durante todos estos años, sino también reafirman el compromiso que tenemos como comunidad educativa de acompañar juntos a nuestros niños, niñas y jóvenes en esta aventura llamada educación.</p>
+        <br>
+        <p>En estas tres décadas, cada año ha sido como un anillo en el tronco de un árbol: huella de aprendizajes, sonrisas y sueños cumplidos. Hemos crecido como comunidad educativa, siempre fieles a nuestra propuesta pedagógica de Formación en Consciencia, con enfoque humanista y científico, que pone al estudiante en el centro y lo acompaña a descubrirse, convivir, respetar la diferencia y transformar su entorno.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-d.png" alt="Estudiantes de The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Hoy, más de 700 egresados llevan consigo la esencia de nuestra escuela: autonomía, compromiso, creatividad y solidaridad. Dondequiera que van, continúan tejiendo redes de cooperación y aprendizaje que fortalecen a la sociedad y hacen vivo nuestro espíritu UBUNTU: “yo soy porque nosotros somos”.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-e.png" alt="Comunidad educativa de The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Celebrar 30 años es honrar nuestra historia, agradecer a quienes han sido raíz, tronco y rama de este proyecto, y renovar nuestro compromiso con el futuro. En The New School seguimos sembrando valores, cultivando conocimientos y cuidando la vida, convencidos de que la educación es la mejor herencia que podemos entregar a las nuevas generaciones.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-f.png" alt="Detalle del evento de aniversario" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p><strong> ¡Feliz cumpleaños, The New School! 30 años creciendo en comunidad.</strong></p>
+        <br>
+        <p>Con un inmenso sentimiento de gratitud saludamos a cada familia que ha hecho parte de nuestra historia, y en especial, a aquellas que nos acompañaron a festejarla. The New School es y será siempre su casa. ¡GRACIAS!</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-g.png" alt="Agradecimiento a la comunidad TNS" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>-------------------------------------------------------------------------------------------------------</p>
+        <br>
+        <h1 class="text-xl"><strong> AT THE NEW SCHOOL, WE CELEBRATE 30 YEARS OF EDUCATING WITH CONSCIOUSNESS</strong></h1>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-a.png" alt="30th Anniversary Celebration at The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>September is a month we celebrate year after year at The New School, as it is a time to honor our history with joy. In 2025, with great anticipation, our educational community embraces this month with a very special flavor: the 30th anniversary of our school.</p>
+        <br>
+        <p>On September 25, we marked three decades of institutional life, a story that began in the 90s as the dream of a group of visionary families and educators who wanted to create a space where learning would be a joy, where knowledge would be fueled by curiosity, and where diversity would be valued as a source of richness. That dream became a reality on September 25, 1995, when The New School opened its doors with the mission of educating with Consciousness To and For Life.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-b.png" alt="30 years celebration at The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Thirty years later, we celebrate this journey with hearts full of gratitude. On Saturday, September 27, we gathered for an anniversary picnic with families from every grade, an event filled with joy and togetherness that began with a musical performance by our student choir, whose voices set the perfect tone for a day of unity and remembrance.</p>
+        <br>
+        <p>Spread throughout different areas of the school, each picnic became a space for meeting, sharing, connecting, and simply being present; enjoying the moment and the gift of being together, while becoming more aware of the value in life’s simplest things.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-c.png" alt="Families sharing at the anniversary picnic" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Every cake, every birthday song, and every candle lit not only reaffirmed the sense of belonging and affection we have cultivated among our TNS families over the years, but also renewed our shared commitment as an educational community to accompany our children and young people on this journey called education.</p>
+        <br>
+        <p>Over these three decades, each year has been like a ring in the trunk of a tree: a trace of learning, smiles, and fulfilled dreams. We have grown as an educational community, always faithful to our pedagogical vision of Educating with Consciousness, with a humanistic and scientific approach that places students at the center and supports them in discovering themselves, living together, respecting differences, and transforming their surroundings.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-d.png" alt="Students of The New School" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Today, more than 700 alumni carry with them the essence of our school: autonomy, commitment, creativity, and solidarity. Wherever they go, they continue weaving networks of cooperation and learning that strengthen society and bring to life our UBUNTU spirit: “I am because we are.”</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-e.png" alt="The New School educational community" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p>Celebrating 30 years means honoring our history, thanking those who have been the roots, trunk, and branches of this project, and renewing our commitment to the future. At The New School, we continue to plant values, cultivate knowledge, and care for life, convinced that education is the greatest legacy we can offer to future generations.</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-f.png" alt="Detail of the anniversary event" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+        <p><strong> Happy Birthday, The New School! 30 years of growing as a community.</strong></p>
+        <br>
+        <p>With deep gratitude, we salute every family who has been part of our story, especially those who joined us in celebrating. The New School is, and will always be, your home. THANK YOU!</p>
+        <br>
+        <div>
+            <img src="/images/blogs/blog-36-g.png" alt="Thanks to the TNS community" style="max-width: 70%; height: auto;">
+        </div>
+        <br>
+`,
+        banner: true,
+    },
+    {
         date: "2025-09-01",
         imageUrl: ImagesPath.blog35,
         title: "La interculturalidad: un viaje de aprendizaje en The New School",
@@ -1622,10 +1726,11 @@ Página recomendada: https://cuentosparacrecer.org/
 const blogList = blogsDataOriginal.map(post => {
     const slug = slugify(post.title, {
         lower: true,
-        strict: true,
+        strict: false,
         remove: /[*+~.()'"!:@,¿?]/g,
         locale: 'es'
     });
+
     return {
         ...post,
         slug: slug
