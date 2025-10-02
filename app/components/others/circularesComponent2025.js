@@ -100,6 +100,14 @@ const data = [
    name: "Circular N°22 Día Virtual",
    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EQvz4Qiea9hHqNsU4mnsF28Bp8tWoSQWUUbsEgRGO6zwtA?e=fyuH7b",
 },
+{
+    name: "Circular N°23 Estudiantes presentación musical de aniversario TNS",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES3YfM-7M6xBkZHSonXgajgBw5s_I21tt6Cutyhf7fSSMw?e=RCUP6V",
+},
+{
+    name: "Circular N°24 Salida a jornada deportiva",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVQ9JERYpFVCid5SWFTHtEoB_2mCpd5PpMLD9H7FIT7fXg?e=IlVQZ3",
+},
 ];
 
 // Función para extraer el número de la circular del nombre

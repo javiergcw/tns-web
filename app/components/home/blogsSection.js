@@ -4,9 +4,6 @@ import Link from 'next/link';
 import ReadMoreButton from '../others/button/readMoreButton';
 
 const BlogsSection = ({ blogs }) => {
-    const generateSlug = (title) => {
-        return title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-    };
 
     // Función para estandarizar el formato de la fecha
     const formatDate = (dateStr) => {
@@ -29,7 +26,7 @@ const BlogsSection = ({ blogs }) => {
 
             <div className="flex justify-center flex-wrap gap-4 mt-4">
                 {blogs.slice(0, 4).map((blog, index) => (
-                    <Link href={`/blogs/${generateSlug(blog.title)}`} key={index}>
+                    <Link href={`/blogs/${blog.slug}`} key={index}>
                         <div className="relative group m-0 h-[400px] w-[300px] cursor-pointer flex flex-col justify-between">
                             {/* Fecha */}
                             <div className="absolute top-4 left-2 z-20 bg-whitePrimary text-gray5th py-1 px-2 text-sm transform -translate-x-1/4">
