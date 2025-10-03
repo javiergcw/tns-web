@@ -105,8 +105,8 @@ const data = [
     link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ES3YfM-7M6xBkZHSonXgajgBw5s_I21tt6Cutyhf7fSSMw?e=RCUP6V",
 },
 {
-    name: "Circular N°24 Salida a jornada deportiva",
-    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/EVQ9JERYpFVCid5SWFTHtEoB_2mCpd5PpMLD9H7FIT7fXg?e=IlVQZ3",
+    name: "Circular N°24 Reprogramaciòn exámenes e informes parciales",
+    link: "https://thenewschooledu-my.sharepoint.com/:b:/g/personal/gabriel_bustamante_thenewschool_edu_co/ERh3TbZQlbNJg8K4b63p5rIBgAGTjSF4s-hZQyVyvpbtoQ?e=Oh1Tz5",
 },
 ];
 
